@@ -1,5 +1,8 @@
 package com.proj.medicalClinic.model;
 
+import java.util.List;
+import java.util.UUID;
+
 public class Prescription {
 	private UUID id;
 	private List<DrugsType> drugs;
