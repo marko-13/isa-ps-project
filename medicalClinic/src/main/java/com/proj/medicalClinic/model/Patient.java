@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
+import java.util.UUID;
 
 @Entity
 @DiscriminatorValue("P")
@@ -16,11 +17,11 @@ public class Patient extends AppUser {
 	private MedicalHistory medicalHistory;
 	
 	public Patient() {
-		
+		super();
 	}
 	
-	public Patient(String JMBG, MedicalHistory medicalHistory) {
-		super();
+	public Patient(UUID id, String email, String password, String name, String lastName, String JMBG, MedicalHistory medicalHistory) {
+		super(id, email, password, name, lastName);
 		this.JMBG = JMBG;
 		this.medicalHistory = medicalHistory;
 	}
