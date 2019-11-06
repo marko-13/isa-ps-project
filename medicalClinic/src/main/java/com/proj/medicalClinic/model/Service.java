@@ -2,10 +2,7 @@ package com.proj.medicalClinic.model;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
@@ -18,6 +15,7 @@ public class Service {
             strategy = "org.hibernate.id.UUIDGenerator"
     )
     @Column(name = "id", unique = true, updatable = false, nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private UUID id;
 
     @Column(name = "service_type", unique = false, nullable = false)
