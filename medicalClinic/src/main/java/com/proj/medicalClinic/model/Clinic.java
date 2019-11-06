@@ -11,16 +11,16 @@ public class Clinic {
     private List<Appointment> appointments;
     private List<Doctor> doctors;
     private List<Nurse> nurses;
-    private List<OperationRoom> ors;
+    private List<OperationRoom> operationRooms;
     private List<Service> services;
-    private List<Patient> patinets;
+    private List<Patient> patients;
     private double review;
 
     public Clinic(){
 
     }
 
-    public Clinic(UUID id, String name, String address, String description, List<Appointment> appointments, List<Doctor> doctors, List<Nurse> nurses, List<OperationRoom> ors, List<Service> services, List<Patient> patinets, double review) {
+    public Clinic(UUID id, String name, String address, String description, List<Appointment> appointments, List<Doctor> doctors, List<Nurse> nurses, List<OperationRoom> operationRooms, List<Service> services, List<Patient> patients, double review) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -28,9 +28,9 @@ public class Clinic {
         this.appointments = appointments;
         this.doctors = doctors;
         this.nurses = nurses;
-        this.ors = ors;
+        this.operationRooms = operationRooms;
         this.services = services;
-        this.patinets = patinets;
+        this.patients = patients;
         this.review = review;
     }
 
@@ -90,12 +90,12 @@ public class Clinic {
         this.nurses = nurses;
     }
 
-    public List<OperationRoom> getOrs() {
-        return ors;
+    public List<OperationRoom> getOperationRooms() {
+        return operationRooms;
     }
 
-    public void setOrs(List<OperationRoom> ors) {
-        this.ors = ors;
+    public void setOperationRooms(List<OperationRoom> operationRooms) {
+        this.operationRooms = operationRooms;
     }
 
     public List<Service> getServices() {
@@ -106,12 +106,12 @@ public class Clinic {
         this.services = services;
     }
 
-    public List<Patient> getPatinets() {
-        return patinets;
+    public List<Patient> getPatients() {
+        return patients;
     }
 
-    public void setPatinets(List<Patient> patinets) {
-        this.patinets = patinets;
+    public void setPatients(List<Patient> patients) {
+        this.patients = patients;
     }
 
     public double getReview() {

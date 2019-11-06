@@ -1,6 +1,6 @@
 package com.proj.medicalClinic.model;
 
-public class Patient extends User {
+public class Patient extends AppUser {
 	private String JMBG;
 	private MedicalHistory medicalHistory;
 	

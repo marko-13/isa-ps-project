@@ -2,7 +2,7 @@ package com.proj.medicalClinic.model;
 
 import java.util.List;
 
-public class MedicalStaff extends User {
+public class MedicalStaff extends AppUser {
 	private List<Leave> leaves;
 	private int shift;
 	

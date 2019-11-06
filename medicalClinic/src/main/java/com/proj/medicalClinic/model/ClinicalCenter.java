@@ -8,13 +8,13 @@ public class ClinicalCenter {
 	private DiagnosisType diagnosis;
 	private DrugsType drugs;
 	private List<Clinic> clinics;
-	private List<AdminCC> ccAdmins;
+	private List<AdminClinicalCenter> ccAdmins;
 
 	public ClinicalCenter(){
 
     }
 
-    public ClinicalCenter(UUID id, DiagnosisType diagnosis, DrugsType drugs, List<Clinic> clinics, List<AdminCC> ccAdmins) {
+    public ClinicalCenter(UUID id, DiagnosisType diagnosis, DrugsType drugs, List<Clinic> clinics, List<AdminClinicalCenter> ccAdmins) {
         this.id = id;
         this.diagnosis = diagnosis;
         this.drugs = drugs;
@@ -38,7 +38,7 @@ public class ClinicalCenter {
         return clinics;
     }
 
-    public List<AdminCC> getCcAdmins() {
+    public List<AdminClinicalCenter> getCcAdmins() {
         return ccAdmins;
     }
 
@@ -58,7 +58,7 @@ public class ClinicalCenter {
         this.clinics = clinics;
     }
 
-    public void setCcAdmins(List<AdminCC> ccAdmins) {
+    public void setCcAdmins(List<AdminClinicalCenter> ccAdmins) {
         this.ccAdmins = ccAdmins;
     }
 }

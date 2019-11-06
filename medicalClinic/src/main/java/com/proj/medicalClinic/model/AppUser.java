@@ -1,18 +1,18 @@
 package com.proj.medicalClinic.model;
 import java.util.UUID;
 
-public class User {
+public class AppUser {
 	private UUID id;
 	private String email;
 	private String password;
 	private String name;
 	private String lastName;
 	
-	public User() {
+	public AppUser() {
 		
 	}
 	
-	public User(UUID id, String email, String password, String name, String lastName) {
+	public AppUser(UUID id, String email, String password, String name, String lastName) {
 		super();
 		this.id = id;
 		this.email = email;
