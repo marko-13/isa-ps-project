@@ -2,7 +2,7 @@ package com.proj.medicalClinic.model;
 
 import java.util.List;
 
-public class Doctor extends MedicalStaff {
+public class Doctor {
 	private List<Service> services;
 	private double review;
 	
