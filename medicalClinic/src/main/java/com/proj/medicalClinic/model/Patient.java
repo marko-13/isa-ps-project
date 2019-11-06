@@ -1,7 +1,18 @@
 package com.proj.medicalClinic.model;
 
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
+
+@Entity
+@DiscriminatorValue("P")
 public class Patient extends AppUser {
+
+	@Column(name = "JMBG", nullable = false)
 	private String JMBG;
+
+	@OneToOne
 	private MedicalHistory medicalHistory;
 	
 	public Patient() {
