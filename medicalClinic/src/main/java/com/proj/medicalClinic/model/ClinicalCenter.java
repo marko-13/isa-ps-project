@@ -19,9 +19,11 @@ public class ClinicalCenter {
 	private UUID id;
 
     @Column(name = "diagnosis", unique = false, nullable = false)
+    @Enumerated(EnumType.STRING)
 	private DiagnosisType diagnosis;
 
     @Column(name = "drugs", unique = false, nullable = false)
+    @Enumerated(EnumType.STRING)
     private DrugsType drugs;
 
     @OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
