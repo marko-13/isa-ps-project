@@ -15,6 +15,7 @@ public class Doctor extends AppUser{
 	private int shift;
 
 	@OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade =  CascadeType.ALL)
+  
 	private List<Service> services;
 
 	@Column(name = "review", unique = false, nullable = false)
