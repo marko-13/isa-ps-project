@@ -1,7 +1,10 @@
 package com.proj.medicalClinic.model;
 
+import javax.persistence.Entity;
+import java.util.Date;
 import java.util.UUID;
 
+@Entity
 public class Examination extends Appointment {
     private UUID id;
     private Nurse nurse;
@@ -10,11 +13,12 @@ public class Examination extends Appointment {
     private Patient patient;
     private MedicalReport mReport;
 
-    public Examination(){
-
+    public Examination() {
+        super();
     }
 
-    public Examination(UUID id, Nurse nurse, boolean fast, Doctor doctor, Patient patient, MedicalReport mReport) {
+    public Examination(Date date, OperationRoom or, Service service, double duration, UUID id, Nurse nurse, boolean fast, Doctor doctor, Patient patient, MedicalReport mReport) {
+        super(date, or, service, duration);
         this.id = id;
         this.nurse = nurse;
         this.fast = fast;
