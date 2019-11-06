@@ -23,10 +23,10 @@ public class Appointment {
     @Column(name = "date", unique = false, nullable = false)
     private Date date;
 
-    @Column(name = "operation_room", unique = false, nullable = false)
+    //kako ovde annotations
     private OperationRoom operationRoom;
 
-    @Column(name = "service", unique = false, nullable = false)
+    //kako ovde annotations
     private Service service;
 
     @Column(name = "duration", unique = false, nullable = false)
