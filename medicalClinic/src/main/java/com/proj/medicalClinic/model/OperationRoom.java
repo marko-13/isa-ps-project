@@ -1,10 +1,19 @@
 package com.proj.medicalClinic.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import java.util.UUID;
 
+@Entity
 public class OperationRoom {
+
+    @Column(name = "id", nullable = false)
     private UUID id;
+
+    @Column(name = "name", nullable = false)
     private String name;
+
+    @Column(name = "number", nullable = false)
     private int number;
 
     public OperationRoom(){
