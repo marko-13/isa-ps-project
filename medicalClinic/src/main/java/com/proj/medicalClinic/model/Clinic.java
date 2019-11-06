@@ -16,7 +16,7 @@ public class Clinic {
     private List<Patient> patients;
     private double review;
 
-    public Clinic(){
+    public Clinic() {
 
     }
 
