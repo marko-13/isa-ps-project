@@ -1,8 +1,10 @@
 package com.proj.medicalClinic.model;
 
+import javax.persistence.Entity;
 import java.util.List;
 import java.util.UUID;
 
+@Entity
 public class MedicalHistory {
 	private UUID id;
 	private double height;

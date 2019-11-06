@@ -1,8 +1,10 @@
 package com.proj.medicalClinic.model;
 
+import javax.persistence.Entity;
 import java.util.Date;
 import java.util.UUID;
 
+@Entity
 public class Leave {
 	private UUID id;
 	private Date dateStart;
