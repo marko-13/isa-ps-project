@@ -1,6 +1,8 @@
 package com.proj.medicalClinic.model;
+import javax.persistence.Entity;
 import java.util.UUID;
 
+@Entity
 public class AppUser {
 	private UUID id;
 	private String email;

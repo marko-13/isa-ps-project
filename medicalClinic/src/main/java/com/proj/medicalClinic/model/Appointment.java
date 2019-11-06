@@ -1,7 +1,9 @@
 package com.proj.medicalClinic.model;
 
+import javax.persistence.Entity;
 import java.util.Date;
 
+@Entity
 public class Appointment {
     private Date date;
     private OperationRoom or;
