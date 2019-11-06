@@ -24,7 +24,7 @@ public class Operation extends Appointment {
     }
 
     public Operation(UUID id, Date date, OperationRoom or, Service service, double duration, List<Doctor> doctors, Patient patient) {
-        super(id, date, or, service, duration);
+        super(date, or, service, duration);
         this.doctors = doctors;
         this.patient = patient;
     }
