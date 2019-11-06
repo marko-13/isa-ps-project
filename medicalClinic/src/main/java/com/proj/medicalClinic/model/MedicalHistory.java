@@ -1,17 +1,40 @@
 package com.proj.medicalClinic.model;
 
-import javax.persistence.Entity;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 import java.util.List;
 import java.util.UUID;
 
 @Entity
 public class MedicalHistory {
+
+	@Id
+	@GeneratedValue(generator = "UUID")
+	@GenericGenerator (
+			name = "UUID",
+			strategy = "org.hibernate.id.UUIDGenerator"
+	)
+	@Column(name = "id", updatable = false, nullable = false)
 	private UUID id;
+
+	@Column(name = "height", unique = false, nullable = true)
 	private double height;
+
+	@Column(name = "weight", unique = false, nullable = true)
 	private double weight;
+
+	@Column(name = "blood_type", unique = false, nullable = true)
+	@Enumerated(EnumType.STRING)
 	private BloodType bloodType;
+
+	@Column(name = "dioptre", unique = false, nullable = true)
 	private double dioptre;
-	private List<String> allergy;
+
+	@Column(name = "allergy", unique = false, nullable = true)
+	private String allergy;
+
+	@OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade =  CascadeType.ALL)
 	private List<MedicalReport> diseaseHistory;
 	
 	public MedicalHistory() {
@@ -19,7 +42,7 @@ public class MedicalHistory {
 	}
 	
 	public MedicalHistory(UUID id, double height, double weight, BloodType bloodType, double dioptre,
-			List<String> allergy, List<MedicalReport> diseaseHistory) {
+			String allergy, List<MedicalReport> diseaseHistory) {
 		super();
 		this.id = id;
 		this.height = height;
@@ -62,11 +85,11 @@ public class MedicalHistory {
 		this.dioptre = dioptre;
 	}
 
-	public List<String> getAllergy() {
+	public String getAllergy() {
 		return allergy;
 	}
 
-	public void setAllergy(List<String> allergy) {
+	public void setAllergy(String allergy) {
 		this.allergy = allergy;
 	}
 
