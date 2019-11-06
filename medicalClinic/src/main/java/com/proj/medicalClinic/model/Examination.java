@@ -1,34 +1,41 @@
 package com.proj.medicalClinic.model;
 
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import java.util.Date;
 import java.util.UUID;
 
+@Entity
+@DiscriminatorValue("E")
 public class Examination extends Appointment {
-    private UUID id;
+
+    //Kako ovde anotaciju napraviti, kad su nase klase u pitanju
     private Nurse nurse;
+
+    @Column(name = "fast", unique = false, nullable = false)
     private boolean fast;
+
+    //
     private Doctor doctor;
+
+    //
     private Patient patient;
+
+    //
     private MedicalReport mReport;
 
-    public Examination(){
-
+    public Examination() {
+        super();
     }
 
-    public Examination(UUID id, Nurse nurse, boolean fast, Doctor doctor, Patient patient, MedicalReport mReport) {
-        this.id = id;
+    public Examination(Date date, OperationRoom operationRoom, Service service, double duration, Nurse nurse, boolean fast, Doctor doctor, Patient patient, MedicalReport mReport) {
+        super(date, operationRoom, service, duration);
         this.nurse = nurse;
         this.fast = fast;
         this.doctor = doctor;
         this.patient = patient;
         this.mReport = mReport;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
     }
 
     public Nurse getNurse() {
