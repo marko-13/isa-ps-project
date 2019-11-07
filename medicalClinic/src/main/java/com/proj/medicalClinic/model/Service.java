@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -23,6 +24,7 @@ public class Service {
             strategy = "org.hibernate.id.UUIDGenerator"
     )
     @Column(name = "id", unique = true, updatable = false, nullable = false)
+    //ovo manytoone ce se verovatno obrisati
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private UUID id;
 
@@ -31,5 +33,15 @@ public class Service {
 
     @Column(name = "price", unique = false, nullable = false)
     private double price;
+
+    @ManyToMany(mappedBy = "services")
+    private List<Clinic> clinics; //mozda ovde treba inicijalizovati listu = new List<>(); isto i u clinic kalsi
+
+    @OneToOne
+    @MapsId
+    private Appointment appointment;
+
+    @ManyToMany(mappedBy = "services")
+    private List<Doctor> doctors;
 
 }

@@ -5,10 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -22,7 +20,16 @@ public class Patient extends AppUser {
 	@Column(name = "JMBG", nullable = false)
 	private String JMBG;
 
-	@OneToOne
+
+	//promenio
+	@OneToOne(mappedBy = "patient", cascade = CascadeType.ALL)
 	private MedicalHistory medicalHistory;
+
+	//PROMENIO
+	@ManyToMany(mappedBy = "patients")
+	private List<Clinic> clinics;
+
+	@OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<Examination> examinations;
 
 }

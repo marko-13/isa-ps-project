@@ -36,25 +36,45 @@ public class Clinic {
     @Column(name = "description", unique = false, nullable = false)
     private String description;
 
-    @OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "clinic", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Appointment> appointments;
 
-    @OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "clinic", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Doctor> doctors;
 
-    @OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "clinic", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Nurse> nurses;
 
-    @OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "clinic", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<OperationRoom> operationRooms;
 
-    @OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    //@OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "Clinics_Services",
+            joinColumns = {@JoinColumn(name = "clinic_id")},
+            inverseJoinColumns = {@JoinColumn(name = "service_id")}
+    )
     private List<Service> services;
 
-    @OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    //@OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "Clinics_Patients",
+            joinColumns = {@JoinColumn(name = "clinic_id")},
+            inverseJoinColumns = {@JoinColumn(name = "patient_id")}
+    )
     private List<Patient> patients;
 
     @Column(name = "review", unique = false, nullable = true)
     private double review;
+
+    //DODAO
+    @ManyToOne
+    @JoinColumn(name = "clinical_center_id", nullable = false)
+    private ClinicalCenter clinicalCenter;
+
+    @OneToMany(mappedBy = "clinic", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<AdminClinic> adminsClinic;
 
 }

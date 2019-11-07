@@ -21,8 +21,11 @@ public class Prescription {
 
 	@Id
 	@GeneratedValue(generator = "UUID")
-	@GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@GenericGenerator(
+			name = "UUID",
+			strategy = "org.hibernate.id.UUIDGenerator"
+	)
+	@Column(name = "id", unique = true, updatable = false, nullable = false)
 	private UUID id;
 
 	@Enumerated(EnumType.STRING)
@@ -31,5 +34,9 @@ public class Prescription {
 
 	//OCU DA STAVIM @ManyToOne ALI U NURSU NEMAM PERSCRIPTION, STA RADITI ??
 	private Nurse nurse;
+
+	//DODAO
+	@OneToOne(mappedBy = "prescription", cascade = CascadeType.ALL)
+	private MedicalReport medicalReport;
 
 }

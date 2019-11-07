@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -16,7 +17,13 @@ import java.util.UUID;
 @Entity
 public class Leave {
 
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@Id
+	@GeneratedValue(generator = "UUID")
+	@GenericGenerator(
+			name = "UUID",
+			strategy = "org.hibernate.id.UUIDGenerator"
+	)
+	@Column(name = "id", unique = true, updatable = false, nullable = false)
 	private UUID id;
 
 	@Column(name = "date_start", unique = false, nullable = false)
@@ -24,5 +31,14 @@ public class Leave {
 
 	@Column(name = "date_end", unique = false, nullable = false)
 	private Date dateEnd;
+
+	//sme biti null ako je godisnji od nurse
+	@ManyToOne
+	@JoinColumn(name = "doctor_id", nullable = true)
+	private Doctor doctor;
+
+	@ManyToOne
+	@JoinColumn(name = "doctor_id", nullable = true)
+	private Nurse nurse;
 
 }

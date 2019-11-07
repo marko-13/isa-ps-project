@@ -31,13 +31,21 @@ public class Appointment {
     @Column(name = "date", unique = false, nullable = false)
     private Date date;
 
-    //kako ovde annotations
+    //jedan termin ima samo jednu salu
+    @OneToOne(mappedBy = "appointment", cascade = CascadeType.ALL)
     private OperationRoom operationRoom;
 
     //kako ovde annotations
+    @OneToOne(mappedBy = "service", cascade = CascadeType.ALL)
     private Service service;
 
     @Column(name = "duration", unique = false, nullable = false)
     private double duration;
+
+    //PROMENE
+    @ManyToOne
+    @JoinColumn(name = "clinic_id", nullable = false)
+    private Clinic clinic;
+
 
 }

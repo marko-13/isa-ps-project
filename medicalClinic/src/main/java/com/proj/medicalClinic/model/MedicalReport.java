@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.List;
@@ -16,7 +17,13 @@ import java.util.UUID;
 @Entity
 public class MedicalReport {
 
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@Id
+	@GeneratedValue(generator = "UUID")
+	@GenericGenerator(
+			name = "UUID",
+			strategy = "org.hibernate.id.UUIDGenerator"
+	)
+	@Column(name = "id", unique = true, updatable = false, nullable = false)
 	private UUID id;
 
 	@Column(name = "exam_description", unique = false, nullable = false)
@@ -28,5 +35,18 @@ public class MedicalReport {
 
 	@OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade =  CascadeType.ALL)
 	private List<Prescription> prescriptions;
+
+	//DODAO
+	@OneToOne
+	@MapsId
+	private Examination examination;
+
+	@ManyToOne
+	@JoinColumn(name = "medical_history_id", nullable = false)
+	private MedicalHistory medicalHistory;
+
+	@OneToOne
+	@MapsId
+	private Prescription prescription;
 
 }

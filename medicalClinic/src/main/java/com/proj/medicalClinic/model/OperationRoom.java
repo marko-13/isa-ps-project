@@ -4,9 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.util.UUID;
 
 @Data
@@ -16,7 +16,13 @@ import java.util.UUID;
 @Entity
 public class OperationRoom {
 
-    @Column(name = "id", nullable = false)
+    @Id
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    @Column(name = "id", unique = true, updatable = false, nullable = false)
     private UUID id;
 
     @Column(name = "name", nullable = false)
@@ -24,5 +30,13 @@ public class OperationRoom {
 
     @Column(name = "number", nullable = false)
     private int number;
+
+    @ManyToOne
+    @JoinColumn(name = "clinic_id", nullable = false)
+    private Clinic clinic;
+
+    @OneToOne
+    @MapsId
+    private Appointment appointment;
 
 }

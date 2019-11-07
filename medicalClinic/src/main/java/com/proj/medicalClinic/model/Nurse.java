@@ -17,10 +17,17 @@ import java.util.UUID;
 @DiscriminatorValue("NR")
 public class Nurse extends AppUser{
 
-	@OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "nurse", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Leave> leaves;
 
 	@Column(name = "shift", nullable = false)
 	private int shift;
+
+	@ManyToOne
+	@JoinColumn(name = "clinic_id", nullable = false)
+	private Clinic clinic;
+
+	@OneToMany(mappedBy = "nurse", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<Examination> examinations;
 
 }

@@ -19,9 +19,7 @@ import java.util.UUID;
 @DiscriminatorValue("O")
 public class Operation extends Appointment {
 
-    @ManyToMany
-    @JoinTable(name = "operating", joinColumns = @JoinColumn(name = "operation_id", referencedColumnName = "id"),
-                inverseJoinColumns = @JoinColumn(name = "doctor_id", referencedColumnName = "id"))
+    @ManyToMany(mappedBy = "operations")
     private List<Doctor> doctors;
 
     @OneToOne

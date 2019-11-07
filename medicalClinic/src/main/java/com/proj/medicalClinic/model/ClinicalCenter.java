@@ -35,10 +35,10 @@ public class ClinicalCenter {
     @Enumerated(EnumType.STRING)
     private DrugsType drugs;
 
-    @OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "clinicalCenter", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Clinic> clinics;
 
-    @OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "clinicalCenter", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<AdminClinicalCenter> ccAdmins;
 
 }

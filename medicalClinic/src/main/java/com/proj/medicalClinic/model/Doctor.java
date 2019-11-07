@@ -17,17 +17,39 @@ import java.util.UUID;
 @DiscriminatorValue("DR")
 public class Doctor extends AppUser{
 
-	@OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade =  CascadeType.ALL)
-	private List<Leave> leaves;
-
 	@Column(name = "shift", unique = false, nullable = false)
 	private int shift;
 
-	@OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade =  CascadeType.ALL)
-  
-	private List<Service> services;
 
 	@Column(name = "review", unique = false, nullable = false)
 	private double review;
+
+	//PROMENE
+	@ManyToOne
+	@JoinColumn(name = "clinic_id", nullable = false)
+	private Clinic clinic;
+
+	@OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<Examination> examinations;
+
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(
+			name = "Doctors_Operations",
+			joinColumns = {@JoinColumn(name = "doctor_id")},
+			inverseJoinColumns = {@JoinColumn(name = "operation_id")}
+	)
+	private List<Operation> operations;
+
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(
+			name = "Doctors_Services",
+			joinColumns = {@JoinColumn(name = "doctor_id")},
+			inverseJoinColumns = {@JoinColumn(name = "service_id")}
+	)
+	private List<Service> services;
+
+	@OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<Leave> leaves;
+
 
 }
