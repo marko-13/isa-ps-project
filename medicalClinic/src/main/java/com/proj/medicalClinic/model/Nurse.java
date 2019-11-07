@@ -23,4 +23,7 @@ public class Nurse extends AppUser{
 	@Column(name = "shift", nullable = false)
 	private int shift;
 
+	//ovd treba lista preskripcija
+	//moras dodati i field u svakoj klasi kad mapiras
+
 }
