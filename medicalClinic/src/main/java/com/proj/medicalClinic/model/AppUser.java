@@ -18,6 +18,10 @@ public class AppUser {
 	@Column(name = "id", unique = true, updatable = false, nullable = false)
 	private UUID id;
 
+	@Column(name = "user_role", unique = false, updatable = false, nullable = false)
+	@Enumerated(EnumType.STRING)
+	private RoleType userRole;
+
 	@Column(name="email", unique=false, nullable=false)
 	private String email;
 
@@ -34,8 +38,9 @@ public class AppUser {
 		
 	}
 	
-	public AppUser(UUID id, String email, String password, String name, String lastName) {
+	public AppUser(UUID id, RoleType userRole, String email, String password, String name, String lastName) {
 		this.id = id;
+		this.userRole = userRole;
 		this.email = email;
 		this.password = password;
 		this.name = name;
@@ -48,7 +53,15 @@ public class AppUser {
 	public void setId(UUID id) {
 		this.id = id;
 	}
-	
+
+	public RoleType getUserRole() {
+		return userRole;
+	}
+
+	public void setUserRole(RoleType userRole) {
+		this.userRole = userRole;
+	}
+
 	public String getEmail() {
 		return email;
 	}

@@ -25,8 +25,8 @@ public class Doctor extends AppUser{
 		super();
 	}
 
-	public Doctor(UUID id, String email, String password, String name, String lastName, List<Leave> leaves, int shift, List<Service> services, double review) {
-		super(id, email, password, name, lastName);
+	public Doctor(UUID id, RoleType userRole, String email, String password, String name, String lastName, List<Leave> leaves, int shift, List<Service> services, double review) {
+		super(id, userRole, email, password, name, lastName);
 		this.leaves = leaves;
 		this.shift = shift;
 		this.services = services;

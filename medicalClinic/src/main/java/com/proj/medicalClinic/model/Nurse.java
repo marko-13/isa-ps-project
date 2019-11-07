@@ -19,8 +19,8 @@ public class Nurse extends AppUser{
 		super();
 	}
 
-	public Nurse(UUID id, String email, String password, String name, String lastName, List<Leave> leaves, int shift) {
-		super(id, email, password, name, lastName);
+	public Nurse(UUID id, RoleType userRole, String email, String password, String name, String lastName, List<Leave> leaves, int shift) {
+		super(id, userRole, email, password, name, lastName);
 		this.leaves = leaves;
 		this.shift = shift;
 	}

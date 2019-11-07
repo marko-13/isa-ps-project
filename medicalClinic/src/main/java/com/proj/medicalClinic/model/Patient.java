@@ -19,13 +19,13 @@ public class Patient extends AppUser {
 	public Patient() {
 		super();
 	}
-	
-	public Patient(UUID id, String email, String password, String name, String lastName, String JMBG, MedicalHistory medicalHistory) {
-		super(id, email, password, name, lastName);
+
+	public Patient(UUID id, RoleType userRole, String email, String password, String name, String lastName, String JMBG, MedicalHistory medicalHistory) {
+		super(id, userRole, email, password, name, lastName);
 		this.JMBG = JMBG;
 		this.medicalHistory = medicalHistory;
 	}
-	
+
 	public String getJMBG() {
 		return JMBG;
 	}
