@@ -1,11 +1,19 @@
 package com.proj.medicalClinic.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Date;
 import java.util.UUID;
 
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
@@ -32,46 +40,4 @@ public class Appointment {
     @Column(name = "duration", unique = false, nullable = false)
     private double duration;
 
-    public Appointment(){
-
-    }
-
-    public Appointment(Date date, OperationRoom operationRoom, Service service, double duration) {
-        this.date = date;
-        this.operationRoom = operationRoom;
-        this.service = service;
-        this.duration = duration;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public OperationRoom getOperationRoom() {
-        return operationRoom;
-    }
-
-    public void setOr(OperationRoom operationRoom) {
-        this.operationRoom = operationRoom;
-    }
-
-    public Service getService() {
-        return service;
-    }
-
-    public void setService(Service service) {
-        this.service = service;
-    }
-
-    public double getDuration() {
-        return duration;
-    }
-
-    public void setDuration(double duration) {
-        this.duration = duration;
-    }
 }

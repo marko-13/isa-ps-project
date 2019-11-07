@@ -1,9 +1,18 @@
 package com.proj.medicalClinic.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.UUID;
 
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @DiscriminatorValue("DR")
 public class Doctor extends AppUser{
@@ -20,58 +29,5 @@ public class Doctor extends AppUser{
 
 	@Column(name = "review", unique = false, nullable = false)
 	private double review;
-	
-	public Doctor() {
-		super();
-	}
 
-	public Doctor(UUID id, RoleType userRole, String email, String password, String name, String lastName, List<Leave> leaves, int shift, List<Service> services, double review) {
-		super(id, userRole, email, password, name, lastName);
-		this.leaves = leaves;
-		this.shift = shift;
-		this.services = services;
-		this.review = review;
-	}
-
-	public List<Service> getServices() {
-		return services;
-	}
-
-	public void setServices(List<Service> services) {
-		this.services = services;
-	}
-
-	public double getReview() {
-		return review;
-	}
-
-	public void setReview(double review) {
-		this.review = review;
-	}
-
-	public List<Leave> getLeaves() {
-		return leaves;
-	}
-
-	public void setLeaves(List<Leave> leaves) {
-		this.leaves = leaves;
-	}
-
-	public int getShift() {
-		return shift;
-	}
-
-	public void setShift(int shift) {
-		this.shift = shift;
-	}
-
-	@Override
-	public String toString() {
-		return "Doctor{" +
-				"leaves=" + leaves +
-				", shift=" + shift +
-				", services=" + services +
-				", review=" + review +
-				'}';
-	}
 }

@@ -1,9 +1,17 @@
 package com.proj.medicalClinic.model;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.UUID;
 
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
@@ -33,68 +41,5 @@ public class AppUser {
 
 	@Column(name="last_name", unique=false, nullable=false)
 	private String lastName;
-	
-	public AppUser() {
-		
-	}
-	
-	public AppUser(UUID id, RoleType userRole, String email, String password, String name, String lastName) {
-		this.id = id;
-		this.userRole = userRole;
-		this.email = email;
-		this.password = password;
-		this.name = name;
-		this.lastName = lastName;
-	}
-	
-	public UUID getId() {
-		return id;
-	}
-	public void setId(UUID id) {
-		this.id = id;
-	}
 
-	public RoleType getUserRole() {
-		return userRole;
-	}
-
-	public void setUserRole(RoleType userRole) {
-		this.userRole = userRole;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	public String getLastName() {
-		return lastName;
-	}
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-	
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", email=" + email + ", password=" + password + ", name=" + name + ", lastName="
-				+ lastName + "]";
-	}
-	
-	
 }

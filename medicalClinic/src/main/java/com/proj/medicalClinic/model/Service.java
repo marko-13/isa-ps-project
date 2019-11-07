@@ -1,10 +1,18 @@
 package com.proj.medicalClinic.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.UUID;
 
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Service {
 
@@ -24,37 +32,4 @@ public class Service {
     @Column(name = "price", unique = false, nullable = false)
     private double price;
 
-    public Service(){
-
-    }
-
-    public Service(UUID id, String type, double price) {
-        this.id = id;
-        this.type = type;
-        this.price = price;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
 }

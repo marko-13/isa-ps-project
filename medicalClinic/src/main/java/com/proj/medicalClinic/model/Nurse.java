@@ -1,10 +1,18 @@
 package com.proj.medicalClinic.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.UUID;
 
-
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @DiscriminatorValue("NR")
 public class Nurse extends AppUser{
@@ -14,30 +22,5 @@ public class Nurse extends AppUser{
 
 	@Column(name = "shift", nullable = false)
 	private int shift;
-	
-	public Nurse() {
-		super();
-	}
 
-	public Nurse(UUID id, RoleType userRole, String email, String password, String name, String lastName, List<Leave> leaves, int shift) {
-		super(id, userRole, email, password, name, lastName);
-		this.leaves = leaves;
-		this.shift = shift;
-	}
-
-	public List<Leave> getLeaves() {
-		return leaves;
-	}
-
-	public void setLeaves(List<Leave> leaves) {
-		this.leaves = leaves;
-	}
-
-	public int getShift() {
-		return shift;
-	}
-
-	public void setShift(int shift) {
-		this.shift = shift;
-	}
 }
