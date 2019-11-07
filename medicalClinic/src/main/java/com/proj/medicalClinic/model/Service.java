@@ -24,8 +24,6 @@ public class Service {
             strategy = "org.hibernate.id.UUIDGenerator"
     )
     @Column(name = "id", unique = true, updatable = false, nullable = false)
-    //ovo manytoone ce se verovatno obrisati
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private UUID id;
 
     @Column(name = "service_type", unique = false, nullable = false)
