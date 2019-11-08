@@ -20,11 +20,7 @@ public class Doctor extends AppUser{
 	@Column(name = "shift", unique = false, nullable = false)
 	private int shift;
 
-<<<<<<< HEAD
-=======
-	@OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade =  CascadeType.ALL)
-	private List<Service> services;
->>>>>>> 40c8d7476e3ea6ee50a1b8b13df3b5ade2b5ae37
+
 
 	@Column(name = "review", unique = false, nullable = false)
 	private double review;
