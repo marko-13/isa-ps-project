@@ -1,16 +1,13 @@
 package com.proj.medicalClinic.model;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.UUID;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
+@SuperBuilder
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
@@ -40,5 +37,4 @@ public class AppUser {
 
 	@Column(name="last_name", unique=false, nullable=false)
 	private String lastName;
-
 }

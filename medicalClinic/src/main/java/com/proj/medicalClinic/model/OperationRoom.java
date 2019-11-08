@@ -38,5 +38,4 @@ public class OperationRoom {
     @OneToOne
     @MapsId
     private Appointment appointment;
-
 }
