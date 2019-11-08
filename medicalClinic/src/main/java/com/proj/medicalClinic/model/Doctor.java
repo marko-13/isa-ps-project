@@ -18,6 +18,9 @@ public class Doctor extends AppUser{
 	@Column(name = "review", unique = false, nullable = false)
 	private double review;
 
+	@Column(name = "review_count", unique = false, nullable = false)
+	private int reviewCount;
+
 	@ManyToOne
 	@JoinColumn(name = "clinic_id", nullable = false)
 	private Clinic clinic;
