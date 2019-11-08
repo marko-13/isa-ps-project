@@ -41,5 +41,4 @@ public class Service {
 
     @ManyToMany(mappedBy = "services")
     private List<Doctor> doctors;
-
 }

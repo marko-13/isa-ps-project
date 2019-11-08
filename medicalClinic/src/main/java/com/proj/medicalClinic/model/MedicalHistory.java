@@ -45,9 +45,7 @@ public class MedicalHistory {
 	@OneToMany(mappedBy = "medicalHistory", fetch = FetchType.LAZY, cascade =  CascadeType.ALL)
 	private List<MedicalReport> diseaseHistory;
 
-	//PROMENIO
 	@OneToOne
 	@MapsId
 	private Patient patient;
-
 }

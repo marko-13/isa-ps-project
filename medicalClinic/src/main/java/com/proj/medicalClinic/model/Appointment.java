@@ -1,9 +1,7 @@
 package com.proj.medicalClinic.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -11,8 +9,7 @@ import java.util.Date;
 import java.util.UUID;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
+@SuperBuilder
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
@@ -30,21 +27,17 @@ public class Appointment {
     @Column(name = "date", unique = false, nullable = false)
     private Date date;
 
-    //jedan termin ima samo jednu salu
+    //JEDAN TERMIN IMA SAMO JEDNU SALU
     @OneToOne(mappedBy = "appointment", cascade = CascadeType.ALL)
     private OperationRoom operationRoom;
 
-    //kako ovde annotations
-    @OneToOne(mappedBy = "service", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "appointment", cascade = CascadeType.ALL)
     private Service service;
 
     @Column(name = "duration", unique = false, nullable = false)
     private double duration;
 
-    //PROMENE
     @ManyToOne
     @JoinColumn(name = "clinic_id", nullable = false)
     private Clinic clinic;
-
-
 }

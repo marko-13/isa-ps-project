@@ -32,13 +32,13 @@ public class Leave {
 	@Column(name = "date_end", unique = false, nullable = false)
 	private Date dateEnd;
 
-	//sme biti null ako je godisnji od nurse
+	//NULLABLE TRUE JER AKO JE GODISNJI OD NURSE OVDE JE NULL
 	@ManyToOne
 	@JoinColumn(name = "doctor_id", nullable = true)
 	private Doctor doctor;
 
+	//NULLABLE TRUE JER AKO JE GODISNJI OD DOCTOR OVDE JE NULL
 	@ManyToOne
-	@JoinColumn(name = "doctor_id", nullable = true)
+	@JoinColumn(name = "nurse_id", nullable = true)
 	private Nurse nurse;
-
 }

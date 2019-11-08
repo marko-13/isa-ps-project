@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -33,10 +32,10 @@ public class MedicalReport {
 	@Enumerated(EnumType.STRING)
 	private DiagnosisType diagnosis;
 
-	@OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade =  CascadeType.ALL)
-	private List<Prescription> prescriptions;
+	@OneToOne
+	@MapsId
+	private Prescription prescription;
 
-	//DODAO
 	@OneToOne
 	@MapsId
 	private Examination examination;
@@ -44,9 +43,4 @@ public class MedicalReport {
 	@ManyToOne
 	@JoinColumn(name = "medical_history_id", nullable = false)
 	private MedicalHistory medicalHistory;
-
-	@OneToOne
-	@MapsId
-	private Prescription prescription;
-
 }

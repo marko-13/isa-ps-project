@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import javax.print.DocFlavor;
 import java.util.List;
 import java.util.UUID;
 
@@ -48,7 +47,6 @@ public class Clinic {
     @OneToMany(mappedBy = "clinic", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<OperationRoom> operationRooms;
 
-    //@OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "Clinics_Services",
@@ -57,7 +55,6 @@ public class Clinic {
     )
     private List<Service> services;
 
-    //@OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "Clinics_Patients",
@@ -69,12 +66,10 @@ public class Clinic {
     @Column(name = "review", unique = false, nullable = true)
     private double review;
 
-    //DODAO
     @ManyToOne
     @JoinColumn(name = "clinical_center_id", nullable = false)
     private ClinicalCenter clinicalCenter;
 
     @OneToMany(mappedBy = "clinic", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<AdminClinic> adminsClinic;
-
 }
