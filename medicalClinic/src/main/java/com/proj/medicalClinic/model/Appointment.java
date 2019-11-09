@@ -29,7 +29,8 @@ public class Appointment {
     private Date date;
 
     //JEDAN TERMIN IMA SAMO JEDNU SALU
-    @OneToOne(mappedBy = "appointment", cascade = CascadeType.ALL)
+    @ManyToOne
+    @JoinColumn(name = "operation_room_id", nullable = false)
     private OperationRoom operationRoom;
 
     @ManyToOne
