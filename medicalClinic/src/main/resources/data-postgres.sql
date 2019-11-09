@@ -118,7 +118,6 @@ values ('c15f647f-2274-4646-abd3-6d166c56fe12', '732ef647-6547-4a0e-806f-b9a7586
 
 
 
-
 insert into doctors_services (doctor_id, service_id)
 values ('c15f647f-2274-4646-abd3-6d166c56fe12', '520f83d7-a49d-4906-9ecb-7353a1971bf3');
 
@@ -149,6 +148,7 @@ values ('d1f7c108-f820-4ceb-8b14-eb3176a75c50', '2-17-2020', '2-23-2020', null, 
 
 
 
+
 insert into medical_history (allergy, blood_type, dioptre, height, weight, patient_id)
 values ('kikiriki', 'AP', null, 190, null, '6d55e40a-f84d-4279-ab8f-60218c0d96c2');
 
@@ -173,3 +173,4 @@ values ('96e2c589-c076-4634-a86c-4fe21af89dc0', '64b096ac-8018-4b00-b0da-703383f
 
 insert into medical_report (diagnosis, exam_description, prescription_id, examination_id, medical_history_id)
 values ('FEVER', 'Veoma lose, ali bice bolje', 'e942b17d-e096-45c8-842e-9cad6054393a', '50a91f30-bdb6-4960-8f32-38ab6d7ef024', '5797f167-1aac-4e18-810e-92ca53b95d35');
+

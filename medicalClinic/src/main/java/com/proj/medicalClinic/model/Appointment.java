@@ -28,7 +28,6 @@ public class Appointment {
     @Column(name = "date", unique = false, nullable = false)
     private Date date;
 
-    //JEDAN TERMIN IMA SAMO JEDNU SALU
     @ManyToOne
     @JoinColumn(name = "operation_room_id", nullable = false)
     private OperationRoom operationRoom;
