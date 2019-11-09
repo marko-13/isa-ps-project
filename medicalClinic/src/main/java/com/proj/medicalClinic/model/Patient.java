@@ -15,7 +15,12 @@ import java.util.UUID;
 @Entity
 @DiscriminatorValue("P")
 public class Patient extends AppUser {
+<<<<<<< HEAD
 	@Column(name = "JMBG", nullable = false)
+=======
+
+	@Column(name = "JMBG", nullable = true)
+>>>>>>> 9579521f2b5c954564906f9982ce193ee8e74be5
 	private String JMBG;
 
 

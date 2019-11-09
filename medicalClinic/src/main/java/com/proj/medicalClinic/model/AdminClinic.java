@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -13,10 +14,11 @@ import javax.persistence.ManyToOne;
 @Data
 @SuperBuilder
 @Entity
+@DiscriminatorValue("AC")
 public class AdminClinic extends AppUser {
 
     @ManyToOne
-    @JoinColumn(name = "clinic_id", nullable = false)
+    @JoinColumn(name = "clinic_id", nullable = true)
     private Clinic clinic;
 
 }
