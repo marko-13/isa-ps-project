@@ -35,7 +35,7 @@ public class Appointment {
     private OperationRoom operationRoom;
 
     //kako ovde annotations
-    @OneToOne(mappedBy = "service", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "services", cascade = CascadeType.ALL)
     private Service service;
 
     @Column(name = "duration", unique = false, nullable = false)
