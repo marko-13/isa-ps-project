@@ -27,11 +27,12 @@ public class Appointment {
     @Column(name = "date", unique = false, nullable = false)
     private Date date;
 
-    //JEDAN TERMIN IMA SAMO JEDNU SALU
-    @OneToOne(mappedBy = "appointment", cascade = CascadeType.ALL)
+    @ManyToOne
+    @JoinColumn(name = "operation_room_id", nullable = false)
     private OperationRoom operationRoom;
 
-    @OneToOne(mappedBy = "appointment", cascade = CascadeType.ALL)
+    @ManyToOne
+    @JoinColumn(name = "service_id", nullable = false)
     private Service service;
 
     @Column(name = "duration", unique = false, nullable = false)

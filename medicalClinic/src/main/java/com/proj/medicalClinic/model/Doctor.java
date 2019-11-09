@@ -12,13 +12,13 @@ import java.util.List;
 @DiscriminatorValue("DR")
 public class Doctor extends AppUser{
 
-	@Column(name = "shift", unique = false, nullable = false)
+	@Column(name = "shift", unique = false, nullable = true)
 	private int shift;
 
-	@Column(name = "review", unique = false, nullable = false)
+	@Column(name = "review", unique = false, nullable = true)
 	private double review;
 
-	@Column(name = "review_count", unique = false, nullable = false)
+	@Column(name = "review_count", unique = false, nullable = true)
 	private int reviewCount;
 
 	@ManyToOne

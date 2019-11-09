@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -35,7 +36,6 @@ public class OperationRoom {
     @JoinColumn(name = "clinic_id", nullable = false)
     private Clinic clinic;
 
-    @OneToOne
-    @MapsId
-    private Appointment appointment;
+    @OneToMany(mappedBy = "operationRoom", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Appointment> appointment;
 }

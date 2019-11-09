@@ -15,7 +15,7 @@ public class Nurse extends AppUser{
 	@OneToMany(mappedBy = "nurse", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Leave> leaves;
 
-	@Column(name = "shift", nullable = false)
+	@Column(name = "shift", nullable = true)
 	private int shift;
 
 	@ManyToOne
