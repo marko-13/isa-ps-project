@@ -69,6 +69,7 @@ public class Clinic {
     @Column(name = "review", unique = false, nullable = true)
     private double review;
 
+<<<<<<< HEAD
     //DODAO
     @ManyToOne
     @JoinColumn(name = "clinical_center_id", nullable = false)

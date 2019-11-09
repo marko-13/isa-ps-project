@@ -22,7 +22,13 @@ public class Doctor extends AppUser{
 	@Column(name = "review", unique = false, nullable = false)
 	private double review;
 
+<<<<<<< HEAD
 	//PROMENE
+=======
+	@Column(name = "review_count", unique = false, nullable = false)
+	private int reviewCount;
+
+>>>>>>> 2db6793243dfae40e97fa49d6433d30b9bf1dfc8
 	@ManyToOne
 	@JoinColumn(name = "clinic_id", nullable = false)
 	private Clinic clinic;
