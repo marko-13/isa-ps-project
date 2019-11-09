@@ -66,6 +66,9 @@ public class Clinic {
     @Column(name = "review", unique = false, nullable = true)
     private double review;
 
+    @Column(name = "review_count", unique = false, nullable = false)
+    private int reviewCount;
+
     @ManyToOne
     @JoinColumn(name = "clinical_center_id", nullable = false)
     private ClinicalCenter clinicalCenter;
