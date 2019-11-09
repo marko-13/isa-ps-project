@@ -12,7 +12,7 @@ import java.util.List;
 @DiscriminatorValue("P")
 public class Patient extends AppUser {
 
-	@Column(name = "JMBG", nullable = false)
+	@Column(name = "JMBG", nullable = true)
 	private String JMBG;
 
 	@OneToOne(mappedBy = "patient", cascade = CascadeType.ALL)
