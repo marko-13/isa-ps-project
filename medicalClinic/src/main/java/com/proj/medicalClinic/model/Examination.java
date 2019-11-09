@@ -16,7 +16,6 @@ import java.util.UUID;
 @DiscriminatorValue("E")
 public class Examination extends Appointment {
 
-/*
     @Column(name = "fast", unique = false, nullable = false)
     private boolean fast;
 
@@ -39,6 +38,4 @@ public class Examination extends Appointment {
     @OneToOne(mappedBy = "examination", cascade = CascadeType.ALL)
     private MedicalReport mReport;
 
-
- */
 }

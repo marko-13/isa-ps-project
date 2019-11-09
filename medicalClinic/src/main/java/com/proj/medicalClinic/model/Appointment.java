@@ -17,7 +17,7 @@ import java.util.UUID;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
 public class Appointment {
-/*
+
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(
@@ -46,7 +46,4 @@ public class Appointment {
     @JoinColumn(name = "clinic_id", nullable = false)
     private Clinic clinic;
 
-
-
- */
 }

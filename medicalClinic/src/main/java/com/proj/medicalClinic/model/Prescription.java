@@ -18,7 +18,6 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 public class Prescription {
-/*
 
 	@Id
 	@GeneratedValue(generator = "UUID")
@@ -29,9 +28,9 @@ public class Prescription {
 	@Column(name = "id", unique = true, updatable = false, nullable = false)
 	private UUID id;
 
-	@Enumerated(EnumType.STRING)
-	@Column(name = "drugs", nullable = false)
-	private List<DrugsType> drugs;
+	//@Enumerated(EnumType.STRING)
+	//@Column(name = "drugs", nullable = false)
+	//private List<DrugsType> drugs;
 
 	//OCU DA STAVIM @ManyToOne ALI U NURSU NEMAM PERSCRIPTION, STA RADITI ??
 	private Nurse nurse;
@@ -39,7 +38,5 @@ public class Prescription {
 	//DODAO
 	@OneToOne(mappedBy = "prescription", cascade = CascadeType.ALL)
 	private MedicalReport medicalReport;
-
- */
 
 }

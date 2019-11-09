@@ -16,7 +16,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 public class Leave {
-/*
+
 	@Id
 	@GeneratedValue(generator = "UUID")
 	@GenericGenerator(
@@ -41,6 +41,4 @@ public class Leave {
 	@JoinColumn(name = "doctor_id", nullable = true)
 	private Nurse nurse;
 
-
- */
 }

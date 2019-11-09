@@ -15,7 +15,6 @@ import java.util.UUID;
 @Entity
 @DiscriminatorValue("P")
 public class Patient extends AppUser {
-/*
 	@Column(name = "JMBG", nullable = false)
 	private String JMBG;
 
@@ -31,6 +30,4 @@ public class Patient extends AppUser {
 	@OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Examination> examinations;
 
-
- */
 }

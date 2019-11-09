@@ -16,7 +16,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 public class MedicalReport {
-/*
+
 	@Id
 	@GeneratedValue(generator = "UUID")
 	@GenericGenerator(
@@ -50,5 +50,4 @@ public class MedicalReport {
 	private Prescription prescription;
 
 
- */
 }

@@ -15,7 +15,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 public class OperationRoom {
-/*
+
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(
@@ -39,6 +39,4 @@ public class OperationRoom {
     @MapsId
     private Appointment appointment;
 
-
- */
 }

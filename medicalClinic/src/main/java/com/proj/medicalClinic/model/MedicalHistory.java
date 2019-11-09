@@ -16,7 +16,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 public class MedicalHistory {
-/*
+
 	@Id
 	@GeneratedValue(generator = "UUID")
 	@GenericGenerator (
@@ -50,6 +50,4 @@ public class MedicalHistory {
 	@MapsId
 	private Patient patient;
 
-
- */
 }

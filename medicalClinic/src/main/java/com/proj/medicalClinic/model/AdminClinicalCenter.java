@@ -14,10 +14,9 @@ import javax.persistence.ManyToOne;
 @SuperBuilder
 @Entity
 public class AdminClinicalCenter extends AppUser {
-/*
+
     @ManyToOne
     @JoinColumn(name = "clinical_center_id", nullable = false)
     private ClinicalCenter clinicalCenter;
 
- */
 }

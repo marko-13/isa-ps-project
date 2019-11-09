@@ -15,7 +15,7 @@ import java.util.UUID;
 @Entity
 @DiscriminatorValue("DR")
 public class Doctor extends AppUser{
-/*
+
 	@Column(name = "shift", unique = false, nullable = false)
 	private int shift;
 
@@ -51,7 +51,5 @@ public class Doctor extends AppUser{
 	@OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Leave> leaves;
 
-
- */
 
 }
