@@ -3,6 +3,7 @@ package com.proj.medicalClinic.model;
 import lombok.Data;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.JoinColumnOrFormula;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -31,7 +32,8 @@ public class Appointment {
     @OneToOne(mappedBy = "appointment", cascade = CascadeType.ALL)
     private OperationRoom operationRoom;
 
-    @OneToOne(mappedBy = "appointment", cascade = CascadeType.ALL)
+    @ManyToOne
+    @JoinColumn(name = "service_id", nullable = false)
     private Service service;
 
     @Column(name = "duration", unique = false, nullable = false)
