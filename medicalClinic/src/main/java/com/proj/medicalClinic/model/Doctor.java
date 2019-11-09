@@ -18,6 +18,9 @@ public class Doctor extends AppUser{
 	@Column(name = "review", unique = false, nullable = true)
 	private double review;
 
+	@Column(name = "review_count", unique = false, nullable = true)
+	private int reviewCount;
+
 	@ManyToOne
 	@JoinColumn(name = "clinic_id", nullable = false)
 	private Clinic clinic;
@@ -43,4 +46,8 @@ public class Doctor extends AppUser{
 
 	@OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Leave> leaves;
+
+	//Mozda bi trebalo napraviti jos listu pacijenata koje je pregledao, a pacijent da ima listu doktora kod kojih je bio
+
+
 }
