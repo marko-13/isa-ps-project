@@ -15,7 +15,7 @@ import java.util.UUID;
 @Entity
 @DiscriminatorValue("NR")
 public class Nurse extends AppUser{
-
+/*
 	@OneToMany(mappedBy = "nurse", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Leave> leaves;
 
@@ -29,5 +29,7 @@ public class Nurse extends AppUser{
 	@OneToMany(mappedBy = "nurse", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Examination> examinations;
 
+
+ */
 
 }

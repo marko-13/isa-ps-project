@@ -17,7 +17,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 public class ClinicalCenter {
-
+/*
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(
@@ -41,4 +41,6 @@ public class ClinicalCenter {
     @OneToMany(mappedBy = "clinicalCenter", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<AdminClinicalCenter> ccAdmins;
 
+
+ */
 }

@@ -18,6 +18,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 public class Prescription {
+/*
 
 	@Id
 	@GeneratedValue(generator = "UUID")
@@ -38,5 +39,7 @@ public class Prescription {
 	//DODAO
 	@OneToOne(mappedBy = "prescription", cascade = CascadeType.ALL)
 	private MedicalReport medicalReport;
+
+ */
 
 }

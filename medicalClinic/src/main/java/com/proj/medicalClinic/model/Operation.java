@@ -17,11 +17,13 @@ import java.util.UUID;
 @Entity
 @DiscriminatorValue("O")
 public class Operation extends Appointment {
-
+/*
     @ManyToMany(mappedBy = "operations")
     private List<Doctor> doctors;
 
     @OneToOne
     private Patient patient;
 
+
+ */
 }

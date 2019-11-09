@@ -16,7 +16,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 public class Service {
-
+/*
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(
@@ -42,4 +42,6 @@ public class Service {
     @ManyToMany(mappedBy = "services")
     private List<Doctor> doctors;
 
+
+ */
 }
