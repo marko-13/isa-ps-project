@@ -1,6 +1,7 @@
 package com.proj.medicalClinic.model;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
@@ -8,6 +9,7 @@ import java.util.List;
 
 @Data
 @SuperBuilder
+@NoArgsConstructor
 @Entity
 @DiscriminatorValue("P")
 public class Patient extends AppUser {
@@ -26,4 +28,5 @@ public class Patient extends AppUser {
 
 	@OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Operation> operations;
+
 }
