@@ -17,6 +17,8 @@ class Register extends Component {
             email: this.state.email
         }
 
+        console.log(newUser);
+
         axios.post('', newUser)
             .then(res => {
                 console.log(res);
@@ -33,7 +35,7 @@ class Register extends Component {
             <div className="container login-container">
                 <div className="row">
                     <div className="col-md-6 login-form-1">
-                        <h3>User register</h3>
+                        <h3>Register</h3>
                         <div className="form-group">
                             <input
                                 type="text"
