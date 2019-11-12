@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
+//bez ovoga izbacuje eror za cors....
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping(value = "api/users")
 public class AppUserController {
 
