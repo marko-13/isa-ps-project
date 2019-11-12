@@ -151,7 +151,7 @@ values ('d1f7c108-f820-4ceb-8b14-eb3176a75c50', '2-10-2020', '2-12-2020', null, 
 
 
 insert into medical_history (allergy, blood_type, dioptre, height, weight, patient_id)
-values ('kikiriki', 'AP', null, 190, null, '6d55e40a-f84d-4279-ab8f-60218c0d96c2');
+values ('kikiriki', 'AP', 1, 190, 60, '6d55e40a-f84d-4279-ab8f-60218c0d96c2');
 
 insert into medical_history (allergy, blood_type, dioptre, height, weight, patient_id)
 values ('penicilin', 'BM', 1, 181, 70, '5797f167-1aac-4e18-810e-92ca53b95d35');
