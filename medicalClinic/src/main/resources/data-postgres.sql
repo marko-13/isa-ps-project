@@ -86,13 +86,14 @@ insert into appointment (type, id, date, duration, fast, clinic_id, doctor_id, n
 values ('EX', 'c0f06708-9c51-4926-aa7e-b72d13697dba', '12-10-2019', 60, true, '3e5a125b-6d84-44b9-a8cf-2a83ea9ce572', 'c15f647f-2274-4646-abd3-6d166c56fe12', null, null, '520f83d7-a49d-4906-9ecb-7353a1971bf3', '1067f9a4-33c0-44f4-8052-5cb43036469e');
 
 insert into appointment (type, id, date, duration, fast, clinic_id, doctor_id, nurse_id, patient_id, service_id, operation_room_id)
-values ('EX', '50a91f30-bdb6-4960-8f32-38ab6d7ef024', '12-25-2019', 45, false, '3e5a125b-6d84-44b9-a8cf-2a83ea9ce572', '97abc2e7-8842-4370-818c-a763c78249fd', '64b096ac-8018-4b00-b0da-703383ffdb59', '5797f167-1aac-4e18-810e-92ca53b95d35', '7ff637dc-6f17-4976-9bb8-e892a920c907', '3b968fb9-a9ab-48f7-b930-d03bff498705');
+values ('EX', '50a91f30-bdb6-4960-8f32-38ab6d7ef024', '12-9-2019', 45, false, '3e5a125b-6d84-44b9-a8cf-2a83ea9ce572', '97abc2e7-8842-4370-818c-a763c78249fd', '64b096ac-8018-4b00-b0da-703383ffdb59', '5797f167-1aac-4e18-810e-92ca53b95d35', '7ff637dc-6f17-4976-9bb8-e892a920c907', '3b968fb9-a9ab-48f7-b930-d03bff498705');
 
 insert into appointment (type, id, date, duration, fast, clinic_id, doctor_id, nurse_id, patient_id, service_id, operation_room_id)
-values ('OP', '989d9b7e-a4d9-4bd3-bfde-d24c19e8732d', '12-31-2019', 120, false, '3e5a125b-6d84-44b9-a8cf-2a83ea9ce572', '0b01295a-f959-43c8-bf10-3512db2b0aa1', 'd211b088-9a49-491f-9f6e-5cfb10713d31', 'a0c02caa-3ad9-4855-9605-2119f48235bc', 'e2ae5e2e-55a3-41d4-ad52-02bbffae82fb', '496f22fa-e549-421e-b7c7-223319bbe32c');
+values ('OP', '989d9b7e-a4d9-4bd3-bfde-d24c19e8732d', '12-5-2019', 120, false, '3e5a125b-6d84-44b9-a8cf-2a83ea9ce572', '0b01295a-f959-43c8-bf10-3512db2b0aa1', 'd211b088-9a49-491f-9f6e-5cfb10713d31', 'a0c02caa-3ad9-4855-9605-2119f48235bc', 'e2ae5e2e-55a3-41d4-ad52-02bbffae82fb', '496f22fa-e549-421e-b7c7-223319bbe32c');
 
 insert into appointment (type, id, date, duration, fast, clinic_id, doctor_id, nurse_id, patient_id, service_id, operation_room_id)
-values ('OP', '732ef647-6547-4a0e-806f-b9a75860aa38', '12-15-2019', 90, false, '3e5a125b-6d84-44b9-a8cf-2a83ea9ce572', 'c15f647f-2274-4646-abd3-6d166c56fe12', 'd211b088-9a49-491f-9f6e-5cfb10713d31', '5797f167-1aac-4e18-810e-92ca53b95d35', '7ff637dc-6f17-4976-9bb8-e892a920c907', 'b7035601-f3b9-49e2-8c24-f8c1a0146d55');
+values ('OP', '732ef647-6547-4a0e-806f-b9a75860aa38', '12-1-2019', 90, false, '3e5a125b-6d84-44b9-a8cf-2a83ea9ce572', 'c15f647f-2274-4646-abd3-6d166c56fe12', 'd211b088-9a49-491f-9f6e-5cfb10713d31', '5797f167-1aac-4e18-810e-92ca53b95d35', '7ff637dc-6f17-4976-9bb8-e892a920c907', 'b7035601-f3b9-49e2-8c24-f8c1a0146d55');
+
 
 
 
@@ -137,13 +138,13 @@ values ('0b01295a-f959-43c8-bf10-3512db2b0aa1', 'e2ae5e2e-55a3-41d4-ad52-02bbffa
 
 
 insert into leave (id, date_end, date_start, doctor_id, nurse_id)
-values ('05434a80-99e8-4753-8f39-7c5860720646', '5-5-2020', '5-15-2020', 'c15f647f-2274-4646-abd3-6d166c56fe12', null);
+values ('05434a80-99e8-4753-8f39-7c5860720646', '5-5-2020', '5-11-2020', 'c15f647f-2274-4646-abd3-6d166c56fe12', null);
 
 insert into leave (id, date_end, date_start, doctor_id, nurse_id)
-values ('116b92c6-7e6a-494f-ad39-30cf5c0940d7', '8-12-2020', '8-22-2020', '97abc2e7-8842-4370-818c-a763c78249fd', null);
+values ('116b92c6-7e6a-494f-ad39-30cf5c0940d7', '8-8-2020', '8-12-2020', '97abc2e7-8842-4370-818c-a763c78249fd', null);
 
 insert into leave (id, date_end, date_start, doctor_id, nurse_id)
-values ('d1f7c108-f820-4ceb-8b14-eb3176a75c50', '2-17-2020', '2-23-2020', null, '95637ee2-2245-48d0-a890-65e65a71ca8c');
+values ('d1f7c108-f820-4ceb-8b14-eb3176a75c50', '2-10-2020', '2-12-2020', null, '95637ee2-2245-48d0-a890-65e65a71ca8c');
 
 
 
@@ -173,4 +174,3 @@ values ('96e2c589-c076-4634-a86c-4fe21af89dc0', '64b096ac-8018-4b00-b0da-703383f
 
 insert into medical_report (diagnosis, exam_description, prescription_id, examination_id, medical_history_id)
 values ('FEVER', 'Veoma lose, ali bice bolje', 'e942b17d-e096-45c8-842e-9cad6054393a', '50a91f30-bdb6-4960-8f32-38ab6d7ef024', '5797f167-1aac-4e18-810e-92ca53b95d35');
-
