@@ -4,7 +4,7 @@ import Auxiliary from '../../hoc/Auxiliary/Auxiliary';
 import Login from '../../containers/Login/Login';
 import Register from '../../containers/Register/Register';
 
-const WelcomPage = () => {
+const WelcomePage = () => {
     return (
         <Auxiliary>
             <Login />
@@ -13,4 +13,4 @@ const WelcomPage = () => {
     );
 };
 
-export default WelcomPage;
+export default WelcomePage;
