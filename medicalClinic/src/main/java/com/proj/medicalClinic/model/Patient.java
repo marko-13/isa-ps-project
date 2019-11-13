@@ -28,4 +28,5 @@ public class Patient extends AppUser {
 
 	@OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Operation> operations;
+
 }

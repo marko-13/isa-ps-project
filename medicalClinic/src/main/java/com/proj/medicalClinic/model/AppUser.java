@@ -39,4 +39,5 @@ public class AppUser {
 
 	@Column(name="last_name", unique=false, nullable=false)
 	private String lastName;
+
 }
