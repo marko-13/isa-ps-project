@@ -83,9 +83,10 @@ public class AppUserController {
 
         //konverzija do DTO
         List<AppUserDTO> usersDTO = new ArrayList<>();
-        for(AppUser u : users){
+        for (AppUser u : users) {
             usersDTO.add(new AppUserDTO(u));
         }
 
         return new ResponseEntity<>(usersDTO, HttpStatus.OK);
+    }
 }
