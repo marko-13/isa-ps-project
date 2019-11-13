@@ -1,6 +1,7 @@
 package com.proj.medicalClinic.model;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
@@ -8,6 +9,7 @@ import java.util.List;
 
 @Data
 @SuperBuilder
+@NoArgsConstructor
 @Entity
 @DiscriminatorValue("DR")
 public class Doctor extends AppUser{
@@ -46,4 +48,8 @@ public class Doctor extends AppUser{
 
 	@OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Leave> leaves;
+
+	//Mozda bi trebalo napraviti jos listu pacijenata koje je pregledao, a pacijent da ima listu doktora kod kojih je bio
+
+
 }
