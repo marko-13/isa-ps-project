@@ -34,13 +34,4 @@ public class AppUserController {
 
         return new ResponseEntity<>(usersDTO, HttpStatus.OK);
     }
-
-
-
-
-//    @PostMapping(value = "/login", produces = "application/json; charset=utf-8")
-//    public ResponseEntity<?> loginRequest(@RequestBody String id){
-//
-//        return new ResponseEntity<>(id, HttpStatus.OK);
-//    }
 }
