@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.proj.medicalClinic.dto.AppUserDTO;
 import com.proj.medicalClinic.model.AppUser;
+import com.proj.medicalClinic.service.AppUserService;
 import com.proj.medicalClinic.model.Patient;
 import com.proj.medicalClinic.repository.AppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -68,4 +71,21 @@ public class AppUserController {
             return "Success";
         }
     }
+ 
+
+    @Autowired
+    private AppUserService userService;
+
+    @GetMapping(value = "/all")
+    public ResponseEntity<List<AppUserDTO>> getAllUsers() {
+
+        List<AppUser> users = userService.findAll();
+
+        //konverzija do DTO
+        List<AppUserDTO> usersDTO = new ArrayList<>();
+        for(AppUser u : users){
+            usersDTO.add(new AppUserDTO(u));
+        }
+
+        return new ResponseEntity<>(usersDTO, HttpStatus.OK);
 }

@@ -7,16 +7,30 @@ import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class AppUserDTO {
 
     private UUID id;
     private String email;
 
+    public AppUserDTO() {
+
+    }
+
     public AppUserDTO(AppUser appUser){
         this.id = appUser.getId();
         this.email = appUser.getEmail();
+    }
+
+    public AppUserDTO(UUID id, String email){
+        this.id = id;
+        this.email = email;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public String getEmail() {
+        return email;
     }
 }
