@@ -1,6 +1,7 @@
 package com.proj.medicalClinic.model;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
@@ -8,6 +9,7 @@ import java.util.List;
 
 @Data
 @SuperBuilder
+@NoArgsConstructor
 @Entity
 @DiscriminatorValue("NR")
 public class Nurse extends AppUser{
