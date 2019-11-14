@@ -4,14 +4,15 @@ import axios from '../../axios';
 class HomepageNurse extends Component {
 
 	state = {
-    firstName: "Marija",
-    lastName: "Krstic"
+    firstName: "",
+    lastName: ""
   }
 
   componentDidMount() {
-  	axios.get(`/user`).then(res => {
-        const firstNameVar = res.data.results[0].firstName;
-        const lastNameVar = res.data.results[0].lastName;
+  	axios.get(`/users/allNurses`).then(res => {
+  		console.log(res)
+        const firstNameVar = res.data[0].firstName;
+        const lastNameVar = res.data[0].lastName;
         this.setState({
         	firstName: firstNameVar,
         	lastName: lastNameVar
