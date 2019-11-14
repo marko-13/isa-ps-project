@@ -11,6 +11,8 @@ public class AppUserDTO {
 
     private UUID id;
     private String email;
+    private String firstName;
+    private String lastName;
 
     public AppUserDTO() {
 
@@ -19,11 +21,15 @@ public class AppUserDTO {
     public AppUserDTO(AppUser appUser){
         this.id = appUser.getId();
         this.email = appUser.getEmail();
+        this.firstName = appUser.getName();
+        this.lastName = appUser.getLastName();
     }
 
-    public AppUserDTO(UUID id, String email){
+    public AppUserDTO(UUID id, String email, String firstName, String lastName){
         this.id = id;
         this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
     public UUID getId() {
@@ -33,4 +39,13 @@ public class AppUserDTO {
     public String getEmail() {
         return email;
     }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
 }

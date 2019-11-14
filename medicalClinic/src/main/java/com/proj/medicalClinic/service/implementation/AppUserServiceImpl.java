@@ -1,6 +1,7 @@
 package com.proj.medicalClinic.service.implementation;
 
 import com.proj.medicalClinic.model.AppUser;
+import com.proj.medicalClinic.model.RoleType;
 import com.proj.medicalClinic.repository.AppUserRepository;
 import com.proj.medicalClinic.service.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,16 @@ public class AppUserServiceImpl implements AppUserService {
     @Override
     public List<AppUser> findAll() {
         return userRepository.findAll();
+    }
+
+    @Override
+    public List<AppUser> findByUserRole(RoleType role) {
+        return userRepository.findByUserRole(role);
+    }
+
+    @Override
+    public AppUser findByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 
 }

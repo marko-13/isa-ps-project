@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.proj.medicalClinic.dto.AppUserDTO;
 import com.proj.medicalClinic.model.AppUser;
+import com.proj.medicalClinic.model.RoleType;
 import com.proj.medicalClinic.service.AppUserService;
 import com.proj.medicalClinic.model.Patient;
 import com.proj.medicalClinic.repository.AppUserRepository;
@@ -33,7 +34,7 @@ public class AppUserController {
 
         JsonNode node = mapper.readTree(json);
         AppUser appUser = null;
-        appUser = userRepository.findByEmail(node.get("username").asText());
+        appUser = userService.findByEmail(node.get("username").asText());
         System.out.println(node.get("username").asText());
         if (appUser == null){
             //return "Invalid email or password";
@@ -52,23 +53,23 @@ public class AppUserController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String registerRequest(@RequestBody String json) throws IOException {
+    public ResponseEntity registerRequest(@RequestBody String json) throws IOException {
 
         ObjectMapper mapper = new ObjectMapper();
 
         JsonNode node = mapper.readTree(json);
         AppUser appUser = null;
-        appUser = userRepository.findByEmail(node.get("email").asText());
+        appUser = userService.findByEmail(node.get("email").asText());
 
         if (appUser !=null){
-            return "email exists";
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Incorect username or password");
         }
         else{
             String name = node.get("name").asText();
             String password = node.get("password").asText();
             String email = node.get("email").asText();
 
-            return "Success";
+            return ResponseEntity.ok("Success");
         }
     }
  
@@ -84,6 +85,21 @@ public class AppUserController {
         //konverzija do DTO
         List<AppUserDTO> usersDTO = new ArrayList<>();
         for (AppUser u : users) {
+            usersDTO.add(new AppUserDTO(u));
+        }
+
+        return new ResponseEntity<>(usersDTO, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/allNurses")
+    public ResponseEntity<List<AppUserDTO>> getAllNurses() {
+
+        List<AppUser> users = userService.findByUserRole(RoleType.NURSE);
+
+        //konverzija do DTO
+        List<AppUserDTO> usersDTO = new ArrayList<>();
+        for (AppUser u : users) {
+            System.out.println(u.getName());
             usersDTO.add(new AppUserDTO(u));
         }
 
