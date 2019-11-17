@@ -8,6 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
@@ -46,10 +47,15 @@ public class AppUser implements UserDetails {
 	private String lastName;
 
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinTable(name = "user_authority",
-			joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-			inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id"))
+	@JoinTable(
+			name = "user_authority",
+			joinColumns = {@JoinColumn(name = "user_id")},
+			inverseJoinColumns = {@JoinColumn(name = "authority_id")}
+	)
 	private List<Authority> authorities;
+
+	@Column(name = "last_password_reset_date")
+	private Timestamp lastPasswordResetDate;
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
