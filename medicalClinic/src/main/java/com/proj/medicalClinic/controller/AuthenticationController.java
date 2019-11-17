@@ -27,15 +27,13 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 
 //Kontroler zaduzen za autentifikaciju korisnika
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AuthenticationController {
 
@@ -55,9 +53,14 @@ public class AuthenticationController {
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest,
                                                        HttpServletResponse response) throws AuthenticationException, IOException {
 
+        System.out.println("USAO VAMO");
+        System.out.println(authenticationRequest.getPassword()+" "+authenticationRequest.getUsername());
+
         final Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(),
                         authenticationRequest.getPassword()));
+
+        System.out.println("PRESAO OVFDE");
 
         // Ubaci username + password u kontext
         SecurityContextHolder.getContext().setAuthentication(authentication);

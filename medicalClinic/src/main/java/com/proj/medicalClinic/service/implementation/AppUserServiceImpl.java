@@ -2,6 +2,7 @@ package com.proj.medicalClinic.service.implementation;
 
 import com.proj.medicalClinic.model.AppUser;
 import com.proj.medicalClinic.model.Authority;
+import com.proj.medicalClinic.model.Patient;
 import com.proj.medicalClinic.model.RoleType;
 import com.proj.medicalClinic.repository.AppUserRepository;
 import com.proj.medicalClinic.service.AppUserService;
@@ -54,12 +55,12 @@ public class AppUserServiceImpl implements AppUserService {
         u.setPassword(passwordEncoder.encode(userRequest.getPassword()));
         u.setName(userRequest.getName());
         u.setLastName(userRequest.getLastName());
+        u.setUserRole(userRequest.getUserRole());
         //u.setEmail(userRequest.getE);
         //u.setEnabled(true);
 
         List<Authority> auth = authorityService.findByName("PATIENT");
         u.setAuthorities(auth);
-
         u = this.userRepository.save(u);
         return u;
     }
