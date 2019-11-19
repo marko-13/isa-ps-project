@@ -53,21 +53,16 @@ public class AuthenticationController {
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest,
                                                        HttpServletResponse response) throws AuthenticationException, IOException {
 
-        System.out.println("USAO VAMO");
-        System.out.println(authenticationRequest.getPassword()+" "+authenticationRequest.getUsername());
-
         final Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(),
                         authenticationRequest.getPassword()));
-
-        System.out.println("PRESAO OVFDE");
 
         // Ubaci username + password u kontext
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         // Kreiraj token
         AppUser user = (AppUser) authentication.getPrincipal();
-        String jwt = tokenUtils.generateToken(user.getUsername());
+        String jwt = tokenUtils.generateToken(user.getUsername(), user.getUserRole().name());
         int expiresIn = tokenUtils.getExpiredIn();
 
         // Vrati token kao odgovor na uspesno autentifikaciju
@@ -79,13 +74,15 @@ public class AuthenticationController {
 
         AppUser existUser = this.userService.findByEmail(appUser.getUsername());
         if (existUser != null) {
-            throw new ResourceConflictException(appUser.getId(), "Username already exists");
+            throw new ResourceConflictException(appUser.getId(), "Email already exists");
         }
 
         AppUser user = this.userService.save(appUser);
         HttpHeaders headers = new HttpHeaders();
+
+        //Sta ovo tacno radi?
         headers.setLocation(ucBuilder.path("/api/user/{userId}").buildAndExpand(user.getId()).toUri());
-        return new ResponseEntity<AppUser>(user, HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/refresh", method = RequestMethod.POST)
