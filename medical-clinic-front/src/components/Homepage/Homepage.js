@@ -25,10 +25,10 @@ const Homepage = () => {
         case 'doctor':
             page = <h1>Doktor</h1>
             break;
-        case 'adminClinic':
+        case 'adminclinic':
             page = <h1>Admin clinic</h1>
             break;
-        case 'adminClinicalCenter':
+        case 'adminclinicalcenter':
              page = <h1>Admin clinic center</h1>
             break;
         default:
