@@ -7,37 +7,37 @@ values ('3e5a125b-6d84-44b9-a8cf-2a83ea9ce572', 'Bulevar Oslobodjenja 50', 'Jako
 
 
 insert into app_user (type, id, user_role, email, password, name, last_name, JMBG, enabled)
-values ('P', '5797f167-1aac-4e18-810e-92ca53b95d35', 'PATIENT', 'Miljana@gmail.com', 'miljana', 'Miljana', 'Vlahovic', '1710463172556', true);
+values ('P', '5797f167-1aac-4e18-810e-92ca53b95d35', 'PATIENT', 'Miljana@gmail.com', '$2a$10$hMz0Q7JhystsRnek6D3bLO5mRGU2yPril7EVfLkeqwAUh0JWQYabq', 'Miljana', 'Vlahovic', '1710463172556', true);
 
 insert into app_user (type, id, user_role, email, password, name, last_name, JMBG, enabled)
-values ('P', '6d55e40a-f84d-4279-ab8f-60218c0d96c2', 'PATIENT', 'Vlatko@gmail.com', 'vlatko', 'Vlatko', 'Tomcic', '8773483494930', true);
+values ('P', '6d55e40a-f84d-4279-ab8f-60218c0d96c2', 'PATIENT', 'Vlatko@gmail.com', '$2a$10$oJ4.32dhcYqQAWcqlGYUW.rMBIO3fyhHnyLD4rtnrEKlUqisRexda', 'Vlatko', 'Tomcic', '8773483494930', true);
 
 insert into app_user (type, id, user_role, email, password, name, last_name, JMBG, enabled)
-values ('P', 'a0c02caa-3ad9-4855-9605-2119f48235bc', 'PATIENT', 'Djordje@gmail.com', 'djordje', 'Djordje', 'Babic', '0881736727645', true);
+values ('P', 'a0c02caa-3ad9-4855-9605-2119f48235bc', 'PATIENT', 'Frustuk@gmail.com', '$2a$10$eZFvWClzdfGfgvmKDjEmvewURZTW0Hl26OH0GH9eUdosD9RVqgchq', 'Frustuk', 'Jeltako', '0881736727645', true);
 
 insert into app_user (type, id, user_role, email, password, name, last_name, review, shift, review_count, enabled)
-values ('DR', 'c15f647f-2274-4646-abd3-6d166c56fe12', 'DOCTOR', 'Vladan@gmail.com', 'vladan', 'Vladan', 'Dragic', 3, 1, 2, true);
+values ('DR', 'c15f647f-2274-4646-abd3-6d166c56fe12', 'DOCTOR', 'Vladan@gmail.com', '$2a$10$EcjftqmPpW.usBG8k4OMWOqEo9LA9QMBaEy8XFbZCNBY9oY..jd62', 'Vladan', 'Dragic', 3, 1, 2, true);
 
 insert into app_user (type, id, user_role, email, password, name, last_name, review, shift, review_count, enabled)
-values ('DR', '97abc2e7-8842-4370-818c-a763c78249fd', 'DOCTOR', 'Dusko@gmail.com', 'dusko', 'Dusko', 'Jovanovic', 10, 2, 15, true);
+values ('DR', '97abc2e7-8842-4370-818c-a763c78249fd', 'DOCTOR', 'Dusko@gmail.com', '$2a$10$EcjftqmPpW.usBG8k4OMWOqEo9LA9QMBaEy8XFbZCNBY9oY..jd62', 'Dusko', 'Jovanovic', 10, 2, 15, true);
 
 insert into app_user (type, id, user_role, email, password, name, last_name, review, shift, review_count, enabled)
-values ('DR', '0b01295a-f959-43c8-bf10-3512db2b0aa1', 'DOCTOR', 'Sara@gmail.com', 'sara', 'Sara', 'Loncar', 6, 3, 9, true);
+values ('DR', '0b01295a-f959-43c8-bf10-3512db2b0aa1', 'DOCTOR', 'Sara@gmail.com', '$2a$10$IzuVyeH5cKEw5c17WO2H1OuLMKVN2.2FjjP8e3S.RyNvPNdqUSAKe', 'Sara', 'Loncar', 6, 3, 9, true);
 
 insert into app_user (type, id, user_role, email, password, name, last_name, shift, enabled)
-values ('NR', '64b096ac-8018-4b00-b0da-703383ffdb59', 'NURSE', 'Sergej@gmail.com', 'sergej', 'Sergej', 'Tomic', 1, true);
+values ('NR', '64b096ac-8018-4b00-b0da-703383ffdb59', 'NURSE', 'Sergej@gmail.com', '$2a$10$Gd7bGnGZroF.ckbJDE1efu7C.tENXHDkS7CCNwV8IWKWTfSm/7Hx.', 'Sergej', 'Tomic', 1, true);
 
 insert into app_user (type, id, user_role, email, password, name, last_name, shift, enabled)
-values ('NR', '95637ee2-2245-48d0-a890-65e65a71ca8c', 'NURSE', 'Djordje@gmail.com', 'djordje', 'Djordje', 'Jankovic', 2, true);
+values ('NR', '95637ee2-2245-48d0-a890-65e65a71ca8c', 'NURSE', 'Djordje@gmail.com', '$2a$10$cnczzGv7KfqoDAXP.9UdnOfs6GRUH3MSFUb.Fd1FxUc2nxN9IMhte', 'Djordje', 'Jankovic', 2, true);
 
 insert into app_user (type, id, user_role, email, password, name, last_name, shift, enabled)
-values ('NR', 'd211b088-9a49-491f-9f6e-5cfb10713d31', 'NURSE', 'Nevena@gmail.com', 'nevena', 'Nevena', 'Mihailovic', 3, true);
+values ('NR', 'd211b088-9a49-491f-9f6e-5cfb10713d31', 'NURSE', 'Nevena@gmail.com', '$2a$10$cK5DzdYh6eVs7ZTW0uepRe6Rm00HaX.0o1E95JQCVq8FvSlh/IEa.', 'Nevena', 'Mihailovic', 3, true);
 
 insert into app_user (type, id, user_role, email, password, name, last_name, clinic_id, enabled)
-values ('AC', '9d01fa71-a653-420f-a07d-c41fdd61078c', 'ADMINCLINIC', 'Anastasija@gmail.com', 'anastasija', 'Anastasija', 'Milosevic', '3e5a125b-6d84-44b9-a8cf-2a83ea9ce572', true);
+values ('AC', '9d01fa71-a653-420f-a07d-c41fdd61078c', 'ADMINCLINIC', 'Anastasija@gmail.com', '$2a$10$nE7tHqDVIG5P6NcGPOgTk.a/KRMhDm0puU6PJjT3nH3dam2EnUKj2', 'Anastasija', 'Milosevic', '3e5a125b-6d84-44b9-a8cf-2a83ea9ce572', true);
 
 insert into app_user (type, id, user_role, email, password, name, last_name, clinical_center_id, enabled)
-values ('ACC', '2f227c0c-1ab0-4d6e-9aaf-a98283ad0489', 'ADMINCLINICALCENTER', 'Radoslav@gmail.com', 'radoslav', 'Radoslav', 'Brankovic', 'e43ac7d8-ebb1-4118-aa15-6d096619fc28', true);
+values ('ACC', '2f227c0c-1ab0-4d6e-9aaf-a98283ad0489', 'ADMINCLINICALCENTER', 'Radoslav@gmail.com', '$2a$10$PpuFaY9yRRdUj9l4lr7sueTutLXXWxlgGRomEFH2lNQRYhiGwlMmS', 'Radoslav', 'Brankovic', 'e43ac7d8-ebb1-4118-aa15-6d096619fc28', true);
 
 
 
