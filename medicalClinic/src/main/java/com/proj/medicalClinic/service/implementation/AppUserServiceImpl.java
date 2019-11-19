@@ -51,7 +51,7 @@ public class AppUserServiceImpl implements AppUserService {
     @Override
     public AppUser save(AppUser userRequest) {
         AppUser u = new AppUser();
-        u.setEmail(userRequest.getUsername());
+        u.setEmail(userRequest.getEmail());
         u.setPassword(passwordEncoder.encode(userRequest.getPassword()));
         u.setName(userRequest.getName());
         u.setLastName(userRequest.getLastName());
