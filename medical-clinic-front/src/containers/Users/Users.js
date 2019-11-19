@@ -9,7 +9,7 @@ class Users extends Component {
     }
 
     getAllUsers = () => {
-        axios.get('/users/all')
+        axios.get('/userss/all')
             .then(users => this.setState({ users: users }))
             .catch(err => console.log(err));
     }

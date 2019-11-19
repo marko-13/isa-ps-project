@@ -1,10 +1,16 @@
 package com.proj.medicalClinic.model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
+import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -13,7 +19,7 @@ import java.util.UUID;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
-public class AppUser {
+public class AppUser implements UserDetails {
 
 	@Id
 	@GeneratedValue(generator = "UUID")
@@ -40,4 +46,47 @@ public class AppUser {
 	@Column(name="last_name", unique=false, nullable=false)
 	private String lastName;
 
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinTable(
+			name = "user_authority",
+			joinColumns = {@JoinColumn(name = "user_id")},
+			inverseJoinColumns = {@JoinColumn(name = "authority_id")}
+	)
+	private List<Authority> authorities;
+
+	@Column(name = "last_password_reset_date")
+	private Timestamp lastPasswordResetDate;
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return this.authorities;
+	}
+
+	@Override
+	public String getUsername() {
+		return email;
+	}
+
+	@JsonIgnore
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@JsonIgnore
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@JsonIgnore
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return true;
+	}
 }

@@ -8,11 +8,13 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-public interface AppUserService {
+public interface AppUserService{
 
      List<AppUser> findAll();
 
      List<AppUser> findByUserRole(RoleType role);
 
      AppUser findByEmail(String email);
+
+     AppUser save(AppUser appUser);
 }

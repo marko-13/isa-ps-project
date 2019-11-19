@@ -147,7 +147,35 @@ insert into leave (id, date_end, date_start, doctor_id, nurse_id)
 values ('d1f7c108-f820-4ceb-8b14-eb3176a75c50', '2-10-2020', '2-12-2020', null, '95637ee2-2245-48d0-a890-65e65a71ca8c');
 
 
+insert into authority (id, name)
+values (1, 'PATIENT');
 
+insert into authority (id, name)
+values (2, 'DOCTOR');
+
+insert into authority (id, name)
+values (3, 'NURSE');
+
+insert into authority (id, name)
+values (4, 'ADMINCLINIC');
+
+insert into authority (id, name)
+values (5, 'ADMINCLINICALCENTER');
+
+insert into user_authority (user_id, authority_id)
+values ('5797f167-1aac-4e18-810e-92ca53b95d35', 1);
+
+insert into user_authority (user_id, authority_id)
+values ('c15f647f-2274-4646-abd3-6d166c56fe12', 2);
+
+insert into user_authority (user_id, authority_id)
+values ('64b096ac-8018-4b00-b0da-703383ffdb59', 3);
+
+insert into user_authority (user_id, authority_id)
+values ('9d01fa71-a653-420f-a07d-c41fdd61078c', 4);
+
+insert into user_authority (user_id, authority_id)
+values ('2f227c0c-1ab0-4d6e-9aaf-a98283ad0489', 5);
 
 
 insert into medical_history (allergy, blood_type, dioptre, height, weight, patient_id)
@@ -174,3 +202,5 @@ values ('96e2c589-c076-4634-a86c-4fe21af89dc0', '64b096ac-8018-4b00-b0da-703383f
 
 insert into medical_report (diagnosis, exam_description, prescription_id, examination_id, medical_history_id)
 values ('FEVER', 'Veoma lose, ali bice bolje', 'e942b17d-e096-45c8-842e-9cad6054393a', '50a91f30-bdb6-4960-8f32-38ab6d7ef024', '5797f167-1aac-4e18-810e-92ca53b95d35');
+
+

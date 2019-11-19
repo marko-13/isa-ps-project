@@ -4,22 +4,25 @@ import axios from '../../axios';
 class Register extends Component {
 
     state = {
-        username: '',
+        name: '',
         password: '',
-        email: ''
+        email: '',
+        lastname: ''
     }
 
     registerSubmitHandler = () => {
 
         const newUser = {
-            username: this.state.username,
+            email: this.state.email,
             password: this.state.password,
-            email: this.state.email
+            name: this.state.name,
+            lastName: this.state.lastname,
+            userRole: 'PATIENT'
         }
 
         console.log(newUser);
 
-        axios.post('', newUser)
+        axios.post('/users/register', newUser)
             .then(res => {
                 console.log(res);
             })
@@ -40,9 +43,9 @@ class Register extends Component {
                             <input
                                 type="text"
                                 className="form-control"
-                                placeholder="Your username *"
-                                value={this.state.username}
-                                onChange={(event) => this.setState({ username: event.target.value })}
+                                placeholder="Your email *"
+                                value={this.state.email}
+                                onChange={(event) => this.setState({ email: event.target.value })}
                             />
                         </div>
                         <div className="form-group">
@@ -58,10 +61,21 @@ class Register extends Component {
                             <input
                                 type="text"
                                 className="form-control"
-                                placeholder="Your Email *"
-                                value={this.state.email}
-                                onChange={(event) => this.setState({ email: event.target.value })} />
+                                placeholder="Your Name *"
+                                value={this.state.name}
+                                onChange={(event) => this.setState({ name: event.target.value })} />
                         </div>
+
+                        <div className="form-group">
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder="Your Lastname *"
+                                value={this.state.lastname}
+                                onChange={(event) => this.setState({ lastname: event.target.value })}
+                            />
+                        </div>
+                    
 
                         <div className="form-group">
                             <button className="btn-primary" onClick={this.registerSubmitHandler}>Register</button>

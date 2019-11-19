@@ -20,7 +20,7 @@ import java.util.UUID;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
-@RequestMapping("/users")
+@RequestMapping("/userss")
 public class AppUserController {
 
     @Autowired
