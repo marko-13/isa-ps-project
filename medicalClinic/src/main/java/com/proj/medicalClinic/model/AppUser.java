@@ -34,7 +34,7 @@ public class AppUser implements UserDetails {
 	@Enumerated(EnumType.STRING)
 	private RoleType userRole;
 
-	@Column(name="email", unique=false, nullable=false)
+	@Column(name="email", unique=true, nullable=false)
 	private String email;
 
 	@Column(name="password", unique=false, nullable=false)

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from '../../axios';
+import {withRouter} from 'react-router-dom';
 
 class Login extends Component {
 
@@ -15,11 +16,12 @@ class Login extends Component {
             password: this.state.password
         }
 
-        console.log(user);
+        console.log(this.props)
 
         axios.post('/users/login', user)
             .then(response => {
-                console.log(response);
+                localStorage.setItem("token", response.data.accessToken);
+                this.props.history.push('/homepage');
             })
             .catch(err => {
                 console.log(err);
@@ -62,4 +64,4 @@ class Login extends Component {
     }
 }
 
-export default Login;
+export default withRouter(Login);
