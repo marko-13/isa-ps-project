@@ -1,9 +1,6 @@
 package com.proj.medicalClinic.service.implementation;
 
-import com.proj.medicalClinic.model.AppUser;
-import com.proj.medicalClinic.model.Authority;
-import com.proj.medicalClinic.model.Patient;
-import com.proj.medicalClinic.model.RoleType;
+import com.proj.medicalClinic.model.*;
 import com.proj.medicalClinic.repository.AppUserRepository;
 import com.proj.medicalClinic.service.AppUserService;
 import com.proj.medicalClinic.service.AuthorityService;
@@ -50,16 +47,40 @@ public class AppUserServiceImpl implements AppUserService {
 
     @Override
     public AppUser save(AppUser userRequest) {
-        AppUser u = new AppUser();
+        AppUser u;
+        switch (userRequest.getUserRole()) {
+            case PATIENT:
+                u = new Patient();
+                u.setEnabled(true);
+                break;
+            case NURSE:
+                u = new Nurse();
+                u.setEnabled(true);
+                break;
+            case DOCTOR:
+                u = new Doctor();
+                u.setEnabled(true);
+                break;
+            case ADMINCLINIC:
+                u = new AdminClinic();
+                u.setEnabled(true);
+                break;
+            case ADMINCLINICALCENTER:
+                u = new AdminClinicalCenter();
+                u.setEnabled(true);
+                break;
+            default:
+                u = new AppUser();
+                break;
+        }
+
         u.setEmail(userRequest.getEmail());
         u.setPassword(passwordEncoder.encode(userRequest.getPassword()));
         u.setName(userRequest.getName());
         u.setLastName(userRequest.getLastName());
         u.setUserRole(userRequest.getUserRole());
-        //u.setEmail(userRequest.getE);
-        //u.setEnabled(true);
 
-        List<Authority> auth = authorityService.findByName("PATIENT");
+        List<Authority> auth = authorityService.findByName(userRequest.getUserRole().name());
         u.setAuthorities(auth);
         u = this.userRepository.save(u);
         return u;
