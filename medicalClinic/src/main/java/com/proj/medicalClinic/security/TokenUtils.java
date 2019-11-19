@@ -18,7 +18,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 @Component
 public class TokenUtils {
 
-    @Value("spring-security-example")
+    @Value("medical-clinic")
     private String APP_NAME;
 
     @Value("somesecret")
@@ -41,7 +41,7 @@ public class TokenUtils {
     private SignatureAlgorithm SIGNATURE_ALGORITHM = SignatureAlgorithm.HS512;
 
     // Funkcija za generisanje JWT token
-    public String generateToken(String username) {
+    public String generateToken(String username, String role) {
         return Jwts.builder()
                 .setIssuer(APP_NAME)
                 .setSubject(username)
@@ -49,6 +49,7 @@ public class TokenUtils {
                 .setIssuedAt(timeProvider.now())
                 .setExpiration(generateExpirationDate())
                 // .claim("role", role) //postavljanje proizvoljnih podataka u telo JWT tokena
+                .claim("role", role)
                 .signWith(SIGNATURE_ALGORITHM, SECRET).compact();
     }
 

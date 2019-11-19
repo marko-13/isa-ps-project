@@ -46,6 +46,10 @@ public class AppUser implements UserDetails {
 	@Column(name="last_name", unique=false, nullable=false)
 	private String lastName;
 
+	@Column(name = "enabled")
+	private boolean enabled;
+
+
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(
 			name = "user_authority",
@@ -87,6 +91,6 @@ public class AppUser implements UserDetails {
 
 	@Override
 	public boolean isEnabled() {
-		return true;
+		return enabled;
 	}
 }

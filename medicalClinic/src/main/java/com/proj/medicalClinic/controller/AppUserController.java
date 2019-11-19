@@ -62,7 +62,7 @@ public class AppUserController {
         appUser = userService.findByEmail(node.get("email").asText());
 
         if (appUser !=null){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Incorect username or password");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email already exists");
         }
         else{
             String name = node.get("name").asText();
