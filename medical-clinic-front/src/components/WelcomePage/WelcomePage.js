@@ -11,9 +11,15 @@ const WelcomePage = () => {
 
     return (
         <div className='container'>
-            <Login />
-            <Register />
-            <ClinicInfo />
+            <div className='row'>
+                <div className='col'>
+                    <ClinicInfo />
+                </div>
+                <div className='col'>
+                    <Login />
+                    <Register />
+                </div>
+            </div>
         </div>
     );
 };
