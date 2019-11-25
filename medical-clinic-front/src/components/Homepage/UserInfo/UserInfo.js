@@ -2,6 +2,7 @@ import React from 'react';
 
 import doctorImage from '../../../assets/images/doctor.png';
 import patientImage from '../../../assets/images/patient.png';
+import nurseImage from '../../../assets/images/nurse.png';
 import Button from '../../UI/Button/Button';
 import classes from './UserInfo.module.css';
 import './UserInfo.css';
@@ -21,8 +22,11 @@ const UserInfo = (props) => {
       userInfoFields2 = (<tr><td>Shift</td><td>DDDD</td></tr>)
       userInfoFields3 = (<tr><td>Review</td><td>EEEE</td></tr>)
     }
-    else{
-      image = "...";
+    else if (props.role == 'nurse') {
+      image = nurseImage
+      userInfoFields = (<tr><td>Clinic:</td><td>CCCC</td></tr>)
+      userInfoFields2 = (<tr><td>Shift</td><td>DDDD</td></tr>)
+      userInfoFields3 = (<tr><td>Review</td><td>EEEE</td></tr>)
     }
 
     return (
