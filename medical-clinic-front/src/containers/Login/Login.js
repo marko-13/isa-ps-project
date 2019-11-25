@@ -55,7 +55,7 @@ class Login extends Component {
                                     onChange={(event) => this.setState({password: event.target.value})}/>
                             </div>
                             <div className="form-group">
-                                <button  className="btn-primary" onClick={this.loginSubmitHandler}>Login</button>
+                                <button  className="login-form-2 btnSubmit" onClick={this.loginSubmitHandler}>Login</button>
                             </div>
                     </div>
                 </div>
