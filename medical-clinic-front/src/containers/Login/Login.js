@@ -35,7 +35,7 @@ class Login extends Component {
         return (
             <div className="container login-container">
                 <div className="row">
-                    <div className="col-md-6 login-form-1">
+                    <div className="col-md-6 login-form-2">
                         <h3>Login</h3>
                             <div className="form-group">
                                 <input 
