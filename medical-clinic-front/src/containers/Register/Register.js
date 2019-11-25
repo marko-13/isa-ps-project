@@ -7,7 +7,8 @@ class Register extends Component {
         name: '',
         password: '',
         email: '',
-        lastname: ''
+        lastname: '',
+        jmbg: ''
     }
 
     registerSubmitHandler = () => {
@@ -17,6 +18,7 @@ class Register extends Component {
             password: this.state.password,
             name: this.state.name,
             lastName: this.state.lastname,
+            jmbg: this.state.jmbg,
             userRole: 'PATIENT'
         }
 
@@ -41,7 +43,7 @@ class Register extends Component {
                         <h3>Register</h3>
                         <div className="form-group">
                             <input
-                                type="text"
+                                type="email"
                                 className="form-control"
                                 placeholder="Your Email *"
                                 value={this.state.email}
@@ -73,6 +75,16 @@ class Register extends Component {
                                 placeholder="Your Lastname *"
                                 value={this.state.lastname}
                                 onChange={(event) => this.setState({ lastname: event.target.value })}
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder="Your JMBG *"
+                                value={this.state.jmbg}
+                                onChange={(event) => this.setState({ jmbg: event.target.value })}
                             />
                         </div>
                     
