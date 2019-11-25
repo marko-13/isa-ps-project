@@ -35,13 +35,13 @@ class Login extends Component {
         return (
             <div className="container login-container">
                 <div className="row">
-                    <div className="col-md-6 login-form-1">
+                    <div className="col-md-6 login-form-2">
                         <h3>Login</h3>
                             <div className="form-group">
                                 <input 
                                     type="text" 
                                     className="form-control" 
-                                    placeholder="Your username *"
+                                    placeholder="Your Username *"
                                     value={this.state.username}
                                     onChange={(event) => this.setState({username: event.target.value})}
                                     />
@@ -55,7 +55,7 @@ class Login extends Component {
                                     onChange={(event) => this.setState({password: event.target.value})}/>
                             </div>
                             <div className="form-group">
-                                <button  className="btn-primary" onClick={this.loginSubmitHandler}>Login</button>
+                                <button  className="login-form-2 btnSubmit" onClick={this.loginSubmitHandler}>Login</button>
                             </div>
                     </div>
                 </div>

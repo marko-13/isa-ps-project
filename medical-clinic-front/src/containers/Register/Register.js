@@ -7,7 +7,8 @@ class Register extends Component {
         name: '',
         password: '',
         email: '',
-        lastname: ''
+        lastname: '',
+        jmbg: ''
     }
 
     registerSubmitHandler = () => {
@@ -17,6 +18,7 @@ class Register extends Component {
             password: this.state.password,
             name: this.state.name,
             lastName: this.state.lastname,
+            jmbg: this.state.jmbg,
             userRole: 'PATIENT'
         }
 
@@ -41,9 +43,9 @@ class Register extends Component {
                         <h3>Register</h3>
                         <div className="form-group">
                             <input
-                                type="text"
+                                type="email"
                                 className="form-control"
-                                placeholder="Your email *"
+                                placeholder="Your Email *"
                                 value={this.state.email}
                                 onChange={(event) => this.setState({ email: event.target.value })}
                             />
@@ -75,10 +77,20 @@ class Register extends Component {
                                 onChange={(event) => this.setState({ lastname: event.target.value })}
                             />
                         </div>
+
+                        <div className="form-group">
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder="Your JMBG *"
+                                value={this.state.jmbg}
+                                onChange={(event) => this.setState({ jmbg: event.target.value })}
+                            />
+                        </div>
                     
 
                         <div className="form-group">
-                            <button className="btn-primary" onClick={this.registerSubmitHandler}>Register</button>
+                            <button className="btnSubmit" onClick={this.registerSubmitHandler}>Register</button>
                         </div>
                     </div>
                 </div>
