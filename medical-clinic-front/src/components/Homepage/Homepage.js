@@ -1,7 +1,6 @@
 import React from 'react';
 import jwt from 'jsonwebtoken';
 
-import HomepageNurse from '../../containers/HomepageNurse/HomepageNurse';
 import Layout from '../../hoc/Layout/Layout';
 import UserInfo from './UserInfo/UserInfo';
 import Auxiliary from '../../hoc/Auxiliary/Auxiliary';
