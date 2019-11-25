@@ -1,4 +1,4 @@
-.Button{
+.ButtonGreen{
     border-radius: 1rem;
     padding: 1.5% 15px;
     border: none;
@@ -8,6 +8,20 @@
     background-color: #1abc9c;
 }
 
-.Button:hover {
+.ButtonGrey{
+    border-radius: 1rem;
+    padding: 1.5% 15px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    color: #fff;
+    background-color: #aaaaaa;
+}
+
+.ButtonGreen:hover {
+    background-color: #cccccc;
+}
+
+.ButtonGrey:hover {
     background-color: #cccccc;
 }
