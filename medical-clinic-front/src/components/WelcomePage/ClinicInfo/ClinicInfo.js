@@ -1,8 +1,10 @@
 import React from 'react';
 
+import classes from './ClinicInfo.module.css';
+
 const ClinicInfo = (props) => {
     return (
-        <div>
+        <div className={classes.ClinicInfo}>
             <h2>Medical Center</h2>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                 Quisque lectus lorem, gravida vitae molestie eu, lobortis sit amet augue.
