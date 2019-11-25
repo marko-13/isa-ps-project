@@ -21,7 +21,17 @@ const Homepage = () => {
 
     switch (role) {
         case 'nurse':
-            page = <HomepageNurse name={name} lastname={lastname} role={role} />
+            page = (
+                <Auxiliary>
+                <UserInfo name={name} lastname={lastname} role={role}/>
+                <UserCards>
+                    <UserCard but={"Work schedule"} tx={"Shows work schedule"}/>
+                    <UserCard but={"Validate perscriptions"} tx={"Shows a list of perscriptions that need to be validated"}/>
+                    <UserCard but={"List of patients"} tx={"Shows a list of patients"}/>
+                    <UserCard but={"Ask for leave of absence"} tx={"Shows form for leave of absence"}/>
+                </UserCards>
+            </Auxiliary>
+            );
             break;
         case 'patient':
             page = (
