@@ -3,13 +3,15 @@ import Auxiliary from '../../hoc/Auxiliary/Auxiliary';
 
 import Login from '../../containers/Login/Login';
 import Register from '../../containers/Register/Register';
-import Users from '../../containers/Users/Users';
 import ClinicInfo from './ClinicInfo/ClinicInfo';
 import './WelcomePageForms.css';
+import LogoBar from '../../components/Navigation/LogoBar/LogoBar';
 
 const WelcomePage = () => {
 
     return (
+        <Auxiliary>
+        <LogoBar/>
         <div className='container'>
             <div className='row'>
                 <div className='col'>
@@ -21,6 +23,7 @@ const WelcomePage = () => {
                 </div>
             </div>
         </div>
+        </Auxiliary>
     );
 };
 
