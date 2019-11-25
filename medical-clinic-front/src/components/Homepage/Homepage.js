@@ -24,19 +24,30 @@ const Homepage = () => {
             page = <HomepageNurse name={name} lastname={lastname} role={role} />
             break;
         case 'patient':
-            page = <h1>Pacijent</h1>
+            page = (
+              <Auxiliary>
+                <UserInfo name={name} lastname={lastname} role={role}/>
+                <UserCards>
+                    <UserCard but={"Inspect clinics"} tx={"Shows a list of all existing clinics in clinical center"}/>
+                    <UserCard but={"Inspect medical staff"} tx={"Shows a list of every medical staff member, nurses and doctors"}/>
+                    <UserCard but={"Inspect medical history"} tx={"Shows a list of patients medical history"}/>
+                    <UserCard but={"Inspect appointments"} tx={"Shows a list of patients upcoming and past appointments"}/>
+                </UserCards>
+            </Auxiliary>
+
+            );
             break;
         case 'doctor':
             page = (
                 <Auxiliary>
-                    <UserInfo />
+                    <UserInfo name={name} lastname={lastname} role={role}/>
                     <UserCards>
-                        <UserCard />
-                        <UserCard />
-                        <UserCard />
-                        <UserCard />
-                        <UserCard />
-                        <UserCard />
+                        <UserCard but={"NEKA FUN"} tx={"NEKI OPIS"}/>
+                        <UserCard but={"NEKA FUN"} tx={"NEKI OPIS"}/>
+                        <UserCard but={"NEKA FUN"} tx={"NEKI OPIS"}/>
+                        <UserCard but={"NEKA FUN"} tx={"NEKI OPIS"}/>
+                        <UserCard but={"NEKA FUN"} tx={"NEKI OPIS"}/>
+                        <UserCard but={"NEKA FUN"} tx={"NEKI OPIS"}/>
                     </UserCards>
                 </Auxiliary>
 
