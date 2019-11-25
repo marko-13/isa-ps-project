@@ -11,7 +11,6 @@ const WelcomePage = () => {
         <Auxiliary>
             <Login />
             <Register />
-            <Users />
         </Auxiliary>
     );
 };
