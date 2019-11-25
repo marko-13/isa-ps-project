@@ -1,6 +1,7 @@
 import React from 'react';
 
 import classes from './ClinicInfo.module.css';
+import Button from '../../UI/Button/Button';
 
 const ClinicInfo = (props) => {
     return (
@@ -10,7 +11,7 @@ const ClinicInfo = (props) => {
                 Quisque lectus lorem, gravida vitae molestie eu, lobortis sit amet augue.
                 Curabitur ut ornare nulla, eu eleifend justo. Praesent feugiat ut sem quis vulputate.
                 Vestibulum cursus semper orci. Sed tempor libero ut justo sollicitudin, vitae efficitur enim accumsan.</p>
-            <button type='button' className='btn btn-info'>Show more</button>
+            <Button type='button' className='btnSubmit'>Show more</Button>
         </div>
     );
 };
