@@ -5,6 +5,8 @@ import HomepageNurse from '../../containers/HomepageNurse/HomepageNurse';
 import Layout from '../../hoc/Layout/Layout';
 import UserInfo from './UserInfo/UserInfo';
 import Auxiliary from '../../hoc/Auxiliary/Auxiliary';
+import UserCard from './UserCards/UserCard/UserCard';
+import UserCards from './UserCards/UserCards';
 
 const Homepage = () => {
 
@@ -26,7 +28,18 @@ const Homepage = () => {
             break;
         case 'doctor':
             page = (
-                <UserInfo/>
+                <Auxiliary>
+                    <UserInfo />
+                    <UserCards>
+                        <UserCard />
+                        <UserCard />
+                        <UserCard />
+                        <UserCard />
+                        <UserCard />
+                        <UserCard />
+                    </UserCards>
+                </Auxiliary>
+
             );
             break;
         case 'adminclinic':
@@ -43,7 +56,7 @@ const Homepage = () => {
     return (
         <Layout>
             <div className={'container'}>
-                <div className='row' style={{margin: '0 5px'}}>
+                <div className='row' style={{ margin: '0 5px' }}>
                     {page}
                 </div>
             </div>
