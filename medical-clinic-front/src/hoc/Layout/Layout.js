@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Auxiliary from '../Auxiliary/Auxiliary';
 
 import Toolbar from '../../components/UI/Toolbar/Toolbar.js';
+import HomepageToolbar from '../../components/Navigation/HomepageToolbar/HomepageToolbar';
 
 class Layout extends Component {
 
@@ -9,7 +10,7 @@ class Layout extends Component {
     render() {
         return (
             <Auxiliary>
-                <Toolbar />
+                <HomepageToolbar />
                 <main>
                     {this.props.children}
                 </main>
