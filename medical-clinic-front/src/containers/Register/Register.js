@@ -43,7 +43,7 @@ class Register extends Component {
                             <input
                                 type="text"
                                 className="form-control"
-                                placeholder="Your email *"
+                                placeholder="Your Email *"
                                 value={this.state.email}
                                 onChange={(event) => this.setState({ email: event.target.value })}
                             />
