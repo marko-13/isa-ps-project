@@ -41,7 +41,7 @@ class Login extends Component {
                                 <input 
                                     type="text" 
                                     className="form-control" 
-                                    placeholder="Your username *"
+                                    placeholder="Your Username *"
                                     value={this.state.username}
                                     onChange={(event) => this.setState({username: event.target.value})}
                                     />

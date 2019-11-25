@@ -33,7 +33,7 @@
 .login-form-1 .btnSubmit{
     font-weight: 600;
     color: #fff;
-    background-color: #0062cc;
+    background-color: #1abc9c;
 }
 .login-form-2 .btnSubmit{
     font-weight: 600;
@@ -42,6 +42,10 @@
 }
 
 .login-form-2 .btnSubmit:hover{
+    background-color: #cccccc;
+}
+
+.login-form-1 .btnSubmit:hover{
     background-color: #cccccc;
 }
 

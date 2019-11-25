@@ -78,7 +78,7 @@ class Register extends Component {
                     
 
                         <div className="form-group">
-                            <button className="btn-primary" onClick={this.registerSubmitHandler}>Register</button>
+                            <button className="btnSubmit" onClick={this.registerSubmitHandler}>Register</button>
                         </div>
                     </div>
                 </div>
