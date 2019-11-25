@@ -2,6 +2,7 @@ import React from 'react';
 import jwt from 'jsonwebtoken';
 
 import HomepageNurse from '../../containers/HomepageNurse/HomepageNurse';
+import HomepagePatient from '../../containers/HomepagePatient/HomepagePatient';
 import Layout from '../../hoc/Layout/Layout';
 
 const Homepage = () => {
@@ -21,6 +22,7 @@ const Homepage = () => {
             break;
         case 'patient':
             page = <h1>Pacijent</h1>
+            page = <HomepagePatient name={name} lastname={lastname} role={role}/>
             break;
         case 'doctor':
             page = <h1>Doktor</h1>
