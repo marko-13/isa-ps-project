@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+
 class HomepagePatient extends Component {
 
 	state = {
@@ -13,14 +14,6 @@ class HomepagePatient extends Component {
 
   render() {
     return (
-      // <div className="container">
-      // 	<h1>Hello nurse, {this.props.name} {this.props.lastname}</h1>
-      // 	<a href='\#'>My profile</a><br/>
-      // 	<a href='\#'>Work schedule</a><br/>
-      // 	<a href='\#'>Validate prescriptions</a><br/>
-      // 	<a href='\#'>List of patients</a><br/>
-      // 	<a href='\#'>Ask for leave of absence</a><br/>
-      // </div>
       <div>
 
         <div className="card mb-3" style={{maxWidth: '540px'}}>
@@ -39,35 +32,43 @@ class HomepagePatient extends Component {
         </div>
 
         <div class="card-deck">
-
           <div className="card" style={{width: '17rem', maxWidth: '20rem', minWidth: '13rem'}}>
             <div className="card-body">
-              <h5 className="card-title">Special title treatment</h5>
-              <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
-              <a href="#" className="btn btn-primary">Go somewhere</a>
+              <p className="card-text">Shows a list of all existing clinics in clinical senter</p>
+              <a href="#" className="btn btn-primary">Inspect clinics</a>
             </div>
           </div>
 
           <div className="card" style={{width: '17rem', maxWidth: '20rem', minWidth: '13rem'}}>
             <div className="card-body">
-              <h5 className="card-title">Special title treatment</h5>
-              <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
-              <a href="#" className="btn btn-primary">Go somewhere</a>
+              <p className="card-text">Shows a list of every medical staff member, nurses and doctors</p>
+              <a href="#" className="btn btn-primary">Inspect medical staff</a>
             </div>
           </div>
 
           <div className="card" style={{width: '17rem', maxWidth: '20rem', minWidth: '13rem'}}>
             <div className="card-body">
-              <h5 className="card-title">Special title treatment</h5>
-              <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
-              <a href="#" className="btn btn-primary">Go somewhere</a>
+              <p className="card-text">Shows a list of patients medical history</p>
+              <a href="#" className="btn btn-primary">Inspect medical history</a>
             </div>
           </div>
+
+          <div className="card" style={{width: '17rem', maxWidth: '20rem', minWidth: '13rem'}}>
+            <div className="card-body">
+              <p className="card-text">Shows a list of patients upcoming and past appointments</p>
+              <a href="#" className="btn btn-primary">Inspect appointments</a>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <p></p>
+          <br/>
+          <br/>
+          <p>OVDE CE  ICI CONTENT SVIH KLIKOVA</p>
+        </div>
 
       </div>
-
-
-        </div>
 
 
     );
