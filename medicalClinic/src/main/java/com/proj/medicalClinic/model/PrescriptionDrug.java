@@ -15,7 +15,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class PrescriptionDrugs {
+public class PrescriptionDrug {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(
@@ -29,6 +29,7 @@ public class PrescriptionDrugs {
     @Enumerated(EnumType.STRING)
     private DrugsType drug;
 
+    @ManyToMany(mappedBy = "prescriptionDrugs")
     private List<Prescription> prescription;
 
 

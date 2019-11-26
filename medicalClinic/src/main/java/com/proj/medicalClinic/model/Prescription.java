@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -35,4 +36,12 @@ public class Prescription {
 
 	@OneToOne(mappedBy = "prescription", cascade = CascadeType.ALL)
 	private MedicalReport medicalReport;
+
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(
+			name = "Prescription_Drugs",
+			joinColumns = {@JoinColumn(name = "prescription_id")},
+			inverseJoinColumns = {@JoinColumn(name = "prescription_drug_id")}
+	)
+	private List<PrescriptionDrug> prescriptionDrugs;
 }
