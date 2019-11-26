@@ -9,36 +9,23 @@ import Button from '../../UI/Button/Button';
 import classes from './UserInfo.module.css';
 import './UserInfo.css';
 
-const UserInfo = (props) => {
+const UserInfo = (props) => {   
     let image
-
-    let shiftInfo = null;
-    let reviewInfo = null;
-    let jmbgInfo = null;
-    let clinicInfo = null;
-    let clinicalCenterInfo = null;
 
     if(props.role === 'patient'){
       image = patientImage;
-      jmbgInfo = (  <tr><td>JMBG:</td><td>12345</td></tr>);
     }
     else if (props.role === 'doctor') {
       image = doctorImage;
-      shiftInfo = (<tr><td>Shift:</td><td>DDDD</td></tr>);
-      reviewInfo = (<tr><td>Review:</td><td>EEEE</td></tr>);
     }
     else if (props.role === 'nurse'){
       image = nurseImage;
-      shiftInfo = (<tr><td>Shift:</td><td>DDDD</td></tr>);
     }
     else if (props.role === 'adminclinic'){
         image = clinicalAdminImage;
-        clinicInfo = (<tr><td>Clinic:</td><td>CCCC</td></tr>);
     }
-    
     else if (props.role === 'adminclinicalcenter'){
         image = clinicalCenterAdminImage;
-        clinicalCenterInfo = (<tr><td>Clinical Center:</td><td>FFFF</td></tr>);
     }
 
     return (
@@ -66,16 +53,7 @@ const UserInfo = (props) => {
                                             <tr>
                                                 <td>Lastname:</td>
                                                 <td>{props.lastname}</td>
-                                            </tr>
-                                            {shiftInfo}
-                                            {reviewInfo}
-                                            {jmbgInfo}
-                                            {clinicInfo}
-                                            {clinicalCenterInfo}
-                                            <tr>
-                                                <td>Email:</td>
-                                                <td>info@support.com</td>
-                                            </tr>
+                                            </tr>          
                                         </tbody>
                                     </table>
                                     <Button style={{margin: '0px 5px'}}>Edit profile</Button>

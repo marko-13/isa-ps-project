@@ -51,12 +51,11 @@ const Homepage = () => {
                 <Auxiliary>
                     <UserInfo name={name} lastname={lastname} role={role}/>
                     <UserCards>
-                        <UserCard buttonText={"NEKA FUN"} cardText={"NEKI OPIS"}/>
-                        <UserCard buttonText={"NEKA FUN"} cardText={"NEKI OPIS"}/>
-                        <UserCard buttonText={"NEKA FUN"} cardText={"NEKI OPIS"}/>
-                        <UserCard buttonText={"NEKA FUN"} cardText={"NEKI OPIS"}/>
-                        <UserCard buttonText={"NEKA FUN"} cardText={"NEKI OPIS"}/>
-                        <UserCard buttonText={"NEKA FUN"} cardText={"NEKI OPIS"}/>
+                        <UserCard buttonText={"List of patients"} cardText={"Shows a list of patients"}/>
+                        <UserCard buttonText={"Start exam"} cardText={"Starta a new medical exam"}/>
+                        <UserCard buttonText={"Work schedule"} cardText={"Shows my work schedule"}/>
+                        <UserCard buttonText={"Ask for leave of absence"} cardText={"Shows form for leave of absence"}/>
+                        <UserCard buttonText={"Schedule"} cardText={"Schedule an appointment for operation or medical exam"}/>
                     </UserCards>
                 </Auxiliary>
 
