@@ -1,4 +1,5 @@
 .CardItem{
-    padding: 3px;
-    margin: 15px 0px;
+    padding: 5px;
+    margin: 0px 0px;
+    min-width: 20rem;
 }

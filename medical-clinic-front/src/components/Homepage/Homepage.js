@@ -24,10 +24,10 @@ const Homepage = () => {
                 <Auxiliary>
                 <UserInfo name={name} lastname={lastname} role={role}/>
                 <UserCards>
-                    <UserCard but={"Work schedule"} tx={"Shows work schedule"}/>
-                    <UserCard but={"Validate perscriptions"} tx={"Shows a list of perscriptions that need to be validated"}/>
-                    <UserCard but={"List of patients"} tx={"Shows a list of patients"}/>
-                    <UserCard but={"Ask for leave of absence"} tx={"Shows form for leave of absence"}/>
+                    <UserCard buttonText={"Work schedule"} cardText={"Shows work schedule"}/>
+                    <UserCard buttonText={"Validate perscriptions"} cardText={"Shows a list of perscriptions that need to be validated"}/>
+                    <UserCard buttonText={"List of patients"} cardText={"Shows a list of patients"}/>
+                    <UserCard buttonText={"Ask for leave of absence"} cardText={"Shows form for leave of absence"}/>
                 </UserCards>
             </Auxiliary>
             );
@@ -37,10 +37,10 @@ const Homepage = () => {
               <Auxiliary>
                 <UserInfo name={name} lastname={lastname} role={role}/>
                 <UserCards>
-                    <UserCard but={"Inspect clinics"} tx={"Shows a list of all existing clinics in clinical center"}/>
-                    <UserCard but={"Inspect medical staff"} tx={"Shows a list of every medical staff member, nurses and doctors"}/>
-                    <UserCard but={"Inspect medical history"} tx={"Shows a list of patients medical history"}/>
-                    <UserCard but={"Inspect appointments"} tx={"Shows a list of patients upcoming and past appointments"}/>
+                    <UserCard buttonText={"Inspect clinics"} cardText={"Shows a list of all existing clinics in clinical center"}/>
+                    <UserCard buttonText={"Inspect medical staff"} cardText={"Shows a list of every medical staff member, nurses and doctors"}/>
+                    <UserCard buttonText={"Inspect medical history"} cardText={"Shows a list of patients medical history"}/>
+                    <UserCard buttonText={"Inspect appointments"} cardText={"Shows a list of patients upcoming and past appointments"}/>
                 </UserCards>
             </Auxiliary>
 
@@ -51,12 +51,11 @@ const Homepage = () => {
                 <Auxiliary>
                     <UserInfo name={name} lastname={lastname} role={role}/>
                     <UserCards>
-                        <UserCard but={"NEKA FUN"} tx={"NEKI OPIS"}/>
-                        <UserCard but={"NEKA FUN"} tx={"NEKI OPIS"}/>
-                        <UserCard but={"NEKA FUN"} tx={"NEKI OPIS"}/>
-                        <UserCard but={"NEKA FUN"} tx={"NEKI OPIS"}/>
-                        <UserCard but={"NEKA FUN"} tx={"NEKI OPIS"}/>
-                        <UserCard but={"NEKA FUN"} tx={"NEKI OPIS"}/>
+                        <UserCard buttonText={"List of patients"} cardText={"Shows a list of patients"}/>
+                        <UserCard buttonText={"Start exam"} cardText={"Starta a new medical exam"}/>
+                        <UserCard buttonText={"Work schedule"} cardText={"Shows my work schedule"}/>
+                        <UserCard buttonText={"Ask for leave of absence"} cardText={"Shows form for leave of absence"}/>
+                        <UserCard buttonText={"Schedule"} cardText={"Schedule an appointment for operation or medical exam"}/>
                     </UserCards>
                 </Auxiliary>
 
