@@ -5,7 +5,6 @@ import patientImage from '../../../assets/images/patient.png';
 import nurseImage from '../../../assets/images/nurse.png';
 import clinicalAdminImage from '../../../assets/images/clinicaladmin.png';
 import clinicalCenterAdminImage from '../../../assets/images/clinicalcenteradmin.png';
-import Button from '../../UI/Button/Button';
 import classes from './UserInfo.module.css';
 import './UserInfo.css';
 
@@ -56,8 +55,6 @@ const UserInfo = (props) => {
                                             </tr>          
                                         </tbody>
                                     </table>
-                                    <Button style={{margin: '0px 5px'}}>Edit profile</Button>
-                                    <Button style={{margin: '0px 5px'}}>Change password</Button>
                                 </div>
                             </div>
                         </div>
