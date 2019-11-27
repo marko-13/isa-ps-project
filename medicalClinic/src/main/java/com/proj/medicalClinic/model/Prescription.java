@@ -20,9 +20,8 @@ public class Prescription {
 	@Column(name = "id", unique = true, updatable = false, nullable = false)
 	private Long id;
 
-	//@Enumerated(EnumType.STRING)
-	//@Column(name = "drugs", nullable = false)
-	//private List<DrugsType> drugs;
+	@Column(name = "approved", nullable = false)
+	private Boolean approved;
 
     @ManyToOne
     @JoinColumn(name = "nurse_id", nullable = false)
