@@ -18,13 +18,9 @@ import java.util.UUID;
 public class Clinic {
 
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(
-            name = "UUID",
-            strategy = "org.hibernate.id.UUIDGenerator"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, updatable = false, nullable = false)
-    private UUID id;
+    private Long id;
 
     @Column(name = "name", unique = false, nullable = false)
     private String name;

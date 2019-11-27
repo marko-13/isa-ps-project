@@ -1,150 +1,154 @@
-insert into clinical_center (id, diagnosis, drugs) values ('e43ac7d8-ebb1-4118-aa15-6d096619fc28', 'FEVER', 'BRUFEN');
+insert into clinical_center (id, diagnosis, drugs) values (1, 'FEVER', 'BRUFEN');
 
 
 insert into clinic (id, address, description, name, review, clinical_center_id, review_count)
-values ('3e5a125b-6d84-44b9-a8cf-2a83ea9ce572', 'Bulevar Oslobodjenja 50', 'Jako lepa klinika', 'Svetlost', 9, 'e43ac7d8-ebb1-4118-aa15-6d096619fc28', 7);
-
+values (1, 'Bulevar Oslobodjenja 50', 'Jako lepa klinika', 'Svetlost', 9, 1, 7);
 
 
 insert into app_user (type, id, user_role, email, password, name, last_name, JMBG, enabled)
-values ('P', '5797f167-1aac-4e18-810e-92ca53b95d35', 'PATIENT', 'Miljana@gmail.com', '$2a$10$hMz0Q7JhystsRnek6D3bLO5mRGU2yPril7EVfLkeqwAUh0JWQYabq', 'Miljana', 'Vlahovic', '1710463172556', true);
+values ('P', 1, 'PATIENT', 'Miljana@gmail.com', '$2a$10$hMz0Q7JhystsRnek6D3bLO5mRGU2yPril7EVfLkeqwAUh0JWQYabq', 'Miljana', 'Vlahovic', '1710463172556', true);
 
 insert into app_user (type, id, user_role, email, password, name, last_name, JMBG, enabled)
-values ('P', '6d55e40a-f84d-4279-ab8f-60218c0d96c2', 'PATIENT', 'Vlatko@gmail.com', '$2a$10$oJ4.32dhcYqQAWcqlGYUW.rMBIO3fyhHnyLD4rtnrEKlUqisRexda', 'Vlatko', 'Tomcic', '8773483494930', true);
+values ('P', 2, 'PATIENT', 'Vlatko@gmail.com', '$2a$10$oJ4.32dhcYqQAWcqlGYUW.rMBIO3fyhHnyLD4rtnrEKlUqisRexda', 'Vlatko', 'Tomcic', '8773483494930', true);
 
 insert into app_user (type, id, user_role, email, password, name, last_name, JMBG, enabled)
-values ('P', 'a0c02caa-3ad9-4855-9605-2119f48235bc', 'PATIENT', 'Frustuk@gmail.com', '$2a$10$eZFvWClzdfGfgvmKDjEmvewURZTW0Hl26OH0GH9eUdosD9RVqgchq', 'Frustuk', 'Jeltako', '0881736727645', true);
+values ('P', 3, 'PATIENT', 'Frustuk@gmail.com', '$2a$10$eZFvWClzdfGfgvmKDjEmvewURZTW0Hl26OH0GH9eUdosD9RVqgchq', 'Frustuk', 'Jeltako', '0881736727645', true);
 
 insert into app_user (type, id, user_role, email, password, name, last_name, review, shift, review_count, enabled)
-values ('DR', 'c15f647f-2274-4646-abd3-6d166c56fe12', 'DOCTOR', 'Vladan@gmail.com', '$2a$10$EcjftqmPpW.usBG8k4OMWOqEo9LA9QMBaEy8XFbZCNBY9oY..jd62', 'Vladan', 'Dragic', 3, 1, 2, true);
+values ('DR', 4, 'DOCTOR', 'Vladan@gmail.com', '$2a$10$EcjftqmPpW.usBG8k4OMWOqEo9LA9QMBaEy8XFbZCNBY9oY..jd62', 'Vladan', 'Dragic', 3, 1, 2, true);
 
 insert into app_user (type, id, user_role, email, password, name, last_name, review, shift, review_count, enabled)
-values ('DR', '97abc2e7-8842-4370-818c-a763c78249fd', 'DOCTOR', 'Dusko@gmail.com', '$2a$10$EcjftqmPpW.usBG8k4OMWOqEo9LA9QMBaEy8XFbZCNBY9oY..jd62', 'Dusko', 'Jovanovic', 10, 2, 15, true);
+values ('DR', 5, 'DOCTOR', 'Dusko@gmail.com', '$2a$10$EcjftqmPpW.usBG8k4OMWOqEo9LA9QMBaEy8XFbZCNBY9oY..jd62', 'Dusko', 'Jovanovic', 10, 2, 15, true);
 
 insert into app_user (type, id, user_role, email, password, name, last_name, review, shift, review_count, enabled)
-values ('DR', '0b01295a-f959-43c8-bf10-3512db2b0aa1', 'DOCTOR', 'Sara@gmail.com', '$2a$10$IzuVyeH5cKEw5c17WO2H1OuLMKVN2.2FjjP8e3S.RyNvPNdqUSAKe', 'Sara', 'Loncar', 6, 3, 9, true);
+values ('DR', 6, 'DOCTOR', 'Sara@gmail.com', '$2a$10$IzuVyeH5cKEw5c17WO2H1OuLMKVN2.2FjjP8e3S.RyNvPNdqUSAKe', 'Sara', 'Loncar', 6, 3, 9, true);
 
 insert into app_user (type, id, user_role, email, password, name, last_name, shift, enabled)
-values ('NR', '64b096ac-8018-4b00-b0da-703383ffdb59', 'NURSE', 'Sergej@gmail.com', '$2a$10$Gd7bGnGZroF.ckbJDE1efu7C.tENXHDkS7CCNwV8IWKWTfSm/7Hx.', 'Sergej', 'Tomic', 1, true);
+values ('NR', 7, 'NURSE', 'Sergej@gmail.com', '$2a$10$Gd7bGnGZroF.ckbJDE1efu7C.tENXHDkS7CCNwV8IWKWTfSm/7Hx.', 'Sergej', 'Tomic', 1, true);
 
 insert into app_user (type, id, user_role, email, password, name, last_name, shift, enabled)
-values ('NR', '95637ee2-2245-48d0-a890-65e65a71ca8c', 'NURSE', 'Djordje@gmail.com', '$2a$10$cnczzGv7KfqoDAXP.9UdnOfs6GRUH3MSFUb.Fd1FxUc2nxN9IMhte', 'Djordje', 'Jankovic', 2, true);
+values ('NR', 8, 'NURSE', 'Djordje@gmail.com', '$2a$10$cnczzGv7KfqoDAXP.9UdnOfs6GRUH3MSFUb.Fd1FxUc2nxN9IMhte', 'Djordje', 'Jankovic', 2, true);
 
 insert into app_user (type, id, user_role, email, password, name, last_name, shift, enabled)
-values ('NR', 'd211b088-9a49-491f-9f6e-5cfb10713d31', 'NURSE', 'Nevena@gmail.com', '$2a$10$cK5DzdYh6eVs7ZTW0uepRe6Rm00HaX.0o1E95JQCVq8FvSlh/IEa.', 'Nevena', 'Mihailovic', 3, true);
+values ('NR', 9, 'NURSE', 'Nevena@gmail.com', '$2a$10$cK5DzdYh6eVs7ZTW0uepRe6Rm00HaX.0o1E95JQCVq8FvSlh/IEa.', 'Nevena', 'Mihailovic', 3, true);
 
 insert into app_user (type, id, user_role, email, password, name, last_name, clinic_id, enabled)
-values ('AC', '9d01fa71-a653-420f-a07d-c41fdd61078c', 'ADMINCLINIC', 'Anastasija@gmail.com', '$2a$10$nE7tHqDVIG5P6NcGPOgTk.a/KRMhDm0puU6PJjT3nH3dam2EnUKj2', 'Anastasija', 'Milosevic', '3e5a125b-6d84-44b9-a8cf-2a83ea9ce572', true);
+values ('AC', 10, 'ADMINCLINIC', 'Anastasija@gmail.com', '$2a$10$nE7tHqDVIG5P6NcGPOgTk.a/KRMhDm0puU6PJjT3nH3dam2EnUKj2', 'Anastasija', 'Milosevic', 1, true);
 
 insert into app_user (type, id, user_role, email, password, name, last_name, clinical_center_id, enabled)
-values ('ACC', '2f227c0c-1ab0-4d6e-9aaf-a98283ad0489', 'ADMINCLINICALCENTER', 'Radoslav@gmail.com', '$2a$10$PpuFaY9yRRdUj9l4lr7sueTutLXXWxlgGRomEFH2lNQRYhiGwlMmS', 'Radoslav', 'Brankovic', 'e43ac7d8-ebb1-4118-aa15-6d096619fc28', true);
-
+values ('ACC', 11, 'ADMINCLINICALCENTER', 'Radoslav@gmail.com', '$2a$10$PpuFaY9yRRdUj9l4lr7sueTutLXXWxlgGRomEFH2lNQRYhiGwlMmS', 'Radoslav', 'Brankovic', 1, true);
 
 
 insert into clinics_patients (clinic_id, patient_id)
-values ('3e5a125b-6d84-44b9-a8cf-2a83ea9ce572', '5797f167-1aac-4e18-810e-92ca53b95d35');
+values (1, 1);
 
 insert into clinics_patients (clinic_id, patient_id)
-values ('3e5a125b-6d84-44b9-a8cf-2a83ea9ce572', '6d55e40a-f84d-4279-ab8f-60218c0d96c2');
+values (1, 2);
 
 insert into clinics_patients (clinic_id, patient_id)
-values ('3e5a125b-6d84-44b9-a8cf-2a83ea9ce572', 'a0c02caa-3ad9-4855-9605-2119f48235bc');
+values (1, 3);
 
 
 
 
 insert into service (id, price, service_type)
-values ('520f83d7-a49d-4906-9ecb-7353a1971bf3', 2000, 'Vadjene zuba');
+values (1, 2000, 'Vadjene zuba');
 
 insert into service (id, price, service_type)
-values ('7ff637dc-6f17-4976-9bb8-e892a920c907', 3500, 'Vadjenje srca');
+values (2, 3500, 'Vadjenje srca');
 
 insert into service (id, price, service_type)
-values ('e2ae5e2e-55a3-41d4-ad52-02bbffae82fb', 15000, 'Skeniranje glave');
+values (3, 15000, 'Skeniranje glave');
 
 
 
 
 
 insert into operation_room (id, name, number, clinic_id)
-values ('1067f9a4-33c0-44f4-8052-5cb43036469e', 'Operaciona sala', 108, '3e5a125b-6d84-44b9-a8cf-2a83ea9ce572');
+values (1, 'Operaciona sala', 108, 1);
 
 insert into operation_room (id, name, number, clinic_id)
-values ('3b968fb9-a9ab-48f7-b930-d03bff498705', 'Operaciona sala', 100, '3e5a125b-6d84-44b9-a8cf-2a83ea9ce572');
+values (2, 'Operaciona sala', 100, 1);
 
 insert into operation_room (id, name, number, clinic_id)
-values ('496f22fa-e549-421e-b7c7-223319bbe32c', 'Ordinacija', 10, '3e5a125b-6d84-44b9-a8cf-2a83ea9ce572');
+values (3, 'Ordinacija', 10, 1);
 
 insert into operation_room (id, name, number, clinic_id)
-values ('b7035601-f3b9-49e2-8c24-f8c1a0146d55', 'Ordinacija', 15, '3e5a125b-6d84-44b9-a8cf-2a83ea9ce572');
+values (4, 'Ordinacija', 15, 1);
 
 
 
 
 
 insert into appointment (type, id, date, duration, fast, clinic_id, doctor_id, nurse_id, patient_id, service_id, operation_room_id)
-values ('EX', 'c0f06708-9c51-4926-aa7e-b72d13697dba', '12-10-2019', 60, true, '3e5a125b-6d84-44b9-a8cf-2a83ea9ce572', 'c15f647f-2274-4646-abd3-6d166c56fe12', null, null, '520f83d7-a49d-4906-9ecb-7353a1971bf3', '1067f9a4-33c0-44f4-8052-5cb43036469e');
+values ('EX', 1, '12-10-2019', 60, true, 1, 4, null, null, 1, 1);
 
 insert into appointment (type, id, date, duration, fast, clinic_id, doctor_id, nurse_id, patient_id, service_id, operation_room_id)
-values ('EX', '50a91f30-bdb6-4960-8f32-38ab6d7ef024', '12-9-2019', 45, false, '3e5a125b-6d84-44b9-a8cf-2a83ea9ce572', '97abc2e7-8842-4370-818c-a763c78249fd', '64b096ac-8018-4b00-b0da-703383ffdb59', '5797f167-1aac-4e18-810e-92ca53b95d35', '7ff637dc-6f17-4976-9bb8-e892a920c907', '3b968fb9-a9ab-48f7-b930-d03bff498705');
+values ('EX', 2, '12-9-2019', 45, false, 1, 5, 7, 1, 2, 2);
 
 insert into appointment (type, id, date, duration, fast, clinic_id, doctor_id, nurse_id, patient_id, service_id, operation_room_id)
-values ('OP', '989d9b7e-a4d9-4bd3-bfde-d24c19e8732d', '12-5-2019', 120, false, '3e5a125b-6d84-44b9-a8cf-2a83ea9ce572', '0b01295a-f959-43c8-bf10-3512db2b0aa1', 'd211b088-9a49-491f-9f6e-5cfb10713d31', 'a0c02caa-3ad9-4855-9605-2119f48235bc', 'e2ae5e2e-55a3-41d4-ad52-02bbffae82fb', '496f22fa-e549-421e-b7c7-223319bbe32c');
+values ('EX', 5, '12-8-2019', 50, false, 1, 5, 7, 1, 2, 2);
 
 insert into appointment (type, id, date, duration, fast, clinic_id, doctor_id, nurse_id, patient_id, service_id, operation_room_id)
-values ('OP', '732ef647-6547-4a0e-806f-b9a75860aa38', '12-1-2019', 90, false, '3e5a125b-6d84-44b9-a8cf-2a83ea9ce572', 'c15f647f-2274-4646-abd3-6d166c56fe12', 'd211b088-9a49-491f-9f6e-5cfb10713d31', '5797f167-1aac-4e18-810e-92ca53b95d35', '7ff637dc-6f17-4976-9bb8-e892a920c907', 'b7035601-f3b9-49e2-8c24-f8c1a0146d55');
+values ('EX', 6, '12-7-2019', 55, false, 1, 6, 7, 2, 2, 2);
 
+insert into appointment (type, id, date, duration, fast, clinic_id, doctor_id, nurse_id, patient_id, service_id, operation_room_id)
+values ('OP', 3, '12-5-2019', 120, false, 1, 6, 8, 2, 3, 3);
+
+insert into appointment (type, id, date, duration, fast, clinic_id, doctor_id, nurse_id, patient_id, service_id, operation_room_id)
+values ('OP', 4, '12-1-2019', 90, false, 1, 4, 8, 1, 2, 4);
 
 
 
 
 insert into clinics_services (clinic_id, service_id)
-values ('3e5a125b-6d84-44b9-a8cf-2a83ea9ce572', '520f83d7-a49d-4906-9ecb-7353a1971bf3');
+values (1, 1);
 
 insert into clinics_services (clinic_id, service_id)
-values ('3e5a125b-6d84-44b9-a8cf-2a83ea9ce572', '7ff637dc-6f17-4976-9bb8-e892a920c907');
+values (1, 2);
 
 insert into clinics_services (clinic_id, service_id)
-values ('3e5a125b-6d84-44b9-a8cf-2a83ea9ce572', 'e2ae5e2e-55a3-41d4-ad52-02bbffae82fb');
+values (1, 3);
 
 
 
 
 insert into doctors_operations (doctor_id, operation_id)
-values ('97abc2e7-8842-4370-818c-a763c78249fd', '989d9b7e-a4d9-4bd3-bfde-d24c19e8732d');
+values (6, 3);
 
 insert into doctors_operations (doctor_id, operation_id)
-values ('c15f647f-2274-4646-abd3-6d166c56fe12', '732ef647-6547-4a0e-806f-b9a75860aa38');
+values (4, 4);
 
 
 
 
 insert into doctors_services (doctor_id, service_id)
-values ('c15f647f-2274-4646-abd3-6d166c56fe12', '520f83d7-a49d-4906-9ecb-7353a1971bf3');
+values (4, 1);
 
 insert into doctors_services (doctor_id, service_id)
-values ('97abc2e7-8842-4370-818c-a763c78249fd', '7ff637dc-6f17-4976-9bb8-e892a920c907');
+values (5, 2);
 
 insert into doctors_services (doctor_id, service_id)
-values ('0b01295a-f959-43c8-bf10-3512db2b0aa1', '520f83d7-a49d-4906-9ecb-7353a1971bf3');
+values (6, 3);
 
 insert into doctors_services (doctor_id, service_id)
-values ('0b01295a-f959-43c8-bf10-3512db2b0aa1', '7ff637dc-6f17-4976-9bb8-e892a920c907');
+values (6, 3);
 
 insert into doctors_services (doctor_id, service_id)
-values ('0b01295a-f959-43c8-bf10-3512db2b0aa1', 'e2ae5e2e-55a3-41d4-ad52-02bbffae82fb');
+values (6, 3);
 
 
 
 
 insert into leave (id, date_end, date_start, doctor_id, nurse_id)
-values ('05434a80-99e8-4753-8f39-7c5860720646', '5-5-2020', '5-11-2020', 'c15f647f-2274-4646-abd3-6d166c56fe12', null);
+values (1, '5-5-2020', '5-11-2020', 4, null);
 
 insert into leave (id, date_end, date_start, doctor_id, nurse_id)
-values ('116b92c6-7e6a-494f-ad39-30cf5c0940d7', '8-8-2020', '8-12-2020', '97abc2e7-8842-4370-818c-a763c78249fd', null);
+values (2, '8-8-2020', '8-12-2020', 5, null);
 
 insert into leave (id, date_end, date_start, doctor_id, nurse_id)
-values ('d1f7c108-f820-4ceb-8b14-eb3176a75c50', '2-10-2020', '2-12-2020', null, '95637ee2-2245-48d0-a890-65e65a71ca8c');
+values (3, '2-10-2020', '2-12-2020', null, 7);
+
 
 
 insert into authority (id, name)
@@ -162,45 +166,78 @@ values (4, 'ADMINCLINIC');
 insert into authority (id, name)
 values (5, 'ADMINCLINICALCENTER');
 
-insert into user_authority (user_id, authority_id)
-values ('5797f167-1aac-4e18-810e-92ca53b95d35', 1);
+
 
 insert into user_authority (user_id, authority_id)
-values ('c15f647f-2274-4646-abd3-6d166c56fe12', 2);
+values (1, 1);
 
 insert into user_authority (user_id, authority_id)
-values ('64b096ac-8018-4b00-b0da-703383ffdb59', 3);
+values (2, 1);
 
 insert into user_authority (user_id, authority_id)
-values ('9d01fa71-a653-420f-a07d-c41fdd61078c', 4);
+values (3, 1);
 
 insert into user_authority (user_id, authority_id)
-values ('2f227c0c-1ab0-4d6e-9aaf-a98283ad0489', 5);
+values (4, 2);
+
+insert into user_authority (user_id, authority_id)
+values (5, 2);
+
+insert into user_authority (user_id, authority_id)
+values (6, 2);
+
+insert into user_authority (user_id, authority_id)
+values (7, 3);
+
+insert into user_authority (user_id, authority_id)
+values (8, 3);
+
+insert into user_authority (user_id, authority_id)
+values (9, 3);
+
+insert into user_authority (user_id, authority_id)
+values (10, 4);
+
+insert into user_authority (user_id, authority_id)
+values (11, 5);
 
 
 insert into medical_history (allergy, blood_type, dioptre, height, weight, patient_id)
-values ('kikiriki', 'AP', 1, 190, 60, '6d55e40a-f84d-4279-ab8f-60218c0d96c2');
+values ('kikiriki', 'AP', 1, 190, 60, 1);
 
 insert into medical_history (allergy, blood_type, dioptre, height, weight, patient_id)
-values ('penicilin', 'BM', 1, 181, 70, '5797f167-1aac-4e18-810e-92ca53b95d35');
+values ('penicilin', 'BM', 1, 181, 70, 2);
 
 insert into medical_history (allergy, blood_type, dioptre, height, weight, patient_id)
-values ('alkohol, boranija', 'ABP', -1, 189, 80, 'a0c02caa-3ad9-4855-9605-2119f48235bc');
+values ('alkohol, boranija', 'ABP', -1, 189, 80, 3);
 
 
 
-insert into prescription (id, nurse_id)
-values ('e942b17d-e096-45c8-842e-9cad6054393a', '64b096ac-8018-4b00-b0da-703383ffdb59');
+insert into prescription (id, approved, nurse_id)
+values (1, False, 7);
 
-insert into prescription (id, nurse_id)
-values ('87351252-b979-4b5c-a3db-e121b1d4d4bf', 'd211b088-9a49-491f-9f6e-5cfb10713d31');
+insert into prescription (id, approved, nurse_id)
+values (2, False, 8);
 
-insert into prescription (id, nurse_id)
-values ('96e2c589-c076-4634-a86c-4fe21af89dc0', '64b096ac-8018-4b00-b0da-703383ffdb59');
-
+insert into prescription (id, approved, nurse_id)
+values (3, False, 7);
 
 
 insert into medical_report (diagnosis, exam_description, prescription_id, examination_id, medical_history_id)
-values ('FEVER', 'Veoma lose, ali bice bolje', 'e942b17d-e096-45c8-842e-9cad6054393a', '50a91f30-bdb6-4960-8f32-38ab6d7ef024', '5797f167-1aac-4e18-810e-92ca53b95d35');
+values ('FEVER', 'Veoma lose, ali bice bolje', 1, 2, 1);
+
+insert into medical_report (diagnosis, exam_description, prescription_id, examination_id, medical_history_id)
+values ('COLD', 'Ok', 2, 5, 1);
+
+insert into medical_report (diagnosis, exam_description, prescription_id, examination_id, medical_history_id)
+values ('FLU', 'Veoma ok', 3, 6, 2);
 
 
+insert into prescription_drugs ( prescription_id, drug_id)
+values (1, 'BRUFEN');
+
+insert into prescription_drugs( prescription_id, drug_id)
+values (1, 'XANAX');
+
+insert into prescription_drugs ( prescription_id, drug_id)
+values (3, 'STREPSILS');
