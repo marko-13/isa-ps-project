@@ -29,6 +29,8 @@ public class Prescription {
 	@Column(name="drug_id", nullable = false) // Column name in person_interest
 	private Set<DrugsType> drug;
 
+    @ManyToOne(fetch=FetchType.LAZY)
+	//@NotFound(action = NotFoundAction.IGNORE)
     @JoinColumn(name = "nurse_id", nullable = false)
     private Nurse nurse;
 
