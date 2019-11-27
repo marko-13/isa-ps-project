@@ -7,8 +7,6 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.List;
-import java.util.UUID;
 
 @Data
 @Builder
@@ -18,13 +16,9 @@ import java.util.UUID;
 public class Prescription {
 
 	@Id
-	@GeneratedValue(generator = "UUID")
-	@GenericGenerator(
-			name = "UUID",
-			strategy = "org.hibernate.id.UUIDGenerator"
-	)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, updatable = false, nullable = false)
-	private UUID id;
+	private Long id;
 
 	//@Enumerated(EnumType.STRING)
 	//@Column(name = "drugs", nullable = false)

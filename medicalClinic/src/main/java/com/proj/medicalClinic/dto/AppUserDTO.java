@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public class AppUserDTO {
 
-    private UUID id;
+    private Long id;
     private String email;
     private String firstName;
     private String lastName;
@@ -25,14 +25,14 @@ public class AppUserDTO {
         this.lastName = appUser.getLastName();
     }
 
-    public AppUserDTO(UUID id, String email, String firstName, String lastName){
+    public AppUserDTO(Long id, String email, String firstName, String lastName){
         this.id = id;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
