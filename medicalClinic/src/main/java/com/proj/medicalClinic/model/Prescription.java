@@ -23,7 +23,12 @@ public class Prescription {
 	@Column(name = "approved", nullable = false)
 	private Boolean approved;
 
-    @ManyToOne
+	@ElementCollection(targetClass=DrugsType.class)
+	@Enumerated(EnumType.STRING) // Possibly optional (I'm not sure) but defaults to ORDINAL.
+	@CollectionTable(name="prescription_drugs", joinColumns = @JoinColumn(name = "prescription_id"))
+	@Column(name="drug_id", nullable = false) // Column name in person_interest
+	private Set<DrugsType> drug;
+
     @JoinColumn(name = "nurse_id", nullable = false)
     private Nurse nurse;
 
