@@ -15,13 +15,13 @@ public class AdminClinicDTO {
     private String name;
     private String lastname;
     private String email;
-    private Long clinicId;
+    private String clinic;
 
     public AdminClinicDTO(AdminClinic ac){
         this.name = ac.getName();
         this.lastname = ac.getLastName();
         this.email = ac.getEmail();
-        this.clinicId = ac.getClinic().getId();
+        this.clinic = ac.getClinic().getName();
     }
 
 }
