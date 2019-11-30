@@ -49,25 +49,34 @@ class MyProfile extends Component {
                     updatedUser.clinic = user.data.clinic;
                     updatedUser.clinicalCenterId = user.data.clinicalCenterId;
 
-                    this.setState({user: updatedUser, isAuth: true})
+                    this.setState({ user: updatedUser, isAuth: true })
                 })
                 .catch(err => {
-                    this.setState({isAuth: false});
+                    this.setState({ isAuth: false });
                     console.log(err);
                 })
         } else {
-            this.setState({isAuth: false});
+            this.setState({ isAuth: false });
             console.log('NEMA TOKENA!');
         }
     }
 
     render() {
-        console.log(this.state);
+
+        let userDetails = null;
+
+        if (this.state.isAuth) {
+            userDetails = (
+                <Layout>
+                    <UserDetailsCard user={this.state.user}/>
+                </Layout>
+            );
+        }else{
+            userDetails = <h1>Unauthorized!</h1>
+        }
 
         return (
-            <Layout>
-                <UserDetailsCard />
-            </Layout>
+            userDetails
         );
     }
 
