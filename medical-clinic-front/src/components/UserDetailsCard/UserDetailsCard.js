@@ -43,24 +43,24 @@ const UserDetailsCard = (props) => {
     return (
         <div className='container'>
             <div className='row' style={{ margin: '0 5px' }}>
-                <div class={[classes.UserInfo, classes.Table].join(' ') + "col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad"} >
-                    <div class="panel panel-info">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">My profile</h4>
+                <div className={[classes.UserInfo, classes.Table].join(' ') + "col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad"} >
+                    <div className="panel panel-info">
+                        <div className="panel-heading">
+                            <h4 className="panel-title">My profile</h4>
                         </div>
-                        <div class="panel-body">
-                            <div class="row">
-                                <div class="col-md-4 col-lg-2" align='center' style={{ marginTop: '20px' }}>
-                                    <img alt="User Pic" src={img} class="img-circle img-responsive" />
+                        <div className="panel-body">
+                            <div className="row">
+                                <div className="col-md-4 col-lg-2" align='center' style={{ marginTop: '20px' }}>
+                                    <img alt="User Pic" src={img} className="img-circle img-responsive" />
                                 </div>
-                                <div class=" col-md-9 col-lg-9 ">
-                                    <table class="table table-user-information">
+                                <div className=" col-md-9 col-lg-9 ">
+                                    <table className="table table-user-information">
                                         <tbody>
                                             {userFields}
                                         </tbody>
                                     </table>
-                                    <Button style={{ margin: '0px 5px' }}>Edit account</Button>
-                                    <Button style={{ margin: '0px 5px' }}>Change password</Button>
+                                    <Button style={{ margin: '0px 5px' }} click={props.showDataModal}>Edit account</Button>
+                                    <Button style={{ margin: '0px 5px' }} click={props.showPasswordModal}>Change password</Button>
                                 </div>
                             </div>
                         </div>
