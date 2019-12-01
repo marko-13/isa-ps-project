@@ -7,7 +7,7 @@ import Auxiliary from '../../hoc/Auxiliary/Auxiliary';
 import UserCard from './UserCards/UserCard/UserCard';
 import UserCards from './UserCards/UserCards';
 
-const Homepage = () => {
+const Homepage = (props) => {
 
     let role = null;
     let name = null;
@@ -80,7 +80,7 @@ const Homepage = () => {
             break;
     }
 
-    console.log('da');
+    //<Route path={this.props.match.path + '/contact-data'}
 
     return (
             <Layout>
