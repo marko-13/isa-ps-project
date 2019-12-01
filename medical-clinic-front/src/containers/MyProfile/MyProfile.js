@@ -4,6 +4,9 @@ import axios from '../../axios';
 
 import Layout from '../../hoc/Layout/Layout';
 import UserDetailsCard from '../../components/UserDetailsCard/UserDetailsCard';
+import Modal from '../../components/UI/Modal/Modal';
+import UserDataForm from './UserDataForm/UserDataForm';
+import UserPasswordChangeForm from './UserPasswordChangeForm/UserPasswordChangeForm';
 
 
 class MyProfile extends Component {
@@ -20,7 +23,9 @@ class MyProfile extends Component {
             shift: '',
             clinic: '',
             clinicalCenterId: ''
-        }
+        },
+        changingData: false,
+        changingPassword: false
     }
 
     componentDidMount() {
@@ -57,9 +62,25 @@ class MyProfile extends Component {
                 })
         } else {
             this.setState({ isAuth: false });
-            console.log('NEMA TOKENA!');
         }
     }
+
+    changingDataShowHandler = () => {
+        this.setState({changingData: true});
+    }
+
+    changingDataCancelHandler = () => {
+        this.setState({changingData: false});
+    }
+
+    changingPasswordShowHandler = () => {
+        this.setState({changingPassword : true});
+    }
+
+    changingPasswordCancelHandler = () => {
+        this.setState({changingPassword : false});
+    }
+
 
     render() {
 
@@ -68,7 +89,23 @@ class MyProfile extends Component {
         if (this.state.isAuth) {
             userDetails = (
                 <Layout>
-                    <UserDetailsCard user={this.state.user}/>
+                    <UserDetailsCard
+                         user={this.state.user}
+                         showDataModal={this.changingDataShowHandler} 
+                         showPasswordModal={this.changingPasswordShowHandler}/>
+                    <Modal 
+                        show={this.state.changingData} 
+                        modalClosed={this.changingDataCancelHandler}>
+                        <UserDataForm 
+                            user={this.state.user} 
+                            closeModal={this.changingDataCancelHandler}/>
+                    </Modal>
+
+                    <Modal 
+                        show={this.state.changingPassword} 
+                        modalClosed={this.changingPasswordCancelHandler}>
+                        <UserPasswordChangeForm closeModal={this.changingPasswordCancelHandler} />
+                    </Modal>
                 </Layout>
             );
         }else{
