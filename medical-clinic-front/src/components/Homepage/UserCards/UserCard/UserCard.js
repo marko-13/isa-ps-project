@@ -2,7 +2,7 @@ import React from 'react';
 
 import classes from './UserCard.module.css';
 import Button from '../../../UI/Button/Button';
-
+import {NavLink} from 'react-router-dom';
 
 const UserCard = (props) => {
     return (
@@ -10,7 +10,9 @@ const UserCard = (props) => {
                 <div className="card">
                     <div className="card-body">
                         <p className="card-text">{props.cardText}</p>
-                        <Button type='grey'>{props.buttonText}</Button>
+                        <NavLink to={props.link}>
+                          <Button type='grey'>{props.buttonText}</Button>
+                        </NavLink>
                     </div>
                 </div>
             </div>
