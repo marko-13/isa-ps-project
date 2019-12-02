@@ -19,10 +19,14 @@ class UserPasswordChangeForm extends Component {
             newPassword: this.state.newPassword
         }
 
-        axios.put('/user/changePassword', userInfo, {
+        axios.post('/users/change-password', userInfo, {
             headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
         })
-        .then(res => console.log(res))
+        .then(res => {
+            alert('Success!');
+            this.setState({oldPassword: '', newPassword: ''});
+            this.props.closeModal();
+        })
         .catch(err => console.log(err));
     }
 
