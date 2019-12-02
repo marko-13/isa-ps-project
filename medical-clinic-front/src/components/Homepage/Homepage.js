@@ -7,6 +7,11 @@ import Auxiliary from '../../hoc/Auxiliary/Auxiliary';
 import UserCard from './UserCards/UserCard/UserCard';
 import UserCards from './UserCards/UserCards';
 
+import {Route} from 'react-router-dom';
+import ShowClinics from '../Clinic/ShowClinics/ShowClinics.js'
+import ShowMedicalHistory from '../MedicalHistory/ShowMedicalHistory/ShowMedicalHistory.js'
+
+
 const Homepage = (props) => {
 
     let role = null;
@@ -20,10 +25,12 @@ const Homepage = (props) => {
         name = decodedToken.name;
         lastname = decodedToken.lastname;
     }
-    
-    
+
+
 
     let page = null;
+
+    let functions = null;
 
 
     switch (role) {
@@ -32,10 +39,10 @@ const Homepage = (props) => {
                 <Auxiliary>
                     <UserInfo name={name} lastname={lastname} role={role} />
                     <UserCards>
-                        <UserCard buttonText={"Work schedule"} cardText={"Shows work schedule"} />
-                        <UserCard buttonText={"Validate perscriptions"} cardText={"Shows a list of perscriptions that need to be validated"} />
-                        <UserCard buttonText={"List of patients"} cardText={"Shows a list of patients"} />
-                        <UserCard buttonText={"Ask for leave of absence"} cardText={"Shows form for leave of absence"} />
+                        <UserCard buttonText={"Work schedule"} cardText={"Shows work schedule"} link ={'/homepage/patient/clinics'} />
+                        <UserCard buttonText={"Validate perscriptions"} cardText={"Shows a list of perscriptions that need to be validated"}  link ={'/homepage/patient/clinics'}/>
+                        <UserCard buttonText={"List of patients"} cardText={"Shows a list of patients"}  link ={'/homepage/patient/clinics'}/>
+                        <UserCard buttonText={"Ask for leave of absence"} cardText={"Shows form for leave of absence"}  link ={'/homepage/patient/clinics'}/>
                     </UserCards>
                 </Auxiliary>
             );
@@ -45,13 +52,21 @@ const Homepage = (props) => {
                 <Auxiliary>
                     <UserInfo name={name} lastname={lastname} role={role} />
                     <UserCards>
-                        <UserCard buttonText={"Inspect clinics"} cardText={"Shows a list of all existing clinics in clinical center"} />
-                        <UserCard buttonText={"Inspect medical staff"} cardText={"Shows a list of every medical staff member, nurses and doctors"} />
-                        <UserCard buttonText={"Inspect medical history"} cardText={"Shows a list of patients medical history"} />
-                        <UserCard buttonText={"Inspect appointments"} cardText={"Shows a list of patients upcoming and past appointments"} />
+                        <UserCard buttonText={"Inspect clinics"} cardText={"Shows a list of all existing clinics in clinical center"} link ={'/homepage/patient/clinics'}/>
+                        <UserCard buttonText={"Inspect medical staff"} cardText={"Shows a list of every medical staff member, nurses and doctors"} link ={'/homepage/patient/medicalstaff'}/>
+                        <UserCard buttonText={"Inspect medical history"} cardText={"Shows a list of patients medical history"} link={'/homepage/patient/medicalhistory'}/>
+                        <UserCard buttonText={"Inspect appointments"} cardText={"Shows a list of patients upcoming and past appointments"} link={'/homepage/patient/appointments'}/>
                     </UserCards>
                 </Auxiliary>
 
+            );
+            functions = (
+              <Auxiliary>
+                <Route path='/homepage/patient/clinics' component={ShowClinics}></Route>
+                <Route path='/homepage/patient/medicalstaff' render={null}></Route>
+                <Route path='/homepage/patient/medicalhistory' component={ShowMedicalHistory}></Route>
+                <Route path='/homepage/patient/appointments' render={null}></Route>
+              </Auxiliary>
             );
             break;
         case 'doctor':
@@ -59,11 +74,11 @@ const Homepage = (props) => {
                 <Auxiliary>
                     <UserInfo name={name} lastname={lastname} role={role} />
                     <UserCards>
-                        <UserCard buttonText={"List of patients"} cardText={"Shows a list of patients"} />
-                        <UserCard buttonText={"Start exam"} cardText={"Starta a new medical exam"} />
-                        <UserCard buttonText={"Work schedule"} cardText={"Shows my work schedule"} />
-                        <UserCard buttonText={"Ask for leave of absence"} cardText={"Shows form for leave of absence"} />
-                        <UserCard buttonText={"Schedule"} cardText={"Schedule an appointment for operation or medical exam"} />
+                        <UserCard buttonText={"List of patients"} cardText={"Shows a list of patients"}  link ={'/homepage/patient/clinics'}/>
+                        <UserCard buttonText={"Start exam"} cardText={"Starta a new medical exam"} link ={'/homepage/patient/clinics'} />
+                        <UserCard buttonText={"Work schedule"} cardText={"Shows my work schedule"}  link ={'/homepage/patient/clinics'}/>
+                        <UserCard buttonText={"Ask for leave of absence"} cardText={"Shows form for leave of absence"}  link ={'/homepage/patient/clinics'}/>
+                        <UserCard buttonText={"Schedule"} cardText={"Schedule an appointment for operation or medical exam"}  link ={'/homepage/patient/clinics'}/>
                     </UserCards>
                 </Auxiliary>
 
@@ -87,6 +102,10 @@ const Homepage = (props) => {
                 <div className={'container'}>
                     <div className='row' style={{ margin: '0 5px' }}>
                         {page}
+                    </div>
+
+                    <div className='row' style={{ margin: '0 5px' }}>
+                      {functions}
                     </div>
                 </div>
             </Layout>
