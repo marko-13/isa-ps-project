@@ -2,17 +2,18 @@ package com.proj.medicalClinic.controller;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.proj.medicalClinic.dto.AppUserDTO;
-import com.proj.medicalClinic.model.AppUser;
-import com.proj.medicalClinic.model.RoleType;
+import com.proj.medicalClinic.dto.*;
+import com.proj.medicalClinic.model.*;
+import com.proj.medicalClinic.security.TokenUtils;
 import com.proj.medicalClinic.service.AppUserService;
-import com.proj.medicalClinic.model.Patient;
 import com.proj.medicalClinic.repository.AppUserRepository;
+import com.proj.medicalClinic.service.implementation.CustomUserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,62 +21,69 @@ import java.util.UUID;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
-@RequestMapping("/userss")
+@RequestMapping("/user")
 public class AppUserController {
 
     @Autowired
     private AppUserRepository userRepository;
 
-
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ResponseEntity loginRequest(@RequestBody String json) throws IOException{
-
-        ObjectMapper mapper = new ObjectMapper();
-
-        JsonNode node = mapper.readTree(json);
-        AppUser appUser = null;
-        appUser = userService.findByEmail(node.get("username").asText());
-        System.out.println(node.get("username").asText());
-        if (appUser == null){
-            //return "Invalid email or password";
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-        }
-
-        if (appUser.getPassword().equals(node.get("password").asText())){
-            //return "Login successsful";
-            return ResponseEntity.ok("test");
-        }
-        else{
-            //return "Invalid email or password";
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-        }
-
-    }
-
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public ResponseEntity registerRequest(@RequestBody String json) throws IOException {
-
-        ObjectMapper mapper = new ObjectMapper();
-
-        JsonNode node = mapper.readTree(json);
-        AppUser appUser = null;
-        appUser = userService.findByEmail(node.get("email").asText());
-
-        if (appUser !=null){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email already exists");
-        }
-        else{
-            String name = node.get("name").asText();
-            String password = node.get("password").asText();
-            String email = node.get("email").asText();
-
-            return ResponseEntity.ok("Success");
-        }
-    }
- 
-
     @Autowired
     private AppUserService userService;
+
+    @Autowired
+    private CustomUserDetailsServiceImpl customUserDetailsService;
+
+    @Autowired
+    TokenUtils tokenUtils;
+
+    @Autowired
+    HttpServletRequest httpServletRequest;
+
+    @RequestMapping(value = "/profile", method = RequestMethod.GET)
+    //hasrole ??
+    public ResponseEntity<?> getUserProfile() {
+        String email = this.tokenUtils.getUsernameFromToken(this.tokenUtils.getToken(this.httpServletRequest));
+        AppUser appUser = (AppUser) customUserDetailsService.loadUserByUsername(email);
+        String userRole = appUser.getUserRole().name();
+
+        if (userRole.equals("PATIENT")){
+            Patient p = (Patient) appUser;
+            return new ResponseEntity<>(new PatientDTO(p), HttpStatus.OK);
+        }
+        else if (userRole.equals("DOCTOR")){
+            Doctor d = (Doctor) appUser;
+            return new ResponseEntity<>(new DoctorDTO(d), HttpStatus.OK);
+
+        }else if (userRole.equals("NURSE")){
+            Nurse n = (Nurse) appUser;
+            return new ResponseEntity<>(new NurseDTO(n), HttpStatus.OK);
+
+        }else if (userRole.equals("ADMINCLINIC")){
+            AdminClinic ac = (AdminClinic) appUser;
+            return new ResponseEntity<>(new AdminClinicDTO(ac), HttpStatus.OK);
+        }
+        else if (userRole.equals("ADMINCLINICALCENTER")){
+            AdminClinicalCenter acc = (AdminClinicalCenter) appUser;
+            return new ResponseEntity<>(new AdminClinicCenterDTO(acc), HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+
+    }
+
+    @RequestMapping(value = "update", method = RequestMethod.POST)
+    //has role ??
+    public ResponseEntity<?> updateUser(@RequestBody AppUser appUser){
+
+       AppUser existingUser = userRepository.findByEmail(appUser.getEmail());
+       if(existingUser != null && !existingUser.getEmail().equals(appUser.getEmail())){
+           return new ResponseEntity<>("error", HttpStatus.BAD_REQUEST);
+       }else{
+           userService.updateUser(appUser);
+           return new ResponseEntity<>("sucess", HttpStatus.OK);
+       }
+    }
 
     @GetMapping(value = "/all")
     public ResponseEntity<List<AppUserDTO>> getAllUsers() {
