@@ -17,4 +17,6 @@ public interface AppUserService{
      AppUser findByEmail(String email);
 
      AppUser save(AppUser appUser);
+
+     void updateUser(AppUser appUser);
 }

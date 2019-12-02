@@ -4,10 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.UUID;
+import java.util.*;
 
 @Data
 @Builder
@@ -17,19 +16,21 @@ import java.util.UUID;
 public class Prescription {
 
 	@Id
-	@GeneratedValue(generator = "UUID")
-	@GenericGenerator(
-			name = "UUID",
-			strategy = "org.hibernate.id.UUIDGenerator"
-	)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, updatable = false, nullable = false)
-	private UUID id;
+	private Long id;
 
-	//@Enumerated(EnumType.STRING)
-	//@Column(name = "drugs", nullable = false)
-	//private List<DrugsType> drugs;
+	@Column(name = "approved", nullable = false)
+	private Boolean approved;
 
-    @ManyToOne
+	@ElementCollection(targetClass=DrugsType.class)
+	@Enumerated(EnumType.STRING) // Possibly optional (I'm not sure) but defaults to ORDINAL.
+	@CollectionTable(name="prescription_drugs", joinColumns = @JoinColumn(name = "prescription_id"))
+	@Column(name="drug_id", nullable = false) // Column name in person_interest
+	private Set<DrugsType> drug;
+
+    @ManyToOne(fetch=FetchType.LAZY)
+	//@NotFound(action = NotFoundAction.IGNORE)
     @JoinColumn(name = "nurse_id", nullable = false)
     private Nurse nurse;
 

@@ -1,6 +1,8 @@
 package com.proj.medicalClinic.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
@@ -8,6 +10,8 @@ import javax.persistence.*;
 @Data
 @SuperBuilder
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @DiscriminatorValue("E")
 public class Examination extends Appointment {
 

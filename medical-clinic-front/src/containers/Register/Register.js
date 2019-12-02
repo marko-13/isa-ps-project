@@ -39,7 +39,7 @@ class Register extends Component {
         return (
             <div className="container login-container">
                 <div className="row">
-                    <div className="col-md-6 login-form-1">
+                    <div className="col-md-7 login-form-1">
                         <h3>Register</h3>
                         <div className="form-group">
                             <input

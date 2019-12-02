@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Repository
-public interface AppUserRepository extends JpaRepository <AppUser, UUID>{
+public interface AppUserRepository extends JpaRepository <AppUser, Long>{
 
     List<AppUser> findAll();
 
