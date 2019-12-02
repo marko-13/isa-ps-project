@@ -1,5 +1,6 @@
 package com.proj.medicalClinic.service.implementation;
 
+import com.proj.medicalClinic.exception.NotExistsException;
 import com.proj.medicalClinic.model.*;
 import com.proj.medicalClinic.repository.AppUserRepository;
 import com.proj.medicalClinic.service.AppUserService;
@@ -21,6 +22,8 @@ import java.util.List;
 @Service
 public class AppUserServiceImpl implements AppUserService {
 
+    protected final Log LOGGER = LogFactory.getLog(getClass());
+
     @Autowired
     private AppUserRepository userRepository;
 
@@ -29,6 +32,12 @@ public class AppUserServiceImpl implements AppUserService {
 
     @Autowired
     private AuthorityService authorityService;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private CustomUserDetailsServiceImpl customUserDetailsService;
 
     @Override
     public List<AppUser> findAll() {
@@ -84,6 +93,28 @@ public class AppUserServiceImpl implements AppUserService {
         u.setAuthorities(auth);
         u = this.userRepository.save(u);
         return u;
+    }
+
+    @Override
+    public void updateUser(AppUser appUser){
+        try {
+            Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
+            String username = currentUser.getName();
+
+            AppUser user = (AppUser) customUserDetailsService.loadUserByUsername(username);
+
+            user.setName(appUser.getName());
+            user.setLastName(appUser.getLastName());
+            user.setEmail(appUser.getEmail());
+
+            userRepository.save(user);
+
+        }catch(NotExistsException e) {
+            throw e;
+        } catch(Exception ex) {
+            throw ex;
+        }
+
     }
 
 }
