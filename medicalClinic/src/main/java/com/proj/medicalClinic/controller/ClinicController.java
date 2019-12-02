@@ -38,6 +38,7 @@ public class ClinicController {
     @Autowired
     private ClinicService clinicService;
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(value = "/getAll")
     //@PreAuthorize("hasAuthority('PATIENT')")
     public ResponseEntity<?> getAllClinics() {
