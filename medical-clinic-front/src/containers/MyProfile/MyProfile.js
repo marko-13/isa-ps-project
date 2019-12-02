@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import jwt from 'jsonwebtoken';
 import axios from '../../axios';
+import $ from 'jquery';
 
 import Layout from '../../hoc/Layout/Layout';
 import UserDetailsCard from '../../components/UserDetailsCard/UserDetailsCard';
@@ -28,8 +29,7 @@ class MyProfile extends Component {
         changingPassword: false
     }
 
-    componentDidMount() {
-
+    getUserInfo = () => {
         if (localStorage.getItem('token') !== null) {
             const token = localStorage.getItem('token');
             const decodedToken = jwt.decode(token);
@@ -65,50 +65,58 @@ class MyProfile extends Component {
         }
     }
 
+    componentDidMount() {
+        this.getUserInfo();
+    }
+
+    componentDidUpdate() {
+        //this.getUserInfo();
+    }
+
     changingDataShowHandler = () => {
-        this.setState({changingData: true});
+        this.setState({ changingData: true });
     }
 
     changingDataCancelHandler = () => {
-        this.setState({changingData: false});
+        this.setState({ changingData: false });
     }
 
     changingPasswordShowHandler = () => {
-        this.setState({changingPassword : true});
+        this.setState({ changingPassword: true });
     }
 
     changingPasswordCancelHandler = () => {
-        this.setState({changingPassword : false});
+        this.setState({ changingPassword: false });
     }
 
 
     render() {
 
         let userDetails = null;
-
+    
         if (this.state.isAuth) {
             userDetails = (
                 <Layout>
                     <UserDetailsCard
-                         user={this.state.user}
-                         showDataModal={this.changingDataShowHandler} 
-                         showPasswordModal={this.changingPasswordShowHandler}/>
-                    <Modal 
-                        show={this.state.changingData} 
+                        user={this.state.user}
+                        showDataModal={this.changingDataShowHandler}
+                        showPasswordModal={this.changingPasswordShowHandler} />
+                    <Modal
+                        show={this.state.changingData}
                         modalClosed={this.changingDataCancelHandler}>
-                        <UserDataForm 
-                            user={this.state.user} 
-                            closeModal={this.changingDataCancelHandler}/>
+                        <UserDataForm
+                            user={this.state.user}
+                            closeModal={this.changingDataCancelHandler} />
                     </Modal>
 
-                    <Modal 
-                        show={this.state.changingPassword} 
+                    <Modal
+                        show={this.state.changingPassword}
                         modalClosed={this.changingPasswordCancelHandler}>
                         <UserPasswordChangeForm closeModal={this.changingPasswordCancelHandler} />
                     </Modal>
                 </Layout>
             );
-        }else{
+        } else {
             userDetails = <h1>Unauthorized!</h1>
         }
 
