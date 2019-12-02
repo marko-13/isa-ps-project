@@ -40,6 +40,7 @@ public class AppUserController {
     HttpServletRequest httpServletRequest;
 
     @RequestMapping(value = "/profile", method = RequestMethod.GET)
+    //hasrole ??
     public ResponseEntity<?> getUserProfile() {
         String email = this.tokenUtils.getUsernameFromToken(this.tokenUtils.getToken(this.httpServletRequest));
         AppUser appUser = (AppUser) customUserDetailsService.loadUserByUsername(email);
@@ -69,6 +70,19 @@ public class AppUserController {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
 
+    }
+
+    @RequestMapping(value = "update", method = RequestMethod.POST)
+    //has role ??
+    public ResponseEntity<?> updateUser(@RequestBody AppUser appUser){
+
+       AppUser existingUser = userRepository.findByEmail(appUser.getEmail());
+       if(existingUser != null && !existingUser.getEmail().equals(appUser.getEmail())){
+           return new ResponseEntity<>("error", HttpStatus.BAD_REQUEST);
+       }else{
+           userService.updateUser(appUser);
+           return new ResponseEntity<>("sucess", HttpStatus.OK);
+       }
     }
 
     @GetMapping(value = "/all")
