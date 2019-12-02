@@ -13,12 +13,27 @@ class UserDataForm extends Component {
     onConfirmHandler = (event) => {
         event.preventDefault();
 
-        const updatedUser = {...this.state};
+        const updatedUser = {
+                            name: this.state.name,
+                            lastName: this.state.lastname,
+                            email: this.state.email
+                        };
 
-        axios.put('/user/changeInfo', updatedUser, {
+        console.log(updatedUser);
+
+        axios.post('/user/update', updatedUser, {
             headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
         })
-        .then(response => console.log(response))
+        .then(response => {
+            alert('Success!');
+            this.setState({
+                name: '',
+                lastName: '',
+                email: ''
+            });
+            this.props.closeModal();
+            window.location.reload(false); 
+        })
         .catch(err => console.log(err));
     }
 
@@ -29,16 +44,6 @@ class UserDataForm extends Component {
 
 
     render() {
-
-        // let formData = null;
-
-        // formData = (
-        //     <div>
-        //         {this.state.name === '' ? null : <input type='text' placeholder='Name' value={this.state.name} onChange={(event) => this.setState({name: event.target.value})}/>}
-        //         {this.state.lastname === '' ? null : <input type='text' placeholder='Lastname' value={this.state.lastname} onChange={(event) => this.setState({lastname: event.target.value})}/>}
-        //         {this.state.email === '' ? null : <input type='email' placeholder='Email' value={this.state.email} onChange={(event) => this.setState({email: event.target.value})}/>}
-        //     </div>  
-        // );
 
         return (
             <div className={[classes.formData, classes.Input].join(' ')}>
