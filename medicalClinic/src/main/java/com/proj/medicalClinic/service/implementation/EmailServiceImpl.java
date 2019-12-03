@@ -47,7 +47,7 @@ public class EmailServiceImpl implements EmailService {
         System.out.println("Slanje emaila...");
 
         SimpleMailMessage mail = new SimpleMailMessage();
-        mail.setTo("marko07031997@gmail.com");
+        mail.setTo(user.getEmail());
         mail.setFrom(env.getProperty("isa.psw.tim17@gmail.com"));
         mail.setSubject("Account activation");
         if(user.isEnabled()) {
