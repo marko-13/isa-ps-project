@@ -10,6 +10,7 @@ import UserCards from './UserCards/UserCards';
 import {Route} from 'react-router-dom';
 import ShowClinics from '../Clinic/ShowClinics/ShowClinics.js'
 import ShowMedicalHistory from '../MedicalHistory/ShowMedicalHistory/ShowMedicalHistory.js'
+import Prescriptions from '../../containers/Prescriptions/Prescriptions'
 
 
 const Homepage = (props) => {
@@ -39,12 +40,20 @@ const Homepage = (props) => {
                 <Auxiliary>
                     <UserInfo name={name} lastname={lastname} role={role} />
                     <UserCards>
-                        <UserCard buttonText={"Work schedule"} cardText={"Shows work schedule"} link ={'/homepage/patient/clinics'} />
-                        <UserCard buttonText={"Validate perscriptions"} cardText={"Shows a list of perscriptions that need to be validated"}  link ={'/homepage/patient/clinics'}/>
+                        <UserCard buttonText={"Work schedule"} cardText={"Shows work schedule"} link = {'/homepage/workschedule'}/>
+                        <UserCard buttonText={"Validate perscriptions"} cardText={"Shows a list of perscriptions that need to be validated"}  link ={'/homepage/nurse/prescriptions'}/>
                         <UserCard buttonText={"List of patients"} cardText={"Shows a list of patients"}  link ={'/homepage/patient/clinics'}/>
                         <UserCard buttonText={"Ask for leave of absence"} cardText={"Shows form for leave of absence"}  link ={'/homepage/patient/clinics'}/>
                     </UserCards>
                 </Auxiliary>
+            );
+            functions = (
+              <Auxiliary>
+                <Route path='/homepage/nurse/prescriptions' component={Prescriptions}></Route>
+                <Route path='/homepage/patient/medicalstaff' render={null}></Route>
+                <Route path='/homepage/patient/medicalhistory' component={ShowMedicalHistory}></Route>
+                <Route path='/homepage/patient/appointments' render={null}></Route>
+              </Auxiliary>
             );
             break;
         case 'patient':
