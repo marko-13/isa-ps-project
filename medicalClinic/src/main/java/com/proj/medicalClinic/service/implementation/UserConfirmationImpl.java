@@ -6,6 +6,7 @@ import com.proj.medicalClinic.exception.NotExistsException;
 import com.proj.medicalClinic.model.AppUser;
 import com.proj.medicalClinic.model.Patient;
 import com.proj.medicalClinic.repository.AppUserRepository;
+import com.proj.medicalClinic.service.EmailService;
 import com.proj.medicalClinic.service.UserConfirmation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.parameters.P;
@@ -16,6 +17,9 @@ import java.util.List;
 
 @Service
 public class UserConfirmationImpl implements UserConfirmation {
+
+    @Autowired
+    private EmailService emailService;
 
     @Autowired
     private AppUserRepository appUserRepository;
@@ -52,6 +56,12 @@ public class UserConfirmationImpl implements UserConfirmation {
 
             patient.setEnabled(true);
             Patient updated = this.appUserRepository.save(patient);
+
+            try {
+                this.emailService.sendNotificaitionAsync(updated);
+            }catch( Exception e ){
+            }
+
             return new PatientDTO(updated);
         } catch (NotExistsException e) {
             throw e;
