@@ -25,8 +25,14 @@ class ShowMedicalHistory extends Component{
   render(){
     console.log(this.state.medicalHistory)
     return(
+    <div>
+      <h3>Medical history:</h3>
+      <p>Weight: {this.state.medicalHistory == null ? null : this.state.medicalHistory.weight}</p>
+      <p>Height: {this.state.medicalHistory == null ? null : this.state.medicalHistory.height}</p>
+      <p>Dioptre: {this.state.medicalHistory == null ? null : this.state.medicalHistory.dioptre}</p>
+      <p>Allergies: {this.state.medicalHistory == null ? null : this.state.medicalHistory.allergies}</p>
+    </div>
 
-    <p>Weight: {this.state.medicalHistory == null ? null : this.state.medicalHistory.weight}</p>
     );
   }
 }
