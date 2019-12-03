@@ -9,6 +9,9 @@ import Modal from '../../components/UI/Modal/Modal';
 import UserDataForm from './UserDataForm/UserDataForm';
 import UserPasswordChangeForm from './UserPasswordChangeForm/UserPasswordChangeForm';
 
+import { Redirect } from 'react-router-dom'
+
+
 
 class MyProfile extends Component {
 
@@ -93,7 +96,7 @@ class MyProfile extends Component {
     render() {
 
         let userDetails = null;
-    
+
         if (this.state.isAuth) {
             userDetails = (
                 <Layout>
