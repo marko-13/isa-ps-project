@@ -62,11 +62,15 @@ public class AuthenticationController {
 
         // Kreiraj token
         AppUser user = (AppUser) authentication.getPrincipal();
-        String jwt = tokenUtils.generateToken(user.getUsername(), user.getUserRole().name(), user.getName(), user.getLastName());
-        int expiresIn = tokenUtils.getExpiredIn();
+        if (user.isEnabled()) {
+            String jwt = tokenUtils.generateToken(user.getUsername(), user.getUserRole().name(), user.getName(), user.getLastName());
+            int expiresIn = tokenUtils.getExpiredIn();
 
-        // Vrati token kao odgovor na uspesno autentifikaciju
-        return ResponseEntity.ok(new UserTokenState(jwt, expiresIn));
+            // Vrati token kao odgovor na uspesno autentifikaciju
+            return ResponseEntity.ok(new UserTokenState(jwt, expiresIn));
+        } else {
+            return ResponseEntity.badRequest().body("This user is not yet approved");
+        }
     }
 
     @RequestMapping(method = POST, value = "/register")
