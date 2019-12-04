@@ -30,7 +30,6 @@ class Prescriptions extends Component {
         this.getAllPrescriptions();
     }
 
-
     render() {
 
         let approvePrescriptions = null;
@@ -76,8 +75,8 @@ class Prescriptions extends Component {
             {key}
         ));*/
 
-        console.log(smt);
-
+        //console.log(smt);
+        /*
         let pres = null;
         console.log(this.state.prescriptions)
         if(this.state.prescriptions !== null){
@@ -94,7 +93,7 @@ class Prescriptions extends Component {
             <div style={{textAlign: 'center', width: '100%'}}>
                 {pres}
             </div>
-        );
+        );*/
     }
 }
 
