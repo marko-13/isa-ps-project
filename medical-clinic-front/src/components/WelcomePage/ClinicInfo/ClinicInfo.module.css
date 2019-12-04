@@ -1,8 +1,8 @@
 .ClinicInfo {
-    margin: 5% 5%;
+    margin-top: 5%;
     box-shadow: 0 2px 3px #ccc;
     border: 1px solid #eee;
     padding: 20px;
     box-sizing: border-box;
-    height: 90%;
+    width: 80%
 }
