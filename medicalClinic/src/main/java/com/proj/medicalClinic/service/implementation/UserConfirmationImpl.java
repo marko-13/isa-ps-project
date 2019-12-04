@@ -29,7 +29,7 @@ public class UserConfirmationImpl implements UserConfirmation {
     @Override
     public List<PatientDTO> getNotApprovedUsers() {
         try {
-            List<AppUser> users = appUserRepository.findAllByEnabled(false);
+            List<AppUser> users = appUserRepository.findAllByEnabledAndRejected(false, false);
             if (users == null) {
                 throw new NotExistsException("All new users are approved");
             }
