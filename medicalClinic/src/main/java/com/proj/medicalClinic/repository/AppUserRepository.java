@@ -19,7 +19,7 @@ public interface AppUserRepository extends JpaRepository <AppUser, Long>{
     List<AppUser> findByUserRole(RoleType role);
     //AppUser findByEmail(String email);
 
-    List<AppUser> findAllByEnabled(Boolean enabled);
+    List<AppUser> findAllByEnabledAndRejected(Boolean enabled, Boolean rejected);
 
     AppUser findByEmail(String emailid);
 

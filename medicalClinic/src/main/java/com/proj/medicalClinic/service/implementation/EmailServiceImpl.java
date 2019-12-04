@@ -43,7 +43,7 @@ public class EmailServiceImpl implements EmailService {
     private Environment env;
 
     @Override
-    public void sendNotificaitionAsync(AppUser user) throws MailException, InterruptedException {
+    public void sendNotificaitionAsync(AppUser user, String msg) throws MailException, InterruptedException {
         System.out.println("Slanje emaila...");
 
         SimpleMailMessage mail = new SimpleMailMessage();
@@ -51,10 +51,10 @@ public class EmailServiceImpl implements EmailService {
         mail.setFrom(env.getProperty("isa.psw.tim17@gmail.com"));
         mail.setSubject("Account activation");
         if(user.isEnabled()) {
-            mail.setText("Hello " + user.getName() + " " + user.getLastName() + ",\n\nYour account has been successfully activated.");
+            mail.setText("Hello " + user.getName() + " " + user.getLastName() + "," + msg);
         }
         else{
-            mail.setText("Hello " + user.getName() + " " + user.getLastName() + ",\n\nYour acount was declined.");
+            mail.setText("Hello " + user.getName() + " " + user.getLastName() + "," + msg);
         }
         getJavaMailSender().send(mail);
 

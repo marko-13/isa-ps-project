@@ -38,7 +38,7 @@ public class AdminClinicCenterController {
 
     @RequestMapping(value = "/deny/{id}")
     @PreAuthorize("hasAuthority('ADMINCLINICALCENTER')")
-    public ResponseEntity<?> denyPatients(@PathVariable Long id) {
-        return new ResponseEntity<>(this.userConfirmation.denyPatient(id), HttpStatus.OK);
+    public ResponseEntity<?> denyPatients(@PathVariable Long id, @RequestBody String msg) {
+        return new ResponseEntity<>(this.userConfirmation.denyPatient(id, msg), HttpStatus.OK);
     }
 }
