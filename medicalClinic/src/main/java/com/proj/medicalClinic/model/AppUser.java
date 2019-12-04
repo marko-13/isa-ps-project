@@ -42,6 +42,20 @@ public class AppUser implements UserDetails {
 	@Column(name="last_name", unique=false, nullable=false)
 	private String lastName;
 
+	@Column(name="adress", unique=false, nullable=false)
+	private String adress;
+
+	@Column(name="city", unique=false, nullable=false)
+	private String city;
+
+	@Column(name="state", unique=false, nullable=false)
+	private String state;
+
+	@Column(name="mobile", unique=false, nullable=false)
+	private String mobile;
+
+
+
 	@Column(name = "enabled")
 	private boolean enabled;
 
