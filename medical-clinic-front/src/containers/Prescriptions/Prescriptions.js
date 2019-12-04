@@ -36,6 +36,21 @@ class Prescriptions extends Component {
         let approvePrescriptions = null;
         let smt = localStorage.getItem("token");
 
+            return(
+                <div className = 'react-custom-table'>
+                <ReactTable data = {this.state.prescriptions.data}
+                pageSize={(this.state.prescriptions.data.length > 10) ? 10 : this.state.prescriptions.data.length}
+                getTrProps={(state, rowInfo, column, instance) => ({
+                    onClick: e => console.log('A row was clicked!')
+                })}
+                columns = {columns}
+                filterable = {true}/>
+                </div>
+            );
+
+        }
+
+        return (null);
         /*
         let coins = Object.keys(this.state.prescriptions.data).map((key) => (
             {key}
