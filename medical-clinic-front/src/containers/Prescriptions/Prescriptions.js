@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import axios from '../../axios';
+import ReactTable from 'react-table-6';
+import 'react-table-6/react-table.css';
+import './Prescriptions.css';
 
 class Prescriptions extends Component {
 
