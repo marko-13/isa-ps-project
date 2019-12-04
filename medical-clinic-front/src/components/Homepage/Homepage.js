@@ -11,6 +11,7 @@ import {Route} from 'react-router-dom';
 import ShowClinics from '../Clinic/ShowClinics/ShowClinics.js'
 import ShowMedicalHistory from '../MedicalHistory/ShowMedicalHistory/ShowMedicalHistory.js'
 import Prescriptions from '../../containers/Prescriptions/Prescriptions'
+import UserApproval from '../../containers/UserApproval/UserApproval'
 
 
 const Homepage = (props) => {
@@ -97,7 +98,19 @@ const Homepage = (props) => {
             page = <h1>Admin clinic</h1>
             break;
         case 'adminclinicalcenter':
-            page = <h1>Admin clinic center</h1>
+            page = (
+                <Auxiliary>
+                    <UserInfo name={name} lastname={lastname} role={role} />
+                    <UserCards>
+                        <UserCard buttonText={"Approve users"} cardText={"Shows all unapproved users"} link = {'/homepage/admin-clinic-center/user-approval'}/>
+                    </UserCards>
+                </Auxiliary>
+            );
+            functions = (
+              <Auxiliary>
+                <Route path='/homepage/admin-clinic-center/user-approval' component={UserApproval}></Route>
+              </Auxiliary>
+            );
             break;
         default:
             page = <h1>Nije logovan!</h1>

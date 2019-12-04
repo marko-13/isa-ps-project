@@ -5,5 +5,5 @@ import org.springframework.mail.MailException;
 
 public interface EmailService {
 
-    public void sendNotificaitionAsync(AppUser user) throws MailException, InterruptedException;
+    public void sendNotificaitionAsync(AppUser user, String msg) throws MailException, InterruptedException;
 }

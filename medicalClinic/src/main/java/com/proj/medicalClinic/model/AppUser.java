@@ -59,6 +59,8 @@ public class AppUser implements UserDetails {
 	@Column(name = "enabled")
 	private boolean enabled;
 
+	@Column(name = "rejected")
+	private boolean rejected;
 
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(

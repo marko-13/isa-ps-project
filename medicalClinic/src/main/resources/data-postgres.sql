@@ -39,6 +39,7 @@ insert into app_user (type, user_role, email, password, name, last_name, clinica
 values ('ACC', 'ADMINCLINICALCENTER', 'Radoslav@gmail.com', '$2a$10$PpuFaY9yRRdUj9l4lr7sueTutLXXWxlgGRomEFH2lNQRYhiGwlMmS', 'Radoslav', 'Brankovic', 1, true, 'Adresa11', 'Grad11', 'Drzava11', '1111');
 
 
+
 insert into clinics_patients (clinic_id, patient_id)
 values (1, 1);
 
