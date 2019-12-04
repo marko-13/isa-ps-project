@@ -29,11 +29,11 @@ public class EmailController {
     }
 
     @PostMapping("/async")
-    public ResponseEntity<?> signUpAsync(AppUser user){
+    public ResponseEntity<?> signUpAsync(AppUser user, String msg){
 
         //slanje emaila
         try {
-            emailService.sendNotificaitionAsync(user);
+            emailService.sendNotificaitionAsync(user, msg);
         }catch( Exception e ){
             //logger.info("Greska prilikom slanja emaila: " + e.getMessage());
         }
