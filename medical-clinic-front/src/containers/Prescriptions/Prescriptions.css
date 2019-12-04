@@ -1,0 +1,13 @@
+.ReactTable .rt-tr-group:hover {
+	background: #aaaaaa;
+	cursor: pointer;
+}
+
+.react-custom-table {
+	margin: 5%;
+}
+
+.ReactTable .rt-thead.-headerGroups {
+	font-size: 20px;
+	font-weight: bold;
+}
