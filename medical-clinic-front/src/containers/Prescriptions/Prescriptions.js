@@ -35,6 +35,26 @@ class Prescriptions extends Component {
 
         let approvePrescriptions = null;
         let smt = localStorage.getItem("token");
+        console.log(this.state.prescriptions)
+        if(this.state.prescriptions !== null) {
+            const columns = [{
+                Header: 'Not approved prescriptions',
+                columns: [
+                {
+                    id: 'id',
+                    Header: 'id',
+                    accessor: d => "Prescription " + d.id},
+                {
+                    Header: "",
+                    Cell: ({ original }) => (
+                        <button className="btnSubmit" onClick={() => this.approvePrescritpion(original.id)}>
+                            Approve
+                        </button>),
+                    filterable: false,
+                    sortable: false
+                }
+                ]
+            }];
 
             return(
                 <div className = 'react-custom-table'>
