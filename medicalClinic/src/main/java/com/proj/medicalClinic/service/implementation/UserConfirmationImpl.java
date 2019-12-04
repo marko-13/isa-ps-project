@@ -60,7 +60,7 @@ public class UserConfirmationImpl implements UserConfirmation {
             Patient updated = this.appUserRepository.save(patient);
 
             try {
-                this.emailService.sendNotificaitionAsync(updated);
+                this.emailService.sendNotificaitionAsync(updated, "\n\nYour account has been successfully activated.");
             }catch( Exception e ){
             }
 
@@ -73,11 +73,27 @@ public class UserConfirmationImpl implements UserConfirmation {
     }
 
     @Override
-    public boolean denyPatient(Long id) {
+    public boolean denyPatient(Long id, String msg) {
         try {
             AppUser appUser = this.appUserRepository.findById(id).orElse(null);
-            this.appUserRepository.delete(appUser);
-            return true;
+            if (appUser == null) {
+                throw new NotExistsException("This patient doesn't exist");
+            } else if (appUser.isEnabled()) {
+                throw new NotValidParamsException("This patient is already enabled");
+            } else if (appUser.getUserRole() != RoleType.PATIENT) {
+                throw new NotValidParamsException("This user is not patient");
+            } else if (appUser.isRejected()) {
+                throw new NotValidParamsException("This patient has already been rejected");
+            } else {
+                appUser.setEnabled(false);
+                appUser.setRejected(true);
+                this.appUserRepository.save(appUser);
+                try {
+                    this.emailService.sendNotificaitionAsync(appUser, "\n\nYour account was denied access." + "\n\nReason:\n" + msg);
+                }catch( Exception e ){
+                }
+                return true;
+            }
         } catch (NotExistsException e) {
             throw e;
         } catch (Exception ex) {

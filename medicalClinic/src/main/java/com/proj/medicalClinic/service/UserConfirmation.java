@@ -10,5 +10,5 @@ public interface UserConfirmation {
 
     PatientDTO approvePatient(Long id);
 
-    boolean denyPatient(Long id);
+    boolean denyPatient(Long id, String msg);
 }
