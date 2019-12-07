@@ -12,6 +12,7 @@ import ShowClinics from '../Clinic/ShowClinics/ShowClinics.js'
 import ShowMedicalHistory from '../MedicalHistory/ShowMedicalHistory/ShowMedicalHistory.js'
 import Prescriptions from '../../containers/Prescriptions/Prescriptions'
 import UserApproval from '../../containers/UserApproval/UserApproval'
+import OperationRooms from '../../containers/OperationRooms/OperationRooms';
 
 
 const Homepage = (props) => {
@@ -95,7 +96,22 @@ const Homepage = (props) => {
             );
             break;
         case 'adminclinic':
-            page = <h1>Admin clinic</h1>
+            page = (
+                <Auxiliary>
+                    <UserInfo name={name} lastname={lastname} role={role} />
+                    <UserCards>
+                        <UserCard buttonText={"Operation Rooms"} cardText={"Search and filter operation rooms"}  link ={'/homepage/admin-clinic/operation-rooms'}/>
+                    </UserCards>
+                </Auxiliary>
+
+            );
+
+            functions = (
+                <Auxiliary>
+                  <Route path='/homepage/admin-clinic/operation-rooms' component={OperationRooms}></Route>
+                </Auxiliary>
+              );
+
             break;
         case 'adminclinicalcenter':
             page = (
