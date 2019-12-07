@@ -8,5 +8,5 @@ import java.util.List;
 @Service
 public interface OperationRoomService {
 
-    public List<OperationRoom> getAll();
+    List<OperationRoom> getAll();
 }
