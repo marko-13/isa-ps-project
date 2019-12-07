@@ -5,10 +5,12 @@ import com.proj.medicalClinic.model.OperationRoom;
 import com.proj.medicalClinic.repository.OperationRoomRepository;
 import com.proj.medicalClinic.service.OperationRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class OperationRoomServiceImpl implements OperationRoomService {
 
     @Autowired
