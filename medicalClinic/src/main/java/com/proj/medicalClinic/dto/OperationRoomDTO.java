@@ -13,11 +13,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class OperationRoomDTO {
 
+    private Long roomId;
     private String name;
     private int number;
 
     public OperationRoomDTO(OperationRoom or){
-        this(or.getName(),or.getNumber());
+        this(or.getId(), or.getName(),or.getNumber());
     }
 
 }
