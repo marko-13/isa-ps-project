@@ -138,11 +138,11 @@ const Homepage = (props) => {
     return (
             <Layout>
                 <div className={'container'}>
-                    <div className='row' style={{ margin: '0 5px' }}>
+                    <div className='row' style={{ margin: '0px 5px' }}>
                         {page}
                     </div>
 
-                    <div className='row' style={{ margin: '0 5px' }}>
+                    <div className='row' style={{ margin: '10px 5px' }}>
                       {functions}
                     </div>
                 </div>
