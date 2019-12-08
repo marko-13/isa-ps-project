@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
 import jwt from 'jsonwebtoken';
 import axios from '../../axios';
-import $ from 'jquery';
 
 import Layout from '../../hoc/Layout/Layout';
 import UserDetailsCard from '../../components/UserDetailsCard/UserDetailsCard';
 import Modal from '../../components/UI/Modal/Modal';
 import UserDataForm from './UserDataForm/UserDataForm';
 import UserPasswordChangeForm from './UserPasswordChangeForm/UserPasswordChangeForm';
-
-import { Redirect } from 'react-router-dom'
 
 
 
