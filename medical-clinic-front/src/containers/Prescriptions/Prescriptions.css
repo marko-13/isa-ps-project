@@ -4,9 +4,9 @@
 }
 
 .react-custom-table {
-	margin: 5%;
+	margin-left: 5%;
+	margin-right: 5%;
 }
-
 .ReactTable .rt-thead.-headerGroups {
 	font-size: 20px;
 	font-weight: bold;
