@@ -104,12 +104,14 @@ const Homepage = (props) => {
                     <UserInfo name={name} lastname={lastname} role={role} />
                     <UserCards>
                         <UserCard buttonText={"Approve users"} cardText={"Shows all unapproved users"} link = {'/homepage/admin-clinic-center/user-approval'}/>
+                        <UserCard buttonText={"Register clinic"} cardText={"Register new clinic"} link = {'/homepage/admin-clinic-center/register-clinic'}/>
                     </UserCards>
                 </Auxiliary>
             );
             functions = (
               <Auxiliary>
                 <Route path='/homepage/admin-clinic-center/user-approval' component={UserApproval}></Route>
+                <Route path='/homepage/admin-clinic-center/register-clinic' component={RegisterClinic}></Route>
               </Auxiliary>
             );
             break;
