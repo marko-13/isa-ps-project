@@ -12,6 +12,7 @@ import ShowClinics from '../Clinic/ShowClinics/ShowClinics.js'
 import ShowMedicalHistory from '../MedicalHistory/ShowMedicalHistory/ShowMedicalHistory.js'
 import Prescriptions from '../../containers/Prescriptions/Prescriptions'
 import UserApproval from '../../containers/UserApproval/UserApproval'
+import RegisterClinic from '../../containers/RegisterClinic/RegisterClinic'
 
 
 const Homepage = (props) => {
