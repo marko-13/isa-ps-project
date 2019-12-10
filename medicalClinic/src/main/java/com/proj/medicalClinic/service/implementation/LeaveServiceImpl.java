@@ -10,6 +10,7 @@ import com.proj.medicalClinic.model.Leave;
 import com.proj.medicalClinic.model.Nurse;
 import com.proj.medicalClinic.repository.AppUserRepository;
 import com.proj.medicalClinic.repository.LeaveRepository;
+import com.proj.medicalClinic.service.EmailService;
 import com.proj.medicalClinic.service.LeaveService;
 import org.omg.CosNaming.NamingContextPackage.NotFound;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +30,13 @@ public class LeaveServiceImpl implements LeaveService {
     @Autowired
     private AppUserRepository appUserRepository;
 
+    @Autowired
+    private EmailService emailService;
+
     @Override
     public List<LeaveDTO> getAll() {
 
-        List<Leave> leaves = leaveRepository.findAll();
+        List<Leave> leaves = leaveRepository.findAllUnapproved();
         if(leaves == null){
             throw new NotExistsException("There are no leaves");
         }
@@ -52,5 +56,49 @@ public class LeaveServiceImpl implements LeaveService {
         }
 
         return leaveDTOS;
+    }
+
+    @Override
+    public void approveLeave(Long id, String email){
+        Leave leave = leaveRepository.findById(id).orElseThrow(NotExistsException::new);
+        leave.setApproved(true);
+        leave.setActive(false);
+
+
+        AppUser appUser = appUserRepository.findByEmail(email);
+        if(appUser == null){
+            throw new NotExistsException("User does not exist!");
+        }
+
+        try{
+            this.emailService.sendNotificaitionAsync(appUser, " your leave of absence has been approved", "Leave of absence");
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        leaveRepository.save(leave);
+
+    }
+
+    @Override
+    public void denyLeave(Long id, String email, String message){
+        Leave leave = leaveRepository.findById(id).orElseThrow(NotExistsException::new);
+        leave.setApproved(false);
+        leave.setActive(false);
+
+
+        AppUser appUser = appUserRepository.findByEmail(email);
+        if(appUser == null){
+            throw new NotExistsException("User does not exist!");
+        }
+
+        try{
+            this.emailService.sendNotificaitionAsync(appUser, message, "Leave of absence");
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        leaveRepository.save(leave);
+
     }
 }
