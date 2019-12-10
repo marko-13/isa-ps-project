@@ -29,12 +29,14 @@ public class Leave {
 	private Date dateEnd;
 
 	//NULLABLE TRUE JER AKO JE GODISNJI OD NURSE OVDE JE NULL
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "doctor_id", nullable = true)
 	private Doctor doctor;
 
 	//NULLABLE TRUE JER AKO JE GODISNJI OD DOCTOR OVDE JE NULL
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "nurse_id", nullable = true)
 	private Nurse nurse;
+
+
 }
