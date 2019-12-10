@@ -40,8 +40,6 @@ public class UserConfirmationImpl implements UserConfirmation {
             return patientsDTO;
         } catch (NotExistsException e) {
             throw e;
-        } catch (Exception ex) {
-            throw ex;
         }
     }
 
@@ -65,8 +63,6 @@ public class UserConfirmationImpl implements UserConfirmation {
             return new PatientDTO(updated);
         } catch (NotExistsException e) {
             throw e;
-        } catch (Exception ex) {
-            throw ex;
         }
     }
 
@@ -94,8 +90,6 @@ public class UserConfirmationImpl implements UserConfirmation {
             }
         } catch (NotExistsException e) {
             throw e;
-        } catch (Exception ex) {
-            throw ex;
         }
     }
 }
