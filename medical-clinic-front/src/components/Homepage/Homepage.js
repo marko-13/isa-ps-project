@@ -12,7 +12,8 @@ import ShowClinics from '../Clinic/ShowClinics/ShowClinics.js'
 import ShowMedicalHistory from '../MedicalHistory/ShowMedicalHistory/ShowMedicalHistory.js'
 import Prescriptions from '../../containers/Prescriptions/Prescriptions'
 import UserApproval from '../../containers/UserApproval/UserApproval'
-import OperationRooms from '../../containers/OperationRooms/OperationRooms';
+import OperationRooms from '../../containers/ClinicAdministrator/OperationRooms/OperationRooms';
+import Leaves from '../../containers/ClinicAdministrator/Leaves/Leaves';
 
 
 const Homepage = (props) => {
@@ -101,6 +102,7 @@ const Homepage = (props) => {
                     <UserInfo name={name} lastname={lastname} role={role} />
                     <UserCards>
                         <UserCard buttonText={"Operation Rooms"} cardText={"Search and filter operation rooms"}  link ={'/homepage/admin-clinic/operation-rooms'}/>
+                        <UserCard buttonText={"Show"} cardText={"Show all requests for leave of absence"}  link ={'/homepage/admin-clinic/leaves'}/>
                     </UserCards>
                 </Auxiliary>
 
@@ -109,6 +111,7 @@ const Homepage = (props) => {
             functions = (
                 <Auxiliary>
                   <Route path='/homepage/admin-clinic/operation-rooms' component={OperationRooms}></Route>
+                  <Route path='/homepage/admin-clinic/leaves' component={Leaves}></Route>
                 </Auxiliary>
               );
 
@@ -142,7 +145,7 @@ const Homepage = (props) => {
                         {page}
                     </div>
 
-                    <div className='row' style={{ margin: '10px 5px' }}>
+                    <div className='row' style={{ margin: '20px 5px' }}>
                       {functions}
                     </div>
                 </div>
