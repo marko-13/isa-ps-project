@@ -17,21 +17,17 @@ import java.util.List;
 public class ClinicServiceImpl implements ClinicService {
 
     @Autowired
-    ClinicRepository clinicRepository;
+    private ClinicRepository clinicRepository;
 
     @Autowired
     private CustomUserDetailsServiceImpl userDetailsService;
-
-    @Autowired
-    private AppUserRepository appUserRepository;
-
 
     @Override
     public List<ClinicDTO> getAllClinics() {
 
         List<Clinic> clinics = clinicRepository.findAll();
         List<ClinicDTO> clinicsDTO = new ArrayList<>();
-        for(Clinic c : clinics){
+        for (Clinic c : clinics) {
             clinicsDTO.add(new ClinicDTO(c));
         }
 
