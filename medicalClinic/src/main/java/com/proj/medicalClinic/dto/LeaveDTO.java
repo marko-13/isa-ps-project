@@ -17,19 +17,16 @@ public class LeaveDTO {
 
     private Date start;
     private Date end;
-    //private AppUserDTO user;
+    private Long userID;
 
     public LeaveDTO(Leave l){
         this.start = l.getDateStart();
         this.end = l.getDateEnd();
 
-        if(l.getDoctor() != null){
-           // AppUserDTO appUserDTO = new AppUserDTO(l.getDoctor());
-           // this.user = appUserDTO;
-        }
-        else if(l.getNurse() != null){
-            //AppUserDTO appUserDTO = new AppUserDTO(l.getNurse());
-           // this.user = appUserDTO;
+        if(l.getNurse() != null){
+            this.userID = l.getNurse().getId();
+        }else{
+            this.userID = l.getDoctor().getId();
         }
     }
 
