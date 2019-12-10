@@ -140,6 +140,8 @@ values (6, 3);
 
 
 
+insert into leave (date_end, date_start, doctor_id, nurse_id)
+values ('5-5-2020', '5-11-2020', null, 9);
 
 insert into leave (date_end, date_start, doctor_id, nurse_id)
 values ('5-5-2020', '5-11-2020', 4, null);
