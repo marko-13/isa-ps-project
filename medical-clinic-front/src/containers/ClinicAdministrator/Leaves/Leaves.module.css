@@ -1,7 +1,4 @@
-.Position {
+.Row {
+    padding-top: 15px;
     margin: auto;
-}
-
-.Table .ReactTable {
-    width: 80%;
 }
