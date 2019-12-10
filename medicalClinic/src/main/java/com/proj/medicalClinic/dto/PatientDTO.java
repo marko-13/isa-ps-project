@@ -19,6 +19,10 @@ public class PatientDTO {
     private String jmbg;
     private Long id;
     private boolean enabled;
+    private String address;
+    private String city;
+    private String state;
+    private String mobile;
 
     public PatientDTO(Patient p){
         id = p.getId();
@@ -27,6 +31,10 @@ public class PatientDTO {
         lastname = p.getLastName();
         email = p.getEmail();
         jmbg = p.getJMBG();
+        this.address = p.getAdress();
+        this.city = p.getCity();
+        this.state = p.getState();
+        this.mobile = p.getMobile();
     }
 
 }

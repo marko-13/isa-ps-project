@@ -26,7 +26,11 @@ class MyProfile extends Component {
             review: '',
             shift: '',
             clinic: '',
-            clinicalCenterId: ''
+            clinicalCenterId: '',
+            address: '',
+            city: '',
+            state: '',
+            mobile: ''
         },
         changingData: false,
         changingPassword: false
@@ -56,6 +60,10 @@ class MyProfile extends Component {
                     updatedUser.shift = user.data.shift;
                     updatedUser.clinic = user.data.clinic;
                     updatedUser.clinicalCenterId = user.data.clinicalCenterId;
+                    updatedUser.address = user.data.address;
+                    updatedUser.city = user.data.city;
+                    updatedUser.state = user.data.state;
+                    updatedUser.mobile = user.data.mobile;
 
                     this.setState({ user: updatedUser, isAuth: true })
                 })

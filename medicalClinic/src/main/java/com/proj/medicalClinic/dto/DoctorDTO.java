@@ -17,6 +17,10 @@ public class DoctorDTO {
     private String email;
     private double review;
     private int shift;
+    private String address;
+    private String city;
+    private String state;
+    private String mobile;
 
     public DoctorDTO(Doctor d){
         this.name = d.getName();
@@ -24,6 +28,10 @@ public class DoctorDTO {
         this.email = d.getEmail();
         this.review = d.getReview();
         this.shift = d.getShift();
+        this.address = d.getAdress();
+        this.city = d.getCity();
+        this.state = d.getState();
+        this.mobile = d.getMobile();
     }
 
 }
