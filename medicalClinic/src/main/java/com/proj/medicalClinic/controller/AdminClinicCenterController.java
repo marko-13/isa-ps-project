@@ -46,4 +46,11 @@ public class AdminClinicCenterController {
     public ResponseEntity<?> denyPatients(@PathVariable Long id, @RequestBody String msg) {
         return new ResponseEntity<>(this.userConfirmation.denyPatient(id, msg), HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/add-new-clinic")
+    @PreAuthorize("hasAuthority('ADMINCLINICALCENTER')")
+    public ResponseEntity<?> addNewClinics(@RequestBody ClinicDTO clinicDTO) {
+        String email = this.tokenUtils.getUsernameFromToken(this.tokenUtils.getToken(this.httpServletRequest));
+        return new ResponseEntity<>(this.clinicService.addNewClinic(clinicDTO, email), HttpStatus.OK);
+    }
 }
