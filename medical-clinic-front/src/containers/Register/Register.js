@@ -6,9 +6,14 @@ class Register extends Component {
     state = {
         name: '',
         password: '',
+        confirmPassowrd: '',
         email: '',
         lastname: '',
-        jmbg: ''
+        jmbg: '',
+        adress: '',
+        city: '',
+        state: '',
+        mobile: ''
     }
 
     registerSubmitHandler = () => {
@@ -19,10 +24,18 @@ class Register extends Component {
             name: this.state.name,
             lastName: this.state.lastname,
             jmbg: this.state.jmbg,
-            userRole: 'PATIENT'
+            userRole: 'PATIENT',
+            adress: this.state.adress,
+            city: this.state.city,
+            state: this.state.state,
+            mobile: this.state.mobile
         }
 
-        console.log(newUser);
+        if(this.state.password !== this.state.confirmPassowrd){
+            alert('Your password does not match!');
+            return;
+        }
+            
 
         axios.post('/users/register', newUser)
             .then(res => {
@@ -39,7 +52,7 @@ class Register extends Component {
         return (
             <div className="container login-container">
                 <div className="row">
-                    <div className="col-md-7 login-form-1">
+                    <div className="col-md-7 login-form-1" style={{margin: 'auto'}}>
                         <h3>Register</h3>
                         <div className="form-group">
                             <input
@@ -57,6 +70,15 @@ class Register extends Component {
                                 placeholder="Your Password *"
                                 value={this.state.password}
                                 onChange={(event) => this.setState({ password: event.target.value })} />
+                        </div>
+
+                        <div className="form-group">
+                            <input
+                                type="password"
+                                className="form-control"
+                                placeholder="Confirm password *"
+                                value={this.state.confirmPassowrd}
+                                onChange={(event) => this.setState({ confirmPassowrd: event.target.value })} />
                         </div>
 
                         <div className="form-group">
@@ -85,6 +107,46 @@ class Register extends Component {
                                 placeholder="Your JMBG *"
                                 value={this.state.jmbg}
                                 onChange={(event) => this.setState({ jmbg: event.target.value })}
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder="Adress *"
+                                value={this.state.adress}
+                                onChange={(event) => this.setState({ adress: event.target.value })}
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder="City *"
+                                value={this.state.city}
+                                onChange={(event) => this.setState({ city: event.target.value })}
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder="State *"
+                                value={this.state.state}
+                                onChange={(event) => this.setState({ state: event.target.value })}
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder="Mobile *"
+                                value={this.state.mobile}
+                                onChange={(event) => this.setState({ mobile: event.target.value })}
                             />
                         </div>
                     

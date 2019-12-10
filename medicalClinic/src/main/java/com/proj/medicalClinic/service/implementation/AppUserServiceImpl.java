@@ -90,6 +90,10 @@ public class AppUserServiceImpl implements AppUserService {
         u.setName(userRequest.getName());
         u.setLastName(userRequest.getLastName());
         u.setUserRole(userRequest.getUserRole());
+        u.setAdress(userRequest.getAdress());
+        u.setCity(userRequest.getCity());
+        u.setState(userRequest.getState());
+        u.setMobile(userRequest.getMobile());
 
         List<Authority> auth = authorityService.findByName(userRequest.getUserRole().name());
         u.setAuthorities(auth);

@@ -15,11 +15,11 @@ const WelcomePage = () => {
         <div className='container'>
             <div className='row'>
                 <div className='col'>
-                    <ClinicInfo />
+                    <Register /> 
                 </div>
                 <div className='col'>
-                    <Login />
-                    <Register />
+                    <ClinicInfo />
+                    <Login />  
                 </div>
             </div>
         </div>
