@@ -1,6 +1,5 @@
 package com.proj.medicalClinic.service.implementation;
 
-import com.proj.medicalClinic.dto.AppUserDTO;
 import com.proj.medicalClinic.dto.PatientDTO;
 import com.proj.medicalClinic.exception.NotExistsException;
 import com.proj.medicalClinic.exception.NotValidParamsException;
@@ -11,7 +10,6 @@ import com.proj.medicalClinic.repository.AppUserRepository;
 import com.proj.medicalClinic.service.EmailService;
 import com.proj.medicalClinic.service.UserConfirmation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
