@@ -18,18 +18,9 @@ public class LeaveDTO {
     private Date start;
     private Date end;
     private Long userID;
-    private Object user;
-
-    public LeaveDTO(Leave l){
-        this.start = l.getDateStart();
-        this.end = l.getDateEnd();
-
-        if(l.getNurse() != null){
-            this.userID = l.getNurse().getId();
-        }else{
-            this.userID = l.getDoctor().getId();
-        }
-    }
+    private String name;
+    private String lastname;
+    private String email;
 
     public LeaveDTO(Leave l, NurseDTO nurseDTO){
         this.start = l.getDateStart();
@@ -41,7 +32,9 @@ public class LeaveDTO {
             this.userID = l.getDoctor().getId();
         }
 
-        this.user = nurseDTO;
+        this.name = nurseDTO.getName();
+        this.lastname = nurseDTO.getLastname();
+        this.email = nurseDTO.getEmail();
     }
 
     public LeaveDTO(Leave l, DoctorDTO doctorDTO){
@@ -54,7 +47,9 @@ public class LeaveDTO {
             this.userID = l.getDoctor().getId();
         }
 
-        this.user = doctorDTO;
+        this.name = doctorDTO.getName();
+        this.lastname = doctorDTO.getLastname();
+        this.email = doctorDTO.getEmail();
     }
 
 }
