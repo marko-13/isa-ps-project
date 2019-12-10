@@ -145,7 +145,7 @@ const Homepage = (props) => {
                         {page}
                     </div>
 
-                    <div className='row' style={{ margin: '20px 5px' }}>
+                    <div className='row' style={{ margin: '10px 5px' }}>
                       {functions}
                     </div>
                 </div>
