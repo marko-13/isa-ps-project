@@ -1,6 +1,8 @@
 package com.proj.medicalClinic.controller;
 
+import com.proj.medicalClinic.dto.ClinicDTO;
 import com.proj.medicalClinic.security.TokenUtils;
+import com.proj.medicalClinic.service.ClinicService;
 import com.proj.medicalClinic.service.UserConfirmation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
