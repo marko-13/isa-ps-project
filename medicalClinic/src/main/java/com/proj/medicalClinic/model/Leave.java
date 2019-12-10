@@ -28,6 +28,12 @@ public class Leave {
 	@Column(name = "date_end", unique = false, nullable = false)
 	private Date dateEnd;
 
+	@Column(name = "approved", unique = false, nullable = false)
+	private boolean approved;
+
+	@Column(name = "active", unique = false, nullable = false)
+	private boolean active;
+
 	//NULLABLE TRUE JER AKO JE GODISNJI OD NURSE OVDE JE NULL
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "doctor_id", nullable = true)
