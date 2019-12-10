@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -26,11 +27,6 @@ public class LeaveServiceImpl implements LeaveService {
 
     @Override
     public List<LeaveDTO> getAll() {
-
-//        long id = 4;
-//        AppUser user = appUserRepository.findById(id).orElseThrow(NotExistsException::new);
-//        System.out.println(user.getEmail());
-//        System.out.println("DSADSADSADSA");
 
         List<Leave> leaves = leaveRepository.findAll();
         if(leaves == null){
