@@ -11,7 +11,7 @@ import java.util.List;
 @SuperBuilder
 @NoArgsConstructor
 @Entity
-@DiscriminatorValue("O")
+@DiscriminatorValue("OP")
 public class Operation extends Appointment {
 
     @ManyToMany(mappedBy = "operations")
