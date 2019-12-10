@@ -18,6 +18,20 @@
     background-color: #aaaaaa;
 }
 
+.ButtonRed{
+    border-radius: 1rem;
+    padding: 1.5% 15px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    color: #fff;
+    background-color: salmon;
+}
+
+.ButtonRed:hover {
+    background-color: #cccccc
+}
+
 .ButtonGreen:hover {
     background-color: #cccccc;
 }

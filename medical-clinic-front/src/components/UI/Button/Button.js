@@ -9,6 +9,8 @@ const Button = (props) => {
         btnclass = classes.ButtonGreen;
     }else if(props.type === 'grey'){
         btnclass = classes.ButtonGrey;
+    }else if (props.type === 'red'){
+        btnclass = classes.ButtonRed;
     }
 
     return (
