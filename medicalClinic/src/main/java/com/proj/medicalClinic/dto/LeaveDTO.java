@@ -15,6 +15,7 @@ import java.util.Date;
 @AllArgsConstructor
 public class LeaveDTO {
 
+    private Long leaveID;
     private Date start;
     private Date end;
     private Long userID;
@@ -23,6 +24,7 @@ public class LeaveDTO {
     private String email;
 
     public LeaveDTO(Leave l, NurseDTO nurseDTO){
+        this.leaveID = l.getId();
         this.start = l.getDateStart();
         this.end = l.getDateEnd();
 
@@ -38,6 +40,7 @@ public class LeaveDTO {
     }
 
     public LeaveDTO(Leave l, DoctorDTO doctorDTO){
+        this.leaveID = l.getId();
         this.start = l.getDateStart();
         this.end = l.getDateEnd();
 
