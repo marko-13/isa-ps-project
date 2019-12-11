@@ -1,6 +1,7 @@
 package com.proj.medicalClinic.controller;
 
 import com.proj.medicalClinic.dto.ClinicDTO;
+import com.proj.medicalClinic.exception.NotExistsException;
 import com.proj.medicalClinic.security.TokenUtils;
 import com.proj.medicalClinic.service.ClinicService;
 import com.proj.medicalClinic.service.UserConfirmation;
@@ -38,13 +39,23 @@ public class AdminClinicCenterController {
     @RequestMapping(value = "/approve/{id}")
     @PreAuthorize("hasAuthority('ADMINCLINICALCENTER')")
     public ResponseEntity<?> approvePatients(@PathVariable Long id) {
-        return new ResponseEntity<>(this.userConfirmation.approvePatient(id), HttpStatus.OK);
+        try {
+            return new ResponseEntity<>(this.userConfirmation.approvePatient(id), HttpStatus.OK);
+        }
+        catch(NotExistsException e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @RequestMapping(value = "/deny/{id}")
     @PreAuthorize("hasAuthority('ADMINCLINICALCENTER')")
     public ResponseEntity<?> denyPatients(@PathVariable Long id, @RequestBody String msg) {
-        return new ResponseEntity<>(this.userConfirmation.denyPatient(id, msg), HttpStatus.OK);
+        try {
+            return new ResponseEntity<>(this.userConfirmation.denyPatient(id, msg), HttpStatus.OK);
+        }
+        catch(NotExistsException e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @RequestMapping(value = "/add-new-clinic")
