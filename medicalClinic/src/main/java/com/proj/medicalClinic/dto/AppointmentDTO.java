@@ -27,8 +27,8 @@ public class AppointmentDTO {
     private String clinic;
     private String operationRoom;
     private String service;
-    private List<DoctorDTO> doctors;
-    private String nurse;
+    private List<Long> doctors;
+    private Long nurse;
     private String patient;
 
     public AppointmentDTO(Appointment a){
@@ -54,19 +54,19 @@ public class AppointmentDTO {
                 this.doctors = null;
             }
             else{
-                this.doctors.add(new DoctorDTO(examination.getDoctor()));
+                this.doctors.add(examination.getDoctor().getId());
             }
 
             if(examination.getNurse() == null){
-                this.nurse = "No nurse";
+                this.nurse = null;
             }else{
-                this.nurse = examination.getNurse().getName() + examination.getNurse().getLastName();
+                this.nurse = examination.getNurse().getId();
             }
 
             if(examination.getPatient() == null){
                 this.patient = "No patient";
             }else{
-                this.patient = examination.getPatient().getName() + examination.getPatient().getLastName();
+                this.patient = examination.getPatient().getName() + " " + examination.getPatient().getLastName();
             }
         }
         else{
@@ -87,16 +87,16 @@ public class AppointmentDTO {
             else{
                 List<Doctor> doctors = operation.getDoctors();
                 for(Doctor d : doctors){
-                    this.doctors.add(new DoctorDTO(d));
+                    this.doctors.add(d.getId());
                 }
             }
 
-            this.nurse = "No nurse";
+            this.nurse = null;
 
             if(operation.getPatient() == null){
                 this.patient = "No patient";
             }else{
-                this.patient = operation.getPatient().getName() + operation.getPatient().getLastName();
+                this.patient = operation.getPatient().getName() + " " +  operation.getPatient().getLastName();
             }
         }
     }
