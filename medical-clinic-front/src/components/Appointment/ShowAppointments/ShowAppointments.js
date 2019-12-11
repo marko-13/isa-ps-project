@@ -51,8 +51,15 @@ class ShowAppointments extends Component{
     {
       id: 'service',
       Header: 'Service',
-      accessor: d => d.service
-    },]
+      accessor: d => d.service,
+      width: 175
+    },
+    {
+      id: 'operation_room',
+      Header: 'Operation room',
+      accessor: d => d.operationRoom,
+      width: 150
+    }]
 
     return(
         <ReactTable data={this.state.appointments}
