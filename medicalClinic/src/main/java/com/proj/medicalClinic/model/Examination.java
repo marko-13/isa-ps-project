@@ -20,11 +20,11 @@ public class Examination extends Appointment {
     private boolean fast;
 
     //NULLABLE TRUE JER ZA PREGLEDE NE MORA ODMAH BITI DODELJENA SESTRA
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "nurse_id", nullable = true)
     private Nurse nurse;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "doctor_id", nullable = false)
     private Doctor doctor;
 
