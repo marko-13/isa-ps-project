@@ -12,6 +12,8 @@ import ShowClinics from '../Clinic/ShowClinics/ShowClinics.js'
 import ShowMedicalHistory from '../MedicalHistory/ShowMedicalHistory/ShowMedicalHistory.js'
 import Prescriptions from '../../containers/Prescriptions/Prescriptions'
 import UserApproval from '../../containers/UserApproval/UserApproval'
+import OperationRooms from '../../containers/ClinicAdministrator/OperationRooms/OperationRooms';
+import Leaves from '../../containers/ClinicAdministrator/Leaves/Leaves';
 import RegisterClinic from '../../containers/RegisterClinic/RegisterClinic'
 
 
@@ -96,7 +98,24 @@ const Homepage = (props) => {
             );
             break;
         case 'adminclinic':
-            page = <h1>Admin clinic</h1>
+            page = (
+                <Auxiliary>
+                    <UserInfo name={name} lastname={lastname} role={role} />
+                    <UserCards>
+                        <UserCard buttonText={"Operation Rooms"} cardText={"Search and filter operation rooms"}  link ={'/homepage/admin-clinic/operation-rooms'}/>
+                        <UserCard buttonText={"Show"} cardText={"Show all requests for leave of absence"}  link ={'/homepage/admin-clinic/leaves'}/>
+                    </UserCards>
+                </Auxiliary>
+
+            );
+
+            functions = (
+                <Auxiliary>
+                  <Route path='/homepage/admin-clinic/operation-rooms' component={OperationRooms}></Route>
+                  <Route path='/homepage/admin-clinic/leaves' component={Leaves}></Route>
+                </Auxiliary>
+              );
+
             break;
         case 'adminclinicalcenter':
             page = (
@@ -125,11 +144,12 @@ const Homepage = (props) => {
     return (
             <Layout>
                 <div className={'container'}>
-                    <div className='row' style={{ margin: '0 5px' }}>
+                    <div className='row' style={{ margin: '0px 5px' }}>
                         {page}
                     </div>
 
                     <div className='row' style={{ margin: '0 5px', marginTop: '5%' }}>
+      
                       {functions}
                     </div>
                 </div>

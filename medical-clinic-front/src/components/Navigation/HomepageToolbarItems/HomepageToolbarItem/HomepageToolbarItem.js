@@ -6,7 +6,7 @@ import classes from './HomepageToolbarItem.module.css';
 const HomepageToolbarItem = (props) => {
     return (
         <li className={classes.NavigationItem} style={props.style}>
-            <NavLink to={props.link} exact={props.exact} activeClassName={classes.active}>
+            <NavLink to={props.link} activeClassName={classes.active}>
                 {props.children}
             </NavLink>
         </li>

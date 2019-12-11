@@ -61,4 +61,19 @@ public class EmailServiceImpl implements EmailService {
         System.out.println("Email poslat!");
 
     }
+
+    @Override
+    public void sendNotificaitionAsync(AppUser user, String msg, String subject) throws MailException, InterruptedException {
+        System.out.println("Slanje emaila...");
+
+        SimpleMailMessage mail = new SimpleMailMessage();
+        mail.setTo(user.getEmail());
+        mail.setFrom(env.getProperty("isa.psw.tim17@gmail.com"));
+        mail.setSubject(subject);
+        mail.setText("Hello " + user.getName() + " " + user.getLastName() + "," + msg);
+        getJavaMailSender().send(mail);
+
+        System.out.println("Email poslat!");
+
+    }
 }

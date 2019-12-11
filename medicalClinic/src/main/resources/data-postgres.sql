@@ -38,6 +38,9 @@ values ('AC', 'ADMINCLINIC', 'Anastasija@gmail.com', '$2a$10$nE7tHqDVIG5P6NcGPOg
 insert into app_user (type, user_role, email, password, name, last_name, clinical_center_id, enabled, adress, city, state, mobile, rejected)
 values ('ACC', 'ADMINCLINICALCENTER', 'Radoslav@gmail.com', '$2a$10$PpuFaY9yRRdUj9l4lr7sueTutLXXWxlgGRomEFH2lNQRYhiGwlMmS', 'Radoslav', 'Brankovic', 1, true, 'Adresa11', 'Grad11', 'Drzava11', '1111', false);
 
+insert into app_user (type, user_role, email, password, name, last_name, review, shift, review_count, enabled, adress, city, state, mobile, rejected)
+values ('DR', 'DOCTOR', 'dervy97@gmail.com', '$2a$10$EcjftqmPpW.usBG8k4OMWOqEo9LA9QMBaEy8XFbZCNBY9oY..jd62', 'Boris', 'Zavis', 7, 1, 15, true, 'Omladinska 1', 'Kisac', 'Srbija', '123-123', false);
+
 
 
 insert into clinics_patients (clinic_id, patient_id)
@@ -140,15 +143,20 @@ values (6, 3);
 
 
 
+insert into leave (date_end, date_start, doctor_id, nurse_id, approved, active)
+values ('5-5-2020', '5-11-2020', null, 9, false, true);
 
-insert into leave (date_end, date_start, doctor_id, nurse_id)
-values ('5-5-2020', '5-11-2020', 4, null);
+insert into leave (date_end, date_start, doctor_id, nurse_id, approved, active)
+values ('5-5-2020', '5-11-2020', 4, null, false, true);
 
-insert into leave (date_end, date_start, doctor_id, nurse_id)
-values ('8-8-2020', '8-12-2020', 5, null);
+insert into leave (date_end, date_start, doctor_id, nurse_id, approved, active)
+values ('8-8-2020', '8-12-2020', 5, null, false, true);
 
-insert into leave (date_end, date_start, doctor_id, nurse_id)
-values ('2-10-2020', '2-12-2020', null, 7);
+insert into leave (date_end, date_start, doctor_id, nurse_id, approved, active)
+values ('2-10-2020', '2-12-2020', null, 7, false, true);
+
+insert into leave (date_end, date_start, doctor_id, nurse_id, approved, active)
+values ('1-1-2020', '12-12-2030', 12, null, false, true);
 
 
 
