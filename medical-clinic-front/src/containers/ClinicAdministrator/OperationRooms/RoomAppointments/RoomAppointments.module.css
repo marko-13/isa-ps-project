@@ -1,0 +1,43 @@
+.Container {
+    height: 100%;
+    width: 100%;
+}
+
+.Header {
+    margin: auto;
+    padding: 5px;
+    background-color: #1abc9c;
+    text-align: center;
+    width: 80%;
+    box-shadow: 0 1px 1px #aaaaaa;
+    border: 1px solid #aaaaaa;
+    box-sizing: border-box;
+    color: white;
+}
+
+.Subheader h5{
+    margin-top: 5px;
+    padding: 15px;
+    text-decoration: underline;
+}
+
+.Available {
+    margin-left: 50px;
+}
+
+.Available input {
+    width: 250px;
+}
+
+.Available p {
+    padding: 10px;
+}
+
+.Appointments {
+    width: 80%;
+    margin: auto;
+    padding: 10px;
+    margin-left: 50px;
+    border: 1px solid grey;
+    text-align: center;
+}
