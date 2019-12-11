@@ -32,6 +32,6 @@ public class OperationRoom {
     @JoinColumn(name = "clinic_id", nullable = false)
     private Clinic clinic;
 
-    @OneToMany(mappedBy = "operationRoom", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "operationRoom", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Appointment> appointment;
 }
