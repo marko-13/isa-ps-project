@@ -37,6 +37,7 @@ class ShowClinics extends Component{
 
     return(
         <ReactTable data={this.state.clinics}
+        pageSize={(this.state.clinics.length > 10) ? 10 : this.state.clinics.length}
         columns={columns}
         filterable = {true}/>
     );
