@@ -36,7 +36,8 @@ public class PrescriptionServiceImpl implements PrescriptionService {
                 throw new NotExistsException("Nurse doesn't exists");
             }
 
-            List<Prescription> prescriptions = prescriptionRepository.findAllByNurseAndApprovedIsTrue(nurse);
+            List<Prescription> prescriptions = prescriptionRepository.findAllByNurseAndApprovedIsTrue(nurse)
+                    .orElseThrow(NotExistsException::new);
 
             List<PrescriptionDTO> prescriptionsDTO = new ArrayList<>();
             for (Prescription p : prescriptions) {
@@ -59,7 +60,8 @@ public class PrescriptionServiceImpl implements PrescriptionService {
                 throw new NotExistsException("Nurse doesn't exists");
             }
 
-            List<Prescription> prescriptions = prescriptionRepository.findAllByNurseAndApprovedIsFalse(nurse);
+            List<Prescription> prescriptions = prescriptionRepository.findAllByNurseAndApprovedIsFalse(nurse)
+                    .orElseThrow(NotExistsException::new);
             List<PrescriptionDTO> prescriptionsDTO = new ArrayList<>();
             for (Prescription p : prescriptions) {
                 prescriptionsDTO.add(new PrescriptionDTO(p));
@@ -77,15 +79,10 @@ public class PrescriptionServiceImpl implements PrescriptionService {
     @Override
     public PrescriptionDTO approvePrescription (String email, Long id) {
         try {
-            Prescription prescription = this.prescriptionRepository.findById(id).orElse(null);
-            Nurse nurse = (Nurse) appUserRepository.findById(prescription.getNurse().getId()).orElse(null);
-            //Prescription prescription = prescriptions.orElse(null);
-            //Prescription prescription = this.prescriptionRepository.pronadjiPrescription(id);
-            //List<Prescription> prescriptions = this.prescriptionRepository.findAllById(id);
-            //Prescription prescription = prescriptions.get(0);
-            if (prescription == null) {
-                throw new NotExistsException("Prescription doesn't exists");
-            }
+            Prescription prescription = this.prescriptionRepository.findById(id)
+                    .orElseThrow(NotExistsException::new);
+            Nurse nurse = (Nurse) appUserRepository.findById(prescription.getNurse().getId())
+                    .orElseThrow(NotExistsException::new);
 
             if (email.equals(nurse.getEmail())) {
                 prescription.setApproved(true);
