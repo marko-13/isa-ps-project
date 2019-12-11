@@ -24,21 +24,16 @@ public class MedicalHistoryServiceImpl implements MedicalHistoryService {
 
     @Override
     public MedicalHistoryDTO getMedicalHistory(String email) {
-        try {
-            Patient patient = (Patient) userDetailsService.loadUserByUsername(email);
-            if (patient == null) {
-                throw new NotExistsException("Patient doesn't exists");
-            }
 
-            MedicalHistory medicalHistory = medicalHistoryRepository.findByPatient(patient);
+        Patient patient = (Patient) userDetailsService.loadUserByUsername(email);
 
-            MedicalHistoryDTO medicalHistoryDTO = new MedicalHistoryDTO(medicalHistory);
 
-            return medicalHistoryDTO;
-        } catch(NotExistsException e) {
-            throw e;
-        } catch(Exception ex) {
-            throw ex;
-        }
+        MedicalHistory medicalHistory = medicalHistoryRepository.findByPatient(patient)
+                .orElseThrow(NotExistsException::new);
+
+        MedicalHistoryDTO medicalHistoryDTO = new MedicalHistoryDTO(medicalHistory);
+
+        return medicalHistoryDTO;
+
     }
 }
