@@ -7,6 +7,7 @@ import java.util.List;
 public interface ClinicService {
 
     List<ClinicDTO> getAllClinics ();
-    //List<ClincDTO> findAll();
+
+    ClinicDTO addNewClinic(ClinicDTO clinicDTO, String email);
 
 }

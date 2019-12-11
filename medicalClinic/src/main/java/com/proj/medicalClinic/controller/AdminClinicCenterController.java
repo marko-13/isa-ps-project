@@ -1,6 +1,8 @@
 package com.proj.medicalClinic.controller;
 
+import com.proj.medicalClinic.dto.ClinicDTO;
 import com.proj.medicalClinic.security.TokenUtils;
+import com.proj.medicalClinic.service.ClinicService;
 import com.proj.medicalClinic.service.UserConfirmation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,6 +26,9 @@ public class AdminClinicCenterController {
     @Autowired
     private UserConfirmation userConfirmation;
 
+    @Autowired
+    private ClinicService clinicService;
+
     @RequestMapping(value = "/approve")
     @PreAuthorize("hasAuthority('ADMINCLINICALCENTER')")
     public ResponseEntity<?> getNotApprovedUsers() {
@@ -40,5 +45,12 @@ public class AdminClinicCenterController {
     @PreAuthorize("hasAuthority('ADMINCLINICALCENTER')")
     public ResponseEntity<?> denyPatients(@PathVariable Long id, @RequestBody String msg) {
         return new ResponseEntity<>(this.userConfirmation.denyPatient(id, msg), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/add-new-clinic")
+    @PreAuthorize("hasAuthority('ADMINCLINICALCENTER')")
+    public ResponseEntity<?> addNewClinics(@RequestBody ClinicDTO clinicDTO) {
+        String email = this.tokenUtils.getUsernameFromToken(this.tokenUtils.getToken(this.httpServletRequest));
+        return new ResponseEntity<>(this.clinicService.addNewClinic(clinicDTO, email), HttpStatus.OK);
     }
 }
