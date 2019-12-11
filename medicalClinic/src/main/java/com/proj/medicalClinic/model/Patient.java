@@ -23,7 +23,7 @@ public class Patient extends AppUser {
 	@ManyToMany(mappedBy = "patients")
 	private List<Clinic> clinics;
 
-	@OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Appointment> appointments;
 
 }

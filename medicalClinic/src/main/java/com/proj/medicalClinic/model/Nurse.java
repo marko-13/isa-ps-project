@@ -14,7 +14,7 @@ import java.util.List;
 @DiscriminatorValue("NR")
 public class Nurse extends AppUser{
 
-	@OneToMany(mappedBy = "nurse", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "nurse", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Leave> leaves;
 
 	@Column(name = "shift", nullable = true)
@@ -24,9 +24,9 @@ public class Nurse extends AppUser{
 	@JoinColumn(name = "clinic_id", nullable = false)
 	private Clinic clinic;
 
-	@OneToMany(mappedBy = "nurse", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "nurse", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Examination> examinations;
 
-	@OneToMany(mappedBy = "nurse", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "nurse", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Prescription> prescriptions;
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.awt.print.Pageable;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
@@ -16,11 +17,10 @@ public interface AppUserRepository extends JpaRepository <AppUser, Long>{
 
     List<AppUser> findAll();
 
-    List<AppUser> findByUserRole(RoleType role);
-    //AppUser findByEmail(String email);
+    Optional<List<AppUser>> findByUserRole(RoleType role);
 
-    List<AppUser> findAllByEnabledAndRejected(Boolean enabled, Boolean rejected);
+    Optional<List<AppUser>> findAllByEnabledAndRejected(Boolean enabled, Boolean rejected);
 
-    AppUser findByEmail(String emailid);
+    Optional<AppUser> findByEmail(String emailid);
 
 }

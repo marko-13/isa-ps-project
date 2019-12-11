@@ -8,7 +8,6 @@ import com.proj.medicalClinic.model.Operation;
 import com.proj.medicalClinic.model.OperationRoom;
 import com.proj.medicalClinic.repository.OperationRoomRepository;
 import com.proj.medicalClinic.service.AppointmentService;
-import org.omg.CosNaming.NamingContextPackage.NotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,14 +28,24 @@ public class AppointmentController {
 
     @RequestMapping(value = "/getAllByOperationRoom/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> getAllByOperationRoom(@PathVariable Long id){
-        List<AppointmentDTO> appointmentDTOS = appointmentService.getAllByOperationRoom(id);
-        return new ResponseEntity<>(appointmentDTOS, HttpStatus.OK);
+        try {
+            List<AppointmentDTO> appointmentDTOS = appointmentService.getAllByOperationRoom(id);
+            return new ResponseEntity<>(appointmentDTOS, HttpStatus.OK);
+        }
+        catch(NotExistsException e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @RequestMapping(value = "/getAllByPatient/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> getAllByPatient(@PathVariable Long id){
-        List<AppointmentHistoryDTO> appointmentDTOS = appointmentService.getAllByPatient(id);
-        return new ResponseEntity<>(appointmentDTOS, HttpStatus.OK);
+        try {
+            List<AppointmentHistoryDTO> appointmentDTOS = appointmentService.getAllByPatient(id);
+            return new ResponseEntity<>(appointmentDTOS, HttpStatus.OK);
+        }
+        catch(NotExistsException e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
 }

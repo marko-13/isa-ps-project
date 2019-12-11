@@ -27,10 +27,17 @@ public class Doctor extends AppUser{
 	@JoinColumn(name = "clinic_id", nullable = false)
 	private Clinic clinic;
 
-	@OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//	@OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+//	private List<Examination> examinations;
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(
+			name = "Doctors_Examinations",
+			joinColumns = {@JoinColumn(name = "doctor_id")},
+			inverseJoinColumns = {@JoinColumn(name = "examination_id")}
+	)
 	private List<Examination> examinations;
 
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(
 			name = "Doctors_Operations",
 			joinColumns = {@JoinColumn(name = "doctor_id")},
@@ -38,7 +45,7 @@ public class Doctor extends AppUser{
 	)
 	private List<Operation> operations;
 
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany
 	@JoinTable(
 			name = "Doctors_Services",
 			joinColumns = {@JoinColumn(name = "doctor_id")},
@@ -46,7 +53,7 @@ public class Doctor extends AppUser{
 	)
 	private List<Service> services;
 
-	@OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Leave> leaves;
 
 	//Mozda bi trebalo napraviti jos listu pacijenata koje je pregledao, a pacijent da ima listu doktora kod kojih je bio

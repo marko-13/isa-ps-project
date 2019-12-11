@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @SuperBuilder
@@ -24,9 +25,11 @@ public class Examination extends Appointment {
     @JoinColumn(name = "nurse_id", nullable = true)
     private Nurse nurse;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "doctor_id", nullable = false)
-    private Doctor doctor;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "doctor_id", nullable = false)
+//    private Doctor doctor;
+    @ManyToMany(mappedBy = "examinations", fetch = FetchType.LAZY)
+    private List<Doctor> doctors;
 
     //NULLABLE JER KOD PREGLEDA SE REPORT TEK KASNIJE DODELJUJE
     @OneToOne(mappedBy = "examination", cascade = CascadeType.ALL)

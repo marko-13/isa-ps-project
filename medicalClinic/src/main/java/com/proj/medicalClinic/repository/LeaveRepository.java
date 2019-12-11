@@ -12,7 +12,6 @@ import java.util.Optional;
 public interface LeaveRepository extends JpaRepository<Leave, Long> {
 
     List<Leave> findAll();
-    //List<Leave> findAllAndApprovedIsFalse();
     Optional<Leave> findById(Long id);
 
     @Query(

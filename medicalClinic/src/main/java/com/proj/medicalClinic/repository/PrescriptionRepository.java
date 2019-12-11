@@ -6,16 +6,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
 public interface PrescriptionRepository extends JpaRepository<Prescription, Long> {
 
-    List<Prescription> findAllByNurseAndApprovedIsTrue(Nurse nurse);
+    Optional<List<Prescription>> findAllByNurseAndApprovedIsTrue(Nurse nurse);
 
-    List<Prescription> findAllByNurseAndApprovedIsFalse(Nurse nurse);
-
-    /*@Query("select s from Prescription s where s.id = ?1")
-    Prescription pronadjiPrescription(Long id);*/
-
+    Optional<List<Prescription>> findAllByNurseAndApprovedIsFalse(Nurse nurse);
 }
