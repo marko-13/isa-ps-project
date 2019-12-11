@@ -10,6 +10,7 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -27,6 +28,7 @@ public class Appointment {
     private Long id;
 
     @Column(name = "date", unique = false, nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date date;
 
     @ManyToOne
@@ -47,4 +49,7 @@ public class Appointment {
     @ManyToOne
     @JoinColumn(name = "patient_id", nullable = true)
     private Patient patient;
+
+//    @ManyToMany(mappedBy = "operations", fetch = FetchType.LAZY)
+//    private List<Doctor> doctors;
 }
