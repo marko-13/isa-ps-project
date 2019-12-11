@@ -11,13 +11,9 @@ import java.util.List;
 @SuperBuilder
 @NoArgsConstructor
 @Entity
-@DiscriminatorValue("O")
+@DiscriminatorValue("OP")
 public class Operation extends Appointment {
 
-    @ManyToMany(mappedBy = "operations")
+    @ManyToMany(mappedBy = "operations", fetch = FetchType.LAZY)
     private List<Doctor> doctors;
-
-    @ManyToOne
-    @JoinColumn(name = "patient_id", nullable = false)
-    private Patient patient;
 }
