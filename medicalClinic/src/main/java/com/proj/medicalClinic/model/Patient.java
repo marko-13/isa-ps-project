@@ -24,9 +24,6 @@ public class Patient extends AppUser {
 	private List<Clinic> clinics;
 
 	@OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<Examination> examinations;
-
-	@OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<Operation> operations;
+	private List<Appointment> appointments;
 
 }
