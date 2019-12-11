@@ -11,6 +11,7 @@ import com.proj.medicalClinic.service.AppUserService;
 import com.proj.medicalClinic.service.PrescriptionService;
 import com.proj.medicalClinic.service.implementation.CustomUserDetailsServiceImpl;
 import com.sun.mail.imap.IMAPBodyPart;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -53,21 +54,36 @@ public class PrescriptionController {
     @RequestMapping(value = "/approve")
     @PreAuthorize("hasAuthority('NURSE')")
     public ResponseEntity<?> getNotApprovedPrescriptions() {
-        String email = this.tokenUtils.getUsernameFromToken(this.tokenUtils.getToken(this.httpServletRequest));
-        return new ResponseEntity<>(this.prescriptionService.getNotApprovedPrescriptions(email), HttpStatus.OK);
+        try {
+            String email = this.tokenUtils.getUsernameFromToken(this.tokenUtils.getToken(this.httpServletRequest));
+            return new ResponseEntity<>(this.prescriptionService.getNotApprovedPrescriptions(email), HttpStatus.OK);
+        }
+        catch(NotExistsException e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @RequestMapping(value = "/past")
     @PreAuthorize("hasAuthority('NURSE')")
     public ResponseEntity<?> getPastPrescriptions() {
-        String email = this.tokenUtils.getUsernameFromToken(this.tokenUtils.getToken(this.httpServletRequest));
-        return new ResponseEntity<>(this.prescriptionService.getApprovedPrescriptions(email), HttpStatus.OK);
+        try {
+            String email = this.tokenUtils.getUsernameFromToken(this.tokenUtils.getToken(this.httpServletRequest));
+            return new ResponseEntity<>(this.prescriptionService.getApprovedPrescriptions(email), HttpStatus.OK);
+        }
+        catch(NotExistsException e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @RequestMapping(value = "/approve/{id}")
     @PreAuthorize("hasAuthority('NURSE')")
     public ResponseEntity<?> approvePrescriptions(@PathVariable Long id) {
-        String email = this.tokenUtils.getUsernameFromToken(this.tokenUtils.getToken(this.httpServletRequest));
-        return new ResponseEntity<>(this.prescriptionService.approvePrescription(email, id), HttpStatus.OK);
+        try {
+            String email = this.tokenUtils.getUsernameFromToken(this.tokenUtils.getToken(this.httpServletRequest));
+            return new ResponseEntity<>(this.prescriptionService.approvePrescription(email, id), HttpStatus.OK);
+        }
+        catch(NotExistsException e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 }
