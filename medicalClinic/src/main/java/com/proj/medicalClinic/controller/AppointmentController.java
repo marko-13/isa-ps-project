@@ -1,6 +1,7 @@
 package com.proj.medicalClinic.controller;
 
 import com.proj.medicalClinic.dto.AppointmentDTO;
+import com.proj.medicalClinic.dto.AppointmentHistoryDTO;
 import com.proj.medicalClinic.exception.NotExistsException;
 import com.proj.medicalClinic.model.Appointment;
 import com.proj.medicalClinic.model.Operation;
@@ -29,6 +30,12 @@ public class AppointmentController {
     @RequestMapping(value = "/getAllByOperationRoom/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> getAllByOperationRoom(@PathVariable Long id){
         List<AppointmentDTO> appointmentDTOS = appointmentService.getAllByOperationRoom(id);
+        return new ResponseEntity<>(appointmentDTOS, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/getAllByPatient/{id}", method = RequestMethod.GET)
+    public ResponseEntity<?> getAllByPatient(@PathVariable Long id){
+        List<AppointmentHistoryDTO> appointmentDTOS = appointmentService.getAllByPatient(id);
         return new ResponseEntity<>(appointmentDTOS, HttpStatus.OK);
     }
 

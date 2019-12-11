@@ -41,7 +41,7 @@ public class TokenUtils {
     private SignatureAlgorithm SIGNATURE_ALGORITHM = SignatureAlgorithm.HS512;
 
     // Funkcija za generisanje JWT token
-    public String generateToken(String username, String role, String name, String lastname) {
+    public String generateToken(String username, String role, String name, String lastname, Long userId) {
         return Jwts.builder()
                 .setIssuer(APP_NAME)
                 .setSubject(username)
@@ -52,6 +52,7 @@ public class TokenUtils {
                 .claim("role", role)
                 .claim("name", name)
                 .claim("lastname", lastname)
+                .claim("userId", userId)
                 .signWith(SIGNATURE_ALGORITHM, SECRET).compact();
     }
 

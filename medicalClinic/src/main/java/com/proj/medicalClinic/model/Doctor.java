@@ -30,7 +30,7 @@ public class Doctor extends AppUser{
 	@OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Examination> examinations;
 
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(
 			name = "Doctors_Operations",
 			joinColumns = {@JoinColumn(name = "doctor_id")},
