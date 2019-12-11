@@ -48,11 +48,8 @@ public class ClinicServiceImpl implements ClinicService {
                 throw new NotValidParamsException("Server has not recieved right email of Administrator of the clinical center");
             }
 
-            List<Clinic> uniqueClinic = this.clinicRepository.findAllByNameAndAddress(clinicDTO.getName(), clinicDTO.getAddress());
-
-            if (!uniqueClinic.isEmpty()) {
-                throw new NotExistsException("Registration of this clinic cannot be done because it already exists");
-            }
+            List<Clinic> uniqueClinic = this.clinicRepository.findAllByNameAndAddress(clinicDTO.getName(), clinicDTO.getAddress())
+                    .orElseThrow(NotExistsException::new);
 
             Clinic newClinic = new Clinic();
 
