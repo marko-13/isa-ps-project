@@ -15,6 +15,7 @@ import UserApproval from '../../containers/UserApproval/UserApproval'
 import OperationRooms from '../../containers/ClinicAdministrator/OperationRooms/OperationRooms';
 import Leaves from '../../containers/ClinicAdministrator/Leaves/Leaves';
 import RegisterClinic from '../../containers/RegisterClinic/RegisterClinic'
+import ShowAppointments from '../Appointment/ShowAppointments/ShowAppointments.js'
 
 
 const Homepage = (props) => {
@@ -78,7 +79,7 @@ const Homepage = (props) => {
                 <Route path='/homepage/patient/clinics' component={ShowClinics}></Route>
                 <Route path='/homepage/patient/medicalstaff' render={null}></Route>
                 <Route path='/homepage/patient/medicalhistory' component={ShowMedicalHistory}></Route>
-                <Route path='/homepage/patient/appointments' render={null}></Route>
+                <Route path='/homepage/patient/appointments' component={ShowAppointments}></Route>
               </Auxiliary>
             );
             break;
@@ -149,7 +150,7 @@ const Homepage = (props) => {
                     </div>
 
                     <div className='row' style={{ margin: '0 5px', marginTop: '5%' }}>
-      
+
                       {functions}
                     </div>
                 </div>
