@@ -38,7 +38,7 @@ public class MedicalHistory {
 	@Column(name = "allergy", unique = false, nullable = true)
 	private String allergy;
 
-	@OneToMany(mappedBy = "medicalHistory", fetch = FetchType.LAZY, cascade =  CascadeType.ALL)
+	@OneToMany(mappedBy = "medicalHistory", fetch = FetchType.LAZY, cascade =  CascadeType.ALL, orphanRemoval = true)
 	private List<MedicalReport> diseaseHistory;
 
 	@OneToOne
