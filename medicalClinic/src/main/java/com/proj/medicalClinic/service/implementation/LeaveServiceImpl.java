@@ -12,7 +12,6 @@ import com.proj.medicalClinic.repository.AppUserRepository;
 import com.proj.medicalClinic.repository.LeaveRepository;
 import com.proj.medicalClinic.service.EmailService;
 import com.proj.medicalClinic.service.LeaveService;
-import org.omg.CosNaming.NamingContextPackage.NotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -65,10 +64,9 @@ public class LeaveServiceImpl implements LeaveService {
         leave.setActive(false);
 
 
-        AppUser appUser = appUserRepository.findByEmail(email);
-        if(appUser == null){
-            throw new NotExistsException("User does not exist!");
-        }
+        AppUser appUser = appUserRepository.findByEmail(email)
+                .orElseThrow(NotExistsException::new);
+
 
         try{
             this.emailService.sendNotificaitionAsync(appUser, " your leave of absence has been approved", "Leave of absence");
@@ -87,10 +85,8 @@ public class LeaveServiceImpl implements LeaveService {
         leave.setActive(false);
 
 
-        AppUser appUser = appUserRepository.findByEmail(email);
-        if(appUser == null){
-            throw new NotExistsException("User does not exist!");
-        }
+        AppUser appUser = appUserRepository.findByEmail(email)
+                .orElseThrow(NotExistsException::new);
 
         try{
             this.emailService.sendNotificaitionAsync(appUser, message, "Leave of absence");

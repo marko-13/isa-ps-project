@@ -27,10 +27,8 @@ public class UserConfirmationImpl implements UserConfirmation {
     @Override
     public List<PatientDTO> getNotApprovedUsers() {
         try {
-            List<AppUser> users = appUserRepository.findAllByEnabledAndRejected(false, false);
-            if (users == null) {
-                throw new NotExistsException("All new users are approved");
-            }
+            List<AppUser> users = appUserRepository.findAllByEnabledAndRejected(false, false)
+                    .orElseThrow(NotExistsException::new);
 
             List<PatientDTO> patientsDTO = new ArrayList<>();
             for (AppUser u : users) {
@@ -46,11 +44,8 @@ public class UserConfirmationImpl implements UserConfirmation {
     @Override
     public PatientDTO approvePatient(Long id) {
         try {
-            Patient patient = (Patient) appUserRepository.findById(id).orElse(null);
-
-            if (patient == null) {
-                throw new NotExistsException("This patient's registration cannot be approved because they don't exist");
-            }
+            Patient patient = (Patient) appUserRepository.findById(id)
+                    .orElseThrow(NotExistsException::new);
 
             patient.setEnabled(true);
             Patient updated = this.appUserRepository.save(patient);
@@ -81,7 +76,8 @@ public class UserConfirmationImpl implements UserConfirmation {
             } else {
                 appUser.setEnabled(false);
                 appUser.setRejected(true);
-                this.appUserRepository.save(appUser);
+                //this.appUserRepository.save(appUser);
+                this.appUserRepository.delete(appUser);
                 try {
                     this.emailService.sendNotificaitionAsync(appUser, "\n\nYour account was denied access." + "\n\nReason:\n" + msg);
                 }catch( Exception e ){

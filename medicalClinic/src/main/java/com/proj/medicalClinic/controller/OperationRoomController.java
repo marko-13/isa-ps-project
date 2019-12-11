@@ -1,6 +1,7 @@
 package com.proj.medicalClinic.controller;
 
 import com.proj.medicalClinic.dto.OperationRoomDTO;
+import com.proj.medicalClinic.exception.NotExistsException;
 import com.proj.medicalClinic.service.OperationRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,7 +24,12 @@ public class OperationRoomController {
 
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
     public ResponseEntity<?> getAllOperationRooms(){
-        List<OperationRoomDTO> operationRoomDTOS = operationRoomService.getAll();
-        return new ResponseEntity<>(operationRoomDTOS, HttpStatus.OK);
+        try {
+            List<OperationRoomDTO> operationRoomDTOS = operationRoomService.getAll();
+            return new ResponseEntity<>(operationRoomDTOS, HttpStatus.OK);
+        }
+        catch(NotExistsException e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 }

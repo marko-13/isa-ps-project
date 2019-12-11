@@ -50,11 +50,14 @@ public class AppointmentDTO {
             this.operationRoom = examination.getOperationRoom().getName();
             this.service = examination.getService().getType();
 
-            if(examination.getDoctor() == null){
+            if(examination.getDoctors().isEmpty()){
                 this.doctors = null;
             }
             else{
-                this.doctors.add(examination.getDoctor().getId());
+                List<Doctor> doctors = examination.getDoctors();
+                for(Doctor d : doctors){
+                    this.doctors.add(d.getId());
+                }
             }
 
             if(examination.getNurse() == null){

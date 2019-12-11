@@ -1,5 +1,6 @@
 package com.proj.medicalClinic.controller;
 
+import com.proj.medicalClinic.exception.NotExistsException;
 import com.proj.medicalClinic.security.TokenUtils;
 import com.proj.medicalClinic.service.AppUserService;
 import com.proj.medicalClinic.service.MedicalHistoryService;
@@ -41,7 +42,12 @@ public class MedicalHistoryController {
     @RequestMapping(value = "/getMedicalHistory")
     @PreAuthorize("hasAuthority('PATIENT')")
     public ResponseEntity<?> getMedicalHistory() {
-        String email = this.tokenUtils.getUsernameFromToken(this.tokenUtils.getToken(this.httpServletRequest));
-        return new ResponseEntity<>(this.medicalHistoryService.getMedicalHistory(email), HttpStatus.OK);
+        try {
+            String email = this.tokenUtils.getUsernameFromToken(this.tokenUtils.getToken(this.httpServletRequest));
+            return new ResponseEntity<>(this.medicalHistoryService.getMedicalHistory(email), HttpStatus.OK);
+        }
+        catch(NotExistsException e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 }

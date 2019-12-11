@@ -31,7 +31,7 @@ public class Service {
     @ManyToMany(mappedBy = "services")
     private List<Clinic> clinics; //mozda ovde treba inicijalizovati listu = new List<>(); isto i u clinic kalsi
 
-    @OneToMany(mappedBy = "service", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "service", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Appointment> appointments;
 
     @ManyToMany(mappedBy = "services")

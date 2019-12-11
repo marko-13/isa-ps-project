@@ -43,8 +43,7 @@ public class EmailServiceImpl implements EmailService {
     private Environment env;
 
     @Override
-    public void sendNotificaitionAsync(AppUser user, String msg) throws MailException, InterruptedException {
-        System.out.println("Slanje emaila...");
+    public void sendNotificaitionAsync(AppUser user, String msg) throws MailException {
 
         SimpleMailMessage mail = new SimpleMailMessage();
         mail.setTo(user.getEmail());
@@ -63,7 +62,7 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    public void sendNotificaitionAsync(AppUser user, String msg, String subject) throws MailException, InterruptedException {
+    public void sendNotificaitionAsync(AppUser user, String msg, String subject) throws MailException {
         System.out.println("Slanje emaila...");
 
         SimpleMailMessage mail = new SimpleMailMessage();

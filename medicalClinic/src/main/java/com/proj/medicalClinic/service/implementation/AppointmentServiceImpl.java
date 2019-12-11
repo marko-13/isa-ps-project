@@ -20,12 +20,8 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     public List<AppointmentDTO> getAllByOperationRoom(Long id){
-        List<Appointment> appointments = appointmentRepository.findAllByOperationRoomId(id);
-        System.out.println("Proslo");
-
-        if(appointments == null){
-            throw new NotExistsException("There are no appointments with that ID");
-        }
+        List<Appointment> appointments = appointmentRepository.findAllByOperationRoomId(id)
+                .orElseThrow(NotExistsException::new);
 
         List<AppointmentDTO> appointmentDTOS = new ArrayList<>();
 
@@ -38,11 +34,8 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     public List<AppointmentHistoryDTO> getAllByPatient(Long id) {
-        List<Appointment> appointments = appointmentRepository.findAllByPatientId(id);
-
-        if(appointments == null){
-            throw new NotExistsException("There are no appointments for that patient");
-        }
+        List<Appointment> appointments = appointmentRepository.findAllByPatientId(id)
+                .orElseThrow(NotExistsException::new);
 
         List<AppointmentHistoryDTO> appointmentDTOS = new ArrayList<>();
 
