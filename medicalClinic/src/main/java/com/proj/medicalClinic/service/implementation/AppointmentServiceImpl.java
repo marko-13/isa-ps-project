@@ -1,6 +1,7 @@
 package com.proj.medicalClinic.service.implementation;
 
 import com.proj.medicalClinic.dto.AppointmentDTO;
+import com.proj.medicalClinic.dto.AppointmentHistoryDTO;
 import com.proj.medicalClinic.exception.NotExistsException;
 import com.proj.medicalClinic.model.Appointment;
 import com.proj.medicalClinic.repository.AppointmentRepository;
@@ -30,6 +31,23 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         for(Appointment a : appointments){
             appointmentDTOS.add(new AppointmentDTO(a));
+        }
+
+        return appointmentDTOS;
+    }
+
+    @Override
+    public List<AppointmentHistoryDTO> getAllByPatient(Long id) {
+        List<Appointment> appointments = appointmentRepository.findAllByPatientId(id);
+
+        if(appointments == null){
+            throw new NotExistsException("There are no appointments for that patient");
+        }
+
+        List<AppointmentHistoryDTO> appointmentDTOS = new ArrayList<>();
+
+        for(Appointment a : appointments){
+            appointmentDTOS.add(new AppointmentHistoryDTO(a));
         }
 
         return appointmentDTOS;
