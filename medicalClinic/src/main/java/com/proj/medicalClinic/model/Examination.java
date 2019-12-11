@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@DiscriminatorValue("E")
+@DiscriminatorValue("EX")
 public class Examination extends Appointment {
 
 
