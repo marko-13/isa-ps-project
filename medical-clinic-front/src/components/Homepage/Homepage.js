@@ -14,6 +14,7 @@ import Prescriptions from '../../containers/Prescriptions/Prescriptions'
 import UserApproval from '../../containers/UserApproval/UserApproval'
 import OperationRooms from '../../containers/ClinicAdministrator/OperationRooms/OperationRooms';
 import Leaves from '../../containers/ClinicAdministrator/Leaves/Leaves';
+import RegisterClinic from '../../containers/RegisterClinic/RegisterClinic'
 
 
 const Homepage = (props) => {
@@ -122,12 +123,14 @@ const Homepage = (props) => {
                     <UserInfo name={name} lastname={lastname} role={role} />
                     <UserCards>
                         <UserCard buttonText={"Approve users"} cardText={"Shows all unapproved users"} link = {'/homepage/admin-clinic-center/user-approval'}/>
+                        <UserCard buttonText={"Register clinic"} cardText={"Register new clinic"} link = {'/homepage/admin-clinic-center/register-clinic'}/>
                     </UserCards>
                 </Auxiliary>
             );
             functions = (
               <Auxiliary>
                 <Route path='/homepage/admin-clinic-center/user-approval' component={UserApproval}></Route>
+                <Route path='/homepage/admin-clinic-center/register-clinic' component={RegisterClinic}></Route>
               </Auxiliary>
             );
             break;
@@ -145,7 +148,8 @@ const Homepage = (props) => {
                         {page}
                     </div>
 
-                    <div className='row' style={{ margin: '10px 5px' }}>
+                    <div className='row' style={{ margin: '0 5px', marginTop: '5%' }}>
+      
                       {functions}
                     </div>
                 </div>
