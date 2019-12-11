@@ -11,7 +11,7 @@ class ShowClinics extends Component{
 
   componentDidMount(){
     const token = localStorage.getItem('token');
-    axios.get('/clinics/getAll', {
+    axios.get('/clinics/get', {
       headers: {'Authorization': 'Bearer ' + token}
     } )
       .then(res => {
