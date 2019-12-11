@@ -1,5 +1,6 @@
 package com.proj.medicalClinic.service.implementation;
 
+import com.proj.medicalClinic.exception.NotExistsException;
 import com.proj.medicalClinic.model.AppUser;
 import com.proj.medicalClinic.repository.AppUserRepository;
 import org.apache.commons.logging.Log;
@@ -33,12 +34,10 @@ public class CustomUserDetailsServiceImpl implements UserDetailsService {
     // Funkcija koja na osnovu username-a iz baze vraca objekat User-a
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        AppUser user = userRepository.findByEmail(username);
-        if (user == null) {
-            throw new UsernameNotFoundException(String.format("No user found with username '%s'.", username));
-        } else {
-            return user;
-        }
+        AppUser user = userRepository.findByEmail(username)
+                .orElseThrow(NotExistsException::new);
+
+        return user;
     }
 
     // Funkcija pomocu koje korisnik menja svoju lozinku

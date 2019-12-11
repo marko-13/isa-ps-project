@@ -46,12 +46,14 @@ public class AppUserServiceImpl implements AppUserService {
 
     @Override
     public List<AppUser> findByUserRole(RoleType role) {
-        return userRepository.findByUserRole(role);
+        return userRepository.findByUserRole(role)
+                .orElseThrow(NotExistsException::new);
     }
 
     @Override
     public AppUser findByEmail(String email) {
-        return userRepository.findByEmail(email);
+        return userRepository.findByEmail(email)
+                .orElseThrow(NotExistsException::new);
     }
 
     @Override

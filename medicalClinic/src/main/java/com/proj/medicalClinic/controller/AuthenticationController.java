@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.proj.medicalClinic.exception.NotExistsException;
 import com.proj.medicalClinic.exception.ResourceConflictException;
 import com.proj.medicalClinic.model.AppUser;
 import com.proj.medicalClinic.model.UserTokenState;
@@ -75,18 +76,22 @@ public class AuthenticationController {
 
     @RequestMapping(method = POST, value = "/register")
     public ResponseEntity<?> addUser(@RequestBody AppUser appUser, UriComponentsBuilder ucBuilder) {
+        try {
+            AppUser existUser = this.userService.findByEmail(appUser.getUsername());
+            if (existUser != null) {
+                throw new ResourceConflictException(appUser.getId(), "Email already exists");
+            }
+        }
+        catch(NotExistsException e){
+            AppUser user = this.userService.save(appUser);
+            HttpHeaders headers = new HttpHeaders();
 
-        AppUser existUser = this.userService.findByEmail(appUser.getUsername());
-        if (existUser != null) {
-            throw new ResourceConflictException(appUser.getId(), "Email already exists");
+            //Sta ovo tacno radi?
+            headers.setLocation(ucBuilder.path("/api/user/{userId}").buildAndExpand(user.getId()).toUri());
+            return new ResponseEntity<>(HttpStatus.CREATED);
         }
 
-        AppUser user = this.userService.save(appUser);
-        HttpHeaders headers = new HttpHeaders();
-
-        //Sta ovo tacno radi?
-        headers.setLocation(ucBuilder.path("/api/user/{userId}").buildAndExpand(user.getId()).toUri());
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @RequestMapping(value = "/refresh", method = RequestMethod.POST)

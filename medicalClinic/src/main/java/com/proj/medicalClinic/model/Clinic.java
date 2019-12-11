@@ -31,19 +31,19 @@ public class Clinic {
     @Column(name = "description", unique = false, nullable = false)
     private String description;
 
-    @OneToMany(mappedBy = "clinic", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "clinic", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Appointment> appointments;
 
-    @OneToMany(mappedBy = "clinic", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "clinic", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Doctor> doctors;
 
-    @OneToMany(mappedBy = "clinic", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "clinic", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Nurse> nurses;
 
-    @OneToMany(mappedBy = "clinic", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "clinic", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OperationRoom> operationRooms;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(
             name = "Clinics_Services",
             joinColumns = {@JoinColumn(name = "clinic_id")},
@@ -51,7 +51,7 @@ public class Clinic {
     )
     private List<Service> services;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(
             name = "Clinics_Patients",
             joinColumns = {@JoinColumn(name = "clinic_id")},
@@ -69,6 +69,6 @@ public class Clinic {
     @JoinColumn(name = "clinical_center_id", nullable = false)
     private ClinicalCenter clinicalCenter;
 
-    @OneToMany(mappedBy = "clinic", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "clinic", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<AdminClinic> adminsClinic;
 }
