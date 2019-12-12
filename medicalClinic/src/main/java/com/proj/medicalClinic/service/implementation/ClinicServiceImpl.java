@@ -8,6 +8,7 @@ import com.proj.medicalClinic.model.Clinic;
 import com.proj.medicalClinic.repository.ClinicRepository;
 import com.proj.medicalClinic.service.ClinicService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -48,8 +49,10 @@ public class ClinicServiceImpl implements ClinicService {
                 throw new NotValidParamsException("Server has not recieved right email of Administrator of the clinical center");
             }
 
-            List<Clinic> uniqueClinic = this.clinicRepository.findAllByNameAndAddress(clinicDTO.getName(), clinicDTO.getAddress())
-                    .orElseThrow(NotExistsException::new);
+            List<Clinic> uniqueClinic = this.clinicRepository.findAllByNameAndAddress(clinicDTO.getName(), clinicDTO.getAddress());
+            if (!(uniqueClinic.isEmpty())){
+                throw new NotValidParamsException("Already exists");
+            }
 
             Clinic newClinic = new Clinic();
 
