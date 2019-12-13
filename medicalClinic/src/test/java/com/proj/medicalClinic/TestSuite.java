@@ -12,3 +12,4 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 @Suite.SuiteClasses({AppUserRepositoryTest.class, AppUserServiceTest.class})
 public class TestSuite {
 }
+
