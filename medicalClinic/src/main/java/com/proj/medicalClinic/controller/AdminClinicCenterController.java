@@ -2,6 +2,7 @@ package com.proj.medicalClinic.controller;
 
 import com.proj.medicalClinic.dto.ClinicDTO;
 import com.proj.medicalClinic.exception.NotExistsException;
+import com.proj.medicalClinic.exception.NotValidParamsException;
 import com.proj.medicalClinic.security.TokenUtils;
 import com.proj.medicalClinic.service.ClinicService;
 import com.proj.medicalClinic.service.UserConfirmation;
@@ -61,7 +62,15 @@ public class AdminClinicCenterController {
     @RequestMapping(value = "/add-new-clinic")
     @PreAuthorize("hasAuthority('ADMINCLINICALCENTER')")
     public ResponseEntity<?> addNewClinics(@RequestBody ClinicDTO clinicDTO) {
-        String email = this.tokenUtils.getUsernameFromToken(this.tokenUtils.getToken(this.httpServletRequest));
-        return new ResponseEntity<>(this.clinicService.addNewClinic(clinicDTO, email), HttpStatus.OK);
+        try {
+            String email = this.tokenUtils.getUsernameFromToken(this.tokenUtils.getToken(this.httpServletRequest));
+            return new ResponseEntity<>(this.clinicService.addNewClinic(clinicDTO, email), HttpStatus.OK);
+        }
+        catch(NotValidParamsException e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 }
