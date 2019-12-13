@@ -11,7 +11,12 @@ class RoomAppointments extends Component {
 
     state = {
         startDate: new Date(),
-        availableSchedule: null
+        availableSchedule: null,
+        firstAvailable: null
+    }
+
+    componentDidMount() {
+        this.checkFirstAvailable();
     }
 
     handleChange = date => {
@@ -37,6 +42,19 @@ class RoomAppointments extends Component {
                 this.setState({ availableSchedule: true });
             }
         })
+
+    }
+
+    checkFirstAvailable = () => {
+        const currentTime = moment().valueOf();
+        
+        this.props.appointments.map(app => {
+            if(!(currentTime >= app.date && (currentTime <= app.date + (app.duration * 60000)))){
+                this.setState({firstAvailable: moment(currentTime).format("DD-MM-YYYY hh:mm")})
+            }else{
+                this.setState({firstAvailable: moment(app.date + (app.duration * 60000).format("DD-MMM-YYYY hh:mm"))})
+            }
+        });
 
     }
 
@@ -78,8 +96,9 @@ class RoomAppointments extends Component {
                 </div>
 
                 <div className={classes.Subheader}>
-                    <h5>Prvi slobodni termin za ovu salu je:</h5>
+                    <h5 onClick={this.checkFirstAvailable}>Prvi slobodni termin za ovu salu je:</h5>
                 </div>
+                    <h5 style={{marginLeft: '50px'}}>{this.state.firstAvailable}</h5>
             </div>
         );
     }
