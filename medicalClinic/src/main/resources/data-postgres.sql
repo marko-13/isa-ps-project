@@ -1,4 +1,4 @@
-insert into clinical_center (diagnosis, drugs) values ('FEVER', 'BRUFEN');
+insert into clinical_center (name) values ('Clinical center');
 
 
 insert into clinic (address, description, name, review, clinical_center_id, review_count)
@@ -244,21 +244,58 @@ insert into prescription (approved, nurse_id)
 values (False, 7);
 
 
-insert into medical_report (diagnosis, exam_description, prescription_id, examination_id, medical_history_id)
-values ('FEVER', 'Veoma lose, ali bice bolje', 1, 2, 1);
 
-insert into medical_report (diagnosis, exam_description, prescription_id, examination_id, medical_history_id)
-values ('COLD', 'Ok', 2, 5, 1);
+insert into diagnosis_registry (diagnosis_name)
+values ('Fever');
 
-insert into medical_report (diagnosis, exam_description, prescription_id, examination_id, medical_history_id)
-values ('FLU', 'Veoma ok', 3, 6, 2);
+insert into diagnosis_registry (diagnosis_name)
+values ('Cold');
+
+insert into diagnosis_registry (diagnosis_name)
+values ('Flu');
+
+
+
+insert into medical_report (exam_description, prescription_id, examination_id, medical_history_id)
+values ('Veoma lose, ali bice bolje', 1, 2, 1);
+
+insert into medical_report (exam_description, prescription_id, examination_id, medical_history_id)
+values ('Ok', 2, 5, 1);
+
+insert into medical_report (exam_description, prescription_id, examination_id, medical_history_id)
+values ('Veoma ok', 3, 6, 2);
+
+
+
+insert into medical_report_diagnosis (mreport_id, diagnosis_id)
+values (1, 1);
+
+insert into medical_report_diagnosis (mreport_id, diagnosis_id)
+values (2, 2);
+
+insert into medical_report_diagnosis (mreport_id, diagnosis_id)
+values (3, 3);
+
+
+
+insert into drugs_registry (drug_name)
+values ('Brufen');
+
+insert into drugs_registry (drug_name)
+values ('Xanax');
+
+insert into drugs_registry (drug_name)
+values ('Strepsils');
+
+insert into drugs_registry (drug_name)
+values ('PreP');
 
 
 insert into prescription_drugs ( prescription_id, drug_id)
-values (1, 'BRUFEN');
+values (1, 1);
 
 insert into prescription_drugs( prescription_id, drug_id)
-values (1, 'XANAX');
+values (1, 2);
 
 insert into prescription_drugs ( prescription_id, drug_id)
-values (3, 'STREPSILS');
+values (3, 3);
