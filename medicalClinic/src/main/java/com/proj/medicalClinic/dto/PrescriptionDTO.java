@@ -17,11 +17,11 @@ public class PrescriptionDTO {
 
     private Long id;
     private boolean approved;
-    private Set<DrugsType> drug;
+    private List<DrugsRegistry> drugs;
 
     public PrescriptionDTO(Prescription prescription){
         this.id = prescription.getId();
         this.approved = prescription.getApproved();
-        this.drug = prescription.getDrug();
+        this.drugs = prescription.getDrugsRegistry();
     }
 }
