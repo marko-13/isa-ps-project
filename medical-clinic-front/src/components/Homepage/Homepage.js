@@ -128,6 +128,7 @@ const Homepage = (props) => {
                         <UserCard buttonText={"Approve users"} cardText={"Shows all unapproved users"} link = {'/homepage/admin-clinic-center/user-approval'}/>
                         <UserCard buttonText={"Register clinic"} cardText={"Register new clinic"} link = {'/homepage/admin-clinic-center/register-clinic'}/>
                         <UserCard buttonText={"Diagnosis registry"} cardText={"Add new diagnosis"} link = {'/homepage/admin-clinic-center/diagnosis-registry'}/>
+                        <UserCard buttonText={"Drugs registry"} cardText={"Add new drug"} link = {'/homepage/admin-clinic-center/drugs-registry'}/>
                     </UserCards>
                 </Auxiliary>
             );
