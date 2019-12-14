@@ -16,6 +16,7 @@ import OperationRooms from '../../containers/ClinicAdministrator/OperationRooms/
 import Leaves from '../../containers/ClinicAdministrator/Leaves/Leaves';
 import RegisterClinic from '../../containers/RegisterClinic/RegisterClinic'
 import ShowAppointments from '../Appointment/ShowAppointments/ShowAppointments.js'
+import DiagnosisRegistry from '../../containers/DiagnosisRegistry/DiagnosisRegistry'
 
 
 const Homepage = (props) => {
