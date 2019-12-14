@@ -129,4 +129,18 @@ public class AdminClinicCenterController {
         }
     }
 
+    @RequestMapping(value = "/drugs/add-new-drug")
+    @PreAuthorize("hasAuthority('ADMINCLINICALCENTER')")
+    public ResponseEntity<?> addNewDrug(@RequestBody DrugsRegistryDTO drugsRegistryDTO) {
+        try {
+            String email = this.tokenUtils.getUsernameFromToken(this.tokenUtils.getToken(this.httpServletRequest));
+            return new ResponseEntity<>(this.drugsRegistryService.addDrug(drugsRegistryDTO, email), HttpStatus.OK);
+        } catch (NotValidParamsException e) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        } catch (NotExistsException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 }
