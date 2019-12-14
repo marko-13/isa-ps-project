@@ -33,6 +33,9 @@ public class AdminClinicCenterController {
     @Autowired
     private ClinicService clinicService;
 
+    @Autowired
+    private DiagnosisRegistryService diagnosisRegistryService;
+
     @RequestMapping(value = "/approve")
     @PreAuthorize("hasAuthority('ADMINCLINICALCENTER')")
     public ResponseEntity<?> getNotApprovedUsers() {
