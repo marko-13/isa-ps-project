@@ -21,6 +21,6 @@ public interface AppUserRepository extends JpaRepository <AppUser, Long>{
 
     Optional<List<AppUser>> findAllByEnabledAndRejected(Boolean enabled, Boolean rejected);
 
-    Optional<AppUser> findByEmail(String emailid);
+    Optional<AppUser> findByEmail(String email);
 
 }

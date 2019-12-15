@@ -1,10 +1,12 @@
 package com.proj.medicalClinic.controller;
 
 import com.proj.medicalClinic.dto.ClinicDTO;
+import com.proj.medicalClinic.dto.DiagnosisRegistryDTO;
 import com.proj.medicalClinic.exception.NotExistsException;
 import com.proj.medicalClinic.exception.NotValidParamsException;
 import com.proj.medicalClinic.security.TokenUtils;
 import com.proj.medicalClinic.service.ClinicService;
+import com.proj.medicalClinic.service.DiagnosisRegistryService;
 import com.proj.medicalClinic.service.UserConfirmation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,6 +32,9 @@ public class AdminClinicCenterController {
 
     @Autowired
     private ClinicService clinicService;
+
+    @Autowired
+    private DiagnosisRegistryService diagnosisRegistryService;
 
     @RequestMapping(value = "/approve")
     @PreAuthorize("hasAuthority('ADMINCLINICALCENTER')")
@@ -70,6 +75,36 @@ public class AdminClinicCenterController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping(value = "/diagnosis/get-all-diagnosis")
+    @PreAuthorize("hasAuthority('ADMINCLINICALCENTER')")
+    public ResponseEntity<?> getAllDiagnosis() {
+        try {
+            String email = this.tokenUtils.getUsernameFromToken(this.tokenUtils.getToken(this.httpServletRequest));
+            return new ResponseEntity<>(this.diagnosisRegistryService.getAllDiagnosis(email), HttpStatus.OK);
+        } catch (NotExistsException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (NotValidParamsException e) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        } catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping(value = "/diagnosis/add-new-diagnosis")
+    @PreAuthorize("hasAuthority('ADMINCLINICALCENTER')")
+    public ResponseEntity<?> addNewDiagnosis(@RequestBody DiagnosisRegistryDTO diagnosisRegistryDTO) {
+        try {
+            String email = this.tokenUtils.getUsernameFromToken(this.tokenUtils.getToken(this.httpServletRequest));
+            return new ResponseEntity<>(this.diagnosisRegistryService.addDiagnosis(diagnosisRegistryDTO, email), HttpStatus.OK);
+        } catch (NotValidParamsException e) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        } catch (NotExistsException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }

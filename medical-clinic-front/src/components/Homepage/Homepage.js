@@ -16,6 +16,7 @@ import OperationRooms from '../../containers/ClinicAdministrator/OperationRooms/
 import Leaves from '../../containers/ClinicAdministrator/Leaves/Leaves';
 import RegisterClinic from '../../containers/RegisterClinic/RegisterClinic'
 import ShowAppointments from '../Appointment/ShowAppointments/ShowAppointments.js'
+import DiagnosisRegistry from '../../containers/DiagnosisRegistry/DiagnosisRegistry'
 
 
 const Homepage = (props) => {
@@ -125,6 +126,7 @@ const Homepage = (props) => {
                     <UserCards>
                         <UserCard buttonText={"Approve users"} cardText={"Shows all unapproved users"} link = {'/homepage/admin-clinic-center/user-approval'}/>
                         <UserCard buttonText={"Register clinic"} cardText={"Register new clinic"} link = {'/homepage/admin-clinic-center/register-clinic'}/>
+                        <UserCard buttonText={"Diagnosis registry"} cardText={"Add new diagnosis"} link = {'/homepage/admin-clinic-center/diagnosis-registry'}/>
                     </UserCards>
                 </Auxiliary>
             );
@@ -132,6 +134,7 @@ const Homepage = (props) => {
               <Auxiliary>
                 <Route path='/homepage/admin-clinic-center/user-approval' component={UserApproval}></Route>
                 <Route path='/homepage/admin-clinic-center/register-clinic' component={RegisterClinic}></Route>
+                <Route path='/homepage/admin-clinic-center/diagnosis-registry' component={DiagnosisRegistry}></Route>
               </Auxiliary>
             );
             break;
