@@ -1,5 +1,6 @@
 package com.proj.medicalClinic.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,11 +24,13 @@ public class Prescription {
 	@Column(name = "approved", nullable = false)
 	private Boolean approved;
 
-	@ElementCollection(targetClass=DrugsType.class)
-	@Enumerated(EnumType.STRING) // Possibly optional (I'm not sure) but defaults to ORDINAL.
-	@CollectionTable(name="prescription_drugs", joinColumns = @JoinColumn(name = "prescription_id"))
-	@Column(name="drug_id", nullable = false) // Column name in person_interest
-	private Set<DrugsType> drug;
+	@ManyToMany
+	@JoinTable(
+			name = "Prescription_Drugs",
+			joinColumns = {@JoinColumn(name = "prescription_id")},
+			inverseJoinColumns = {@JoinColumn(name = "drug_id")}
+	)
+	private List<DrugsRegistry> drugsRegistry;
 
     @ManyToOne(fetch=FetchType.LAZY)
 	//@NotFound(action = NotFoundAction.IGNORE)

@@ -2,11 +2,13 @@ package com.proj.medicalClinic.controller;
 
 import com.proj.medicalClinic.dto.ClinicDTO;
 import com.proj.medicalClinic.dto.DiagnosisRegistryDTO;
+import com.proj.medicalClinic.dto.DrugsRegistryDTO;
 import com.proj.medicalClinic.exception.NotExistsException;
 import com.proj.medicalClinic.exception.NotValidParamsException;
 import com.proj.medicalClinic.security.TokenUtils;
 import com.proj.medicalClinic.service.ClinicService;
 import com.proj.medicalClinic.service.DiagnosisRegistryService;
+import com.proj.medicalClinic.service.DrugsRegistryService;
 import com.proj.medicalClinic.service.UserConfirmation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,6 +37,9 @@ public class AdminClinicCenterController {
 
     @Autowired
     private DiagnosisRegistryService diagnosisRegistryService;
+
+    @Autowired
+    private DrugsRegistryService drugsRegistryService;
 
     @RequestMapping(value = "/approve")
     @PreAuthorize("hasAuthority('ADMINCLINICALCENTER')")
@@ -100,6 +105,36 @@ public class AdminClinicCenterController {
         try {
             String email = this.tokenUtils.getUsernameFromToken(this.tokenUtils.getToken(this.httpServletRequest));
             return new ResponseEntity<>(this.diagnosisRegistryService.addDiagnosis(diagnosisRegistryDTO, email), HttpStatus.OK);
+        } catch (NotValidParamsException e) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        } catch (NotExistsException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping(value = "/drugs/get-all-drugs")
+    @PreAuthorize("hasAuthority('ADMINCLINICALCENTER')")
+    public ResponseEntity<?> getAllDrugs() {
+        try {
+            String email = this.tokenUtils.getUsernameFromToken(this.tokenUtils.getToken(this.httpServletRequest));
+            return new ResponseEntity<>(this.drugsRegistryService.getAllDrugs(email), HttpStatus.OK);
+        } catch (NotExistsException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (NotValidParamsException e) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        } catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping(value = "/drugs/add-new-drug")
+    @PreAuthorize("hasAuthority('ADMINCLINICALCENTER')")
+    public ResponseEntity<?> addNewDrug(@RequestBody DrugsRegistryDTO drugsRegistryDTO) {
+        try {
+            String email = this.tokenUtils.getUsernameFromToken(this.tokenUtils.getToken(this.httpServletRequest));
+            return new ResponseEntity<>(this.drugsRegistryService.addDrug(drugsRegistryDTO, email), HttpStatus.OK);
         } catch (NotValidParamsException e) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         } catch (NotExistsException e) {

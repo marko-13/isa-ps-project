@@ -17,6 +17,7 @@ import Leaves from '../../containers/ClinicAdministrator/Leaves/Leaves';
 import RegisterClinic from '../../containers/RegisterClinic/RegisterClinic'
 import ShowAppointments from '../Appointment/ShowAppointments/ShowAppointments.js'
 import DiagnosisRegistry from '../../containers/DiagnosisRegistry/DiagnosisRegistry'
+import DrugsRegistry from '../../containers/DrugsRegistry/DrugsRegistry'
 
 
 const Homepage = (props) => {
@@ -127,6 +128,7 @@ const Homepage = (props) => {
                         <UserCard buttonText={"Approve users"} cardText={"Shows all unapproved users"} link = {'/homepage/admin-clinic-center/user-approval'}/>
                         <UserCard buttonText={"Register clinic"} cardText={"Register new clinic"} link = {'/homepage/admin-clinic-center/register-clinic'}/>
                         <UserCard buttonText={"Diagnosis registry"} cardText={"Add new diagnosis"} link = {'/homepage/admin-clinic-center/diagnosis-registry'}/>
+                        <UserCard buttonText={"Drugs registry"} cardText={"Add new drug"} link = {'/homepage/admin-clinic-center/drugs-registry'}/>
                     </UserCards>
                 </Auxiliary>
             );
@@ -135,6 +137,7 @@ const Homepage = (props) => {
                 <Route path='/homepage/admin-clinic-center/user-approval' component={UserApproval}></Route>
                 <Route path='/homepage/admin-clinic-center/register-clinic' component={RegisterClinic}></Route>
                 <Route path='/homepage/admin-clinic-center/diagnosis-registry' component={DiagnosisRegistry}></Route>
+                <Route path='/homepage/admin-clinic-center/drugs-registry' component={DrugsRegistry}></Route>
               </Auxiliary>
             );
             break;
