@@ -6,37 +6,37 @@ values ('Bulevar Oslobodjenja 50', 'Jako lepa klinika', 'Svetlost', 9, 1, 7);
 
 
 insert into app_user (type, user_role, email, password, name, last_name, JMBG, enabled, adress, city, state, mobile, rejected)
-values ('P', 'PATIENT', 'Miljana@gmail.com', '$2a$10$hMz0Q7JhystsRnek6D3bLO5mRGU2yPril7EVfLkeqwAUh0JWQYabq', 'Miljana', 'Vlahovic', '1710463172556', true, 'Adresa1', 'Grad1', 'Drzava1', '111', false);
+values ('P', 'PATIENT', 'Miljana@mailinator.com', '$2a$10$hMz0Q7JhystsRnek6D3bLO5mRGU2yPril7EVfLkeqwAUh0JWQYabq', 'Miljana', 'Vlahovic', '1710463172556', true, 'Adresa1', 'Grad1', 'Drzava1', '111', false);
 
 insert into app_user (type, user_role, email, password, name, last_name, JMBG, enabled, adress, city, state, mobile, rejected)
-values ('P', 'PATIENT', 'Vlatko@gmail.com', '$2a$10$oJ4.32dhcYqQAWcqlGYUW.rMBIO3fyhHnyLD4rtnrEKlUqisRexda', 'Vlatko', 'Tomcic', '8773483494930', false, 'Adresa2', 'Grad2', 'Drzava2', '222', false);
+values ('P', 'PATIENT', 'Vlatko@mailinator.com', '$2a$10$oJ4.32dhcYqQAWcqlGYUW.rMBIO3fyhHnyLD4rtnrEKlUqisRexda', 'Vlatko', 'Tomcic', '8773483494930', false, 'Adresa2', 'Grad2', 'Drzava2', '222', false);
 
 insert into app_user (type, user_role, email, password, name, last_name, JMBG, enabled, adress, city, state, mobile, rejected)
-values ('P', 'PATIENT', 'Frustuk@gmail.com', '$2a$10$eZFvWClzdfGfgvmKDjEmvewURZTW0Hl26OH0GH9eUdosD9RVqgchq', 'Frustuk', 'Jeltako', '0881736727645', false, 'Adresa3', 'Grad3', 'Drzava3', '333', false);
+values ('P', 'PATIENT', 'Frustuk@mailinator.com', '$2a$10$eZFvWClzdfGfgvmKDjEmvewURZTW0Hl26OH0GH9eUdosD9RVqgchq', 'Frustuk', 'Jeltako', '0881736727645', false, 'Adresa3', 'Grad3', 'Drzava3', '333', false);
 
 insert into app_user (type, user_role, email, password, name, last_name, review, shift, review_count, enabled, adress, city, state, mobile, rejected)
-values ('DR', 'DOCTOR', 'Vladan@gmail.com', '$2a$10$EcjftqmPpW.usBG8k4OMWOqEo9LA9QMBaEy8XFbZCNBY9oY..jd62', 'Vladan', 'Dragic', 3, 1, 2, true, 'Adresa4', 'Grad4', 'Drzava4', '444', false);
+values ('DR', 'DOCTOR', 'Vladan@mailinator.com', '$2a$10$EcjftqmPpW.usBG8k4OMWOqEo9LA9QMBaEy8XFbZCNBY9oY..jd62', 'Vladan', 'Dragic', 3, 1, 2, true, 'Adresa4', 'Grad4', 'Drzava4', '444', false);
 
 insert into app_user (type, user_role, email, password, name, last_name, review, shift, review_count, enabled, adress, city, state, mobile, rejected)
-values ('DR', 'DOCTOR', 'Dusko@gmail.com', '$2a$10$EcjftqmPpW.usBG8k4OMWOqEo9LA9QMBaEy8XFbZCNBY9oY..jd62', 'Dusko', 'Jovanovic', 10, 2, 15, true, 'Adresa5', 'Grad5', 'Drzava5', '555', false);
+values ('DR', 'DOCTOR', 'Dusko@mailinator.com', '$2a$10$EcjftqmPpW.usBG8k4OMWOqEo9LA9QMBaEy8XFbZCNBY9oY..jd62', 'Dusko', 'Jovanovic', 10, 2, 15, true, 'Adresa5', 'Grad5', 'Drzava5', '555', false);
 
 insert into app_user (type, user_role, email, password, name, last_name, review, shift, review_count, enabled, adress, city, state, mobile, rejected)
-values ('DR', 'DOCTOR', 'Sara@gmail.com', '$2a$10$IzuVyeH5cKEw5c17WO2H1OuLMKVN2.2FjjP8e3S.RyNvPNdqUSAKe', 'Sara', 'Loncar', 6, 3, 9, true, 'Adresa6', 'Grad6', 'Drzava6', '666', false);
+values ('DR', 'DOCTOR', 'Sara@mailinator.com', '$2a$10$IzuVyeH5cKEw5c17WO2H1OuLMKVN2.2FjjP8e3S.RyNvPNdqUSAKe', 'Sara', 'Loncar', 6, 3, 9, true, 'Adresa6', 'Grad6', 'Drzava6', '666', false);
 
 insert into app_user (type, user_role, email, password, name, last_name, shift, enabled, adress, city, state, mobile, rejected)
-values ('NR', 'NURSE', 'Sergej@gmail.com', '$2a$10$Gd7bGnGZroF.ckbJDE1efu7C.tENXHDkS7CCNwV8IWKWTfSm/7Hx.', 'Sergej', 'Tomic', 1, true, 'Adresa7', 'Grad7', 'Drzava7', '777', false);
+values ('NR', 'NURSE', 'Sergej@mailinator.com', '$2a$10$Gd7bGnGZroF.ckbJDE1efu7C.tENXHDkS7CCNwV8IWKWTfSm/7Hx.', 'Sergej', 'Tomic', 1, true, 'Adresa7', 'Grad7', 'Drzava7', '777', false);
 
 insert into app_user (type, user_role, email, password, name, last_name, shift, enabled, adress, city, state, mobile, rejected)
-values ('NR', 'NURSE', 'Djordje@gmail.com', '$2a$10$cnczzGv7KfqoDAXP.9UdnOfs6GRUH3MSFUb.Fd1FxUc2nxN9IMhte', 'Djordje', 'Jankovic', 2, true, 'Adresa8', 'Grad8', 'Drzava8', '888', false);
+values ('NR', 'NURSE', 'Djordje@mailinator.com', '$2a$10$cnczzGv7KfqoDAXP.9UdnOfs6GRUH3MSFUb.Fd1FxUc2nxN9IMhte', 'Djordje', 'Jankovic', 2, true, 'Adresa8', 'Grad8', 'Drzava8', '888', false);
 
 insert into app_user (type, user_role, email, password, name, last_name, shift, enabled, adress, city, state, mobile, rejected)
-values ('NR', 'NURSE', 'Nevena@gmail.com', '$2a$10$cK5DzdYh6eVs7ZTW0uepRe6Rm00HaX.0o1E95JQCVq8FvSlh/IEa.', 'Nevena', 'Mihailovic', 3, true, 'Adresa9', 'Grad9', 'Drzava9', '999', false);
+values ('NR', 'NURSE', 'Nevena@mailinator.com', '$2a$10$cK5DzdYh6eVs7ZTW0uepRe6Rm00HaX.0o1E95JQCVq8FvSlh/IEa.', 'Nevena', 'Mihailovic', 3, true, 'Adresa9', 'Grad9', 'Drzava9', '999', false);
 
 insert into app_user (type, user_role, email, password, name, last_name, clinic_id, enabled, adress, city, state, mobile, rejected)
-values ('AC', 'ADMINCLINIC', 'Anastasija@gmail.com', '$2a$10$nE7tHqDVIG5P6NcGPOgTk.a/KRMhDm0puU6PJjT3nH3dam2EnUKj2', 'Anastasija', 'Milosevic', 1, true, 'Adresa10', 'Grad10', 'Drzava10', '1010', false);
+values ('AC', 'ADMINCLINIC', 'Anastasija@mailinator.com', '$2a$10$nE7tHqDVIG5P6NcGPOgTk.a/KRMhDm0puU6PJjT3nH3dam2EnUKj2', 'Anastasija', 'Milosevic', 1, true, 'Adresa10', 'Grad10', 'Drzava10', '1010', false);
 
 insert into app_user (type, user_role, email, password, name, last_name, clinical_center_id, enabled, adress, city, state, mobile, rejected)
-values ('ACC', 'ADMINCLINICALCENTER', 'Radoslav@gmail.com', '$2a$10$PpuFaY9yRRdUj9l4lr7sueTutLXXWxlgGRomEFH2lNQRYhiGwlMmS', 'Radoslav', 'Brankovic', 1, true, 'Adresa11', 'Grad11', 'Drzava11', '1111', false);
+values ('ACC', 'ADMINCLINICALCENTER', 'Radoslav@mailinator.com', '$2a$10$PpuFaY9yRRdUj9l4lr7sueTutLXXWxlgGRomEFH2lNQRYhiGwlMmS', 'Radoslav', 'Brankovic', 1, true, 'Adresa11', 'Grad11', 'Drzava11', '1111', false);
 
 insert into app_user (type, user_role, email, password, name, last_name, review, shift, review_count, enabled, adress, city, state, mobile, rejected)
 values ('DR', 'DOCTOR', 'dervy97@gmail.com', '$2a$10$EcjftqmPpW.usBG8k4OMWOqEo9LA9QMBaEy8XFbZCNBY9oY..jd62', 'Boris', 'Zavis', 7, 1, 15, true, 'Omladinska 1', 'Kisac', 'Srbija', '123-123', false);

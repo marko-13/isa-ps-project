@@ -69,7 +69,7 @@ public class LeaveServiceImpl implements LeaveService {
 
 
         try{
-            this.emailService.sendNotificaitionAsync(appUser, " your leave of absence has been approved", "Leave of absence");
+            this.emailService.sendNotificaitionAsync(appUser, " your leave of absence has been approved<br></br>", "Leave of absence");
         }catch (Exception e) {
             e.printStackTrace();
         }
