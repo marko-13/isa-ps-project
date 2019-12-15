@@ -9,8 +9,11 @@ import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
 @Service
@@ -43,34 +46,37 @@ public class EmailServiceImpl implements EmailService {
     private Environment env;
 
     @Override
-    public void sendNotificaitionAsync(AppUser user, String msg) throws MailException {
+    public void sendNotificaitionAsync(AppUser user, String msg) throws MailException, MessagingException {
 
-        SimpleMailMessage mail = new SimpleMailMessage();
-        mail.setTo(user.getEmail());
-        mail.setFrom(env.getProperty("isa.psw.tim17@gmail.com"));
-        mail.setSubject("Account activation");
-        if(user.isEnabled()) {
-            mail.setText("Hello " + user.getName() + " " + user.getLastName() + "," + msg);
-        }
-        else{
-            mail.setText("Hello " + user.getName() + " " + user.getLastName() + "," + msg);
-        }
-        getJavaMailSender().send(mail);
+        MimeMessage mimi = getJavaMailSender().createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(mimi, "utf-8");
+        String htmlMsg = "<h3>" + "Hello " + user.getName() + " " + user.getLastName() + ",<br></br>" + msg + "</h3>";
+
+        helper.setText(htmlMsg, true); // Use this or above line.
+        helper.setTo(user.getEmail());
+        helper.setSubject("Account activation");
+
+        helper.setFrom("isa.psw.tim17@gmail.com");
+
+        getJavaMailSender().send(mimi);
 
         System.out.println("Email poslat!");
 
     }
 
     @Override
-    public void sendNotificaitionAsync(AppUser user, String msg, String subject) throws MailException {
-        System.out.println("Slanje emaila...");
+    public void sendNotificaitionAsync(AppUser user, String msg, String subject) throws MailException, MessagingException {
 
-        SimpleMailMessage mail = new SimpleMailMessage();
-        mail.setTo(user.getEmail());
-        mail.setFrom(env.getProperty("isa.psw.tim17@gmail.com"));
-        mail.setSubject(subject);
-        mail.setText("Hello " + user.getName() + " " + user.getLastName() + "," + msg);
-        getJavaMailSender().send(mail);
+        MimeMessage mimi = getJavaMailSender().createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(mimi, "utf-8");
+        String htmlMsg = "<h3>" + "Hello " + user.getName() + " " + user.getLastName() + ",<br></br>" + msg + "</h3>";
+
+        helper.setText(htmlMsg, true); // Use this or above line.
+        helper.setTo(user.getEmail());
+        helper.setSubject(subject);
+        helper.setFrom("isa.psw.tim17@gmail.com");
+        getJavaMailSender().send(mimi);
+
 
         System.out.println("Email poslat!");
 
