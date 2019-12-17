@@ -1,5 +1,6 @@
 package com.proj.medicalClinic.repository;
 
+import com.proj.medicalClinic.model.AppUser;
 import com.proj.medicalClinic.model.Appointment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
