@@ -51,7 +51,8 @@ public class UserConfirmationImpl implements UserConfirmation {
             Patient updated = this.appUserRepository.save(patient);
 
             try {
-                this.emailService.sendNotificaitionAsync(updated, "\n\nYour account has been successfully activated.");
+                this.emailService.sendNotificaitionAsync(updated, "\n\nYour account has been approved.<br></br><a href=\"http://localhost:3000\">Activate</a>");
+
             }catch( Exception e ){
             }
 
@@ -76,8 +77,8 @@ public class UserConfirmationImpl implements UserConfirmation {
             } else {
                 appUser.setEnabled(false);
                 appUser.setRejected(true);
-                //this.appUserRepository.save(appUser);
-                this.appUserRepository.delete(appUser);
+                this.appUserRepository.save(appUser);
+                //this.appUserRepository.delete(appUser);
                 try {
                     this.emailService.sendNotificaitionAsync(appUser, "\n\nYour account was denied access." + "\n\nReason:\n" + msg);
                 }catch( Exception e ){

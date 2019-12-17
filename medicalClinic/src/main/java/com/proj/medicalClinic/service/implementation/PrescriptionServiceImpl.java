@@ -62,6 +62,7 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 
             List<Prescription> prescriptions = prescriptionRepository.findAllByNurseAndApprovedIsFalse(nurse)
                     .orElseThrow(NotExistsException::new);
+
             List<PrescriptionDTO> prescriptionsDTO = new ArrayList<>();
             for (Prescription p : prescriptions) {
                 prescriptionsDTO.add(new PrescriptionDTO(p));

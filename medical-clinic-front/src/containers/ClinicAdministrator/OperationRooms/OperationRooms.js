@@ -5,6 +5,7 @@ import Auxiliary from '../../../hoc/Auxiliary/Auxiliary';
 import moment from 'moment';
 
 import Button from '../../../components/UI/Button/Button';
+import RoomAppointments from './RoomAppointments/RoomAppointments';
 
 class OperationRooms extends Component {
 
@@ -39,7 +40,7 @@ class OperationRooms extends Component {
             if (app.date > pickedDate && app.date < (pickedDate + (60 * 60000))) {
                 this.setState({ availableSchedule: false });
             } else {
-                this.setState({ availableSchedule: true });
+                this.setState({ availableSchedule: true }); 
             }
         })
 
@@ -100,45 +101,23 @@ class OperationRooms extends Component {
                             this.setState({availableSchedule: null});
 
                         }
-                    })} />
+                    })}
+                    defaultFilterMethod={(filter, row, column) => {
+                        const id = filter.pivotId || filter.id
+                        console.log(row[id]);
+                        return row[id] !== undefined ? String(row[id]).toLowerCase().includes(filter.value.toLowerCase()) : true
+                      }}
+                    />
 
             );
         }
 
         if (this.state.showRoomRedails !== false && this.state.appointments !== null) {
 
-            let currentTime = moment().valueOf();
-
-            const termin = this.state.appointments.map(app => {
-                if (app.date + (app.duration * 60000) > currentTime) {
-
-                }
-            })
-
-            roomDetails = (
-                <div>
-                    <h3>{this.state.roomName} {this.state.roomNumber}</h3><br></br>
-                    <div style={{ padding: '10px' }}>
-                        <h5>Scheduled appointments for this room:</h5><br></br>
-                        {this.state.appointments.map((app, i) => {
-                            return (
-                                <p key={i}><strong>{i + 1}. </strong><strong>DATE: </strong>{moment(app.date).format("DD-MMM-YYYY hh:mm")}, <strong>DURATION:</strong> {app.duration}min, <strong>TYPE:</strong> {app.fastExam}</p>
-                            );
-                        })}
-                    </div><br></br>
-
-                    <div style={{ padding: '10px' }}>
-                        <h5>First available appointment for this room is:</h5>
-                        <input type='date' style={{ marginRight: '15px' }} onChange={(event) => this.setState({ pickedDate: event.target.value })}></input>
-                        <Button type='green' click={() => this.checkAvailability()}>Check</Button>
-                        {this.state.availableSchedule === null ? null : (this.state.availableSchedule === true ? <p>Room is avalilable for this date</p> : <p>Room is unavaliable for this date</p>)}
-                    </div><br></br>
-
-                    <h5>Prvi slobodni termin za ovu salu je:</h5>
-
-
-                </div>
-            );
+            roomDetails = <RoomAppointments 
+                roomName={this.state.roomName}
+                roomNumber={this.state.roomNumber}
+                appointments={this.state.appointments}/>
         }
 
         return (

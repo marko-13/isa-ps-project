@@ -23,13 +23,8 @@ public class ClinicalCenter {
     @Column(name = "id", unique = true, updatable = false, nullable = false)
 	private Long id;
 
-    @Column(name = "diagnosis", unique = false, nullable = false)
-    @Enumerated(EnumType.STRING)
-	private DiagnosisType diagnosis;
-
-    @Column(name = "drugs", unique = false, nullable = false)
-    @Enumerated(EnumType.STRING)
-    private DrugsType drugs;
+    @Column(name = "name", unique = true, nullable = false)
+    private String name;
 
     @OneToMany(mappedBy = "clinicalCenter", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Clinic> clinics;

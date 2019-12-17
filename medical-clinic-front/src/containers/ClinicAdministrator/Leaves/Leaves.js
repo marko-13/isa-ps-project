@@ -131,6 +131,11 @@ class Leaves extends Component {
                         pageSize={10}
                         filterable={true}
                         style={{ width: '85vw' }}
+                        defaultFilterMethod={(filter, row, column) => {
+                            const id = filter.pivotId || filter.id
+                            console.log(row[id]);
+                            return row[id] !== undefined ? String(row[id]).toLowerCase().includes(filter.value.toLowerCase()) : true
+                          }}
                     />
                     <Modal show={this.state.isModalOpen} modalClosed={this.closeModal}>
                         <h4>Write the reason of denial</h4>
