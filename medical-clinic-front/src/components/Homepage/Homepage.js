@@ -18,6 +18,8 @@ import RegisterClinic from '../../containers/RegisterClinic/RegisterClinic'
 import ShowAppointments from '../Appointment/ShowAppointments/ShowAppointments.js'
 import DiagnosisRegistry from '../../containers/DiagnosisRegistry/DiagnosisRegistry'
 import DrugsRegistry from '../../containers/DrugsRegistry/DrugsRegistry'
+import ShowMedicalStaff from '../MedicalStaff/ShowMedicalStaff/ShowMedicalStaff.js'
+
 
 
 const Homepage = (props) => {
@@ -79,7 +81,7 @@ const Homepage = (props) => {
             functions = (
               <Auxiliary>
                 <Route path='/homepage/patient/clinics' component={ShowClinics}></Route>
-                <Route path='/homepage/patient/medicalstaff' render={null}></Route>
+                <Route path='/homepage/patient/medicalstaff' component={ShowMedicalStaff}></Route>
                 <Route path='/homepage/patient/medicalhistory' component={ShowMedicalHistory}></Route>
                 <Route path='/homepage/patient/appointments' component={ShowAppointments}></Route>
               </Auxiliary>
