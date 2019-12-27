@@ -18,7 +18,8 @@ import RegisterClinic from '../../containers/RegisterClinic/RegisterClinic'
 import ShowAppointments from '../Appointment/ShowAppointments/ShowAppointments.js'
 import DiagnosisRegistry from '../../containers/DiagnosisRegistry/DiagnosisRegistry'
 import DrugsRegistry from '../../containers/DrugsRegistry/DrugsRegistry'
-import ShowMedicalStaff from '../MedicalStaff/ShowMedicalStaff/ShowMedicalStaff.js'
+import ShowMedicalStaff from '../MedicalStaff/ShowMedicalStaff/ShowMedicalStaff.js';
+import Doctors from '../../containers/ClinicAdministrator/Doctors/Doctors';
 
 
 
@@ -109,6 +110,7 @@ const Homepage = (props) => {
                     <UserCards>
                         <UserCard buttonText={"Operation Rooms"} cardText={"Search and filter operation rooms"}  link ={'/homepage/admin-clinic/operation-rooms'}/>
                         <UserCard buttonText={"Show"} cardText={"Show all requests for leave of absence"}  link ={'/homepage/admin-clinic/leaves'}/>
+                        <UserCard buttonText={"Show doctors"} cardText={"Search, add or remove doctors"}  link ={'/homepage/admin-clinic/doctors'}/>
                     </UserCards>
                 </Auxiliary>
 
@@ -118,6 +120,7 @@ const Homepage = (props) => {
                 <Auxiliary>
                   <Route path='/homepage/admin-clinic/operation-rooms' component={OperationRooms}></Route>
                   <Route path='/homepage/admin-clinic/leaves' component={Leaves}></Route>
+                  <Route path='/homepage/admin-clinic/doctors' component={Doctors}></Route>
                 </Auxiliary>
               );
 
@@ -157,7 +160,7 @@ const Homepage = (props) => {
                         {page}
                     </div>
 
-                    <div className='row' style={{ margin: '0 5px', marginTop: '5%' }}>
+                    <div className='row' style={{ margin: '0 5px', marginTop: '30px' }}>
 
                       {functions}
                     </div>
