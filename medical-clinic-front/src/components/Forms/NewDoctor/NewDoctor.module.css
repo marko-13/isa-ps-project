@@ -1,0 +1,27 @@
+.Form {
+    background-color: #444444;
+    border-radius: 25px;
+}
+
+.Form h2 {
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+.Form input {
+    margin: 10px;
+}
+
+.Inputs {
+    padding: 20px;
+}
+
+.Buttons {
+    justify-content: flex-end;
+}
+
+.Buttons button{
+    padding: 5px 25px;
+    margin-right: 10px;
+}
