@@ -7,5 +7,6 @@ import java.util.List;
 public interface DoctorService {
 
     List<DoctorDTO> getAll();
+    DoctorDTO save();
 
 }
