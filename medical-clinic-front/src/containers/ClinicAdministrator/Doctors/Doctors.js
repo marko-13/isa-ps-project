@@ -8,9 +8,14 @@ import Auxiliary from '../../../hoc/Auxiliary/Auxiliary';
 
 class Doctors extends Component {
 
-    state = {
-        doctors: null
+    constructor(props) {
+        super(props);
+        this.state = {
+            doctors: null
+        }
+        this.getAllDoctors = this.getAllDoctors.bind(this);
     }
+
 
     componentDidMount() {
         this.getAllDoctors();
@@ -18,11 +23,16 @@ class Doctors extends Component {
 
     getAllDoctors() {
         axios.get('doctor/getAll')
-            .then(response => this.setState({ doctors: response.data }))
+            .then(response => {
+                console.log('adasdsadas');
+                this.setState({ doctors: response.data });
+            })
             .catch(err => console.log(err));
     }
 
     render() {
+
+        console.log(this.state);
 
         let table = null;
 
@@ -83,7 +93,7 @@ class Doctors extends Component {
                     {table}
                 </div>
                 <div className='col-6'>
-                    <NewDoctor />
+                    <NewDoctor getAllDoctors={this.getAllDoctors} />
                 </div>
             </Auxiliary>
         );
