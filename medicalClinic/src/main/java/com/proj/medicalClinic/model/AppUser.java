@@ -55,6 +55,8 @@ public class AppUser implements UserDetails {
 	private String mobile;
 
 
+	@Column (name = "deleted")
+	private boolean deleted;
 
 	@Column(name = "enabled")
 	private boolean enabled;
