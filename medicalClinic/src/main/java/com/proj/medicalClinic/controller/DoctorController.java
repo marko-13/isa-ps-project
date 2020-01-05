@@ -1,16 +1,15 @@
 package com.proj.medicalClinic.controller;
 
 import com.proj.medicalClinic.dto.DoctorDTO;
+import com.proj.medicalClinic.exception.NotExistsException;
+import com.proj.medicalClinic.exception.ResourceConflictException;
 import com.proj.medicalClinic.model.Doctor;
 import com.proj.medicalClinic.service.DoctorService;
 import com.proj.medicalClinic.service.implementation.DoctorServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,5 +30,18 @@ public class DoctorController {
     public ResponseEntity<?> saveDoctor(@RequestBody Doctor doctor) {
         DoctorDTO doctorDTO = doctorService.save(doctor);
         return new ResponseEntity<>(doctorDTO, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/remove/{id}", method = RequestMethod.POST)
+    public ResponseEntity<?> removeDoctor(@PathVariable Long id){
+        try{
+            DoctorDTO doctorDTO = doctorService.remove(id);
+            return new ResponseEntity<>(doctorDTO, HttpStatus.OK);
+        }catch (NotExistsException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }catch (ResourceConflictException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.FORBIDDEN);
+        }
+
     }
 }
