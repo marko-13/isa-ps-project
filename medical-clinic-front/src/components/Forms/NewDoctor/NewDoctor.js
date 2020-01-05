@@ -49,7 +49,6 @@ class NewDoctor extends Component {
       }
 
     render() {
-        console.log(this.state);
         return (
             <div className={classes.Form}>
                 <h2>Add new doctor</h2>

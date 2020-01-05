@@ -24,16 +24,20 @@ class Doctors extends Component {
     getAllDoctors() {
         axios.get('doctor/getAll')
             .then(response => {
-                console.log('adasdsadas');
                 this.setState({ doctors: response.data });
             })
             .catch(err => console.log(err));
     }
 
+    onRemoveHandler = (id) => {
+        axios.post("/doctor/remove/" + id)
+            .then(response => {
+                this.getAllDoctors();
+            })
+            .catch(err => alert('Unable to remove doctor.\nReason: ' + err.response.data));
+    }
+
     render() {
-
-        console.log(this.state);
-
         let table = null;
 
         if (this.state.doctors !== null) {
@@ -65,7 +69,7 @@ class Doctors extends Component {
                     {
                         Header: "",
                         Cell: ({ original }) => (
-                            <center><Button type='red'>Remove</Button></center>),
+                            <center><Button type='red' click={() => this.onRemoveHandler(original.id)}>Remove</Button></center>),
                         filterable: false,
                         sortable: false
                     }]
