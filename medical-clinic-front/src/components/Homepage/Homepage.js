@@ -154,8 +154,6 @@ const Homepage = (props) => {
             break;
     }
 
-    //<Route path={this.props.match.path + '/contact-data'}
-
     return (
             <Layout>
                 <div className={'container'}>
