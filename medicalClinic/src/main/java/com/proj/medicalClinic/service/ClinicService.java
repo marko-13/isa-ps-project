@@ -10,4 +10,6 @@ public interface ClinicService {
 
     ClinicDTO addNewClinic(ClinicDTO clinicDTO, String email);
 
+    ClinicDTO getClinicByAdmin(Long adminId);
+
 }

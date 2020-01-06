@@ -50,7 +50,7 @@ public class ClinicServiceImpl implements ClinicService {
             }
 
             List<Clinic> uniqueClinic = this.clinicRepository.findAllByNameAndAddress(clinicDTO.getName(), clinicDTO.getAddress());
-            if (!(uniqueClinic.isEmpty())){
+            if (!(uniqueClinic.isEmpty())) {
                 throw new NotValidParamsException("Already exists");
             }
 
@@ -71,5 +71,11 @@ public class ClinicServiceImpl implements ClinicService {
         } catch (Exception e) {
             throw e;
         }
+    }
+
+    @Override
+    public ClinicDTO getClinicByAdmin(Long adminId) {
+        Clinic clinic = clinicRepository.findByDoctorId(adminId).orElseThrow(NotExistsException::new);
+        return new ClinicDTO(clinic);
     }
 }
