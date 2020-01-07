@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import jwt from 'jsonwebtoken';
+import axios from '../../../axios';
 
+import classes from './ClinicInfo.module.css';
+import edit from '../../../assets/images/edit.png';
 
 class ClinicInfo extends Component {
 
     state = {
-        error: false
+        error: false,
+        clinic: null
     }
 
     componentDidMount() {
@@ -13,8 +17,11 @@ class ClinicInfo extends Component {
             const token = localStorage.getItem('token');
             const decodedToken = jwt.decode(token);
             const userId = decodedToken.userId;
+            console.log(userId);
 
-            
+            axios.get('/clinics/getByAdmin/' + userId)
+                .then(clinic => this.setState({clinic: clinic.data}))
+                .catch(err => console.log(err));
 
         }else{
             this.setState({error: true});
@@ -22,11 +29,38 @@ class ClinicInfo extends Component {
     }
 
     render() {
-        return (
-            <div>
-                Zdravos
-            </div>
-        );
+
+        console.log(this.state.clinic);
+
+        let ret = null;
+
+        if(this.state.clinic === null){
+            ret = <h1>Ucitavanje...</h1>
+            if(this.state.error){
+                ret = <h1>Doslo je do greske</h1>
+            }
+        }else{
+            ret = (
+                <div>
+                    <div className={classes.Header}>
+                        <h3>Clinic details</h3>
+                    </div>
+                    <img src={edit} className={classes.Edit} />
+                    <div className={classes.Klinika}>
+                        <h4>Name: {this.state.clinic.name}</h4>
+                        <h5>Address: {this.state.clinic.address}</h5>
+
+                        <h6 className={classes.Description}>Description:</h6>
+                        <p style={{paddingLeft: '8px', marginBottom: '25px'}}>{this.state.clinic.description}</p>
+
+                        <h5>Clinic review (0-10): <span className={classes.Review}>{this.state.clinic.review}</span></h5>
+                    </div>
+                </div>
+            );
+        }
+
+
+        return ret;
     }
 }
 
