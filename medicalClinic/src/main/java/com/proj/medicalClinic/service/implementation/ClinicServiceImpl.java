@@ -78,4 +78,16 @@ public class ClinicServiceImpl implements ClinicService {
         Clinic clinic = clinicRepository.findByDoctorId(adminId).orElseThrow(NotExistsException::new);
         return new ClinicDTO(clinic);
     }
+
+    @Override
+    public ClinicDTO save(ClinicDTO clinicRequest){
+        Clinic clinic = clinicRepository.findById(clinicRequest.getId()).orElseThrow(NotExistsException::new);
+        clinic.setName(clinicRequest.getName());
+        clinic.setAddress(clinicRequest.getAddress());
+        clinic.setDescription(clinicRequest.getDescription());
+
+        clinicRepository.save(clinic);
+
+        return new ClinicDTO(clinic);
+    }
 }
