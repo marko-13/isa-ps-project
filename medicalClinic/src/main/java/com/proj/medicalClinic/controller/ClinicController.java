@@ -13,10 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -59,5 +56,15 @@ public class ClinicController {
         }
 
 
+    }
+
+    @RequestMapping(value = "/save")
+    public ResponseEntity<?> saveClinic(@RequestBody ClinicDTO clinicRes){
+        try {
+            ClinicDTO clinicDTO = clinicService.save(clinicRes);
+            return new ResponseEntity<>(clinicDTO, HttpStatus.OK);
+        }catch (NotExistsException e){
+            return new ResponseEntity<>("Klinika nije pronadjena!", HttpStatus.NOT_FOUND);
+        }
     }
 }
