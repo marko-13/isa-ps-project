@@ -21,6 +21,7 @@ import DrugsRegistry from '../../containers/DrugsRegistry/DrugsRegistry'
 import ShowMedicalStaff from '../MedicalStaff/ShowMedicalStaff/ShowMedicalStaff.js';
 import Doctors from '../../containers/ClinicAdministrator/Doctors/Doctors';
 import Clinic from '../../containers/ClinicAdministrator/Clinic/Clinic';
+import UserPasswordChangeForm from '../../containers/MyProfile/UserPasswordChangeForm/UserPasswordChangeForm';
 
 
 
