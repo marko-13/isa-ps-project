@@ -1,0 +1,9 @@
+.Image {
+    width: auto;
+    height: 32px;
+}
+
+.Image:hover {
+    opacity: 0.6;
+    cursor: pointer;
+}
