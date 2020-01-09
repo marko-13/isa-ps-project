@@ -63,6 +63,8 @@ public class DoctorServiceImpl implements DoctorService {
         doctor.setReviewCount(0);
         doctor.setShift(doctorRequest.getShift());
         doctor.setDeleted(false);
+        doctor.setEnabled(true);
+        doctor.setRejected(false);
 
         List<Authority> auth = authorityService.findByName(doctorRequest.getUserRole().name());
         doctor.setAuthorities(auth);
