@@ -11,6 +11,8 @@ const Button = (props) => {
         btnclass = classes.ButtonGrey;
     }else if (props.type === 'red'){
         btnclass = classes.ButtonRed;
+    }else if (props.type === 'black'){
+        btnclass = classes.ButtonBlack;
     }
 
     return (

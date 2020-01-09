@@ -21,6 +21,7 @@ public class DoctorDTO {
     private String city;
     private String state;
     private String mobile;
+    private long id;
 
     public DoctorDTO(Doctor d){
         this.name = d.getName();
@@ -32,6 +33,7 @@ public class DoctorDTO {
         this.city = d.getCity();
         this.state = d.getState();
         this.mobile = d.getMobile();
+        this.id = d.getId();
     }
 
 }

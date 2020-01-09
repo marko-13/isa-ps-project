@@ -18,6 +18,10 @@ import RegisterClinic from '../../containers/RegisterClinic/RegisterClinic'
 import ShowAppointments from '../Appointment/ShowAppointments/ShowAppointments.js'
 import DiagnosisRegistry from '../../containers/DiagnosisRegistry/DiagnosisRegistry'
 import DrugsRegistry from '../../containers/DrugsRegistry/DrugsRegistry'
+import ShowMedicalStaff from '../MedicalStaff/ShowMedicalStaff/ShowMedicalStaff.js';
+import Doctors from '../../containers/ClinicAdministrator/Doctors/Doctors';
+import Clinic from '../../containers/ClinicAdministrator/Clinic/Clinic';
+
 
 
 const Homepage = (props) => {
@@ -79,7 +83,7 @@ const Homepage = (props) => {
             functions = (
               <Auxiliary>
                 <Route path='/homepage/patient/clinics' component={ShowClinics}></Route>
-                <Route path='/homepage/patient/medicalstaff' render={null}></Route>
+                <Route path='/homepage/patient/medicalstaff' component={ShowMedicalStaff}></Route>
                 <Route path='/homepage/patient/medicalhistory' component={ShowMedicalHistory}></Route>
                 <Route path='/homepage/patient/appointments' component={ShowAppointments}></Route>
               </Auxiliary>
@@ -107,6 +111,8 @@ const Homepage = (props) => {
                     <UserCards>
                         <UserCard buttonText={"Operation Rooms"} cardText={"Search and filter operation rooms"}  link ={'/homepage/admin-clinic/operation-rooms'}/>
                         <UserCard buttonText={"Show"} cardText={"Show all requests for leave of absence"}  link ={'/homepage/admin-clinic/leaves'}/>
+                        <UserCard buttonText={"Show doctors"} cardText={"Search, add or remove doctors"}  link ={'/homepage/admin-clinic/doctors'}/>
+                        <UserCard buttonText={"Clinic's profile"} cardText={"Show and modify clinic's profile"}  link ={'/homepage/admin-clinic/clinic'}/>
                     </UserCards>
                 </Auxiliary>
 
@@ -116,6 +122,8 @@ const Homepage = (props) => {
                 <Auxiliary>
                   <Route path='/homepage/admin-clinic/operation-rooms' component={OperationRooms}></Route>
                   <Route path='/homepage/admin-clinic/leaves' component={Leaves}></Route>
+                  <Route path='/homepage/admin-clinic/doctors' component={Doctors}></Route>
+                  <Route path='/homepage/admin-clinic/clinic' component={Clinic}></Route>
                 </Auxiliary>
               );
 
@@ -146,8 +154,6 @@ const Homepage = (props) => {
             break;
     }
 
-    //<Route path={this.props.match.path + '/contact-data'}
-
     return (
             <Layout>
                 <div className={'container'}>
@@ -155,7 +161,7 @@ const Homepage = (props) => {
                         {page}
                     </div>
 
-                    <div className='row' style={{ margin: '0 5px', marginTop: '5%' }}>
+                    <div className='row' style={{ margin: '0 5px', marginTop: '30px' }}>
 
                       {functions}
                     </div>

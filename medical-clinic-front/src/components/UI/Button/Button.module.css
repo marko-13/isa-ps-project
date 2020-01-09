@@ -28,6 +28,20 @@
     background-color: salmon;
 }
 
+.ButtonBlack{
+    border-radius: 1rem;
+    padding: 1.5% 15px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    color: #fff;
+    background-color: #444444;
+}
+
+.ButtonBlack:hover {
+    background-color: #cccccc
+}
+
 .ButtonRed:hover {
     background-color: #cccccc
 }
