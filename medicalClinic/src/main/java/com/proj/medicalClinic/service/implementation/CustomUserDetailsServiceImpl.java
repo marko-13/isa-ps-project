@@ -64,7 +64,9 @@ public class CustomUserDetailsServiceImpl implements UserDetailsService {
 
         // pre nego sto u bazu upisemo novu lozinku, potrebno ju je hesirati
         // ne zelimo da u bazi cuvamo lozinke u plain text formatu
+        Timestamp timestampCurrent = new Timestamp(System.currentTimeMillis());
         user.setPassword(passwordEncoder.encode(newPassword));
+        user.setLastPasswordResetDate(timestampCurrent);
         userRepository.save(user);
 
     }
