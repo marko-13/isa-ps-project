@@ -58,4 +58,4 @@ class UserPasswordChangeForm extends Component {
     }
 }
 
-export default UserPasswordChangeForm;
+export default withRouter(UserPasswordChangeForm);
