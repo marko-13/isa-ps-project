@@ -3,6 +3,7 @@ import axios from '../../../axios';
 
 import classes from './UserPasswordChangeForm.module.css';
 import Button from '../../../components/UI/Button/Button';
+import {withRouter} from 'react-router-dom';
 
 class UserPasswordChangeForm extends Component {
 
