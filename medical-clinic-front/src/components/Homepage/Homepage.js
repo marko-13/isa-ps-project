@@ -30,10 +30,12 @@ const Homepage = (props) => {
     let role = null;
     let name = null;
     let lastname = null;
+    let passChanged = null;
 
     if(localStorage.getItem('token') !== null){
         const token = localStorage.getItem('token');
         const decodedToken = jwt.decode(token);
+        passChanged = decodedToken.passChanged;
         role = decodedToken.role.toLowerCase();
         name = decodedToken.name;
         lastname = decodedToken.lastname;
