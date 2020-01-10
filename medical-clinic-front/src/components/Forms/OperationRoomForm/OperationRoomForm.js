@@ -13,20 +13,20 @@ class OperationRoomForm extends Component {
         }
     }
 
-      componentDidUpdate(prevProps, prevState) {
-          if(prevProps.room !== this.props.room){
-              this.setState({room: this.props.room});
-          }
-      }
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.room !== this.props.room) {
+            this.setState({ room: this.props.room });
+        }
+    }
 
 
     changeHandler = event => {
-            const room = {
-                ...this.state.room,
-                [event.target.name]: event.target.value
-            }
-            
-            this.setState({room: room});
+        const room = {
+            ...this.state.room,
+            [event.target.name]: event.target.value
+        }
+
+        this.setState({ room: room });
     };
 
     onCloseHandler = event => {
@@ -41,18 +41,25 @@ class OperationRoomForm extends Component {
             ...this.state.room
         }
 
-
-        if(this.state.newRoom){
-            //axios za novu sobu
+        if(this.props.header !== undefined){
+            axios.post('/operationRoom/save', newRoom)
+            .then(res => this.props.pushNewRoom(res.data))
+            .catch(err => console.log(err));
         }else{
-            //axios za update postojece sobe
+            axios.post('/operationRoom/update', newRoom)
+            .then(res => {
+                this.props.closeModal();
+                this.props.replaceRoom(newRoom);
+            })
+            .catch(err => alert('Unable to update room.\nReason: ' + err.response.data));
         }
+        
     }
 
     render() {
         return (
             <div className={classes.Form}>
-                <h3 className={classes.Header}>Edit room</h3>
+                <h3 className={classes.Header}>{this.props.header === undefined ? "Edit room" : this.props.header}</h3>
 
                 <div className={classes.Inputs}>
                     <form>
