@@ -23,7 +23,10 @@ class OperationRooms extends Component {
         pickedDate: null,
         availableSchedule: null,
         modalOpen: false,
-        room: null
+        room: {
+            name: '',
+            number: ''
+        }
     }
 
     componentDidMount() {
@@ -52,11 +55,17 @@ class OperationRooms extends Component {
     }
 
     closeModalHandler = () => {
-        this.setState({ modalOpen: false, room: null});
+        this.setState({
+            modalOpen: false,
+             room: {
+                name: '',
+                number: ''
+            }
+        });
     }
 
     openModalHandler = () => {
-        this.setState({modalOpen: true});
+        this.setState({ modalOpen: true });
     }
 
     showScheduleHandler = (operationRoom) => {
@@ -72,11 +81,22 @@ class OperationRooms extends Component {
     }
 
     editRoomHandler = (operationRoom) => {
-        this.setState({room: operationRoom, modalOpen: true});
+        this.setState({ room: operationRoom, modalOpen: true });
     }
 
-    removeRoomHandler = (opertaionRoom) => {
-        //axios za brisanje sobe
+    removeRoomHandler = (operationRoom) => {
+        axios.post('/operationRoom/delete/' + operationRoom.roomId, null)
+            .then(response => {
+                let rooms = [...this.state.operationRooms];
+
+                const index = this.state.operationRooms.indexOf(operationRoom);
+                if (index > -1) {
+                    rooms.splice(index, 1);
+                }
+
+                this.setState({ operationRooms: rooms });
+            })
+            .catch(err => alert('Unable to remove room.\nReason: ' + err.response.data));
     }
 
 
@@ -155,9 +175,9 @@ class OperationRooms extends Component {
         return (
             <Auxiliary>
                 <div className='col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad'>
-                    <div style={{display: 'flex'}}>
+                    <div style={{ display: 'flex' }}>
                         <h4>Add new room</h4>
-                        <div style={{margin: '0px 10px'}} onClick={this.openModalHandler}><img src={plusimg} className={classes.Image}/></div>
+                        <div style={{ margin: '0px 10px' }} onClick={this.openModalHandler}><img src={plusimg} className={classes.Image} /></div>
                     </div>
                     {table}
                 </div>
@@ -165,7 +185,7 @@ class OperationRooms extends Component {
                     {roomDetails}
                 </div>
                 <Modal show={this.state.modalOpen} modalClosed={this.closeModalHandler}>
-                    <OperationRoomForm room={this.state.room} closeModal={this.closeModalHandler}/>
+                    <OperationRoomForm room={this.state.room} closeModal={this.closeModalHandler} />
                 </Modal>
             </Auxiliary>
         );
