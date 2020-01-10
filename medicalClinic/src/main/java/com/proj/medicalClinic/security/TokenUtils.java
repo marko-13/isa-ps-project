@@ -1,5 +1,6 @@
 package com.proj.medicalClinic.security;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -41,7 +42,7 @@ public class TokenUtils {
     private SignatureAlgorithm SIGNATURE_ALGORITHM = SignatureAlgorithm.HS512;
 
     // Funkcija za generisanje JWT token
-    public String generateToken(String username, String role, String name, String lastname, Long userId) {
+    public String generateToken(String username, String role, String name, String lastname, Long userId, boolean passChanged) {
         return Jwts.builder()
                 .setIssuer(APP_NAME)
                 .setSubject(username)
@@ -53,6 +54,7 @@ public class TokenUtils {
                 .claim("name", name)
                 .claim("lastname", lastname)
                 .claim("userId", userId)
+                .claim("passChanged", passChanged)
                 .signWith(SIGNATURE_ALGORITHM, SECRET).compact();
     }
 

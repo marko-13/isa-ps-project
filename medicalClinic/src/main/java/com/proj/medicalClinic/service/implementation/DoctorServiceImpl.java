@@ -15,6 +15,7 @@ import com.proj.medicalClinic.service.AuthorityService;
 import com.proj.medicalClinic.service.DoctorService;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -29,6 +30,9 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Autowired
     private AuthorityService authorityService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private AppUserRepository userRepository;
@@ -56,14 +60,14 @@ public class DoctorServiceImpl implements DoctorService {
         doctor.setEmail(doctorRequest.getEmail());
         doctor.setLastName(doctorRequest.getLastName());
         doctor.setMobile(doctorRequest.getMobile());
-        doctor.setPassword("12321");
+        doctor.setPassword(passwordEncoder.encode("krokodil"));
         doctor.setState(doctorRequest.getState());
         doctor.setUserRole(RoleType.DOCTOR);
         doctor.setReview(0);
         doctor.setReviewCount(0);
         doctor.setShift(doctorRequest.getShift());
-        doctor.setDeleted(false);
         doctor.setEnabled(true);
+        doctor.setDeleted(false);
         doctor.setRejected(false);
 
         List<Authority> auth = authorityService.findByName(doctorRequest.getUserRole().name());
