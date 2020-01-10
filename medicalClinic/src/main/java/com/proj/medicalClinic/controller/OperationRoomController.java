@@ -41,4 +41,21 @@ public class OperationRoomController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.FORBIDDEN);
         }
     }
+
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public ResponseEntity<?> saveRoom(@RequestBody OperationRoomDTO operationRoomRequest){
+        OperationRoomDTO operationRoomDTO = operationRoomService.save(operationRoomRequest);
+        return new ResponseEntity<>(operationRoomDTO, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public ResponseEntity<?> updateRoom(@RequestBody OperationRoomDTO operationRoomRequest){
+        try {
+            OperationRoomDTO operationRoomDTO = operationRoomService.update(operationRoomRequest);
+            return new ResponseEntity<>(operationRoomDTO, HttpStatus.OK);
+        }catch (ResourceConflictException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.FORBIDDEN);
+        }
+
+    }
 }
