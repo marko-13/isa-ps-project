@@ -13,4 +13,8 @@ public interface OperationRoomService {
 
     OperationRoomDTO remove(Long roomId);
 
+    OperationRoomDTO save(OperationRoomDTO operationRoomDTO);
+
+    OperationRoomDTO update(OperationRoomDTO operationRoomDTO);
+
 }
