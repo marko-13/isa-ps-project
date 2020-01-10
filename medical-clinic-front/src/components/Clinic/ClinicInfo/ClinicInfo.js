@@ -21,7 +21,6 @@ class ClinicInfo extends Component {
             const token = localStorage.getItem('token');
             const decodedToken = jwt.decode(token);
             const userId = decodedToken.userId;
-            console.log(userId);
 
             axios.get('/clinics/getByAdmin/' + userId)
                 .then(clinic => this.setState({ clinic: clinic.data }))

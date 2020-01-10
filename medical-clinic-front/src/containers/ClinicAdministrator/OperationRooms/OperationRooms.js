@@ -9,6 +9,7 @@ import RoomAppointments from './RoomAppointments/RoomAppointments';
 import Modal from '../../../components/UI/Modal/Modal';
 import plusimg from '../../../assets/images/plus.png';
 import classes from './OperationRooms.module.css';
+import OperationRoomForm from '../../../components/Forms/OperationRoomForm/OperationRoomForm';
 
 class OperationRooms extends Component {
 
@@ -21,7 +22,8 @@ class OperationRooms extends Component {
         roomNumber: null,
         pickedDate: null,
         availableSchedule: null,
-        modalOpen: false
+        modalOpen: false,
+        room: null
     }
 
     componentDidMount() {
@@ -31,7 +33,6 @@ class OperationRooms extends Component {
     getOperationRooms = () => {
         axios.get('/operationRoom/getAll')
             .then(rooms => {
-                console.log(rooms);
                 this.setState({ operationRooms: rooms.data })
             })
             .catch(err => console.log(err));
@@ -51,7 +52,11 @@ class OperationRooms extends Component {
     }
 
     closeModalHandler = () => {
-        this.setState({ modalOpen: false });
+        this.setState({ modalOpen: false, room: null});
+    }
+
+    openModalHandler = () => {
+        this.setState({modalOpen: true});
     }
 
     showScheduleHandler = (operationRoom) => {
@@ -67,13 +72,11 @@ class OperationRooms extends Component {
     }
 
     editRoomHandler = (operationRoom) => {
-
-        console.log(operationRoom);
-
+        this.setState({room: operationRoom, modalOpen: true});
     }
 
     removeRoomHandler = (opertaionRoom) => {
-
+        //axios za brisanje sobe
     }
 
 
@@ -134,7 +137,6 @@ class OperationRooms extends Component {
                     filterable={true}
                     defaultFilterMethod={(filter, row, column) => {
                         const id = filter.pivotId || filter.id
-                        console.log(row[id]);
                         return row[id] !== undefined ? String(row[id]).toLowerCase().includes(filter.value.toLowerCase()) : true
                     }}
                 />
@@ -155,7 +157,7 @@ class OperationRooms extends Component {
                 <div className='col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad'>
                     <div style={{display: 'flex'}}>
                         <h4>Add new room</h4>
-                        <div style={{margin: '0px 10px'}} onClick={() => this.editRoomHandler(null)}><img src={plusimg} className={classes.Image}/></div>
+                        <div style={{margin: '0px 10px'}} onClick={this.openModalHandler}><img src={plusimg} className={classes.Image}/></div>
                     </div>
                     {table}
                 </div>
@@ -163,7 +165,7 @@ class OperationRooms extends Component {
                     {roomDetails}
                 </div>
                 <Modal show={this.state.modalOpen} modalClosed={this.closeModalHandler}>
-                    <h1>dsadsad</h1>
+                    <OperationRoomForm room={this.state.room} closeModal={this.closeModalHandler}/>
                 </Modal>
             </Auxiliary>
         );
