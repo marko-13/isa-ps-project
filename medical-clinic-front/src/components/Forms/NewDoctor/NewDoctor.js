@@ -50,7 +50,7 @@ class NewDoctor extends Component {
 
     render() {
         return (
-            <div className={classes.Form}>
+            <div className={classes.Form + ' login-form-1'}>
                 <h2>Add new doctor</h2>
 
                 <div className={classes.Inputs}>
