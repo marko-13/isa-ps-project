@@ -7,34 +7,26 @@ import axios from '../../../axios';
 class OperationRoomForm extends Component {
 
     state = {
-        room: null
+        room: {
+            name: '',
+            number: ''
+        }
     }
 
+      componentDidUpdate(prevProps, prevState) {
+          if(prevProps.room !== this.props.room){
+              this.setState({room: this.props.room});
+          }
+      }
 
-    static getDerivedStateFromProps(props, state) {
-        if (props.room !== null) {
-            const newState = {
-                room: {
-                    ...props.room
-                },
-                newRoom: false
-            }
-            return newState
-        }
-
-        const initialState = {
-            room: {
-                name: '',
-                number: '',
-
-            },
-            newRoom: true
-        }
-        return initialState;
-    }
 
     changeHandler = event => {
-        this.setState({ [event.target.name]: event.target.value });
+            const room = {
+                ...this.state.room,
+                [event.target.name]: event.target.value
+            }
+            
+            this.setState({room: room});
     };
 
     onCloseHandler = event => {
@@ -48,6 +40,7 @@ class OperationRoomForm extends Component {
         const newRoom = {
             ...this.state.room
         }
+
 
         if(this.state.newRoom){
             //axios za novu sobu
