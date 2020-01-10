@@ -3,6 +3,7 @@ import axios from '../../../axios';
 
 import classes from './UserPasswordChangeForm.module.css';
 import Button from '../../../components/UI/Button/Button';
+import {withRouter} from 'react-router-dom';
 
 class UserPasswordChangeForm extends Component {
 
@@ -25,7 +26,12 @@ class UserPasswordChangeForm extends Component {
         .then(res => {
             alert('Success!');
             this.setState({oldPassword: '', newPassword: ''});
-            this.props.closeModal();
+            if (this.props.closeModal !== undefined) {
+                this.props.closeModal();
+            } else {
+                localStorage.removeItem("token");
+                this.props.history.push('/');
+            }
         })
         .catch(err => console.log(err));
     }
@@ -43,7 +49,7 @@ class UserPasswordChangeForm extends Component {
                     <input type='password' placeholder='Old password' className={classes.InputElement} value={this.state.oldPassword} onChange={(event) => this.setState({ oldPassword: event.target.value })} />
                     <input type='password' placeholder='New password' className={classes.InputElement} value={this.state.newPassword} onChange={(event) => this.setState({ newPassword: event.target.value })} />
                     <div style={{float: 'right'}}>
-                        <Button style={{ margin: '0px 5px' }} type='green' click={this.onCloseHandler}>Close</Button>
+                        <Button style={{ margin: '0px 5px' }} type='green' click={this.onCloseHandler} hidden = {this.props.closeModal === undefined? true:false}>Close</Button>
                         <Button style={{ margin: '0px 5px' }} type='green' click={this.onConfirmHandler}>Confirm</Button>
                     </div>
                 </form>
@@ -52,4 +58,4 @@ class UserPasswordChangeForm extends Component {
     }
 }
 
-export default UserPasswordChangeForm;
+export default withRouter(UserPasswordChangeForm);
