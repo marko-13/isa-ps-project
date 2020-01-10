@@ -26,7 +26,8 @@ class OperationRooms extends Component {
         room: {
             name: '',
             number: ''
-        }
+        },
+        addForm: false
     }
 
     componentDidMount() {
@@ -70,7 +71,7 @@ class OperationRooms extends Component {
 
     showScheduleHandler = (operationRoom) => {
 
-        this.setState({ roomId: operationRoom.roomId, showRoomRedails: true });
+        this.setState({ roomId: operationRoom.roomId, showRoomRedails: true, addForm: false });
         axios.get("/appointment/getAllByOperationRoom/" + operationRoom.roomId)
             .then(app => {
                 this.setState({ appointments: app.data, roomName: operationRoom.name, roomNumber: operationRoom.number });
@@ -81,6 +82,7 @@ class OperationRooms extends Component {
     }
 
     editRoomHandler = (operationRoom) => {
+        console.log(operationRoom);
         this.setState({ room: operationRoom, modalOpen: true });
     }
 
@@ -97,6 +99,29 @@ class OperationRooms extends Component {
                 this.setState({ operationRooms: rooms });
             })
             .catch(err => alert('Unable to remove room.\nReason: ' + err.response.data));
+    }
+
+    pushNewRoom = (newRoom) => {
+        let rooms = [...this.state.operationRooms];
+        rooms.push(newRoom);
+        this.setState({operationRooms: rooms});
+    }
+
+    replaceRoom = (newRoom) => {
+        let rooms = [...this.state.operationRooms];
+        
+        rooms.map(el => {
+            if(el.roomId === newRoom.roomId){
+                el.name = newRoom.name;
+                el.number = newRoom.number;
+            }
+            return el;
+        })
+
+        this.setState({operationRooms: rooms});
+
+        console.log(rooms);
+
     }
 
 
@@ -170,6 +195,8 @@ class OperationRooms extends Component {
                 roomName={this.state.roomName}
                 roomNumber={this.state.roomNumber}
                 appointments={this.state.appointments} />
+        }else if (this.state.addForm){
+            roomDetails = <div className="login-form-1"><OperationRoomForm header={"Create new room"} pushNewRoom={this.pushNewRoom}/></div>
         }
 
         return (
@@ -177,7 +204,7 @@ class OperationRooms extends Component {
                 <div className='col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad'>
                     <div style={{ display: 'flex' }}>
                         <h4>Add new room</h4>
-                        <div style={{ margin: '0px 10px' }} onClick={this.openModalHandler}><img src={plusimg} className={classes.Image} /></div>
+                        <div style={{ margin: '0px 10px' }} onClick={() => this.setState({addForm: true, showRoomRedails: false})}><img src={plusimg} className={classes.Image} /></div>
                     </div>
                     {table}
                 </div>
@@ -185,7 +212,7 @@ class OperationRooms extends Component {
                     {roomDetails}
                 </div>
                 <Modal show={this.state.modalOpen} modalClosed={this.closeModalHandler}>
-                    <OperationRoomForm room={this.state.room} closeModal={this.closeModalHandler} />
+                    <OperationRoomForm room={this.state.room} closeModal={this.closeModalHandler} replaceRoom={this.replaceRoom} />
                 </Modal>
             </Auxiliary>
         );
