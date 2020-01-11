@@ -13,9 +13,10 @@ import lombok.NoArgsConstructor;
 public class AdminClinicDTO {
 
     private String name;
-    private String lastname;
+    private String lastName;
     private String email;
-    private String clinic;
+    private String clinicName;
+    private Long clinicID;
     private String address;
     private String city;
     private String state;
@@ -23,9 +24,10 @@ public class AdminClinicDTO {
 
     public AdminClinicDTO(AdminClinic ac){
         this.name = ac.getName();
-        this.lastname = ac.getLastName();
+        this.lastName = ac.getLastName();
         this.email = ac.getEmail();
-        this.clinic = ac.getClinic().getName();
+        this.clinicID = ac.getClinic().getId();
+        this.clinicName = ac.getClinic().getName();
         this.address = ac.getAdress();
         this.city = ac.getCity();
         this.state = ac.getState();
