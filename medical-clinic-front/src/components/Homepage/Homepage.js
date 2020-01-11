@@ -8,16 +8,17 @@ import UserCard from './UserCards/UserCard/UserCard';
 import UserCards from './UserCards/UserCards';
 
 import {Route} from 'react-router-dom';
-import ShowClinics from '../Clinic/ShowClinics/ShowClinics.js'
-import ShowMedicalHistory from '../MedicalHistory/ShowMedicalHistory/ShowMedicalHistory.js'
-import Prescriptions from '../../containers/Prescriptions/Prescriptions'
-import UserApproval from '../../containers/UserApproval/UserApproval'
+import ShowClinics from '../Clinic/ShowClinics/ShowClinics.js';
+import ShowMedicalHistory from '../MedicalHistory/ShowMedicalHistory/ShowMedicalHistory.js';
+import Prescriptions from '../../containers/Prescriptions/Prescriptions';
+import UserApproval from '../../containers/UserApproval/UserApproval';
 import OperationRooms from '../../containers/ClinicAdministrator/OperationRooms/OperationRooms';
 import Leaves from '../../containers/ClinicAdministrator/Leaves/Leaves';
-import RegisterClinic from '../../containers/RegisterClinic/RegisterClinic'
-import ShowAppointments from '../Appointment/ShowAppointments/ShowAppointments.js'
-import DiagnosisRegistry from '../../containers/DiagnosisRegistry/DiagnosisRegistry'
-import DrugsRegistry from '../../containers/DrugsRegistry/DrugsRegistry'
+import RegisterClinic from '../../containers/RegisterClinic/RegisterClinic';
+import ShowAppointments from '../Appointment/ShowAppointments/ShowAppointments.js';
+import DiagnosisRegistry from '../../containers/DiagnosisRegistry/DiagnosisRegistry';
+import DrugsRegistry from '../../containers/DrugsRegistry/DrugsRegistry';
+import RegisterClinicAdministrator from '../../containers/RegisterClinicAdministrator/RegisterClinicAdministrator'
 import ShowMedicalStaff from '../MedicalStaff/ShowMedicalStaff/ShowMedicalStaff.js';
 import Doctors from '../../containers/ClinicAdministrator/Doctors/Doctors';
 import Clinic from '../../containers/ClinicAdministrator/Clinic/Clinic';
