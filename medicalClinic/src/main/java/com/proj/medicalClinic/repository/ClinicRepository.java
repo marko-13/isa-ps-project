@@ -14,6 +14,8 @@ public interface ClinicRepository extends JpaRepository<Clinic, Long> {
 
     List<Clinic> findAllByNameAndAddress(String name, String address);
 
+    Optional<Clinic> findClinicById(Long id);
+
     @Query(
             value = "SELECT clinic.Id, clinic.Name, clinic.Address, clinic.Description, clinic.review, clinic.review_count, clinic.clinical_center_id" +
                     " FROM clinic JOIN app_user a ON clinic.Id = a.clinic_id WHERE a.id = ?1",
