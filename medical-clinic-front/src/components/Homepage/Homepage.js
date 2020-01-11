@@ -141,6 +141,7 @@ const Homepage = (props) => {
                             <UserCard buttonText={"Register clinic"} cardText={"Register new clinic"} link = {'/homepage/admin-clinic-center/register-clinic'}/>
                             <UserCard buttonText={"Diagnosis registry"} cardText={"Add new diagnosis"} link = {'/homepage/admin-clinic-center/diagnosis-registry'}/>
                             <UserCard buttonText={"Drugs registry"} cardText={"Add new drug"} link = {'/homepage/admin-clinic-center/drugs-registry'}/>
+                            <UserCard buttonText={"Register clinic's administrator"} cardText={"Register new clinic's administrator"} link = {'/homepage/admin-clinic-center/register-clinic-administrator'}/>
                         </UserCards>
                     </Auxiliary>
                 );
@@ -150,6 +151,7 @@ const Homepage = (props) => {
                     <Route path='/homepage/admin-clinic-center/register-clinic' component={RegisterClinic}></Route>
                     <Route path='/homepage/admin-clinic-center/diagnosis-registry' component={DiagnosisRegistry}></Route>
                     <Route path='/homepage/admin-clinic-center/drugs-registry' component={DrugsRegistry}></Route>
+                    <Route path='/homepage/admin-clinic-center/register-clinic-administrator' component={RegisterClinicAdministrator}></Route>
                   </Auxiliary>
                 );
                 break;
