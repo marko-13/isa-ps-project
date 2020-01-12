@@ -19,6 +19,7 @@ import ShowAppointments from '../Appointment/ShowAppointments/ShowAppointments.j
 import DiagnosisRegistry from '../../containers/DiagnosisRegistry/DiagnosisRegistry';
 import DrugsRegistry from '../../containers/DrugsRegistry/DrugsRegistry';
 import RegisterClinicAdministrator from '../../containers/RegisterClinicAdministrator/RegisterClinicAdministrator'
+import RegisterAdminClinicalCenter from '../../containers/RegisterAdminClinicalCenter/RegisterAdminClinicalCenter'
 import ShowMedicalStaff from '../MedicalStaff/ShowMedicalStaff/ShowMedicalStaff.js';
 import Doctors from '../../containers/ClinicAdministrator/Doctors/Doctors';
 import Clinic from '../../containers/ClinicAdministrator/Clinic/Clinic';
