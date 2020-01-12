@@ -41,6 +41,29 @@ public class ClinicServiceImpl implements ClinicService {
 
     }
 
+    public List<ClinicDTO> getClinicsOfAdminClinicalCenter(String email) {
+        try {
+            AppUser user = appUserRepository.findByEmail(email)
+                    .orElseThrow(NotExistsException::new);
+
+            if (!(user instanceof AdminClinicalCenter)) {
+                throw new NotValidParamsException("Only admin of the clinical center can see this data");
+            }
+
+            List<Clinic> clinics = clinicRepository.findAllByClinicalCenter(((AdminClinicalCenter) user).getClinicalCenter());
+
+            List<ClinicDTO> clinicsDTO = clinics.stream().map(
+                    s -> new ClinicDTO(s)
+            ).collect(Collectors.toList());
+
+            return clinicsDTO;
+
+        } catch (NotExistsException | NotValidParamsException e) {
+            throw e;
+        }
+
+    }
+
     @Override
     public ClinicDTO addNewClinic(ClinicDTO clinicDTO, String email) {
         try {
