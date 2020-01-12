@@ -119,6 +119,17 @@ public class TokenUtils {
         return username;
     }
 
+    public Long getUserIDFromToken(String token) {
+        Long id;
+        try {
+            final Claims claims = this.getAllClaimsFromToken(token);
+            id = claims.get("userID", Long.class);
+        } catch (Exception e) {
+            id = null;
+        }
+        return id;
+    }
+
     public Date getIssuedAtDateFromToken(String token) {
         Date issueAt;
         try {
