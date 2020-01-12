@@ -13,9 +13,8 @@ import lombok.NoArgsConstructor;
 public class AdminClinicCenterDTO {
 
     private String name;
-    private String lastname;
+    private String lastName;
     private String email;
-    private Long clinicalCenterId;
     private String address;
     private String city;
     private String state;
