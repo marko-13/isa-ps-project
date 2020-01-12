@@ -1,4 +1,7 @@
 package com.proj.medicalClinic.repository;
 
-public interface AdminClinicalCenterRepository {
+import com.proj.medicalClinic.model.AdminClinicalCenter;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface AdminClinicalCenterRepository extends JpaRepository<AdminClinicalCenter, Long> {
 }
