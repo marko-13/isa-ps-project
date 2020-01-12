@@ -2,6 +2,7 @@ package com.proj.medicalClinic.controller;
 
 import com.proj.medicalClinic.dto.ClinicDTO;
 import com.proj.medicalClinic.exception.NotExistsException;
+import com.proj.medicalClinic.exception.NotValidParamsException;
 import com.proj.medicalClinic.security.TokenUtils;
 import com.proj.medicalClinic.service.AppUserService;
 import com.proj.medicalClinic.service.ClinicService;
