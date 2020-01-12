@@ -1,6 +1,7 @@
 package com.proj.medicalClinic.repository;
 
 import com.proj.medicalClinic.model.Clinic;
+import com.proj.medicalClinic.model.ClinicalCenter;
 import com.proj.medicalClinic.model.Doctor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -15,6 +16,8 @@ public interface ClinicRepository extends JpaRepository<Clinic, Long> {
     List<Clinic> findAllByNameAndAddress(String name, String address);
 
     Optional<Clinic> findClinicById(Long id);
+
+    List<Clinic> findAllByClinicalCenter(ClinicalCenter clinicalCenter);
 
     @Query(
             value = "SELECT clinic.Id, clinic.Name, clinic.Address, clinic.Description, clinic.review, clinic.review_count, clinic.clinical_center_id" +
