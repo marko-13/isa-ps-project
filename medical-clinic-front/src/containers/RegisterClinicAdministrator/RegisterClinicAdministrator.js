@@ -50,8 +50,6 @@ class RegisterClinicAdministrator extends Component {
             mobile: this.state.mobile
     	}
 
-        console.log(newClinicAdministrator);
-
         axios.post('/admin-clinic-center/add-new-clinic-administrator', newClinicAdministrator, {headers: { Authorization: 'Bearer '.concat(localStorage.getItem("token")) }})
         	.then(rsp => {
                 console.log(rsp);
@@ -131,6 +129,7 @@ class RegisterClinicAdministrator extends Component {
                                         placeholder="Name *"
                                         value={this.state.name}
                                         onChange={(event) => this.setState({ name: event.target.value })}
+                                        required
                                     />
                                 </div>
 
