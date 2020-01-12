@@ -25,6 +25,9 @@ public class ClinicServiceImpl implements ClinicService {
     @Autowired
     private CustomUserDetailsServiceImpl userDetailsService;
 
+    @Autowired
+    private AppUserRepository appUserRepository;
+
     @Override
     public List<ClinicDTO> getAllClinics() {
 
