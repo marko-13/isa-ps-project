@@ -58,6 +58,21 @@ public class ClinicController {
 
     }
 
+    @RequestMapping(value = "/get-all-clinical-center-clinics")
+    @PreAuthorize("hasAuthority('ADMINCLINICALCENTER')")
+    public ResponseEntity<?> getClinicsOfAdminClinicalCenter(){
+        try{
+            String email = this.tokenUtils.getUsernameFromToken(this.tokenUtils.getToken(this.httpServletRequest));
+            return new ResponseEntity<>(clinicService.getClinicsOfAdminClinicalCenter(email), HttpStatus.OK);
+        } catch (NotExistsException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        } catch (NotValidParamsException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.FORBIDDEN);
+        } catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
+
     @RequestMapping(value = "/save")
     public ResponseEntity<?> saveClinic(@RequestBody ClinicDTO clinicRes){
         try {
