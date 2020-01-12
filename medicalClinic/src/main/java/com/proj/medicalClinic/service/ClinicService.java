@@ -15,4 +15,6 @@ public interface ClinicService {
 
     ClinicDTO save(ClinicDTO clinic);
 
+    List<ClinicDTO> getClinicsOfAdminClinicalCenter(String email);
+
 }
