@@ -1,9 +1,6 @@
 package com.proj.medicalClinic.controller;
 
-import com.proj.medicalClinic.dto.AdminClinicDTO;
-import com.proj.medicalClinic.dto.ClinicDTO;
-import com.proj.medicalClinic.dto.DiagnosisRegistryDTO;
-import com.proj.medicalClinic.dto.DrugsRegistryDTO;
+import com.proj.medicalClinic.dto.*;
 import com.proj.medicalClinic.exception.NotExistsException;
 import com.proj.medicalClinic.exception.NotValidParamsException;
 import com.proj.medicalClinic.security.TokenUtils;
