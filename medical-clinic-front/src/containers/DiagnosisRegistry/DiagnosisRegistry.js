@@ -37,8 +37,10 @@ class DiagnosisRegistry extends Component {
     			this.setState({
     				diagnosisRegistry: newDiagnosisRegistry
     			})
+
+    			alert('Successfully added diagnosis with name: \n' + rsp.data.diagnosisName);
             })
-            .catch(err => console.log(err));
+            .catch(err => alert('Unable to add new diagnosis.\nReason: ' + err.response.data));
 
         this.setState({
         	diagnosisName: ""
