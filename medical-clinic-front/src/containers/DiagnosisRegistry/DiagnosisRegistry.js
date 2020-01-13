@@ -22,7 +22,8 @@ class DiagnosisRegistry extends Component {
         this.getDiagnosisRegistry();
     }
 
-    addNewDiagnosis = () => {
+    addNewDiagnosis = (event) => {
+    	event.preventDefault();
 
     	const newDiagnosis = {
     		diagnosisName: this.state.diagnosisName
