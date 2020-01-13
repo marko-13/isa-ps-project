@@ -22,7 +22,8 @@ class DiagnosisRegistry extends Component {
         this.getDiagnosisRegistry();
     }
 
-    addNewDiagnosis = () => {
+    addNewDiagnosis = (event) => {
+    	event.preventDefault();
 
     	const newDiagnosis = {
     		diagnosisName: this.state.diagnosisName
@@ -36,8 +37,10 @@ class DiagnosisRegistry extends Component {
     			this.setState({
     				diagnosisRegistry: newDiagnosisRegistry
     			})
+
+    			alert('Successfully added diagnosis with name: \n' + rsp.data.diagnosisName);
             })
-            .catch(err => console.log(err));
+            .catch(err => alert('Unable to add new diagnosis.\nReason: ' + err.response.data));
 
         this.setState({
         	diagnosisName: ""
@@ -79,18 +82,19 @@ class DiagnosisRegistry extends Component {
 			                	<div className="col-md-7 login-form-1" style={{margin: 'auto', paddingBottom: '10%'}}>
 			                        <h3>Add new diagnosis</h3>
 			                        <br/>
-			                        <div className="form-group">
-			                            <input
-			                                type="text"
-			                                className="form-control"
-			                                placeholder="Name of diagnosis *"
-			                                value={this.state.diagnosisName}
-			                                onChange={(event) => this.setState({ diagnosisName: event.target.value })}
-			                            />
-			                        </div>
-			                        <div className="form-group" style={{float: 'right', paddingRight: '2%'}}>
-			                            <button className="btnSubmit" onClick = {this.addNewDiagnosis} style={{margin: '20%', width: '150%', padding: '20%'}}>Add</button>
-			                        </div>
+			                        <form onSubmit  = {this.addNewDiagnosis}>
+				                        <div className="form-group">
+				                            <input
+				                                type="text"
+				                                className="form-control"
+				                                placeholder="Name of diagnosis *"
+				                                value={this.state.diagnosisName}
+				                                onChange={(event) => this.setState({ diagnosisName: event.target.value })}
+				                                required
+				                            />
+				                        </div>
+				                        <button className="btnSubmit" style={{width: '15%', float: 'right'}} type = "submit">Add</button>
+			                       	</form>
                         		</div>
 			                </div>
 
