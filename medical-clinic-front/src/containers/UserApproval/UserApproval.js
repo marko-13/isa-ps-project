@@ -68,24 +68,22 @@ class UserApproval extends Component {
 
         if(this.state.users !== null) {
             const columns = [{
-                Header: 'Not approved users',
+                Header: '',
                 columns: [
                 {
                     id: 'Email',
                     Header: 'email',
-                    accessor: d => d.email,
-                    width: 400},
+                    accessor: d => d.email
+                },
                 {
                 	id: 'firstName',
                 	Header: 'First name',
-                	accessor: d => d.name,
-                	width: 200
+                	accessor: d => d.name
                 },
                 {
                 	id: 'lastName',
                 	Header: 'Last name',
-                	accessor: d => d.lastname,
-                	width: 200
+                	accessor: d => d.lastname
                 },
                 {
                     Header: "",
@@ -94,8 +92,7 @@ class UserApproval extends Component {
                             Approve
                         </button></center>),
                     filterable: false,
-                    sortable: false,
-                    width: 200
+                    sortable: false
                 },
                 {
                     Header: "",
@@ -108,8 +105,7 @@ class UserApproval extends Component {
                            	Deny
                         </button></center>),
                     filterable: false,
-                    sortable: false,
-                    width: 200
+                    sortable: false
                 }
                 ]
             }];
