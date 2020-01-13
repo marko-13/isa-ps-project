@@ -8,16 +8,17 @@ import UserCard from './UserCards/UserCard/UserCard';
 import UserCards from './UserCards/UserCards';
 
 import {Route} from 'react-router-dom';
-import ShowClinics from '../Clinic/ShowClinics/ShowClinics.js'
-import ShowMedicalHistory from '../MedicalHistory/ShowMedicalHistory/ShowMedicalHistory.js'
-import Prescriptions from '../../containers/Prescriptions/Prescriptions'
-import UserApproval from '../../containers/UserApproval/UserApproval'
+import ShowClinics from '../Clinic/ShowClinics/ShowClinics.js';
+import ShowMedicalHistory from '../MedicalHistory/ShowMedicalHistory/ShowMedicalHistory.js';
+import Prescriptions from '../../containers/Prescriptions/Prescriptions';
+import UserApproval from '../../containers/UserApproval/UserApproval';
 import OperationRooms from '../../containers/ClinicAdministrator/OperationRooms/OperationRooms';
 import Leaves from '../../containers/ClinicAdministrator/Leaves/Leaves';
-import RegisterClinic from '../../containers/RegisterClinic/RegisterClinic'
-import ShowAppointments from '../Appointment/ShowAppointments/ShowAppointments.js'
-import DiagnosisRegistry from '../../containers/DiagnosisRegistry/DiagnosisRegistry'
-import DrugsRegistry from '../../containers/DrugsRegistry/DrugsRegistry'
+import RegisterClinic from '../../containers/RegisterClinic/RegisterClinic';
+import ShowAppointments from '../Appointment/ShowAppointments/ShowAppointments.js';
+import DiagnosisRegistry from '../../containers/DiagnosisRegistry/DiagnosisRegistry';
+import DrugsRegistry from '../../containers/DrugsRegistry/DrugsRegistry';
+import RegisterClinicAdministrator from '../../containers/RegisterClinicAdministrator/RegisterClinicAdministrator'
 import ShowMedicalStaff from '../MedicalStaff/ShowMedicalStaff/ShowMedicalStaff.js';
 import Doctors from '../../containers/ClinicAdministrator/Doctors/Doctors';
 import Clinic from '../../containers/ClinicAdministrator/Clinic/Clinic';
@@ -140,6 +141,7 @@ const Homepage = (props) => {
                             <UserCard buttonText={"Register clinic"} cardText={"Register new clinic"} link = {'/homepage/admin-clinic-center/register-clinic'}/>
                             <UserCard buttonText={"Diagnosis registry"} cardText={"Add new diagnosis"} link = {'/homepage/admin-clinic-center/diagnosis-registry'}/>
                             <UserCard buttonText={"Drugs registry"} cardText={"Add new drug"} link = {'/homepage/admin-clinic-center/drugs-registry'}/>
+                            <UserCard buttonText={"Register clinic's administrator"} cardText={"Register new clinic's administrator"} link = {'/homepage/admin-clinic-center/register-clinic-administrator'}/>
                         </UserCards>
                     </Auxiliary>
                 );
@@ -149,6 +151,7 @@ const Homepage = (props) => {
                     <Route path='/homepage/admin-clinic-center/register-clinic' component={RegisterClinic}></Route>
                     <Route path='/homepage/admin-clinic-center/diagnosis-registry' component={DiagnosisRegistry}></Route>
                     <Route path='/homepage/admin-clinic-center/drugs-registry' component={DrugsRegistry}></Route>
+                    <Route path='/homepage/admin-clinic-center/register-clinic-administrator' component={RegisterClinicAdministrator}></Route>
                   </Auxiliary>
                 );
                 break;

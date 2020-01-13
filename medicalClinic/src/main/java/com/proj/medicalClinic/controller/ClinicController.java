@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping(value = "/clinics", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ClinicController {
     @Autowired
@@ -39,7 +38,6 @@ public class ClinicController {
     @Autowired
     private ClinicService clinicService;
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(value = "/get")
     public ResponseEntity<?> getAllClinics() {
 

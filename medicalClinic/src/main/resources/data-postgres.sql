@@ -4,6 +4,12 @@ insert into clinical_center (name) values ('Clinical center');
 insert into clinic (address, description, name, review, clinical_center_id, review_count)
 values ('Bulevar Oslobodjenja 50', 'Jako lepa klinika', 'Svetlost', 9, 1, 7);
 
+insert into clinic (address, description, name, review, clinical_center_id, review_count)
+values ('Bulevar Oslobodjenja 80', 'Bjutiful amejzing', 'Zakuco', 9, 1, 7);
+
+insert into clinic (address, description, name, review, clinical_center_id, review_count)
+values ('Groblje 10', 'Ne toliko sjajna klinika', 'Krematorijum', 8, 1, 2);
+
 
 insert into app_user (type, user_role, email, password, name, last_name, JMBG, enabled, adress, city, state, mobile, rejected, deleted)
 values ('P', 'PATIENT', 'Miljana@mailinator.com', '$2a$10$hMz0Q7JhystsRnek6D3bLO5mRGU2yPril7EVfLkeqwAUh0JWQYabq', 'Miljana', 'Vlahovic', '1710463172556', true, 'Adresa1', 'Grad1', 'Drzava1', '111', false, false);
