@@ -2,6 +2,7 @@ package com.proj.medicalClinic.controller;
 
 import com.proj.medicalClinic.dto.ClinicDTO;
 import com.proj.medicalClinic.exception.NotExistsException;
+import com.proj.medicalClinic.exception.NotValidParamsException;
 import com.proj.medicalClinic.security.TokenUtils;
 import com.proj.medicalClinic.service.AppUserService;
 import com.proj.medicalClinic.service.ClinicService;
@@ -16,6 +17,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/clinics", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -54,6 +56,21 @@ public class ClinicController {
         }
 
 
+    }
+
+    @RequestMapping(value = "/get-all-clinical-center-clinics")
+    @PreAuthorize("hasAuthority('ADMINCLINICALCENTER')")
+    public ResponseEntity<?> getClinicsOfAdminClinicalCenter(){
+        try{
+            String email = this.tokenUtils.getUsernameFromToken(this.tokenUtils.getToken(this.httpServletRequest));
+            return new ResponseEntity<>(clinicService.getClinicsOfAdminClinicalCenter(email), HttpStatus.OK);
+        } catch (NotExistsException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        } catch (NotValidParamsException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.FORBIDDEN);
+        } catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
     }
 
     @RequestMapping(value = "/save")

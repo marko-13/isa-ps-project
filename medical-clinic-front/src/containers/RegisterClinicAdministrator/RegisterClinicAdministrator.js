@@ -22,7 +22,7 @@ class RegisterClinicAdministrator extends Component {
     }
 
     getClinics = () => {
-        axios.get('/clinics/get', {headers: { Authorization: 'Bearer '.concat(localStorage.getItem("token")) }})
+        axios.get('/clinics/get-all-clinical-center-clinics', {headers: { Authorization: 'Bearer '.concat(localStorage.getItem("token")) }})
             .then(clinics => {
                 this.setState({clinics: clinics});
             })

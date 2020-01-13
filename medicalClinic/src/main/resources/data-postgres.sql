@@ -1,5 +1,7 @@
 insert into clinical_center (name) values ('Clinical center');
 
+insert into clinical_center (name) values ('Clinical center 2');
+
 
 insert into clinic (address, description, name, review, clinical_center_id, review_count)
 values ('Bulevar Oslobodjenja 50', 'Jako lepa klinika', 'Svetlost', 9, 1, 7);
@@ -9,6 +11,9 @@ values ('Bulevar Oslobodjenja 80', 'Bjutiful amejzing', 'Zakuco', 9, 1, 7);
 
 insert into clinic (address, description, name, review, clinical_center_id, review_count)
 values ('Groblje 10', 'Ne toliko sjajna klinika', 'Krematorijum', 8, 1, 2);
+
+insert into clinic (address, description, name, review, clinical_center_id, review_count)
+values ('Sajlovo 1', 'Super', 'Svetlost Paralelna', 8, 2, 2);
 
 
 insert into app_user (type, user_role, email, password, name, last_name, JMBG, enabled, adress, city, state, mobile, rejected, deleted)
