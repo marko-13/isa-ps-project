@@ -1,9 +1,6 @@
 package com.proj.medicalClinic.controller;
 
-import com.proj.medicalClinic.dto.AdminClinicDTO;
-import com.proj.medicalClinic.dto.ClinicDTO;
-import com.proj.medicalClinic.dto.DiagnosisRegistryDTO;
-import com.proj.medicalClinic.dto.DrugsRegistryDTO;
+import com.proj.medicalClinic.dto.*;
 import com.proj.medicalClinic.exception.NotExistsException;
 import com.proj.medicalClinic.exception.NotValidParamsException;
 import com.proj.medicalClinic.security.TokenUtils;
@@ -42,6 +39,9 @@ public class AdminClinicCenterController {
     @Autowired
     private AdminClinicService adminClinicService;
 
+    @Autowired
+    private AdminClinicalCenterService adminClinicalCenterService;
+
     @RequestMapping(value = "/approve")
     @PreAuthorize("hasAuthority('ADMINCLINICALCENTER')")
     public ResponseEntity<?> getNotApprovedUsers() {
@@ -55,7 +55,7 @@ public class AdminClinicCenterController {
             return new ResponseEntity<>(this.userConfirmation.approvePatient(id), HttpStatus.OK);
         }
         catch(NotExistsException e){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 
@@ -66,7 +66,7 @@ public class AdminClinicCenterController {
             return new ResponseEntity<>(this.userConfirmation.denyPatient(id, msg), HttpStatus.OK);
         }
         catch(NotExistsException e){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 
@@ -78,10 +78,10 @@ public class AdminClinicCenterController {
             return new ResponseEntity<>(this.clinicService.addNewClinic(clinicDTO, email), HttpStatus.OK);
         }
         catch(NotValidParamsException e){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
         catch (Exception e){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 
@@ -92,11 +92,11 @@ public class AdminClinicCenterController {
             String email = this.tokenUtils.getUsernameFromToken(this.tokenUtils.getToken(this.httpServletRequest));
             return new ResponseEntity<>(this.diagnosisRegistryService.getAllDiagnosis(email), HttpStatus.OK);
         } catch (NotExistsException e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         } catch (NotValidParamsException e) {
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.FORBIDDEN);
         } catch (Exception e){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 
@@ -107,11 +107,11 @@ public class AdminClinicCenterController {
             String email = this.tokenUtils.getUsernameFromToken(this.tokenUtils.getToken(this.httpServletRequest));
             return new ResponseEntity<>(this.diagnosisRegistryService.addDiagnosis(diagnosisRegistryDTO, email), HttpStatus.OK);
         } catch (NotValidParamsException e) {
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.FORBIDDEN);
         } catch (NotExistsException e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 
@@ -122,11 +122,11 @@ public class AdminClinicCenterController {
             String email = this.tokenUtils.getUsernameFromToken(this.tokenUtils.getToken(this.httpServletRequest));
             return new ResponseEntity<>(this.drugsRegistryService.getAllDrugs(email), HttpStatus.OK);
         } catch (NotExistsException e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         } catch (NotValidParamsException e) {
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.FORBIDDEN);
         } catch (Exception e){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 
@@ -137,11 +137,11 @@ public class AdminClinicCenterController {
             String email = this.tokenUtils.getUsernameFromToken(this.tokenUtils.getToken(this.httpServletRequest));
             return new ResponseEntity<>(this.drugsRegistryService.addDrug(drugsRegistryDTO, email), HttpStatus.OK);
         } catch (NotValidParamsException e) {
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.FORBIDDEN);
         } catch (NotExistsException e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 
@@ -151,6 +151,21 @@ public class AdminClinicCenterController {
         try {
             String email = this.tokenUtils.getUsernameFromToken(this.tokenUtils.getToken(this.httpServletRequest));
             return new ResponseEntity<>(this.adminClinicService.save(adminClinicDTO, email), HttpStatus.OK);
+        } catch (NotValidParamsException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.FORBIDDEN);
+        } catch (NotExistsException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping(value = "/add-new-administrator-of-clinical-center")
+    @PreAuthorize("hasAuthority('ADMINCLINICALCENTER')")
+    public ResponseEntity<?> addNewAdminClinic(@RequestBody AdminClinicCenterDTO adminClinicCenterDTO) {
+        try {
+            String email = this.tokenUtils.getUsernameFromToken(this.tokenUtils.getToken(this.httpServletRequest));
+            return new ResponseEntity<>(this.adminClinicalCenterService.save(adminClinicCenterDTO, email), HttpStatus.OK);
         } catch (NotValidParamsException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.FORBIDDEN);
         } catch (NotExistsException e) {
