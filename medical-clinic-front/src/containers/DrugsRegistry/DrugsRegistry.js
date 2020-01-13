@@ -22,7 +22,8 @@ class DrugsRegistry extends Component {
         this.getDrugsRegistry();
     }
 
-    addNewDrug = () => {
+    addNewDrug = (event) => {
+    	event.preventDefault();
 
     	const newDrug = {
     		drugName: this.state.drugName
