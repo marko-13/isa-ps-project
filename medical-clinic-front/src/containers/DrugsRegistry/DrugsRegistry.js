@@ -79,18 +79,20 @@ class DrugsRegistry extends Component {
 			                	<div className="col-md-7 login-form-1" style={{margin: 'auto', paddingBottom: '10%'}}>
 			                        <h3>Add new drug</h3>
 			                        <br/>
-			                        <div className="form-group">
-			                            <input
-			                                type="text"
-			                                className="form-control"
-			                                placeholder="Name of drug *"
-			                                value={this.state.drugName}
-			                                onChange={(event) => this.setState({ drugName: event.target.value })}
-			                            />
-			                        </div>
-			                        <div className="form-group" style={{float: 'right', paddingRight: '2%'}}>
-			                            <button className="btnSubmit" onClick = {this.addNewDrug} style={{margin: '20%', width: '150%', padding: '20%'}}>Add</button>
-			                        </div>
+			                        <form onSubmit = {this.addNewDrug}>
+				                        <div className="form-group">
+				                            <input
+				                                type="text"
+				                                className="form-control"
+				                                placeholder="Name of drug *"
+				                                value={this.state.drugName}
+				                                onChange={(event) => this.setState({ drugName: event.target.value })}
+				                                required
+				                            />
+				                        </div>
+
+				                        <button className="btnSubmit" style={{width: '15%', float: 'right'}} type = "submit">Add</button>
+                        			</form>
                         		</div>
 			                </div>
 
