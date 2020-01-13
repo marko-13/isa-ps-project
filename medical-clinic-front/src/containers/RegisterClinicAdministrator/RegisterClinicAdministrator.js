@@ -36,7 +36,9 @@ class RegisterClinicAdministrator extends Component {
         this.getClinics();
     }
 
-    registerClinicAdministrator = () => {
+    registerClinicAdministrator = (event) => {
+        //Prevent refreshing page after submit
+        event.preventDefault();
 
     	const newClinicAdministrator = {
     		clinicID: this.state.clinicID,
