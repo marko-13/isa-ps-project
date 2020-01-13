@@ -109,28 +109,30 @@ class UserApproval extends Component {
                 }
                 ]
             }];
-
+            console.log(this.state.users);
             return(
-                <div className = 'react-custom-table'>
-                <ReactTable data = {this.state.users.data}
-                pageSizeOptions={[20, 30, 50, 100, 200, 500]}
-                pageSize={(this.state.users.data.length > 10) ? 10 : this.state.users.data.length}
-                getTrProps={(state, rowInfo, column, instance) => ({
-                    onClick: e => console.log('A row was clicked!')
-                })}
-                columns = {columns}
-                filterable = {true}
-                defaultPageSize={100}/>
-                <Modal show = {this.state.isModalOpen} modalClosed = {this.closeModal}>
-                	<h4>Write the reason of denial</h4>
-                	<form>
-                		<textarea rows="10" cols="50" value = {this.state.msg} onChange={(event) => this.setState({ msg: event.target.value })}></textarea>
-                		<div style={{float: 'right'}}>
-                        	<Button style={{ margin: '0px 5px' }} type='green' click={this.onCloseHandler}>Close</Button>
-                        	<Button style={{ margin: '0px 5px' }} type='green' click={this.denyUser}>Confirm</Button>
-                    	</div>
-                	</form>
-                </Modal>
+                <div className="col-md-7 login-form-1" style={{marginBottom: '2.5%', marginTop: 'auto', marginLeft: 'auto', marginRight: 'auto', padding: '2.5%'}}>
+                    <h3>List of not approved users</h3>
+                    <br/>
+                    <ReactTable data = {this.state.users.data}
+                    pageSizeOptions={[20, 30, 50, 100, 200, 500]}
+                    pageSize={(this.state.users.data.length > 10) ? 10 : this.state.users.data.length}
+                    getTrProps={(state, rowInfo, column, instance) => ({
+                        onClick: e => console.log('A row was clicked!')
+                    })}
+                    columns = {columns}
+                    filterable = {true}
+                    defaultPageSize={100}/>
+                    <Modal show = {this.state.isModalOpen} modalClosed = {this.closeModal}>
+                    	<h4>Write the reason of denial</h4>
+                    	<form>
+                    		<textarea rows="10" cols="50" value = {this.state.msg} onChange={(event) => this.setState({ msg: event.target.value })}></textarea>
+                    		<div style={{float: 'right'}}>
+                            	<Button style={{ margin: '0px 5px' }} type='green' click={this.onCloseHandler}>Close</Button>
+                            	<Button style={{ margin: '0px 5px' }} type='green' click={this.denyUser}>Confirm</Button>
+                        	</div>
+                    	</form>
+                    </Modal>
                 </div>
             );
 
