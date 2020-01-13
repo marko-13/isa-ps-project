@@ -15,7 +15,8 @@ class RegisterAdminClinicalCenter extends Component {
         userRole: 'ADMINCLINICALCENTER',
     }
 
-    registerAdminClinicalCenter = () => {
+    registerAdminClinicalCenter = (event) => {
+    	event.preventDefault();
 
     	const newAdminClinicalCenter = {
             name: this.state.name,
