@@ -11,7 +11,8 @@ class RegisterClinic extends Component {
         description: ""
     }
 
-    registerClinic = () => {
+    registerClinic = (event) => {
+        event.preventDefault();
 
     	const newClinic = {
     		name: this.state.name,
