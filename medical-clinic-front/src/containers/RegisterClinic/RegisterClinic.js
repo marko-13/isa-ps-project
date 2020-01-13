@@ -22,9 +22,9 @@ class RegisterClinic extends Component {
 
         axios.post('/admin-clinic-center/add-new-clinic', newClinic, {headers: { Authorization: 'Bearer '.concat(localStorage.getItem("token")) }})
         	.then(rsp => {
-                console.log(rsp);
+                alert('Added new clinic with name: \n' + rsp.data.name);
             })
-            .catch(err => console.log(err));
+            .catch(err => alert('Unable to add new clinic.\nReason: ' + err.response.data));
 
         this.setState({
         	name: "",
