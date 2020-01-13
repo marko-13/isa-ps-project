@@ -55,6 +55,7 @@ class RegisterClinicAdministrator extends Component {
         axios.post('/admin-clinic-center/add-new-clinic-administrator', newClinicAdministrator, {headers: { Authorization: 'Bearer '.concat(localStorage.getItem("token")) }})
         	.then(rsp => {
                 console.log(rsp);
+                alert('Successfuly registered admin of clinic: ' + rsp.data.clinicName + '\nEmail of admin: ' + rsp.data.email);
             })
             .catch(err => alert('Unable to add clinic administrator.\nReason: ' + err.response.data));
 
