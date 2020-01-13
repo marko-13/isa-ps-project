@@ -36,9 +36,11 @@ class DrugsRegistry extends Component {
 
     			this.setState({
     				drugsRegistry: newDrugsRegistry
-    			})
+    			});
+
+    			alert('Successfully added drug with name: \n' + rsp.data.drugName);
             })
-            .catch(err => console.log(err));
+            .catch(err => alert('Unable to add new drug.\nReason: ' + err.response.data));
 
         this.setState({
         	drugName: ""
