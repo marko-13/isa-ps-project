@@ -1,0 +1,21 @@
+.Header{
+    text-align: center;
+}
+
+.Form input {
+    margin: 15px;
+}
+
+.Inputs {
+    padding-right: 15px;
+}
+
+.Buttons {
+    padding: 10px 0px;
+    
+}
+
+.Buttons button {
+    margin: 0px 5px;
+    float: right;
+}

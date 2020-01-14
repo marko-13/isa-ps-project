@@ -6,6 +6,10 @@ import moment from 'moment';
 
 import Button from '../../../components/UI/Button/Button';
 import RoomAppointments from './RoomAppointments/RoomAppointments';
+import Modal from '../../../components/UI/Modal/Modal';
+import plusimg from '../../../assets/images/plus.png';
+import classes from './OperationRooms.module.css';
+import OperationRoomForm from '../../../components/Forms/OperationRoomForm/OperationRoomForm';
 
 class OperationRooms extends Component {
 
@@ -17,7 +21,13 @@ class OperationRooms extends Component {
         roomName: null,
         roomNumber: null,
         pickedDate: null,
-        availableSchedule: null
+        availableSchedule: null,
+        modalOpen: false,
+        room: {
+            name: '',
+            number: ''
+        },
+        addForm: false
     }
 
     componentDidMount() {
@@ -27,7 +37,6 @@ class OperationRooms extends Component {
     getOperationRooms = () => {
         axios.get('/operationRoom/getAll')
             .then(rooms => {
-                console.log(rooms);
                 this.setState({ operationRooms: rooms.data })
             })
             .catch(err => console.log(err));
@@ -40,18 +49,84 @@ class OperationRooms extends Component {
             if (app.date > pickedDate && app.date < (pickedDate + (60 * 60000))) {
                 this.setState({ availableSchedule: false });
             } else {
-                this.setState({ availableSchedule: true }); 
+                this.setState({ availableSchedule: true });
             }
         })
+
+    }
+
+    closeModalHandler = () => {
+        this.setState({
+            modalOpen: false,
+             room: {
+                name: '',
+                number: ''
+            }
+        });
+    }
+
+    openModalHandler = () => {
+        this.setState({ modalOpen: true });
+    }
+
+    showScheduleHandler = (operationRoom) => {
+
+        this.setState({ roomId: operationRoom.roomId, showRoomRedails: true, addForm: false });
+        axios.get("/appointment/getAllByOperationRoom/" + operationRoom.roomId)
+            .then(app => {
+                this.setState({ appointments: app.data, roomName: operationRoom.name, roomNumber: operationRoom.number });
+            })
+            .catch(err => console.log(err));
+
+        this.setState({ availableSchedule: null });
+    }
+
+    editRoomHandler = (operationRoom) => {
+        console.log(operationRoom);
+        this.setState({ room: operationRoom, modalOpen: true });
+    }
+
+    removeRoomHandler = (operationRoom) => {
+        axios.post('/operationRoom/delete/' + operationRoom.roomId, null)
+            .then(response => {
+                let rooms = [...this.state.operationRooms];
+
+                const index = this.state.operationRooms.indexOf(operationRoom);
+                if (index > -1) {
+                    rooms.splice(index, 1);
+                }
+
+                this.setState({ operationRooms: rooms });
+            })
+            .catch(err => alert('Unable to remove room.\nReason: ' + err.response.data));
+    }
+
+    pushNewRoom = (newRoom) => {
+        let rooms = [...this.state.operationRooms];
+        rooms.push(newRoom);
+        this.setState({operationRooms: rooms});
+    }
+
+    replaceRoom = (newRoom) => {
+        let rooms = [...this.state.operationRooms];
+        
+        rooms.map(el => {
+            if(el.roomId === newRoom.roomId){
+                el.name = newRoom.name;
+                el.number = newRoom.number;
+            }
+            return el;
+        })
+
+        this.setState({operationRooms: rooms});
+
+        console.log(rooms);
 
     }
 
 
 
     render() {
-
-        console.log(this.state.availableSchedule);
-
         let table = null;
         let roomDetails = null;
 
@@ -59,7 +134,11 @@ class OperationRooms extends Component {
             const data = this.state.operationRooms;
 
             const columns = [{
-                Header: 'Operation rooms',
+                Header: (
+                    <div>
+                        <div><span>List of all rooms</span></div>
+                    </div>
+                ),
                 columns: [
                     {
                         id: 'name',
@@ -74,7 +153,21 @@ class OperationRooms extends Component {
                     {
                         Header: "",
                         Cell: ({ original }) => (
-                            <center><Button type='green'>Show schedule</Button></center>),
+                            <center><Button type='green' click={() => this.showScheduleHandler(original)}>Schedule</Button></center>),
+                        filterable: false,
+                        sortable: false
+                    },
+                    {
+                        Header: "",
+                        Cell: ({ original }) => (
+                            <center><Button type='black' click={() => this.editRoomHandler(original)}>Edit</Button></center>),
+                        filterable: false,
+                        sortable: false
+                    },
+                    {
+                        Header: "",
+                        Cell: ({ original }) => (
+                            <center><Button type='red' click={() => this.removeRoomHandler(original)}>Remove</Button></center>),
                         filterable: false,
                         sortable: false
                     }]
@@ -87,49 +180,41 @@ class OperationRooms extends Component {
                     className="-striped -highlight"
                     pageSize={10}
                     filterable={true}
-                    getTrProps={(state, rowInfo, column, instance) => ({
-                        onClick: e => {
-
-                            this.setState({ roomId: rowInfo.original.roomId, showRoomRedails: true });
-                            axios.get("/appointment/getAllByOperationRoom/" + rowInfo.original.roomId)
-                                .then(app => {
-                                    this.setState({ appointments: app.data, roomName: rowInfo.original.name, roomNumber: rowInfo.original.number });
-                                    console.log(app);
-                                })
-                                .catch(err => console.log(err));
-
-                            this.setState({availableSchedule: null});
-
-                        }
-                    })}
                     defaultFilterMethod={(filter, row, column) => {
                         const id = filter.pivotId || filter.id
-                        console.log(row[id]);
                         return row[id] !== undefined ? String(row[id]).toLowerCase().includes(filter.value.toLowerCase()) : true
-                      }}
-                    />
+                    }}
+                />
 
             );
         }
 
         if (this.state.showRoomRedails !== false && this.state.appointments !== null) {
 
-            roomDetails = <RoomAppointments 
+            roomDetails = <RoomAppointments
                 roomName={this.state.roomName}
                 roomNumber={this.state.roomNumber}
-                appointments={this.state.appointments}/>
+                appointments={this.state.appointments} />
+        }else if (this.state.addForm){
+            roomDetails = <div className="login-form-1"><OperationRoomForm header={"Create new room"} pushNewRoom={this.pushNewRoom}/></div>
         }
 
         return (
             <Auxiliary>
                 <div className='col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad'>
+                    <div style={{ display: 'flex' }}>
+                        <h4>Add new room</h4>
+                        <div style={{ margin: '0px 10px' }} onClick={() => this.setState({addForm: true, showRoomRedails: false})}><img src={plusimg} className={classes.Image} /></div>
+                    </div>
                     {table}
                 </div>
                 <div className='col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad'>
                     {roomDetails}
                 </div>
+                <Modal show={this.state.modalOpen} modalClosed={this.closeModalHandler}>
+                    <OperationRoomForm room={this.state.room} closeModal={this.closeModalHandler} replaceRoom={this.replaceRoom} />
+                </Modal>
             </Auxiliary>
-
         );
     }
 }

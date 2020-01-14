@@ -16,9 +16,10 @@ public class OperationRoomDTO {
     private Long roomId;
     private String name;
     private int number;
+    private long clinicId;
 
     public OperationRoomDTO(OperationRoom or){
-        this(or.getId(), or.getName(),or.getNumber());
+        this(or.getId(), or.getName(),or.getNumber(), or.getClinic().getId());
     }
 
 }

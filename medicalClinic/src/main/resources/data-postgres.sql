@@ -79,17 +79,20 @@ values (15000, 'Skeniranje glave');
 
 
 
-insert into operation_room (name, number, clinic_id)
-values ('Operaciona sala', 108, 1);
+insert into operation_room (name, number, clinic_id, deleted)
+values ('Operaciona sala', 108, 1, false);
 
-insert into operation_room (name, number, clinic_id)
-values ('Operaciona sala', 100, 1);
+insert into operation_room (name, number, clinic_id, deleted)
+values ('Operaciona sala', 100, 1, false);
 
-insert into operation_room (name, number, clinic_id)
-values ('Ordinacija', 10, 1);
+insert into operation_room (name, number, clinic_id, deleted)
+values ('Ordinacija', 10, 1, false);
 
-insert into operation_room (name, number, clinic_id)
-values ('Ordinacija', 15, 1);
+insert into operation_room (name, number, clinic_id, deleted)
+values ('Ordinacija', 15, 1, false);
+
+insert into operation_room (name, number, clinic_id, deleted)
+values ('Operaciona sala', 211, 1, false);
 
 
 

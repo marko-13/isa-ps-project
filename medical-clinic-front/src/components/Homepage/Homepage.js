@@ -26,7 +26,6 @@ import Clinic from '../../containers/ClinicAdministrator/Clinic/Clinic';
 import UserPasswordChangeForm from '../../containers/MyProfile/UserPasswordChangeForm/UserPasswordChangeForm';
 
 
-
 const Homepage = (props) => {
 
     let role = null;
