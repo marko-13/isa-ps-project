@@ -26,9 +26,9 @@ const UserInfo = (props) => {
     else if (props.role === 'adminclinicalcenter'){
         image = clinicalCenterAdminImage;
     }
-
+//col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad
     return (
-                <div className={[classes.UserInfo, classes.Table].join(' ') + " col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad"} >
+                <div className={[classes.UserInfo, classes.Table].join(' ') + " col-4"} >
                     <div className="panel panel-info">
                         <div className="panel-heading">
                             <h4 className="panel-title">User profile</h4>
