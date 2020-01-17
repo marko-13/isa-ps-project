@@ -24,6 +24,7 @@ import ShowMedicalStaff from '../MedicalStaff/ShowMedicalStaff/ShowMedicalStaff.
 import Doctors from '../../containers/ClinicAdministrator/Doctors/Doctors';
 import Clinic from '../../containers/ClinicAdministrator/Clinic/Clinic';
 import UserPasswordChangeForm from '../../containers/MyProfile/UserPasswordChangeForm/UserPasswordChangeForm';
+import Examinations from '../../containers/ClinicAdministrator/Examinations/Examinations';
 
 
 const Homepage = (props) => {
@@ -112,6 +113,7 @@ const Homepage = (props) => {
                                 <UserCard buttonText={"Show"} cardText={"Show all requests for leave of absence"}  link ={'/homepage/admin-clinic/leaves'}/>
                                 <UserCard buttonText={"Show doctors"} cardText={"Search, add or remove doctors"}  link ={'/homepage/admin-clinic/doctors'}/>
                                 <UserCard buttonText={"Clinic's profile"} cardText={"Show and modify clinic's profile"}  link ={'/homepage/admin-clinic/clinic'}/>
+                                <UserCard buttonText={"Show examinations"} cardText={"Search, add modify or add new medical exminations"}  link ={'/homepage/admin-clinic/examinations'}/>
                             </UserCards>
                         </Auxiliary>
 
@@ -123,6 +125,7 @@ const Homepage = (props) => {
                           <Route path='/homepage/admin-clinic/leaves' component={Leaves}></Route>
                           <Route path='/homepage/admin-clinic/doctors' component={Doctors}></Route>
                           <Route path='/homepage/admin-clinic/clinic' component={Clinic}></Route>
+                          <Route path='/homepage/admin-clinic/examinations' component={Examinations}></Route>
                         </Auxiliary>
                       );
 
