@@ -12,40 +12,48 @@ class NewExam extends Component {
 
     changeHandler = event => {
         this.setState({ [event.target.name]: event.target.value });
-      };
+    };
 
     onSubmitHandler = e => {
 
     }
 
     refreshExaminations = () => {
-        
+
     }
 
     render() {
         return (
             <div className={classes.Form + ' login-form-1'}>
-            <h2>Add new medical exam</h2>
+                <h2>Add new medical exam</h2>
 
-            <div className={classes.Inputs}>
-                <form>
-                    <div className='form-row'>
+                <div className={classes.Inputs}>
+                    <form>
+                        <div className='form-row'>
 
-                        <div className='col'>
-                            <input type="text" className="form-control" placeholder="Examination(service) type" name="serviceType" />
+                            <div className='col'>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="Examination(service) type"
+                                    name="serviceType" />
+                            </div>
+
+                            <div className='col'>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="Price"
+                                    name="price" />
+                            </div>
                         </div>
 
-                        <div className='col'>
-                            <input type="text" className="form-control" placeholder="Price" name="price"/>
+                        <div className={classes.Buttons + ' row'}>
+                            <Button type='green'>Add</Button>
                         </div>
-                    </div>
-
-                    <div className={classes.Buttons + ' row'}>
-                        <Button type='green'>Add</Button>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
-        </div>
         );
     }
 }
