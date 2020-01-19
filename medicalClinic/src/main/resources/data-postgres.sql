@@ -75,6 +75,24 @@ values (3500, 'Vadjenje srca');
 insert into service (price, service_type)
 values (15000, 'Skeniranje glave');
 
+insert into service (price, service_type)
+values (2500, 'Pregled glave');
+
+insert into service (price, service_type)
+values (4500, 'Pregled slepog creva');
+
+insert into service (price, service_type)
+values (8600, 'Ispiranje uha');
+
+insert into service (price, service_type)
+values (5000, 'MRI');
+
+insert into service (price, service_type)
+values (3800, 'Infuzija');
+
+insert into service (price, service_type)
+values (12400, 'Detaljni pregled');
+
 
 
 
@@ -139,6 +157,24 @@ values (1, 2);
 
 insert into clinics_services (clinic_id, service_id)
 values (1, 3);
+
+insert into clinics_services (clinic_id, service_id)
+values (1, 4);
+
+insert into clinics_services (clinic_id, service_id)
+values (2, 5);
+
+insert into clinics_services (clinic_id, service_id)
+values (2, 6);
+
+insert into clinics_services (clinic_id, service_id)
+values (3, 7);
+
+insert into clinics_services (clinic_id, service_id)
+values (3, 8);
+
+insert into clinics_services (clinic_id, service_id)
+values (4, 9);
 
 
 
