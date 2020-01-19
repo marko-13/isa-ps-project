@@ -3,6 +3,7 @@ package com.proj.medicalClinic.controller;
 import com.proj.medicalClinic.dto.ServiceDTO;
 import com.proj.medicalClinic.exception.NotExistsException;
 import com.proj.medicalClinic.exception.ResourceConflictException;
+import com.proj.medicalClinic.model.Service;
 import com.proj.medicalClinic.service.ServiceService;
 import com.proj.medicalClinic.service.implementation.ServiceServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,19 @@ public class ServiceController {
         try {
             List<ServiceDTO> serviceDTOS = serviceService.getAllFromClinic();
             return new ResponseEntity<>(serviceDTOS, HttpStatus.OK);
+        }catch (NotExistsException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+
+    }
+
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    @PreAuthorize("hasAuthority('ADMINCLINIC')")
+    public ResponseEntity<?> getAllFromClinic(@RequestBody ServiceDTO serviceRequest){
+        try {
+
+            ServiceDTO service = serviceService.save(serviceRequest);
+            return new ResponseEntity<>(service, HttpStatus.OK);
         }catch (NotExistsException e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
