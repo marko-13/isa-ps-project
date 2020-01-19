@@ -2,12 +2,12 @@ package com.proj.medicalClinic.service.implementation;
 
 import com.proj.medicalClinic.dto.ServiceDTO;
 import com.proj.medicalClinic.exception.NotExistsException;
-import com.proj.medicalClinic.exception.ResourceConflictException;
 import com.proj.medicalClinic.model.AdminClinic;
+import com.proj.medicalClinic.model.Clinic;
 import com.proj.medicalClinic.repository.AppUserRepository;
+import com.proj.medicalClinic.repository.ClinicRepository;
 import com.proj.medicalClinic.repository.ServiceRepository;
 import com.proj.medicalClinic.service.ServiceService;
-import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,6 +24,9 @@ public class ServiceServiceImpl implements ServiceService {
 
     @Autowired
     private AppUserRepository appUserRepository;
+
+    @Autowired
+    private ClinicRepository clinicRepository;
 
     @Override
     public List<ServiceDTO> getAllFromClinic() {
@@ -45,6 +48,32 @@ public class ServiceServiceImpl implements ServiceService {
             }
             return serviceDTOS;
         }
+    }
+
+    @Override
+    public ServiceDTO save(ServiceDTO serviceRequest) {
+        Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
+        String username = currentUser.getName();
+
+        AdminClinic adminClinic = (AdminClinic) appUserRepository.findByEmail(username).orElseThrow(NotExistsException::new);
+
+        Long clinicId = adminClinic.getClinic().getId();
+
+        Clinic clinic = clinicRepository.findById(clinicId).orElseThrow(NotExistsException::new);
+        List<Clinic> clinics = new ArrayList<>();
+        clinics.add(clinic);
+
+
+        com.proj.medicalClinic.model.Service service = new com.proj.medicalClinic.model.Service();
+        service.setType(serviceRequest.getServiceType());
+        service.setPrice(serviceRequest.getPrice());
+        clinic.getServices().add(service);
+
+        //REDOSLED JE BITAN!!
+        serviceRepository.save(service);
+        clinicRepository.save(clinic);
+
+        return new ServiceDTO(service);
     }
 
 
