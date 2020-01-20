@@ -11,10 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -48,6 +45,32 @@ public class ServiceController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
 
+    }
+
+    @RequestMapping(value = "/remove/{id}", method = RequestMethod.POST)
+    @PreAuthorize("hasAuthority('ADMINCLINIC')")
+    public ResponseEntity<?> remove(@PathVariable Long id){
+        try {
+            ServiceDTO serviceDTO = serviceService.remove(id);
+            return new ResponseEntity<>(serviceDTO, HttpStatus.OK);
+        }catch (NotExistsException e){
+            return new ResponseEntity<>("Tip pregleda ne postoji.", HttpStatus.NOT_FOUND);
+        }catch (ResourceConflictException e){
+            return  new ResponseEntity<>(e.getMessage(), HttpStatus.FORBIDDEN);
+        }
+    }
+
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    @PreAuthorize("hasAuthority('ADMINCLINIC')")
+    public ResponseEntity<?> edit(@RequestBody ServiceDTO serviceReq){
+        try {
+            ServiceDTO serviceDTO = serviceService.edit(serviceReq);
+            return new ResponseEntity<>(serviceDTO, HttpStatus.OK);
+        }catch (NotExistsException e){
+            return new ResponseEntity<>("Tip pregleda nije pronadjen!", HttpStatus.NOT_FOUND);
+        }catch (ResourceConflictException e){
+            return  new ResponseEntity<>(e.getMessage(), HttpStatus.FORBIDDEN);
+        }
     }
 
 }
