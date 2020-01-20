@@ -11,4 +11,8 @@ public interface ServiceService {
 
     ServiceDTO save(ServiceDTO service);
 
+    ServiceDTO remove(Long serviceId);
+
+    ServiceDTO edit(ServiceDTO service);
+
 }
