@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import classes from './NewExam.module.css';
 import Button from '../../../components/UI/Button/Button';
+import axios from '../../../axios';
 
 class NewExam extends Component {
 
@@ -15,7 +16,17 @@ class NewExam extends Component {
     };
 
     onSubmitHandler = e => {
+        e.preventDefault();
 
+        const newExam = {
+            ...this.state
+        }
+
+        axios.post('/service/save', newExam)
+            .then(res => {
+                window.location.reload();
+            })
+            .catch(err => alert('Unable to add medical examination.\nReason: ' + err.response.data));
     }
 
     refreshExaminations = () => {
@@ -36,7 +47,9 @@ class NewExam extends Component {
                                     type="text"
                                     className="form-control"
                                     placeholder="Examination(service) type"
-                                    name="serviceType" />
+                                    name="serviceType"
+                                    value={this.state.serviceType}
+                                    onChange={(event) => this.setState({serviceType: event.target.value})} />
                             </div>
 
                             <div className='col'>
@@ -44,12 +57,14 @@ class NewExam extends Component {
                                     type="text"
                                     className="form-control"
                                     placeholder="Price"
-                                    name="price" />
+                                    name="price"
+                                    value={this.state.price}
+                                    onChange={(event) => this.setState({price: event.target.value})} />
                             </div>
                         </div>
 
                         <div className={classes.Buttons + ' row'}>
-                            <Button type='green'>Add</Button>
+                            <Button type='green' click={this.onSubmitHandler}>Add</Button>
                         </div>
                     </form>
                 </div>

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import classes from './EditExam.module.css';
 import Button from '../../UI/Button/Button';
+import axios from '../../../axios';
 
 class EditExam extends Component {
 
@@ -35,7 +36,16 @@ class EditExam extends Component {
     onSubmitHandler = e => {
         e.preventDefault();
 
-        //axios post this.state.exam
+        const updatedExam = {
+            ...this.state.exam
+        }
+
+        axios.post("/service/edit", updatedExam)
+            .then(res => {
+                this.props.updateExams(res.data);
+                this.props.closeModal();
+            })
+            .catch(err =>  alert('Unable to edit medical examination.\nReason: ' + err.response.data)); 
     }
 
     render() {

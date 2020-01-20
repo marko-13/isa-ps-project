@@ -32,15 +32,28 @@ class ExaminationsAll extends Component {
         axios.get("service/getAll")
         .then(res => this.setState({exams: res.data}))
         .catch(err => {
-            console.log(err);
             this.setState({exams: null});
         });
     }
 
+    updateExams = updatedExam => {
+        this.setState({
+            exams: this.state.exams.map(ex => (ex.id === updatedExam.id ? updatedExam : ex))
+        })
+    }
+
+    removeExamHandler = id => {
+        console.log('usao '+ id);
+        axios.post("/service/remove/" + id, null)
+            .then(res => {
+                let newExams = [...this.state.exams];
+                newExams = newExams.filter(exam => exam.id !== id);
+                this.setState({exams: newExams});
+            })
+            .catch(err => alert('Unable to remove medical examination.\nReason: ' + err.response.data));
+    }
+
     render() {
-
-        console.log(this.state.selectedExam);
-
         let table = null;
 
         if (this.state.exams !== null) {
@@ -71,7 +84,7 @@ class ExaminationsAll extends Component {
                         {
                             Header: "",
                             Cell: ({ original }) => (
-                                <center><Button type='red'>Remove</Button></center>),
+                                <center><Button type='red' click={() => this.removeExamHandler(original.id)}>Remove</Button></center>),
                             filterable: false,
                             sortable: false
                         }]
@@ -100,7 +113,7 @@ class ExaminationsAll extends Component {
             <Auxiliary>
                 {table}
                 <Modal show={this.state.modalOpen} modalClosed={this.closeModalHandler}>
-                    <EditExam exam={this.state.selectedExam} closeModal={this.closeModalHandler}/>
+                    <EditExam exam={this.state.selectedExam} closeModal={this.closeModalHandler} updateExams={this.updateExams}/>
                 </Modal>
             </Auxiliary>
         );
