@@ -28,6 +28,9 @@ public class Service {
     @Column(name = "price", unique = false, nullable = false)
     private double price;
 
+    @Column(name = "deleted")
+    private boolean deleted = false;
+
     @ManyToMany(mappedBy = "services")
     private List<Clinic> clinics; //mozda ovde treba inicijalizovati listu = new List<>(); isto i u clinic kalsi
 
