@@ -66,32 +66,32 @@ values (1, 3);
 
 
 
-insert into service (price, service_type)
-values (2000, 'Vadjene zuba');
+insert into service (price, service_type, deleted)
+values (2000, 'Vadjene zuba', false);
 
-insert into service (price, service_type)
-values (3500, 'Vadjenje srca');
+insert into service (price, service_type, deleted)
+values (3500, 'Vadjenje srca', false);
 
-insert into service (price, service_type)
-values (15000, 'Skeniranje glave');
+insert into service (price, service_type, deleted)
+values (15000, 'Skeniranje glave', false);
 
-insert into service (price, service_type)
-values (2500, 'Pregled glave');
+insert into service (price, service_type, deleted)
+values (2500, 'Pregled glave', false);
 
-insert into service (price, service_type)
-values (4500, 'Pregled slepog creva');
+insert into service (price, service_type, deleted)
+values (4500, 'Pregled slepog creva', false);
 
-insert into service (price, service_type)
-values (8600, 'Ispiranje uha');
+insert into service (price, service_type, deleted)
+values (8600, 'Ispiranje uha', false);
 
-insert into service (price, service_type)
-values (5000, 'MRI');
+insert into service (price, service_type, deleted)
+values (5000, 'Magnetna rezonanca', false);
 
-insert into service (price, service_type)
-values (3800, 'Infuzija');
+insert into service (price, service_type, deleted)
+values (3800, 'Infuzija', false);
 
-insert into service (price, service_type)
-values (12400, 'Detaljni pregled');
+insert into service (price, service_type, deleted)
+values (12400, 'Detaljni pregled', false);
 
 
 
