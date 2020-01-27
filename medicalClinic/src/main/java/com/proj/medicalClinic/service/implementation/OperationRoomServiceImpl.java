@@ -89,14 +89,13 @@ public class OperationRoomServiceImpl implements OperationRoomService {
     @Override
     public OperationRoomDTO update(OperationRoomDTO operationRoomRequest) {
         OperationRoom operationRoom = operationRoomRepository.findById(operationRoomRequest.getRoomId()).orElseThrow(NotExistsException::new);
-        try {
-            List<AppointmentDTO> appointmentDTOS = appointmentService.getAllByOperationRoom(operationRoomRequest.getRoomId());
-        }catch (NotExistsException e){
-            operationRoom.setNumber(operationRoomRequest.getNumber());
-            operationRoom.setName(operationRoomRequest.getName());
-            operationRoomRepository.save(operationRoom);
-            return new OperationRoomDTO(operationRoom);
-        }
+        List<AppointmentDTO> appointmentDTOS = appointmentService.getAllByOperationRoom(operationRoomRequest.getRoomId());
+            if(appointmentDTOS.isEmpty()){
+                operationRoom.setNumber(operationRoomRequest.getNumber());
+                operationRoom.setName(operationRoomRequest.getName());
+                operationRoomRepository.save(operationRoom);
+                return new OperationRoomDTO(operationRoom);
+            }
 
         throw new ResourceConflictException(operationRoomRequest.getRoomId(), "Soba ima rezervisane preglede!");
     }
