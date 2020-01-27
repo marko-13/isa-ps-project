@@ -32,6 +32,7 @@ class OperationRoomForm extends Component {
     onCloseHandler = event => {
         event.preventDefault();
         this.props.closeModal();
+        this.props.back(false)
     }
 
     onConfirmHandler = event => {
@@ -43,7 +44,10 @@ class OperationRoomForm extends Component {
 
         if(this.props.header !== undefined){
             axios.post('/operationRoom/save', newRoom)
-            .then(res => this.props.pushNewRoom(res.data))
+            .then(res => {
+                this.props.pushNewRoom(res.data);
+                this.props.back(false)
+            })
             .catch(err => console.log(err));
         }else{
             axios.post('/operationRoom/update', newRoom)
@@ -70,12 +74,12 @@ class OperationRoomForm extends Component {
                             </div>
 
                             <div className='col'>
-                                <input type="text" className="form-control" placeholder="Address" name="number" value={this.state.room.number} onChange={this.changeHandler} required />
+                                <input type="text" className="form-control" placeholder="Number" name="number" value={this.state.room.number} onChange={this.changeHandler} required />
                             </div>
 
                             <div className={classes.Buttons + ' col'}>
                                 <Button type='green' click={this.onConfirmHandler}>Confirm</Button>
-                                <Button type='red' click={this.onCloseHandler}>Close</Button>
+                                <Button type='red' click={this.onCloseHandler}>Back</Button>
                             </div>
 
                         </div>
