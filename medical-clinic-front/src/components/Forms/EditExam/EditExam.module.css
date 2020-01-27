@@ -1,0 +1,23 @@
+.Form h2 {
+    color: black;
+    padding: 10px;
+    text-align: center;
+}
+
+.Form input {
+    margin: 10px;
+}
+
+.Inputs {
+    padding: 20px;
+}
+
+.Buttons {
+    justify-content: flex-end;
+}
+
+.Buttons button{
+    padding: 5px 25px;
+    margin-right: 10px;
+    margin-top: 20px;
+}
