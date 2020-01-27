@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import axios from '../../../axios';
 import ReactTable from 'react-table-6';
+import {withRouter} from 'react-router-dom';
 
 import Button from '../../../components/UI/Button/Button';
 import Auxiliary from '../../../hoc/Auxiliary/Auxiliary';
 import UserInfo from '../../../components/Homepage/UserInfo/UserInfo';
 import UserCard from '../../Homepage/UserCards/UserCard/UserCard';
-import UserCards from '../../Homepage/UserCards/UserCards';
 
 class PatientsTable extends Component {
 
@@ -34,10 +34,18 @@ class PatientsTable extends Component {
             lastname: patient.lastname,
             showPatient: true
         })
+
+        const queryParams = [];
+        queryParams.push(encodeURIComponent('patientId') + '=' + encodeURIComponent(patient.id));
+        const queryString = queryParams.join('&');
+
+        this.props.history.push({
+            pathname: this.props.match.path,
+            search: '?' + queryString
+        });
     }
 
     render() {
-
         let table = null;
         let userCards = null;
 
@@ -74,7 +82,7 @@ class PatientsTable extends Component {
 
             userCards = (
                 <Auxiliary>
-                        <UserCard buttonText="Show" cardText="Show patients medical history" link={'/homepage/doctor/patients/medical-history'} />
+                        <UserCard query={this.props.location.search} buttonText="Show" cardText="Show patients medical history" link={this.props.match.path + '/medical-history'} />
                         <UserCard buttonText="Start" cardText="Start an examination for this patient" link={'/homepage/doctor/patients/start-exam'} />
                 </Auxiliary>
             );
@@ -115,4 +123,4 @@ class PatientsTable extends Component {
     }
 }
 
-export default PatientsTable;
+export default withRouter(PatientsTable);
