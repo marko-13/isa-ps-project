@@ -58,7 +58,7 @@ class OperationRooms extends Component {
     closeModalHandler = () => {
         this.setState({
             modalOpen: false,
-             room: {
+            room: {
                 name: '',
                 number: ''
             }
@@ -71,12 +71,15 @@ class OperationRooms extends Component {
 
     showScheduleHandler = (operationRoom) => {
 
-        this.setState({ roomId: operationRoom.roomId, showRoomRedails: true, addForm: false });
+        this.setState({ roomId: operationRoom.roomId });
         axios.get("/appointment/getAllByOperationRoom/" + operationRoom.roomId)
             .then(app => {
-                this.setState({ appointments: app.data, roomName: operationRoom.name, roomNumber: operationRoom.number });
+                this.setState({ appointments: app.data, roomName: operationRoom.name, roomNumber: operationRoom.number,showRoomRedails: true, addForm: false });
             })
-            .catch(err => console.log(err));
+            .catch(err => {
+                this.setState({showRoomRedails: false, addForm: false});
+                alert('Unable to schedule. \nREASON: '+ err.response.data);
+            });
 
         this.setState({ availableSchedule: null });
     }
@@ -104,24 +107,26 @@ class OperationRooms extends Component {
     pushNewRoom = (newRoom) => {
         let rooms = [...this.state.operationRooms];
         rooms.push(newRoom);
-        this.setState({operationRooms: rooms});
+        this.setState({ operationRooms: rooms });
     }
 
     replaceRoom = (newRoom) => {
         let rooms = [...this.state.operationRooms];
-        
+
         rooms.map(el => {
-            if(el.roomId === newRoom.roomId){
+            if (el.roomId === newRoom.roomId) {
                 el.name = newRoom.name;
                 el.number = newRoom.number;
             }
             return el;
         })
 
-        this.setState({operationRooms: rooms});
+        this.setState({ operationRooms: rooms });
 
-        console.log(rooms);
+    }
 
+    showHideHandler = (boolean) => {
+        this.setState({ showRoomRedails: boolean, addForm: false });
     }
 
 
@@ -180,6 +185,7 @@ class OperationRooms extends Component {
                     className="-striped -highlight"
                     pageSize={10}
                     filterable={true}
+                    pageSize={(this.state.operationRooms.length > 5) ? 5 : this.state.operationRooms.length}
                     defaultFilterMethod={(filter, row, column) => {
                         const id = filter.pivotId || filter.id
                         return row[id] !== undefined ? String(row[id]).toLowerCase().includes(filter.value.toLowerCase()) : true
@@ -194,25 +200,42 @@ class OperationRooms extends Component {
             roomDetails = <RoomAppointments
                 roomName={this.state.roomName}
                 roomNumber={this.state.roomNumber}
-                appointments={this.state.appointments} />
-        }else if (this.state.addForm){
-            roomDetails = <div className="login-form-1"><OperationRoomForm header={"Create new room"} pushNewRoom={this.pushNewRoom}/></div>
+                appointments={this.state.appointments}
+                back={this.showHideHandler} />
+        } else if (this.state.addForm) {
+            roomDetails = <div className="login-form-1"><OperationRoomForm header={"Create new room"} closeModal={this.closeModalHandler} pushNewRoom={this.pushNewRoom} back={this.showHideHandler} /></div>
         }
 
         return (
             <Auxiliary>
-                <div className='col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad'>
+                <div
+                    className="col-7 login-form-1"
+                    style={{ marginBottom: '2.5%', marginTop: 'auto', marginLeft: 'auto', marginRight: 'auto', padding: '2.5%' }}
+                    hidden={this.state.showRoomRedails || this.state.addForm}>
+
                     <div style={{ display: 'flex' }}>
                         <h4>Add new room</h4>
-                        <div style={{ margin: '0px 10px' }} onClick={() => this.setState({addForm: true, showRoomRedails: false})}><img src={plusimg} className={classes.Image} /></div>
+                        <div style={{ margin: '0px 10px' }} onClick={() => this.setState({ addForm: true, showRoomRedails: false })}><img src={plusimg} className={classes.Image} /></div>
                     </div>
                     {table}
                 </div>
-                <div className='col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad'>
+                <div
+                    className='col-7 login-form-1'
+                    style={{ marginBottom: '2.5%', marginTop: 'auto', marginLeft: 'auto', marginRight: 'auto', padding: '2.5%'}}
+                    hidden={!this.state.showRoomRedails}>
+                    
+                    {roomDetails}
+                </div>
+
+                <div
+                    className='col-7'
+                    style={{ marginBottom: '2.5%', marginTop: 'auto', marginLeft: 'auto', marginRight: 'auto', padding: '2.5%'}}
+                    hidden={!this.state.addForm}>
+                    
                     {roomDetails}
                 </div>
                 <Modal show={this.state.modalOpen} modalClosed={this.closeModalHandler}>
-                    <OperationRoomForm room={this.state.room} closeModal={this.closeModalHandler} replaceRoom={this.replaceRoom} />
+                    <OperationRoomForm back={this.showHideHandler} room={this.state.room} closeModal={this.closeModalHandler} replaceRoom={this.replaceRoom} />
                 </Modal>
             </Auxiliary>
         );
