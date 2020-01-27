@@ -54,7 +54,7 @@ const Homepage = (props) => {
                             <UserCards>
                                 <UserCard buttonText={"Work schedule"} cardText={"Shows work schedule"} link={'/homepage/workschedule'} />
                                 <UserCard buttonText={"Validate perscriptions"} cardText={"Shows a list of perscriptions that need to be validated"} link={'/homepage/nurse/prescriptions'} />
-                                <UserCard buttonText={"List of patients"} cardText={"Shows a list of patients"} link={'/homepage/patient/clinics'} />
+                                <UserCard buttonText={"List of patients"} cardText={"Shows a list of patients"} link={'/homepage/nurse/patients'} />
                                 <UserCard buttonText={"Ask for leave of absence"} cardText={"Shows form for leave of absence"} link={'/homepage/patient/clinics'} />
                             </UserCards>
                         </Auxiliary>
@@ -62,7 +62,7 @@ const Homepage = (props) => {
                     functions = (
                         <Auxiliary>
                             <Route path='/homepage/nurse/prescriptions' component={Prescriptions}></Route>
-                            <Route path='/homepage/patient/medicalstaff' render={null}></Route>
+                            <Route path='/homepage/nurse/patients' component={Patients}></Route>
                             <Route path='/homepage/patient/medicalhistory' component={ShowMedicalHistory}></Route>
                             <Route path='/homepage/patient/appointments' render={null}></Route>
                         </Auxiliary>
