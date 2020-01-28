@@ -13,6 +13,5 @@ import java.util.UUID;
 
 @Repository
 public interface ExaminationRepository extends JpaRepository<Examination, Long> {
-
-    Optional<List<Examination>> findAllByNurse(Nurse nurse);
+    List<Examination> findAllByDoctorsContaining(Doctor doctor);
 }
