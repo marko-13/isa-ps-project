@@ -62,4 +62,43 @@ public class AppointmentServiceImpl implements AppointmentService {
         return appointmentDTOS;
     }
 
+    @Override
+    public List<AppointmentHistoryDTO> getAllAppointmentsByMedicalStaffMember(String email) {
+        try {
+            AppUser user = appUserRepository.findByEmail(email)
+                    .orElseThrow(NotExistsException::new);
+
+            if (!(user instanceof Doctor || user instanceof Nurse)) {
+                throw new NotValidParamsException("Only medical staff members can see this data");
+            }
+            
+            if (user instanceof Nurse) {
+                List<Appointment> appointments = appointmentRepository.findAllByNurse(user.getId());
+
+                List<AppointmentHistoryDTO> appointmentHistoryDTO = appointments.stream().map(
+                        s -> new AppointmentHistoryDTO(s)
+                ).collect(Collectors.toList());
+
+                return appointmentHistoryDTO;
+            } else {
+                List<Examination> examinations = examinationRepository.findAllByDoctorsContaining((Doctor) user);
+
+                List<AppointmentHistoryDTO> appointmentHistoryDTO = examinations.stream().map(
+                        s -> new AppointmentHistoryDTO(s)
+                ).collect(Collectors.toList());
+
+                List<Operation> operations = operationRepository.findAllByDoctorsContaining((Doctor) user);
+
+                List<AppointmentHistoryDTO> appointmentHistoryDTO1 = operations.stream().map(
+                        s -> new AppointmentHistoryDTO(s)
+                ).collect(Collectors.toList());
+
+                appointmentHistoryDTO.addAll(appointmentHistoryDTO1);
+                return appointmentHistoryDTO;
+            }
+        } catch (NotExistsException | NotValidParamsException e) {
+            throw e;
+        }
+    }
+
 }
