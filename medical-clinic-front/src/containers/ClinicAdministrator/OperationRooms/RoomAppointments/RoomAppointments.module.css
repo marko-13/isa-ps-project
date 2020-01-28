@@ -8,11 +8,14 @@
     padding: 5px;
     background-color: #1abc9c;
     text-align: center;
-    width: 80%;
+    width: 100%;
     box-shadow: 0 1px 1px #aaaaaa;
     border: 1px solid #aaaaaa;
     box-sizing: border-box;
-    color: white;
+}
+
+.Header h3 {
+    color:white;
 }
 
 .Subheader h5{
@@ -40,4 +43,14 @@
     margin-left: 50px;
     border: 1px solid grey;
     text-align: center;
+}
+
+.Image {
+    width: auto;
+    height: 32px;
+}
+
+.Image:hover {
+    opacity: 0.6;
+    cursor: pointer;
 }

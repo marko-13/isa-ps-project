@@ -37,12 +37,14 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     public List<AppointmentDTO> getAllByOperationRoom(Long id){
         List<Appointment> appointments = appointmentRepository.findAllByOperationRoomId(id)
-                .orElseThrow(NotExistsException::new);
+                .orElse(null);
 
         List<AppointmentDTO> appointmentDTOS = new ArrayList<>();
 
-        for(Appointment a : appointments){
-            appointmentDTOS.add(new AppointmentDTO(a));
+        if(appointments != null){
+            for(Appointment a : appointments){
+                appointmentDTOS.add(new AppointmentDTO(a));
+            }
         }
 
         return appointmentDTOS;

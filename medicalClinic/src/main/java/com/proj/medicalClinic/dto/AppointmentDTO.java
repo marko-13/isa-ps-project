@@ -30,10 +30,12 @@ public class AppointmentDTO {
     private List<Long> doctors;
     private Long nurse;
     private String patient;
+    private Long id;
 
     public AppointmentDTO(Appointment a){
         this.type = a.getClass().getAnnotation(DiscriminatorValue.class).value();
         this.doctors = new ArrayList<>();
+        this.id = a.getId();
 
         if(this.type.equals("EX")){
             Examination examination = (Examination) a;

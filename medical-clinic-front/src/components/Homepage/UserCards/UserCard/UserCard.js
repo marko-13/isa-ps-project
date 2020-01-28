@@ -10,7 +10,7 @@ const UserCard = (props) => {
                 <div className={classes.Card}>
                     <div className="card-body">
                         <p className="card-text">{props.cardText}</p>
-                        <NavLink to={props.link}>
+                        <NavLink to={{pathname: props.link, search: props.query}}>
                           <Button type='grey'>{props.buttonText}</Button>
                         </NavLink>
                     </div>

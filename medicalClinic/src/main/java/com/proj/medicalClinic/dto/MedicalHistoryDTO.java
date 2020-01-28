@@ -6,6 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -17,6 +20,8 @@ public class MedicalHistoryDTO {
     private double weight;
     private double dioptre;
     private String allergies;
+    private List<AppointmentDTO> appointments = new ArrayList<>();
+    private List<DiagnosisRegistryDTO> diagnosis = new ArrayList<>();
 
     public MedicalHistoryDTO(MedicalHistory medicalHistory){
         this.id = medicalHistory.getId();
@@ -24,5 +29,21 @@ public class MedicalHistoryDTO {
         this.weight = medicalHistory.getWeight();
         this.dioptre = medicalHistory.getDioptre();
         this.allergies = medicalHistory.getAllergy();
+    }
+
+    public List<AppointmentDTO> getAppointments() {
+        return appointments;
+    }
+
+    public List<DiagnosisRegistryDTO> getDiagnosis() {
+        return diagnosis;
+    }
+
+    public void setAppointments(List<AppointmentDTO> appointments) {
+        this.appointments = appointments;
+    }
+
+    public void setDiagnosis(List<DiagnosisRegistryDTO> diagnosis) {
+        this.diagnosis = diagnosis;
     }
 }
