@@ -18,7 +18,7 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     List<Appointment> findByServiceId(Long serviceId);
 
     @Query(
-            value = "select * from appointment where clinic_id = ?1 and (fast = true or operation_room_id IS NULL);",
+            value = "select * from appointment where clinic_id = ?1 and operation_room_id IS NULL;",
             nativeQuery = true)
     Optional<List<Appointment>> findAllAppointmentRequests(Long clinicId);
 
