@@ -61,10 +61,10 @@ const Homepage = (props) => {
                     );
                     functions = (
                       <Auxiliary>
+                        <Route path='/homepage/nurse/workschedule' component={WorkSchedule}></Route>
                         <Route path='/homepage/nurse/prescriptions' component={Prescriptions}></Route>
                         <Route path='/homepage/patient/medicalstaff' render={null}></Route>
                         <Route path='/homepage/patient/medicalhistory' component={ShowMedicalHistory}></Route>
-                        <Route path='/homepage/patient/appointments' render={null}></Route>
                       </Auxiliary>
                     );
                     break;
