@@ -19,5 +19,13 @@ import javax.servlet.http.HttpServletRequest;
 @CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping(value = "/nurse", produces = MediaType.APPLICATION_JSON_VALUE)
 public class NurseController {
+    @Autowired
+    TokenUtils tokenUtils;
+
+    @Autowired
+    HttpServletRequest httpServletRequest;
+
+    @Autowired
+    AppointmentService appointmentService;
 
 }
