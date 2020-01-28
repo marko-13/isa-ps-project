@@ -49,7 +49,12 @@ public class AppointmentDTO {
             }
 
             this.clinic = examination.getClinic().getName();
-            this.operationRoom = examination.getOperationRoom().getName();
+            if(examination.getOperationRoom() == null){
+                this.operationRoom = "";
+            }else {
+                this.operationRoom = examination.getOperationRoom().getName();
+            }
+
             this.service = examination.getService().getType();
 
             if(examination.getDoctors().isEmpty()){
@@ -83,7 +88,12 @@ public class AppointmentDTO {
             this.fastExam = "Regular";
 
             this.clinic = operation.getClinic().getName();
-            this.operationRoom = operation.getOperationRoom().getName();
+            if (operation.getOperationRoom() == null){
+                this.operationRoom = "";
+            }else {
+                this.operationRoom = operation.getOperationRoom().getName();
+            }
+
             this.service = operation.getService().getType();
 
             if(operation.getDoctors() == null){
