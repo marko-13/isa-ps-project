@@ -2,18 +2,34 @@ package com.proj.medicalClinic.service.implementation;
 
 import com.proj.medicalClinic.dto.AppointmentDTO;
 import com.proj.medicalClinic.dto.AppointmentHistoryDTO;
+import com.proj.medicalClinic.dto.ClinicDTO;
 import com.proj.medicalClinic.exception.NotExistsException;
-import com.proj.medicalClinic.model.Appointment;
+import com.proj.medicalClinic.exception.NotValidParamsException;
+import com.proj.medicalClinic.model.*;
+import com.proj.medicalClinic.repository.AppUserRepository;
 import com.proj.medicalClinic.repository.AppointmentRepository;
+import com.proj.medicalClinic.repository.ExaminationRepository;
+import com.proj.medicalClinic.repository.OperationRepository;
 import com.proj.medicalClinic.service.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class AppointmentServiceImpl implements AppointmentService {
+
+    @Autowired
+    private AppUserRepository appUserRepository;
+
+    @Autowired
+    private ExaminationRepository examinationRepository;
+
+    @Autowired
+    private OperationRepository operationRepository;
 
     @Autowired
     private AppointmentRepository appointmentRepository;
