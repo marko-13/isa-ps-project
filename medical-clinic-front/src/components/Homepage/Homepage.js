@@ -95,14 +95,19 @@ const Homepage = (props) => {
                         <Auxiliary>
                             <UserInfo name={name} lastname={lastname} role={role} />
                             <UserCards>
+                                <UserCard buttonText={"Work schedule"} cardText={"Schedule an appointment for operation or medical exam"}  link ={'/homepage/doctor/workschedule'}/>
                                 <UserCard buttonText={"List of patients"} cardText={"Shows a list of patients"}  link ={'/homepage/patient/clinics'}/>
                                 <UserCard buttonText={"Start exam"} cardText={"Starta a new medical exam"} link ={'/homepage/patient/clinics'} />
                                 <UserCard buttonText={"Work schedule"} cardText={"Shows my work schedule"}  link ={'/homepage/patient/clinics'}/>
                                 <UserCard buttonText={"Ask for leave of absence"} cardText={"Shows form for leave of absence"}  link ={'/homepage/patient/clinics'}/>
-                                <UserCard buttonText={"Schedule"} cardText={"Schedule an appointment for operation or medical exam"}  link ={'/homepage/patient/clinics'}/>
                             </UserCards>
                         </Auxiliary>
 
+                    );
+                    functions = (
+                      <Auxiliary>
+                        <Route path='/homepage/doctor/workschedule' component={WorkSchedule}></Route>
+                      </Auxiliary>
                     );
                     break;
                 case 'adminclinic':
