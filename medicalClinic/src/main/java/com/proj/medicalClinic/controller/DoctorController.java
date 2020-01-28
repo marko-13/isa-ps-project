@@ -26,6 +26,15 @@ public class DoctorController {
     @Autowired
     private DoctorServiceImpl doctorService;
 
+    @Autowired
+    TokenUtils tokenUtils;
+
+    @Autowired
+    HttpServletRequest httpServletRequest;
+
+    @Autowired
+    AppointmentService appointmentService;
+
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
     public ResponseEntity<?> getAllDoctors() {
         List<DoctorDTO> doctorDTOS = doctorService.getAll();
