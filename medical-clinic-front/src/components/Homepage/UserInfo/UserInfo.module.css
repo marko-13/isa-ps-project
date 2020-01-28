@@ -8,3 +8,7 @@
 .Table tbody {
     text-transform: capitalize;
 }
+
+.Height {
+    height: 100%;
+}
