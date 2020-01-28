@@ -28,4 +28,18 @@ public class NurseController {
     @Autowired
     AppointmentService appointmentService;
 
+    @RequestMapping(value = "/get-work-schedule")
+    @PreAuthorize("hasAuthority('NURSE') || hasAuthority('DOCTOR')")
+    public ResponseEntity<?> getWorkSchedule() {
+        try {
+            String email = this.tokenUtils.getUsernameFromToken(this.tokenUtils.getToken(this.httpServletRequest));
+            return new ResponseEntity<>(this.appointmentService.getAllAppointmentsByMedicalStaffMember(email), HttpStatus.OK);
+        } catch (NotValidParamsException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.FORBIDDEN);
+        } catch (NotExistsException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
 }
