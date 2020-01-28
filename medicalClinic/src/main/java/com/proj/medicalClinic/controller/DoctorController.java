@@ -1,16 +1,22 @@
 package com.proj.medicalClinic.controller;
 
+import com.proj.medicalClinic.dto.AdminClinicDTO;
 import com.proj.medicalClinic.dto.DoctorDTO;
 import com.proj.medicalClinic.exception.NotExistsException;
+import com.proj.medicalClinic.exception.NotValidParamsException;
 import com.proj.medicalClinic.exception.ResourceConflictException;
 import com.proj.medicalClinic.model.Doctor;
+import com.proj.medicalClinic.security.TokenUtils;
+import com.proj.medicalClinic.service.AppointmentService;
 import com.proj.medicalClinic.service.DoctorService;
 import com.proj.medicalClinic.service.implementation.DoctorServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -19,6 +25,15 @@ public class DoctorController {
 
     @Autowired
     private DoctorServiceImpl doctorService;
+
+    @Autowired
+    TokenUtils tokenUtils;
+
+    @Autowired
+    HttpServletRequest httpServletRequest;
+
+    @Autowired
+    AppointmentService appointmentService;
 
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
     public ResponseEntity<?> getAllDoctors() {

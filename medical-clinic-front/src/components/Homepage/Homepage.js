@@ -18,8 +18,9 @@ import RegisterClinic from '../../containers/RegisterClinic/RegisterClinic';
 import ShowAppointments from '../Appointment/ShowAppointments/ShowAppointments.js';
 import DiagnosisRegistry from '../../containers/DiagnosisRegistry/DiagnosisRegistry';
 import DrugsRegistry from '../../containers/DrugsRegistry/DrugsRegistry';
-import RegisterClinicAdministrator from '../../containers/RegisterClinicAdministrator/RegisterClinicAdministrator'
-import RegisterAdminClinicalCenter from '../../containers/RegisterAdminClinicalCenter/RegisterAdminClinicalCenter'
+import RegisterClinicAdministrator from '../../containers/RegisterClinicAdministrator/RegisterClinicAdministrator';
+import RegisterAdminClinicalCenter from '../../containers/RegisterAdminClinicalCenter/RegisterAdminClinicalCenter';
+import WorkSchedule from '../../containers/WorkSchedule/WorkSchedule';
 import ShowMedicalStaff from '../MedicalStaff/ShowMedicalStaff/ShowMedicalStaff.js';
 import Doctors from '../../containers/ClinicAdministrator/Doctors/Doctors';
 import Clinic from '../../containers/ClinicAdministrator/Clinic/Clinic';
@@ -52,20 +53,20 @@ const Homepage = (props) => {
                         <Auxiliary>
                             <UserInfo name={name} lastname={lastname} role={role} />
                             <UserCards>
-                                <UserCard buttonText={"Work schedule"} cardText={"Shows work schedule"} link={'/homepage/workschedule'} />
-                                <UserCard buttonText={"Validate perscriptions"} cardText={"Shows a list of perscriptions that need to be validated"} link={'/homepage/nurse/prescriptions'} />
+                                <UserCard buttonText={"Work schedule"} cardText={"Shows work schedule"} link = {'/homepage/nurse/workschedule'}/>
+                                <UserCard buttonText={"Validate perscriptions"} cardText={"Shows a list of perscriptions that need to be validated"}  link ={'/homepage/nurse/prescriptions'}/>
                                 <UserCard buttonText={"List of patients"} cardText={"Shows a list of patients"} link={'/homepage/nurse/patients'} />
-                                <UserCard buttonText={"Ask for leave of absence"} cardText={"Shows form for leave of absence"} link={'/homepage/patient/clinics'} />
+                                <UserCard buttonText={"Ask for leave of absence"} cardText={"Shows form for leave of absence"}  link ={'/homepage/patient/clinics'}/>
                             </UserCards>
                         </Auxiliary>
                     );
                     functions = (
-                        <Auxiliary>
-                            <Route path='/homepage/nurse/prescriptions' component={Prescriptions}></Route>
-                            <Route path='/homepage/nurse/patients' component={Patients}></Route>
-                            <Route path='/homepage/patient/medicalhistory' component={ShowMedicalHistory}></Route>
-                            <Route path='/homepage/patient/appointments' render={null}></Route>
-                        </Auxiliary>
+                      <Auxiliary>
+                        <Route path='/homepage/nurse/workschedule' component={WorkSchedule}></Route>
+                        <Route path='/homepage/nurse/prescriptions' component={Prescriptions}></Route>
+                        <Route path='/homepage/nurse/patients' component={Patients}></Route>
+                        <Route path='/homepage/patient/clinics' component={null}></Route>
+                      </Auxiliary>
                     );
                     break;
                 case 'patient':
@@ -95,20 +96,20 @@ const Homepage = (props) => {
                         <Auxiliary>
                             <UserInfo name={name} lastname={lastname} role={role} />
                             <UserCards>
-                                <UserCard buttonText={"List of patients"} cardText={"Shows a list of patients"} link={'/homepage/doctor/patients'} />
-                                <UserCard buttonText={"Start exam"} cardText={"Starta a new medical exam"} link={'/homepage/patient/clinics'} />
-                                <UserCard buttonText={"Work schedule"} cardText={"Shows my work schedule"} link={'/homepage/patient/clinics'} />
-                                <UserCard buttonText={"Ask for leave of absence"} cardText={"Shows form for leave of absence"} link={'/homepage/patient/clinics'} />
-                                <UserCard buttonText={"Schedule"} cardText={"Schedule an appointment for operation or medical exam"} link={'/homepage/patient/clinics'} />
+                                <UserCard buttonText={"Work schedule"} cardText={"Schedule an appointment for operation or medical exam"}  link ={'/homepage/doctor/workschedule'}/>
+                                 <UserCard buttonText={"List of patients"} cardText={"Shows a list of patients"} link={'/homepage/doctor/patients'} />
+                                <UserCard buttonText={"Start exam"} cardText={"Starta a new medical exam"} link ={'/homepage/patient/clinics'} />
+                                <UserCard buttonText={"Work schedule"} cardText={"Shows my work schedule"}  link ={'/homepage/patient/clinics'}/>
+                                <UserCard buttonText={"Ask for leave of absence"} cardText={"Shows form for leave of absence"}  link ={'/homepage/patient/clinics'}/>
                             </UserCards>
                         </Auxiliary>
 
                     );
-
                     functions = (
-                        <Auxiliary>
-                            <Route path='/homepage/doctor/patients' component={Patients} />
-                        </Auxiliary>
+                      <Auxiliary>
+                        <Route path='/homepage/doctor/workschedule' component={WorkSchedule}></Route>
+                        <Route path='/homepage/doctor/patients' component={Patients} />
+                      </Auxiliary>
                     );
                     break;
                 case 'adminclinic':

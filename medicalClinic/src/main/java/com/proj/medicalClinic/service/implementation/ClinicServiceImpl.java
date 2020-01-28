@@ -41,6 +41,7 @@ public class ClinicServiceImpl implements ClinicService {
 
     }
 
+    @Override
     public List<ClinicDTO> getClinicsOfAdminClinicalCenter(String email) {
         try {
             AppUser user = appUserRepository.findByEmail(email)
