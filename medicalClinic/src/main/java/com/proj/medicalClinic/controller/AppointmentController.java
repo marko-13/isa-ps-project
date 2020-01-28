@@ -48,4 +48,15 @@ public class AppointmentController {
         }
     }
 
+    @RequestMapping(value = "/getAllAppointmentRequests", method = RequestMethod.GET)
+    public ResponseEntity<?> getAllByPatient(){
+        try {
+            List<AppointmentDTO> appointmentDTOS = appointmentService.getAllAppointmentRequests();
+            return new ResponseEntity<>(appointmentDTOS, HttpStatus.OK);
+        }
+        catch(NotExistsException e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
 }
