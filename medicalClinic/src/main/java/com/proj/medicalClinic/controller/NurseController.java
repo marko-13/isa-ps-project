@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
-@RequestMapping(value = "/nurses", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/nurse", produces = MediaType.APPLICATION_JSON_VALUE)
 public class NurseController {
 
 }
