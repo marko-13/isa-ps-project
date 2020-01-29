@@ -9,7 +9,7 @@ const HomepageToolbarItems = (props) => {
 
     const onLogoutHandler = () => {
         if(localStorage.getItem('token') !== null){
-            localStorage.removeItem('token');
+            window.localStorage.removeItem('token');
             props.history.push('/');
         }
     }

@@ -21,5 +21,11 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
             value = "select * from appointment where clinic_id = ?1 and operation_room_id IS NULL;",
             nativeQuery = true)
     Optional<List<Appointment>> findAllAppointmentRequests(Long clinicId);
+  
+    @Query(
+            value = "SELECT ap.type, ap.id, ap.date, ap.duration, ap.fast, ap.clinic_id, ap.operation_room_id, ap.patient_id, ap.service_id, ap.nurse_id FROM appointment as ap where ap.nurse_id = ?1",
+            nativeQuery = true)
+    List<Appointment> findAllByNurse(Long id);
+
 
 }

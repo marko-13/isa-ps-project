@@ -29,7 +29,7 @@ insert into app_user (type, user_role, email, password, name, last_name, review,
 values ('DR', 'DOCTOR', 'Vladan@mailinator.com', '$2a$10$EcjftqmPpW.usBG8k4OMWOqEo9LA9QMBaEy8XFbZCNBY9oY..jd62', 'Vladan', 'Dragic', 3, 1, 2, true, 'Adresa4', 'Grad4', 'Drzava4', '444', false, false, '2020-01-10 19:43:44.503');
 
 insert into app_user (type, user_role, email, password, name, last_name, review, shift, review_count, enabled, adress, city, state, mobile, rejected, deleted, last_password_reset_date)
-values ('DR', 'DOCTOR', 'Dusko@mailinator.com', '$2a$10$EcjftqmPpW.usBG8k4OMWOqEo9LA9QMBaEy8XFbZCNBY9oY..jd62', 'Dusko', 'Jovanovic', 10, 2, 15, true, 'Adresa5', 'Grad5', 'Drzava5', '555', false, false, '2020-01-10 19:43:44.503');
+values ('DR', 'DOCTOR', 'Dusko@mailinator.com', '$2y$10$XbVPhmbyDT28Yp6v8BMLCeLUpmS3FtHNWhUHCIieJ2oQT0MXuK.66', 'Dusko', 'Jovanovic', 10, 2, 15, true, 'Adresa5', 'Grad5', 'Drzava5', '555', false, false, '2020-01-10 19:43:44.503');
 
 insert into app_user (type, user_role, email, password, name, last_name, review, shift, review_count, enabled, adress, city, state, mobile, rejected, deleted, last_password_reset_date)
 values ('DR', 'DOCTOR', 'Sara@mailinator.com', '$2a$10$IzuVyeH5cKEw5c17WO2H1OuLMKVN2.2FjjP8e3S.RyNvPNdqUSAKe', 'Sara', 'Loncar', 6, 3, 9, true, 'Adresa6', 'Grad6', 'Drzava6', '666', false, false, '2020-01-10 19:43:44.503');

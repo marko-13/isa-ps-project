@@ -45,7 +45,7 @@ public class AppointmentHistoryDTO {
             if(examination.getPatient() == null){
                 this.patient = "No patient";
             }else{
-                this.patient = examination.getPatient().getName() + examination.getPatient().getLastName();
+                this.patient = examination.getPatient().getName() + " " + examination.getPatient().getLastName();
             }
         }
         else{
@@ -61,7 +61,7 @@ public class AppointmentHistoryDTO {
             if(operation.getPatient() == null){
                 this.patient = "No patient";
             }else{
-                this.patient = operation.getPatient().getName() + operation.getPatient().getLastName();
+                this.patient = operation.getPatient().getName() + " " + operation.getPatient().getLastName();
             }
         }
     }
