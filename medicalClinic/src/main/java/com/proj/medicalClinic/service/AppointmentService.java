@@ -9,5 +9,6 @@ public interface AppointmentService {
 
     List<AppointmentDTO> getAllByOperationRoom(Long id);
     List<AppointmentHistoryDTO> getAllByPatient(Long id);
+    List<AppointmentDTO> getAllAppointmentRequests();
     List<AppointmentHistoryDTO> getAllAppointmentsByMedicalStaffMember(String email);
 }

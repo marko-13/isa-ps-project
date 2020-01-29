@@ -74,11 +74,11 @@ class OperationRooms extends Component {
         this.setState({ roomId: operationRoom.roomId });
         axios.get("/appointment/getAllByOperationRoom/" + operationRoom.roomId)
             .then(app => {
-                this.setState({ appointments: app.data, roomName: operationRoom.name, roomNumber: operationRoom.number,showRoomRedails: true, addForm: false });
+                this.setState({ appointments: app.data, roomName: operationRoom.name, roomNumber: operationRoom.number, showRoomRedails: true, addForm: false });
             })
             .catch(err => {
-                this.setState({showRoomRedails: false, addForm: false});
-                alert('Unable to schedule. \nREASON: '+ err.response.data);
+                this.setState({ showRoomRedails: false, addForm: false });
+                alert('Unable to schedule. \nREASON: ' + err.response.data);
             });
 
         this.setState({ availableSchedule: null });
@@ -195,6 +195,22 @@ class OperationRooms extends Component {
             );
         }
 
+        let button = null;
+        if (this.props.fromRequests) {
+            button = <Button type='green' style={{marginBottom: '25px'}} click={() => this.props.show(false)}>Nazad</Button>
+        } else {
+            button = (
+                <Auxiliary>
+                    <h4>Add new room</h4>
+                    <div
+                        style={{ margin: '0px 10px' }}
+                        onClick={() => this.setState({ addForm: true, showRoomRedails: false })}>
+                        <img src={plusimg} className={classes.Image} />
+                    </div>
+                </Auxiliary>
+            )
+        }
+
         if (this.state.showRoomRedails !== false && this.state.appointments !== null) {
 
             roomDetails = <RoomAppointments
@@ -214,24 +230,23 @@ class OperationRooms extends Component {
                     hidden={this.state.showRoomRedails || this.state.addForm}>
 
                     <div style={{ display: 'flex' }}>
-                        <h4>Add new room</h4>
-                        <div style={{ margin: '0px 10px' }} onClick={() => this.setState({ addForm: true, showRoomRedails: false })}><img src={plusimg} className={classes.Image} /></div>
+                        {button}
                     </div>
                     {table}
                 </div>
                 <div
                     className='col-7 login-form-1'
-                    style={{ marginBottom: '2.5%', marginTop: 'auto', marginLeft: 'auto', marginRight: 'auto', padding: '2.5%'}}
+                    style={{ marginBottom: '2.5%', marginTop: 'auto', marginLeft: 'auto', marginRight: 'auto', padding: '2.5%' }}
                     hidden={!this.state.showRoomRedails}>
-                    
+
                     {roomDetails}
                 </div>
 
                 <div
                     className='col-7'
-                    style={{ marginBottom: '2.5%', marginTop: 'auto', marginLeft: 'auto', marginRight: 'auto', padding: '2.5%'}}
+                    style={{ marginBottom: '2.5%', marginTop: 'auto', marginLeft: 'auto', marginRight: 'auto', padding: '2.5%' }}
                     hidden={!this.state.addForm}>
-                    
+
                     {roomDetails}
                 </div>
                 <Modal show={this.state.modalOpen} modalClosed={this.closeModalHandler}>
