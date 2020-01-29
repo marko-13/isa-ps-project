@@ -1,0 +1,37 @@
+.Header {
+    color: white;
+    padding: 5px;
+    background-color: #1abc9c;
+    border-radius: 15px;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.Description {
+    font-size: 16px;
+    text-decoration: underline;
+    padding: 8px;
+    margin-bottom: 10px;
+}
+
+.Klinika {
+    color: #444444;
+}
+
+.Review {
+    color:#1abc9c;
+    padding: 5px;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.Edit {
+    width: 24px;
+    height: auto;
+    float: right;
+    cursor: pointer;
+}
+
+.Edit:hover {
+    opacity: 0.6;
+}

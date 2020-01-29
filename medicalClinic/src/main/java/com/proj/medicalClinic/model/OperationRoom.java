@@ -28,6 +28,9 @@ public class OperationRoom {
     @Column(name = "number", nullable = false)
     private int number;
 
+    @Column(name = "deleted", nullable = false)
+    private boolean deleted;
+
     @ManyToOne
     @JoinColumn(name = "clinic_id", nullable = false)
     private Clinic clinic;

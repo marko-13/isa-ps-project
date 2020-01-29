@@ -64,7 +64,7 @@ public class AuthenticationController {
         // Kreiraj token
         AppUser user = (AppUser) authentication.getPrincipal();
         if (user.isEnabled()) {
-            String jwt = tokenUtils.generateToken(user.getUsername(), user.getUserRole().name(), user.getName(), user.getLastName(), user.getId());
+            String jwt = tokenUtils.generateToken(user.getUsername(), user.getUserRole().name(), user.getName(), user.getLastName(), user.getId(), user.getLastPasswordResetDate() != null);
             int expiresIn = tokenUtils.getExpiredIn();
 
             // Vrati token kao odgovor na uspesno autentifikaciju

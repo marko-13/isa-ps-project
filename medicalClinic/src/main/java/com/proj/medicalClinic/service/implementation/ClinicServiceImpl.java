@@ -1,10 +1,11 @@
 package com.proj.medicalClinic.service.implementation;
 
 import com.proj.medicalClinic.dto.ClinicDTO;
+import com.proj.medicalClinic.dto.DrugsRegistryDTO;
 import com.proj.medicalClinic.exception.NotExistsException;
 import com.proj.medicalClinic.exception.NotValidParamsException;
-import com.proj.medicalClinic.model.AdminClinicalCenter;
-import com.proj.medicalClinic.model.Clinic;
+import com.proj.medicalClinic.model.*;
+import com.proj.medicalClinic.repository.AppUserRepository;
 import com.proj.medicalClinic.repository.ClinicRepository;
 import com.proj.medicalClinic.service.ClinicService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ClinicServiceImpl implements ClinicService {
@@ -22,6 +24,9 @@ public class ClinicServiceImpl implements ClinicService {
 
     @Autowired
     private CustomUserDetailsServiceImpl userDetailsService;
+
+    @Autowired
+    private AppUserRepository appUserRepository;
 
     @Override
     public List<ClinicDTO> getAllClinics() {
@@ -33,6 +38,30 @@ public class ClinicServiceImpl implements ClinicService {
         }
 
         return clinicsDTO;
+
+    }
+
+    @Override
+    public List<ClinicDTO> getClinicsOfAdminClinicalCenter(String email) {
+        try {
+            AppUser user = appUserRepository.findByEmail(email)
+                    .orElseThrow(NotExistsException::new);
+
+            if (!(user instanceof AdminClinicalCenter)) {
+                throw new NotValidParamsException("Only admin of the clinical center can see this data");
+            }
+
+            List<Clinic> clinics = clinicRepository.findAllByClinicalCenter(((AdminClinicalCenter) user).getClinicalCenter());
+
+            List<ClinicDTO> clinicsDTO = clinics.stream().map(
+                    s -> new ClinicDTO(s)
+            ).collect(Collectors.toList());
+
+            return clinicsDTO;
+
+        } catch (NotExistsException | NotValidParamsException e) {
+            throw e;
+        }
 
     }
 
@@ -50,7 +79,7 @@ public class ClinicServiceImpl implements ClinicService {
             }
 
             List<Clinic> uniqueClinic = this.clinicRepository.findAllByNameAndAddress(clinicDTO.getName(), clinicDTO.getAddress());
-            if (!(uniqueClinic.isEmpty())){
+            if (!(uniqueClinic.isEmpty())) {
                 throw new NotValidParamsException("Already exists");
             }
 
@@ -71,5 +100,23 @@ public class ClinicServiceImpl implements ClinicService {
         } catch (Exception e) {
             throw e;
         }
+    }
+
+    @Override
+    public ClinicDTO getClinicByAdmin(Long adminId) {
+        Clinic clinic = clinicRepository.findByDoctorId(adminId).orElseThrow(NotExistsException::new);
+        return new ClinicDTO(clinic);
+    }
+
+    @Override
+    public ClinicDTO save(ClinicDTO clinicRequest){
+        Clinic clinic = clinicRepository.findById(clinicRequest.getId()).orElseThrow(NotExistsException::new);
+        clinic.setName(clinicRequest.getName());
+        clinic.setAddress(clinicRequest.getAddress());
+        clinic.setDescription(clinicRequest.getDescription());
+
+        clinicRepository.save(clinic);
+
+        return new ClinicDTO(clinic);
     }
 }

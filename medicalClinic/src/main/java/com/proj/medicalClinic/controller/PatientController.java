@@ -2,10 +2,12 @@ package com.proj.medicalClinic.controller;
 
 import com.proj.medicalClinic.dto.AppUserDTO;
 import com.proj.medicalClinic.dto.AppointmentHistoryDTO;
+import com.proj.medicalClinic.dto.PatientDTO;
 import com.proj.medicalClinic.exception.NotExistsException;
 import com.proj.medicalClinic.security.TokenUtils;
 import com.proj.medicalClinic.service.AppointmentService;
 import com.proj.medicalClinic.service.MedicalStaffService;
+import com.proj.medicalClinic.service.PatientService;
 import com.proj.medicalClinic.service.UserConfirmation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,6 +36,9 @@ public class PatientController {
     @Autowired
     private MedicalStaffService medicalStaffService;
 
+    @Autowired
+    private PatientService patientService;
+
     @RequestMapping(value = "/getMedicalStaffByPatient/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> getAllByPatient(@PathVariable Long id){
         try {
@@ -42,6 +47,16 @@ public class PatientController {
         }
         catch(NotExistsException e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping(value = "/getAll", method = RequestMethod.GET)
+    public ResponseEntity<?> getAll(){
+        try {
+            List<PatientDTO> patientDTOS = patientService.getAll();
+            return new ResponseEntity<>(patientDTOS, HttpStatus.OK);
+        }catch (NotExistsException e){
+            return new ResponseEntity<>("Patients not found.", HttpStatus.NOT_FOUND);
         }
     }
 }

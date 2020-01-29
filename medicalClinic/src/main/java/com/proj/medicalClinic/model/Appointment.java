@@ -32,7 +32,7 @@ public class Appointment {
     private Date date;
 
     @ManyToOne
-    @JoinColumn(name = "operation_room_id", nullable = false)
+    @JoinColumn(name = "operation_room_id", nullable = true)
     private OperationRoom operationRoom;
 
     @ManyToOne
