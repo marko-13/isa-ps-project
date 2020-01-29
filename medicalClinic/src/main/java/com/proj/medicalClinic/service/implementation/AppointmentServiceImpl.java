@@ -38,8 +38,6 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Autowired
     private AppointmentRepository appointmentRepository;
 
-    @Autowired
-    private AppUserRepository appUserRepository;
 
     @Override
     public List<AppointmentDTO> getAllByOperationRoom(Long id){
@@ -83,11 +81,12 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         List<Appointment> appointments = appointmentRepository.findAllAppointmentRequests(clinicId).orElseThrow(NotExistsException::new);
         List<AppointmentDTO> appointmentDTOS = new ArrayList<>();
-        for(Appointment a : appointments){
+        for (Appointment a : appointments) {
             appointmentDTOS.add(new AppointmentDTO(a));
         }
 
         return appointmentDTOS;
+    }
 
     @Override
     public List<AppointmentHistoryDTO> getAllAppointmentsByMedicalStaffMember(String email) {
