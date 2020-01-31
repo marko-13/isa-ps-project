@@ -8,10 +8,7 @@ import com.proj.medicalClinic.model.AdminClinic;
 import com.proj.medicalClinic.model.Appointment;
 import com.proj.medicalClinic.exception.NotValidParamsException;
 import com.proj.medicalClinic.model.*;
-import com.proj.medicalClinic.repository.AppUserRepository;
-import com.proj.medicalClinic.repository.AppointmentRepository;
-import com.proj.medicalClinic.repository.ExaminationRepository;
-import com.proj.medicalClinic.repository.OperationRepository;
+import com.proj.medicalClinic.repository.*;
 import com.proj.medicalClinic.service.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -19,6 +16,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -37,6 +35,9 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Autowired
     private AppointmentRepository appointmentRepository;
+
+    @Autowired
+    private OperationRoomRepository operationRoomRepository;
 
 
     @Override
@@ -126,5 +127,27 @@ public class AppointmentServiceImpl implements AppointmentService {
             throw e;
         }
     }
+
+    @Override
+    public List<Appointment> getAllDayBeforeAndDayAfter(Date before, Date after) {
+
+        List<Appointment> appointments = appointmentRepository.findAllByDateBetweenAndOperationRoomIsNotNull(before, after);
+        if(appointments.isEmpty()){
+            return null;
+        }
+        return appointments;
+    }
+
+    @Override
+    public AppointmentDTO addRoom(Long appointmentId, Long roomId) {
+        Appointment appointment = appointmentRepository.findById(appointmentId).orElseThrow(NotExistsException::new);
+        OperationRoom operationRoom = operationRoomRepository.findById(roomId).orElseThrow(NotExistsException::new);
+
+        appointment.setOperationRoom(operationRoom);
+        appointmentRepository.save(appointment);
+
+        return new AppointmentDTO(appointment);
+    }
+
 
 }
