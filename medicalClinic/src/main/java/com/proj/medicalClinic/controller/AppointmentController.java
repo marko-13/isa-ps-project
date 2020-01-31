@@ -8,6 +8,7 @@ import com.proj.medicalClinic.model.Operation;
 import com.proj.medicalClinic.model.OperationRoom;
 import com.proj.medicalClinic.repository.OperationRoomRepository;
 import com.proj.medicalClinic.service.AppointmentService;
+import org.aspectj.weaver.ast.Not;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -56,6 +57,16 @@ public class AppointmentController {
         }
         catch(NotExistsException e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping(value = "/addRoomToAppointment/{appointmentId}/{roomId}", method = RequestMethod.POST)
+    public ResponseEntity<?> addRoomToAppointment(@PathVariable Long appointmentId, @PathVariable Long roomId){
+        try{
+            AppointmentDTO appointmentDTO = appointmentService.addRoom(appointmentId, roomId);
+            return new ResponseEntity<>(appointmentDTO, HttpStatus.OK);
+        }catch (NotExistsException e){
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
 
