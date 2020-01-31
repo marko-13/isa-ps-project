@@ -11,4 +11,7 @@ public interface DoctorService {
     DoctorDTO save(Doctor doctorRequest);
     DoctorDTO remove(Long id);
 
+    List<DoctorDTO> getAllAssociatedWithPatient(String patient_email);
+
+    void review_doctor(Long id, int score);
 }
