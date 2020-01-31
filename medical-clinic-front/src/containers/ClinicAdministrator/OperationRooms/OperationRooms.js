@@ -3,6 +3,8 @@ import axios from '../../../axios';
 import ReactTable from 'react-table-6';
 import Auxiliary from '../../../hoc/Auxiliary/Auxiliary';
 import moment from 'moment';
+import "react-datepicker/dist/react-datepicker.css";
+import { withRouter } from "react-router";
 
 import Button from '../../../components/UI/Button/Button';
 import RoomAppointments from './RoomAppointments/RoomAppointments';
@@ -10,6 +12,7 @@ import Modal from '../../../components/UI/Modal/Modal';
 import plusimg from '../../../assets/images/plus.png';
 import classes from './OperationRooms.module.css';
 import OperationRoomForm from '../../../components/Forms/OperationRoomForm/OperationRoomForm';
+import DatePicker from "react-datepicker";
 
 class OperationRooms extends Component {
 
@@ -27,11 +30,41 @@ class OperationRooms extends Component {
             name: '',
             number: ''
         },
-        addForm: false
+        addForm: false,
+        startDate: null,
+        changeDate: false
     }
 
     componentDidMount() {
-        this.getOperationRooms();
+        if (this.props.fromRequests) {
+            this.getOperationRoomsForAppointment();
+        } else {
+            this.getOperationRooms();
+        }
+
+    }
+
+    getOperationRoomsForAppointment = () => {
+
+        this.setState({ operationRooms: [] })
+
+        const query = new URLSearchParams(this.props.location.search);
+
+        let exam = {
+            start: '',
+        }
+        for (let param of query.entries()) {
+            exam[param[0]] = param[1];
+        }
+
+        axios.post("/operationRoom/getAllAvailable", exam)
+            .then(res => {
+                this.setState({ operationRooms: res.data });
+            })
+            .catch(err => {
+                this.setState({ operationRooms: [] });
+                console.log(err);
+            });
     }
 
     getOperationRooms = () => {
@@ -41,6 +74,12 @@ class OperationRooms extends Component {
             })
             .catch(err => console.log(err));
     }
+
+    handleChange = date => {
+        this.setState({
+            startDate: date,
+        });
+    };
 
     checkAvailability = () => {
         const pickedDate = moment(this.state.pickedDate).valueOf();
@@ -85,7 +124,6 @@ class OperationRooms extends Component {
     }
 
     editRoomHandler = (operationRoom) => {
-        console.log(operationRoom);
         this.setState({ room: operationRoom, modalOpen: true });
     }
 
@@ -129,9 +167,43 @@ class OperationRooms extends Component {
         this.setState({ showRoomRedails: boolean, addForm: false });
     }
 
+    onSearchHandler = () => {
+        const date = new Date(this.state.startDate);
+        const milisecs = {
+            milisecs: date.getTime()
+        };
+
+        axios.post("/operationRoom/getAllAvailable", milisecs)
+            .then(res => {
+                this.setState({ operationRooms: res.data });
+            })
+            .catch(err => {
+                this.setState({ operationRooms: [] });
+                console.log(err);
+            });
+    }
+
+    onSearchHandlerFromRequest = () => {
+        this.setState({changeDate: true})
+        const date = new Date(this.state.startDate);
+        const milisecs = {
+            milisecs: date.getTime()
+        };
+
+        axios.post("/operationRoom/getAllAvailable", milisecs)
+            .then(res => {
+                this.setState({ operationRooms: res.data });
+            })
+            .catch(err => {
+                this.setState({ operationRooms: [] });
+                console.log(err);
+            });
+    }
+
 
 
     render() {
+        console.log(this.state.changeDate);
         let table = null;
         let roomDetails = null;
 
@@ -158,7 +230,7 @@ class OperationRooms extends Component {
                     {
                         Header: "",
                         Cell: ({ original }) => (
-                            <center><Button type='green' click={() => this.showScheduleHandler(original)}>Schedule</Button></center>),
+                            <center><Button type='green' click={() => this.showScheduleHandler(original)}>Show calendar</Button></center>),
                         filterable: false,
                         sortable: false
                     },
@@ -195,17 +267,75 @@ class OperationRooms extends Component {
             );
         }
 
-        let button = null;
+        let content = null;
         if (this.props.fromRequests) {
-            button = <Button type='green' style={{marginBottom: '25px'}} click={() => this.props.show(false)}>Nazad</Button>
+            if (this.state.operationRooms !== null) {
+                if (this.state.operationRooms.length === 0) {
+                    content = (
+                        <div>
+                            <Button type='green' style={{ marginBottom: '25px' }} click={() => this.props.show(false)}>Back</Button>
+                            <div style={{ display: 'flex', float: 'right' }}>
+                                <p style={{ marginLeft: '20px' }}>There are no rooms available for this appointment.</p>
+                                <div className={classes.Checkdate}>
+                                    <h5>Search available rooms for date</h5>
+                                    <div className={classes.Available}>
+                                        <DatePicker
+                                            selected={this.state.startDate}
+                                            onChange={this.handleChange}
+                                            showTimeSelect
+                                            timeFormat="HH:mm"
+                                            timeIntervals={15}
+                                            timeCaption="time"
+                                            dateFormat="yyyy-MM-dd, h:mm aa" />
+
+                                        <Button
+                                            type='green'
+                                            style={{ marginLeft: '20px', padding: '7px 15px' }}
+                                            click={this.onSearchHandlerFromRequest}>Search</Button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    );
+                } else {
+                    content = (
+                        <div>
+                            <Button type='green' style={{ marginBottom: '25px' }} click={() => this.props.show(false)}>Back</Button>
+                            <p>List of available rooms for selected appointment.</p>
+                        </div>
+                    );
+
+                }
+            }
         } else {
-            button = (
+            content = (
                 <Auxiliary>
-                    <h4>Add new room</h4>
-                    <div
-                        style={{ margin: '0px 10px' }}
-                        onClick={() => this.setState({ addForm: true, showRoomRedails: false })}>
-                        <img src={plusimg} className={classes.Image} />
+                    <div style={{ display: 'flex' }}>
+                        <h4>Add new room</h4>
+                        <div
+                            style={{ margin: '0px 10px' }}
+                            onClick={() => this.setState({ addForm: true, showRoomRedails: false })}>
+                            <img src={plusimg} className={classes.Image} />
+                        </div>
+                        <div className={classes.Checkdate}>
+                            <h5>Search available rooms for date</h5>
+                            <div className={classes.Available}>
+                                <DatePicker
+                                    selected={this.state.startDate}
+                                    onChange={this.handleChange}
+                                    showTimeSelect
+                                    timeFormat="HH:mm"
+                                    timeIntervals={15}
+                                    timeCaption="time"
+                                    dateFormat="yyyy-MM-dd, h:mm aa" />
+
+                                <Button
+                                    type='green'
+                                    style={{ marginLeft: '20px', padding: '7px 15px' }}
+                                    click={this.onSearchHandler}>Search</Button>
+                            </div>
+                        </div>
                     </div>
                 </Auxiliary>
             )
@@ -214,9 +344,12 @@ class OperationRooms extends Component {
         if (this.state.showRoomRedails !== false && this.state.appointments !== null) {
 
             roomDetails = <RoomAppointments
+                changeDate={this.state.changeDate}
+                fromRequests={this.props.fromRequests}
                 roomName={this.state.roomName}
                 roomNumber={this.state.roomNumber}
                 appointments={this.state.appointments}
+                roomId={this.state.roomId}
                 back={this.showHideHandler} />
         } else if (this.state.addForm) {
             roomDetails = <div className="login-form-1"><OperationRoomForm header={"Create new room"} closeModal={this.closeModalHandler} pushNewRoom={this.pushNewRoom} back={this.showHideHandler} /></div>
@@ -230,7 +363,7 @@ class OperationRooms extends Component {
                     hidden={this.state.showRoomRedails || this.state.addForm}>
 
                     <div style={{ display: 'flex' }}>
-                        {button}
+                        {content}
                     </div>
                     {table}
                 </div>
@@ -257,4 +390,4 @@ class OperationRooms extends Component {
     }
 }
 
-export default OperationRooms;
+export default withRouter(OperationRooms);
