@@ -83,6 +83,17 @@ public class ClinicServiceImpl implements ClinicService {
         return ret_val;
     }
 
+    // Update broja review-a i zbira svih rview-a klinike
+    @Override
+    public void review_clinic(Long id, int score) {
+        Clinic c = clinicRepository.findById(id).orElseThrow(NotExistsException::new);
+
+        c.setReviewCount(c.getReviewCount() + 1);
+        c.setReview(c.getReview() + (float)score);
+
+        clinicRepository.save(c);
+    }
+
     @Override
     public ClinicDTO addNewClinic(ClinicDTO clinicDTO, String email) {
         try {
