@@ -38,18 +38,18 @@ class Login extends Component {
                     <div className="col-md-7 login-form-2">
                         <h3>Login</h3>
                             <div className="form-group">
-                                <input 
-                                    type="text" 
-                                    className="form-control" 
+                                <input
+                                    type="text"
+                                    className="form-control"
                                     placeholder="Your Username *"
                                     value={this.state.username}
                                     onChange={(event) => this.setState({username: event.target.value})}
                                     />
                             </div>
                             <div className="form-group">
-                                <input 
-                                    type="password" 
-                                    className="form-control" 
+                                <input
+                                    type="password"
+                                    className="form-control"
                                     placeholder="Your Password *"
                                     value={this.state.password}
                                     onChange={(event) => this.setState({password: event.target.value})}/>
