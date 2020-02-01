@@ -18,6 +18,7 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     Optional<List<Appointment>> findAllByPatientId(Long id);
     List<Appointment> findByServiceId(Long serviceId);
     List<Appointment> findAllByDateBetweenAndOperationRoomIsNotNull(Date start, Date end);
+    List<Appointment> findAllByOperationRoomIsNull();
 
     @Query(
             value = "select * from appointment where clinic_id = ?1 and operation_room_id IS NULL;",
