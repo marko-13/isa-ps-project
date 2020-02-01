@@ -2,7 +2,10 @@ package com.proj.medicalClinic.controller;
 
 import com.proj.medicalClinic.dto.AppointmentDTO;
 import com.proj.medicalClinic.dto.AppointmentHistoryDTO;
+import com.proj.medicalClinic.dto.AppointmentRequestDTO;
+import com.proj.medicalClinic.dto.ChangeDoctorRequestDTO;
 import com.proj.medicalClinic.exception.NotExistsException;
+import com.proj.medicalClinic.exception.ResourceConflictException;
 import com.proj.medicalClinic.model.Appointment;
 import com.proj.medicalClinic.model.Operation;
 import com.proj.medicalClinic.model.OperationRoom;
@@ -67,6 +70,30 @@ public class AppointmentController {
             return new ResponseEntity<>(appointmentDTO, HttpStatus.OK);
         }catch (NotExistsException e){
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }catch (ResourceConflictException e){
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/changeDateAndAddRoomToApointment", method = RequestMethod.POST)
+    public ResponseEntity<?> changeDateAndAddRoomToApointment(@RequestBody AppointmentRequestDTO appDto){
+        try{
+            AppointmentDTO appointmentDTO = appointmentService.changeDateAndAddRoom(appDto);
+            return new ResponseEntity<>(appointmentDTO, HttpStatus.OK);
+        }catch (NotExistsException e){
+            return new ResponseEntity<>("Nije nasao sobu", HttpStatus.NOT_FOUND);
+        }catch (ResourceConflictException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/changeDoctorAndAddRoomToAppointment", method = RequestMethod.POST)
+    public ResponseEntity<?> changeDoctorAndAddRoomToAppointment(@RequestBody ChangeDoctorRequestDTO changeDoctorRequestDTO){
+        try {
+            AppointmentDTO appointmentDTO = appointmentService.changeDoctorAndAddRoom(changeDoctorRequestDTO);
+            return new ResponseEntity<>(appointmentDTO, HttpStatus.OK);
+        }catch (NotExistsException e){
+            return new ResponseEntity<>("NOT FOUND", HttpStatus.NOT_FOUND);
         }
     }
 
