@@ -3,16 +3,25 @@ package com.proj.medicalClinic.controller;
 import com.proj.medicalClinic.dto.*;
 import com.proj.medicalClinic.exception.NotExistsException;
 import com.proj.medicalClinic.exception.NotValidParamsException;
+import com.proj.medicalClinic.model.Patient;
+import com.proj.medicalClinic.repository.AppUserRepository;
 import com.proj.medicalClinic.security.TokenUtils;
 import com.proj.medicalClinic.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.jws.WebResult;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -58,6 +67,7 @@ public class AdminClinicCenterController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
+
 
     @RequestMapping(value = "/deny/{id}")
     @PreAuthorize("hasAuthority('ADMINCLINICALCENTER')")
