@@ -65,7 +65,7 @@ class ReviewDoctor extends Component {
     })
 
     return (
-      <form>
+      <form class = "login-form-1">
         <h4>Review a doctor</h4>
         <div class="form-row">
           <div class="form-group">

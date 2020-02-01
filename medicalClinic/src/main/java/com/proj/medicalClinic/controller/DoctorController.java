@@ -60,10 +60,10 @@ public class DoctorController {
         }
     }
 
+    // Post za vrsenje ocenjivanja doktora
     @RequestMapping(value = "/reviewed/{id}/{score}", method = RequestMethod.POST)
     public ResponseEntity<?> recieve_review(@PathVariable Long id,@PathVariable int score){
         try{
-            System.out.println("NESTOOO");
             doctorService.review_doctor(id, score);
             return new ResponseEntity<>("Success", HttpStatus.OK);
         }catch(NotExistsException e){

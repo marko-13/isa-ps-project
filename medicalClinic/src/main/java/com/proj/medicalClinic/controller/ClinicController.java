@@ -54,8 +54,6 @@ public class ClinicController {
         }catch (NotExistsException e){
             return new ResponseEntity<>("Klinika nije pronadjena!", HttpStatus.NOT_FOUND);
         }
-
-
     }
 
     @RequestMapping(value = "/get-all-clinical-center-clinics")
@@ -80,6 +78,16 @@ public class ClinicController {
             return new ResponseEntity<>(clinicDTO, HttpStatus.OK);
         }catch (NotExistsException e){
             return new ResponseEntity<>("Klinika nije pronadjena!", HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping(value = "/reviewed/{id}/{score}")
+    public ResponseEntity<?> recieve_review(@PathVariable Long id, @PathVariable int score){
+        try{
+            clinicService.review_clinic(id, score);
+            return new ResponseEntity<>("Success", HttpStatus.OK);
+        }catch(NotExistsException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 }

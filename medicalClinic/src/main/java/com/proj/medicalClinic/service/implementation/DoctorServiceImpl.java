@@ -55,6 +55,7 @@ public class DoctorServiceImpl implements DoctorService {
         return doctorDTOS;
     }
 
+    // Pronalazi sve doktore koji su pregledali pacijenta
     @Override
     public List<DoctorDTO> getAllAssociatedWithPatient(String patient_email) {
         Patient my_patient = (Patient)userRepository.findByEmail(patient_email).orElseThrow(NotExistsException::new);
@@ -92,6 +93,7 @@ public class DoctorServiceImpl implements DoctorService {
         return ret_val;
     }
 
+    // Update broja review-a i zbira svih rview-a doktora
     @Override
     public void review_doctor(Long id, int score) {
         Doctor d = (Doctor)userRepository.findById(id).orElseThrow(NotExistsException::new);
