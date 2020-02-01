@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import com.proj.medicalClinic.exception.NotExistsException;
 import com.proj.medicalClinic.exception.ResourceConflictException;
 import com.proj.medicalClinic.model.AppUser;
+import com.proj.medicalClinic.model.Patient;
 import com.proj.medicalClinic.model.UserTokenState;
+import com.proj.medicalClinic.repository.PatientRepository;
 import com.proj.medicalClinic.security.TokenUtils;
 import com.proj.medicalClinic.security.authentication.JwtAuthenticationRequest;
 import com.proj.medicalClinic.service.AppUserService;
@@ -50,6 +52,10 @@ public class AuthenticationController {
     @Autowired
     private AppUserService userService;
 
+    @Autowired
+    PatientRepository patientRepository;
+
+
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest,
                                                        HttpServletResponse response) throws AuthenticationException, IOException {
@@ -63,6 +69,15 @@ public class AuthenticationController {
 
         // Kreiraj token
         AppUser user = (AppUser) authentication.getPrincipal();
+        String userRole = user.getUserRole().name();
+
+        if (userRole.equals("PATIENT")){
+
+            if(!user.getEnabledPatient()){
+                return ResponseEntity.badRequest().body("This user is not yet approved");
+            }
+
+        }
         if (user.isEnabled()) {
             String jwt = tokenUtils.generateToken(user.getUsername(), user.getUserRole().name(), user.getName(), user.getLastName(), user.getId(), user.getLastPasswordResetDate() != null);
             int expiresIn = tokenUtils.getExpiredIn();
