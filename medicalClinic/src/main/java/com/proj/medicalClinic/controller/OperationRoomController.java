@@ -1,5 +1,6 @@
 package com.proj.medicalClinic.controller;
 
+import com.proj.medicalClinic.dto.AppointmentRequestDTO;
 import com.proj.medicalClinic.dto.OperationRoomDTO;
 import com.proj.medicalClinic.exception.NotExistsException;
 import com.proj.medicalClinic.exception.ResourceConflictException;
@@ -62,12 +63,9 @@ public class OperationRoomController {
     }
 
     @RequestMapping(value = "/getAllAvailable", method = RequestMethod.POST)
-    public ResponseEntity<?> getAllAvailable(@RequestBody MyDate date){
-        List<OperationRoomDTO> operationRooms = operationRoomService.getAllAvailable(date.milisecs);
+    public ResponseEntity<?> getAllAvailable(@RequestBody AppointmentRequestDTO app){
+        System.out.println(app.getStart());
+        List<OperationRoomDTO> operationRooms = operationRoomService.getAllAvailable(app.getStart());
         return new ResponseEntity<>(operationRooms, HttpStatus.OK);
-    }
-
-    static class MyDate {
-        public long milisecs;
     }
 }
