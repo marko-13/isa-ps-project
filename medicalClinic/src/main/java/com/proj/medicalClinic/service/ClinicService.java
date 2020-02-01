@@ -17,4 +17,5 @@ public interface ClinicService {
 
     List<ClinicDTO> getClinicsOfAdminClinicalCenter(String email);
 
+    List<ClinicDTO> getAllAssociatedWithPatient(String patient_email);
 }

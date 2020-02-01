@@ -12,6 +12,7 @@ import com.proj.medicalClinic.service.DoctorService;
 import com.proj.medicalClinic.service.implementation.DoctorServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -57,6 +58,16 @@ public class DoctorController {
         }catch (ResourceConflictException e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.FORBIDDEN);
         }
+    }
 
+    @RequestMapping(value = "/reviewed/{id}/{score}", method = RequestMethod.POST)
+    public ResponseEntity<?> recieve_review(@PathVariable Long id,@PathVariable int score){
+        try{
+            System.out.println("NESTOOO");
+            doctorService.review_doctor(id, score);
+            return new ResponseEntity<>("Success", HttpStatus.OK);
+        }catch(NotExistsException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 }

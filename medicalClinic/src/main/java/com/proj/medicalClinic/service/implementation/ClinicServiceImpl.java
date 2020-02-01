@@ -1,6 +1,7 @@
 package com.proj.medicalClinic.service.implementation;
 
 import com.proj.medicalClinic.dto.ClinicDTO;
+import com.proj.medicalClinic.dto.DoctorDTO;
 import com.proj.medicalClinic.dto.DrugsRegistryDTO;
 import com.proj.medicalClinic.exception.NotExistsException;
 import com.proj.medicalClinic.exception.NotValidParamsException;
@@ -63,6 +64,23 @@ public class ClinicServiceImpl implements ClinicService {
             throw e;
         }
 
+    }
+
+    //Returns the list of clincis the patient has been to
+    @Override
+    public List<ClinicDTO> getAllAssociatedWithPatient(String patient_email) {
+        Patient my_patient = (Patient)appUserRepository.findByEmail(patient_email).
+                orElseThrow(NotExistsException::new);
+
+        List<ClinicDTO> ret_val = new ArrayList<>();
+
+        List<Clinic> patients_clinics = clinicRepository.findAllByPatientId(my_patient.getId());
+
+        for(Clinic c : patients_clinics){
+            ret_val.add(new ClinicDTO(c));
+        }
+
+        return ret_val;
     }
 
     @Override
