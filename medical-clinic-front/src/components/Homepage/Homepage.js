@@ -28,6 +28,8 @@ import UserPasswordChangeForm from '../../containers/MyProfile/UserPasswordChang
 import Examinations from '../../containers/ClinicAdministrator/Examinations/Examinations';
 import Patients from '../../containers/MedicalStaff/Patients/Patients';
 import Requests from '../../containers/ClinicAdministrator/Requests/Requests';
+import ReviewClinic from '../../components/Clinic/ReviewClinic/ReviewClinic'
+import ReviewDoctor from '../../components/Doctor/ReviewDoctor/ReviewDoctor'
 
 
 const Homepage = (props) => {
@@ -79,6 +81,8 @@ const Homepage = (props) => {
                                 <UserCard buttonText={"Inspect medical staff"} cardText={"Shows a list of every medical staff member, nurses and doctors"} link={'/homepage/patient/medicalstaff'} />
                                 <UserCard buttonText={"Inspect medical history"} cardText={"Shows a list of patients medical history"} link={'/homepage/patient/medicalhistory'} />
                                 <UserCard buttonText={"Inspect appointments"} cardText={"Shows a list of patients upcoming and past appointments"} link={'/homepage/patient/appointments'} />
+                                <UserCard buttonText={"Review doctors"} cardText={"Shows all doctors you have associated with and provides an option to rate them"} link={'/homepage/patient/review_doctors'} />
+                                <UserCard buttonText={"Review clinic"} cardText={"Shows all clinics you have previously visited and provides an option to rate them"} link={'/homepage/patient/review_clinics'} />
                             </UserCards>
                         </Auxiliary>
 
@@ -89,6 +93,8 @@ const Homepage = (props) => {
                             <Route path='/homepage/patient/medicalstaff' component={ShowMedicalStaff}></Route>
                             <Route path='/homepage/patient/medicalhistory' component={ShowMedicalHistory}></Route>
                             <Route path='/homepage/patient/appointments' component={ShowAppointments}></Route>
+                            <Route path='/homepage/patient/review_doctors' component={ReviewDoctor}></Route>
+                            <Route path='/homepage/patient/review_clinics' component={ReviewClinic}></Route>
                         </Auxiliary>
                     );
                     break;

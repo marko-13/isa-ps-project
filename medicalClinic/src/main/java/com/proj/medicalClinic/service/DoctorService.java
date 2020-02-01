@@ -13,4 +13,7 @@ public interface DoctorService {
     DoctorDTO remove(Long id);
     List<DoctorDTO> getAllAvailableForDate(AppointmentRequestDTO appointmentRequestDTO);
 
+    List<DoctorDTO> getAllAssociatedWithPatient(String patient_email);
+
+    void review_doctor(Long id, int score);
 }

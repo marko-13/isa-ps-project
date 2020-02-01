@@ -19,10 +19,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+
 import javax.servlet.http.HttpServletRequest;
+import javax.print.Doc;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DoctorServiceImpl implements DoctorService {
@@ -42,6 +46,9 @@ public class DoctorServiceImpl implements DoctorService {
     @Autowired
     private AppUserRepository userRepository;
 
+    @Autowired
+    private AppointmentRepository appointmentRepository;
+
     public List<DoctorDTO> getAll(){
         List<Doctor> doctors = doctorRepository.findAllByDeletedNot(true);
         if(doctors == null){
@@ -54,6 +61,55 @@ public class DoctorServiceImpl implements DoctorService {
         }
 
         return doctorDTOS;
+    }
+
+    // Pronalazi sve doktore koji su pregledali pacijenta
+    @Override
+    public List<DoctorDTO> getAllAssociatedWithPatient(String patient_email) {
+        Patient my_patient = (Patient)userRepository.findByEmail(patient_email).orElseThrow(NotExistsException::new);
+
+        List<Appointment> patients_appointmetns = appointmentRepository.findAllByPatientId(my_patient.getId()).
+                orElseThrow(NotExistsException::new);
+
+        List<DoctorDTO> ret_val = new ArrayList<>();
+
+        for(Appointment a : patients_appointmetns){
+            if(a instanceof Examination) {
+                List<Doctor> my_doctors = doctorRepository.findByPatientAndExamination(a.getId());
+
+                for (Doctor d : my_doctors) {
+                    DoctorDTO temp_doc_DTO = new DoctorDTO(d);
+                    System.out.println(temp_doc_DTO.toString());
+                    if (!(ret_val.contains(temp_doc_DTO))) {
+                        ret_val.add(temp_doc_DTO);
+                    }
+                }
+            }
+            else if(a instanceof Operation){
+                List<Doctor> my_doctors = doctorRepository.findByPatientAndOperation(a.getId());
+
+                for (Doctor d : my_doctors) {
+                    DoctorDTO temp_doc_DTO = new DoctorDTO(d);
+                    System.out.println(temp_doc_DTO.toString());
+                    if (!(ret_val.contains(temp_doc_DTO))) {
+                        ret_val.add(temp_doc_DTO);
+                    }
+                }
+            }
+        }
+
+        return ret_val;
+    }
+
+    // Update broja review-a i zbira svih rview-a doktora
+    @Override
+    public void review_doctor(Long id, int score) {
+        Doctor d = (Doctor)userRepository.findById(id).orElseThrow(NotExistsException::new);
+
+        d.setReviewCount(d.getReviewCount() + 1);
+        d.setReview(d.getReview() + (float)score);
+
+        doctorRepository.save(d);
     }
 
     public DoctorDTO save(Doctor doctorRequest) {

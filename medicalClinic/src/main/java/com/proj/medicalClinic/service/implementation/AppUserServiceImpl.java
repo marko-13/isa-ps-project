@@ -63,22 +63,27 @@ public class AppUserServiceImpl implements AppUserService {
             case PATIENT:
                 u = new Patient();
                 u.setEnabled(true);
+                u.setEnabled_patient(false);
                 break;
             case NURSE:
                 u = new Nurse();
                 u.setEnabled(true);
+                u.setEnabled_patient(true);
                 break;
             case DOCTOR:
                 u = new Doctor();
                 u.setEnabled(true);
+                u.setEnabled_patient(true);
                 break;
             case ADMINCLINIC:
                 u = new AdminClinic();
                 u.setEnabled(true);
+                u.setEnabled_patient(true);
                 break;
             case ADMINCLINICALCENTER:
                 u = new AdminClinicalCenter();
                 u.setEnabled(true);
+                u.setEnabled_patient(true);
                 break;
             default:
                 u = new AppUser();
