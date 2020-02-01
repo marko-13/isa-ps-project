@@ -13,6 +13,7 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 import Button from '../../../../components/UI/Button/Button';
 import Modal from '../../../../components/UI/Modal/Modal';
+import ChooseAvailableDoctorsForm from '../../../../components/Forms/ChooseAvailableDoctorsForm/ChooseAvailableDoctorsForm';
 
 const localizer = momentLocalizer(moment)
 
@@ -38,22 +39,44 @@ class RoomAppointments extends Component {
     };
 
     closeModalHandler = () => {
-        this.setState({modalOpen: false});
+        this.setState({ modalOpen: false });
     }
 
     onScheduleHandler = (app) => {
-        if(this.props.changeDate){
-            //POSALJI REQUEST I PROVERI DA LI DOKTOR OD APPOINTMENTA MOZE DA BUDE TU
-            //AKO NE, OTVORI MODAL DA ADMIN BIRA KOGA HOCE
-            //AKO DA, PROMENI DATUM PREGLEDU I ZAKAZI GA
-            this.setState({modalOpen: true});
-        }else{
+        if (this.props.changeDate) {
+
+            const query = new URLSearchParams(this.props.location.search);
+
+            let exam = {
+                start: '',
+                appId: '',
+                roomId: this.props.roomId
+            };
+
+            for (let param of query.entries()) {
+                exam[param[0]] = param[1];
+            }
+
+            axios.post('/appointment/changeDateAndAddRoomToApointment', exam)
+                .then(res => {
+                    alert('Room has been added to appointment!');
+                    this.props.history.push('/homepage/admin-clinic');
+                })
+                .catch(err => {
+                    if (err.response.status === 400) {
+                        this.setState({ modalOpen: true });
+                    } else {
+                        console.log(err);
+                    }
+                });
+
+        } else {
             axios.post('/appointment/addRoomToAppointment/' + app.appId + '/' + this.props.roomId, null)
                 .then(res => {
                     alert('Appointment has been scheduled!');
                     this.props.history.push('/homepage/admin-clinic');
                 })
-                .catch(err => console.log(err));
+                .catch(err => console.log(err.response));
         }
     }
 
@@ -78,6 +101,8 @@ class RoomAppointments extends Component {
 
     render() {
 
+        let appDate = null;
+
         let events = this.props.appointments.map(app => {
 
             let title = app.patient;
@@ -97,22 +122,22 @@ class RoomAppointments extends Component {
 
         if (this.props.fromRequests) {
 
-             const query = new URLSearchParams(this.props.location.search);
+            const query = new URLSearchParams(this.props.location.search);
 
-             let appDate = {
-                 start: '',
-                 appId: ''
-             }
+            appDate = {
+                start: '',
+                appId: ''
+            }
 
             for (let param of query.entries()) {
                 appDate[param[0]] = param[1];
             }
-            
-            appDate.start = moment.unix(appDate.start/1000).format('YYYY-MM-DD hh:mm');
+
+            const displayDate = moment.unix(appDate.start / 1000).format('YYYY-MM-DD hh:mm');
 
             scheduleInfo = (
                 <div style={{ marginTop: '20px' }}>
-                    Schedule room for this appointment. ({appDate.start})
+                    Schedule room for this appointment. ({displayDate})
                     <Button type='green' style={{ padding: '5px 15px', marginLeft: '20px' }} click={() => this.onScheduleHandler(appDate)}>Schedule</Button>
                 </div>
             );
@@ -150,9 +175,9 @@ class RoomAppointments extends Component {
                     style={{ height: 'calc(100vh - 100px)', width: '100%', marginTop: '5%' }}
                 />
 
-            <Modal modalClosed={this.closeModalHandler} show={this.state.modalOpen}>
-                <h1>dsadsadsad</h1>
-            </Modal>
+                <Modal modalClosed={this.closeModalHandler} show={this.state.modalOpen}>
+                    <ChooseAvailableDoctorsForm roomId={this.props.roomId} appId={appDate.appId} start={appDate.start} />
+                </Modal>
             </div>
         );
     }

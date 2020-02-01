@@ -187,8 +187,30 @@ class OperationRooms extends Component {
         this.setState({changeDate: true})
         const date = new Date(this.state.startDate);
         const milisecs = {
-            milisecs: date.getTime()
+            start: date.getTime()
         };
+
+        const query = new URLSearchParams(this.props.location.search);
+
+        let exam = {
+            start: '',
+            appId: ''
+        };
+
+        for (let param of query.entries()) {
+            exam[param[0]] = param[1];
+        }
+
+        const queryParams = [];
+        queryParams.push(encodeURIComponent('start') + '=' + encodeURIComponent(milisecs.start));
+        queryParams.push(encodeURIComponent('appId') + '=' + encodeURIComponent(exam.appId));
+        const queryString = queryParams.join('&');
+
+        this.props.history.push({
+            pathname: this.props.match.path,
+            search: '?' + queryString
+        });
+
 
         axios.post("/operationRoom/getAllAvailable", milisecs)
             .then(res => {
