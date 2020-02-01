@@ -12,6 +12,7 @@ import com.proj.medicalClinic.security.TokenUtils;
 import com.proj.medicalClinic.service.AppointmentService;
 import com.proj.medicalClinic.service.ClinicService;
 import com.proj.medicalClinic.service.OperationRoomService;
+import com.sun.deploy.util.ArrayUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -116,8 +117,12 @@ public class OperationRoomServiceImpl implements OperationRoomService {
         c.add(Calendar.DAY_OF_MONTH, 2);
         Date dayAfter = c.getTime();
 
+        System.out.println(dayBefore);
+        System.out.println(dayAfter);
+
         List<Appointment> appointmentsBetweenDates = appointmentService.getAllDayBeforeAndDayAfter(dayBefore, dayAfter);
         if(appointmentsBetweenDates == null){
+            System.out.println("NIJE NASAO NI JEDAN IZMEDJU");
             return getAll();
         }
 
@@ -128,15 +133,22 @@ public class OperationRoomServiceImpl implements OperationRoomService {
             long appEnd = (long) (appointment.getDate().getTime() + appointment.getDuration() * 60000);
 
             if(selectedDate < (appStart - 30 * 60000) || selectedDate > (appEnd)){
-                //SLOBODAN DATUM
+                System.out.println("SLOBODAN TERMIN");
             }else {
-                availableRooms.remove(appointment.getOperationRoom());
-            }
-
-            for(OperationRoom or : availableRooms){
-                operationRoomDTOS.add(new OperationRoomDTO(or));
+                System.out.println("ZAUZET");
+                for(int i = 0; i < availableRooms.size(); i++){
+                    if (availableRooms.get(i).getId() == appointment.getOperationRoom().getId()){
+                        availableRooms.remove(i);
+                    }
+                }
             }
         }
+
+        for(OperationRoom or : availableRooms){
+            System.out.println(or.getName() + " OVU SOBU DODAJE");
+            operationRoomDTOS.add(new OperationRoomDTO(or));
+        }
+
         return operationRoomDTOS;
     }
 
