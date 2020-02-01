@@ -54,7 +54,6 @@ public class AppUser implements UserDetails {
 	@Column(name="mobile", unique=false, nullable=false)
 	private String mobile;
 
-
 	@Column (name = "deleted")
 	private boolean deleted;
 
@@ -74,6 +73,9 @@ public class AppUser implements UserDetails {
 
 	@Column(name = "last_password_reset_date")
 	private Timestamp lastPasswordResetDate;
+
+	@Column(name = "enabled_patient")
+	private boolean enabled_patient;
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -106,5 +108,9 @@ public class AppUser implements UserDetails {
 	@Override
 	public boolean isEnabled() {
 		return enabled;
+	}
+
+	public boolean getEnabledPatient() {
+		return enabled_patient;
 	}
 }
