@@ -1,6 +1,7 @@
 package com.proj.medicalClinic.controller;
 
 import com.proj.medicalClinic.dto.AdminClinicDTO;
+import com.proj.medicalClinic.dto.AppointmentRequestDTO;
 import com.proj.medicalClinic.dto.DoctorDTO;
 import com.proj.medicalClinic.exception.NotExistsException;
 import com.proj.medicalClinic.exception.NotValidParamsException;
@@ -58,5 +59,15 @@ public class DoctorController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.FORBIDDEN);
         }
 
+    }
+
+    @RequestMapping(value = "/getAllAvailable", method = RequestMethod.POST)
+    public ResponseEntity<?> getAllAvailable(@RequestBody AppointmentRequestDTO appointmentRequestDTO){
+        try {
+            List<DoctorDTO> doctorDTOS = doctorService.getAllAvailableForDate(appointmentRequestDTO);
+            return new ResponseEntity<>(doctorDTOS, HttpStatus.OK);
+        }catch (NotExistsException e){
+            return new ResponseEntity<>("Nije nasao doktore", HttpStatus.NOT_FOUND);
+        }
     }
 }
