@@ -84,4 +84,23 @@ public class PatientController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
+
+
+    // When patient clicks on activation link, allow him to signin
+    @RequestMapping(value = "/approvedemail/{id}/{timestamp}/{number}", method = RequestMethod.GET)
+    public ResponseEntity<?> patient_approved_email(@PathVariable int id, @PathVariable Long timestamp,
+                                                    @PathVariable Long number){
+        try{
+            int flag = patientService.approve_email(id, timestamp, number);
+            if(flag == 1) {
+
+                return new ResponseEntity<>("OK", HttpStatus.OK);
+            }
+            else{
+                return new ResponseEntity<>("Time expired", HttpStatus.NOT_FOUND);
+            }
+        }catch (Exception e) {
+            return new ResponseEntity<>("Poruka", HttpStatus.BAD_REQUEST);
+        }
+    }
 }

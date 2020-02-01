@@ -9,10 +9,16 @@ import com.proj.medicalClinic.model.RoleType;
 import com.proj.medicalClinic.repository.AppUserRepository;
 import com.proj.medicalClinic.service.EmailService;
 import com.proj.medicalClinic.service.UserConfirmation;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
+import java.security.Key;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -23,6 +29,9 @@ public class UserConfirmationImpl implements UserConfirmation {
 
     @Autowired
     private AppUserRepository appUserRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public List<PatientDTO> getNotApprovedUsers() {
@@ -50,8 +59,13 @@ public class UserConfirmationImpl implements UserConfirmation {
             patient.setEnabled(true);
             Patient updated = this.appUserRepository.save(patient);
 
+            //encode email
+            int pass = patient.getEmail().hashCode();
+
+
             try {
-                this.emailService.sendNotificaitionAsync(updated, "\n\nYour account has been approved.<br></br><a href=\"http://localhost:3000\">Activate</a>");
+                Long my_timestamp = System.currentTimeMillis();
+                this.emailService.sendNotificaitionAsync(updated, "\n\nYour account has been approved.<br></br><a href=\"http://localhost:3000/confirm_auth?id="+pass+"&timestamp="+my_timestamp+ "&broj="+ id+"\">Activate</a>");
 
             }catch( Exception e ){
             }
@@ -89,4 +103,6 @@ public class UserConfirmationImpl implements UserConfirmation {
             throw e;
         }
     }
+
+
 }
