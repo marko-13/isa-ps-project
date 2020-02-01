@@ -1,15 +1,16 @@
 package com.proj.medicalClinic.service.implementation;
 
+import com.proj.medicalClinic.dto.AppointmentRequestDTO;
 import com.proj.medicalClinic.dto.DoctorDTO;
 import com.proj.medicalClinic.exception.NotExistsException;
 import com.proj.medicalClinic.exception.NotValidParamsException;
 import com.proj.medicalClinic.exception.ResourceConflictException;
-import com.proj.medicalClinic.model.AppUser;
-import com.proj.medicalClinic.model.Authority;
-import com.proj.medicalClinic.model.Doctor;
-import com.proj.medicalClinic.model.RoleType;
+import com.proj.medicalClinic.model.*;
 import com.proj.medicalClinic.repository.AppUserRepository;
+import com.proj.medicalClinic.repository.AppointmentRepository;
+import com.proj.medicalClinic.repository.ClinicRepository;
 import com.proj.medicalClinic.repository.DoctorRepository;
+import com.proj.medicalClinic.security.TokenUtils;
 import com.proj.medicalClinic.service.AppUserService;
 import com.proj.medicalClinic.service.AuthorityService;
 import com.proj.medicalClinic.service.DoctorService;
@@ -18,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -27,6 +29,9 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Autowired
     private DoctorRepository doctorRepository;
+
+    @Autowired
+    private AppointmentRepository appointmentRepository;
 
     @Autowired
     private AuthorityService authorityService;
@@ -89,6 +94,55 @@ public class DoctorServiceImpl implements DoctorService {
         }
 
         return new DoctorDTO(doctor);
+    }
+
+    @Override
+    public List<DoctorDTO> getAllAvailableForDate(AppointmentRequestDTO appointmentRequestDTO) {
+
+        System.out.println("USAO");
+        Appointment appointment = appointmentRepository.findById(appointmentRequestDTO.getAppId()).orElseThrow(NotExistsException::new);
+        Clinic clinic = appointment.getClinic();
+        List<Doctor> doctors = doctorRepository.findAllByClinicAndDeletedNot(clinic, true);
+        List<DoctorDTO> availableDoctors = new ArrayList<>();
+
+        for(Doctor d : doctors){
+            availableDoctors.add(new DoctorDTO(d));
+        }
+
+        long selectedDate = appointmentRequestDTO.getStart();
+        System.out.println(selectedDate);
+        for(Doctor d : doctors){
+            for(Examination e : d.getExaminations()){
+                long exStart = e.getDate().getTime();
+                long exEnd = (long) (exStart + e.getDuration() * 60000);
+
+                if(selectedDate >= exStart && selectedDate <= exEnd) {
+                    for(int i = 0; i < availableDoctors.size(); i++){
+                        if(availableDoctors.get(i).getId() == d.getId()){
+                            System.out.println("DOKTOR IZBRISAN " + d.getName());
+                            availableDoctors.remove(i);
+                            break;
+                        }
+                    }
+                }
+            }
+
+            for(Operation o : d.getOperations()){
+                long oStart = o.getDate().getTime();
+                long oEnd = (long) (oStart + o.getDuration() * 60000);
+
+                if(selectedDate >= oStart && selectedDate <= oEnd){
+                    for(int i = 0; i < availableDoctors.size(); i++){
+                        if(availableDoctors.get(i).getId() == d.getId()){
+                            System.out.println("DOKTOR IZBRISAN " + d.getName());
+                            availableDoctors.remove(i);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        return availableDoctors;
     }
 
 }
