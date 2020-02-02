@@ -34,7 +34,7 @@ public interface DoctorRepository extends JpaRepository<Doctor, Long> {
     List<Doctor> findAllByOperations(Operation op);
 
     @Query(
-            value = "SELECT ap.type, ap.id, ap.adress, ap.city, ap.deleted, ap.email, ap.enabled, ap.last_name, ap.last_password_reset_date," +
+            value = "SELECT ap.type, ap.id, ap.adress, ap.city, ap.deleted, ap.email, ap.enabled, ap.last_name, ap.last_password_reset_date, ap.enabled_patient, " +
                     "ap.mobile, ap.name, ap.password, ap.rejected, ap.state, ap.user_role, ap.review, ap.review_count, ap.shift, ap.jmbg," +
                     "ap.clinic_id, ap.clinical_center_id" +
                     "  FROM appointment as ex, doctors_examinations as dex, app_user as ap WHERE" +
@@ -43,7 +43,7 @@ public interface DoctorRepository extends JpaRepository<Doctor, Long> {
     List<Doctor> findByPatientAndExamination(Long id);
 
     @Query(
-            value = "SELECT ap.type, ap.id, ap.adress, ap.city, ap.deleted, ap.email, ap.enabled, ap.last_name, ap.last_password_reset_date," +
+            value = "SELECT ap.type, ap.id, ap.adress, ap.city, ap.deleted, ap.email, ap.enabled, ap.last_name, ap.last_password_reset_date, ap.enabled_patient, " +
                     "ap.mobile, ap.name, ap.password, ap.rejected, ap.state, ap.user_role, ap.review, ap.review_count, ap.shift, ap.jmbg," +
                     "ap.clinic_id, ap.clinical_center_id" +
                     "  FROM appointment as ex, doctors_operations as dex, app_user as ap WHERE" +
