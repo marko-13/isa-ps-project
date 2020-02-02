@@ -1,5 +1,6 @@
 package com.proj.medicalClinic.repository;
 
+import com.proj.medicalClinic.model.Clinic;
 import com.proj.medicalClinic.model.Doctor;
 import com.proj.medicalClinic.model.Examination;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,7 +15,8 @@ public interface DoctorRepository extends JpaRepository<Doctor, Long> {
     //Doctors are deleted logically, this returns all non-deleted doctors
     List<Doctor> findAllByDeletedNot(boolean deleted);
 
-
+    //Returns doctor employed in given clinic
+    List<Doctor> findAllByClinic(List<Clinic> c);
     
     @Query(
             value = "SELECT * FROM app_user d WHERE d.id = ?1",
