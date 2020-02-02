@@ -7,6 +7,7 @@ import Button from '../../../components/UI/Button/Button';
 import Auxiliary from '../../../hoc/Auxiliary/Auxiliary';
 import UserInfo from '../../../components/Homepage/UserInfo/UserInfo';
 import UserCard from '../../Homepage/UserCards/UserCard/UserCard';
+import MedicalHistory from '../../../containers/MedicalStaff/Patients/MedicalHistory/MedicalHistory';
 
 class PatientsTable extends Component {
 
