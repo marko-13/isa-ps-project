@@ -29,6 +29,18 @@ public class MedicalHistoryServiceImpl implements MedicalHistoryService {
     @Autowired
     private MedicalReportRepository medicalReportRepository;
 
+    @Autowired
+    private ExaminationRepository examinationRepository;
+
+    @Autowired
+    private AppUserRepository appUserRepository;
+
+    @Autowired
+    private AppointmentRepository appointmentRepository;
+
+    @Autowired
+    private DoctorRepository doctorRepository;
+
     @Override
     public MedicalHistoryDTO getMedicalHistory(String email) {
 
