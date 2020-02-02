@@ -16,7 +16,10 @@ class PatientsTable extends Component {
         name: '',
         lastname: '',
         role: '',
-        showPatient: false
+        showPatient: false,
+        userCardClick: false,
+        back: false,
+        medicalHistoryContent: null
     }
 
     getAllPatients = () => {
