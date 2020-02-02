@@ -52,8 +52,6 @@ values ('ACC', 'ADMINCLINICALCENTER', 'Radoslav@mailinator.com', '$2a$10$PpuFaY9
 insert into app_user (type, user_role, email, password, name, last_name, review, shift, review_count, enabled, adress, city, state, mobile, rejected, deleted, enabled_patient, clinic_id)
 values ('DR', 'DOCTOR', 'dervy97@gmail.com', '$2a$10$EcjftqmPpW.usBG8k4OMWOqEo9LA9QMBaEy8XFbZCNBY9oY..jd62', 'Boris', 'Zavis', 7, 1, 15, true, 'Omladinska 1', 'Kisac', 'Srbija', '123-123', false, false, true, 1);
 
-
-
 insert into clinics_patients (clinic_id, patient_id)
 values (1, 1);
 
@@ -140,6 +138,36 @@ values ('EX', '2020-2-10', 160, false, 1, null, 3, 4, null);
 insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id)
 values ('EX', '2020-2-11', 30, false, 1, 9, 3, 5, null);
 
+insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id)
+values ('EX', '2020-3-11 12:30', 30, false, 1, 9, 3, 5, null);
+
+insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id)
+values ('EX', '2020-3-12 15:30', 60, false, 1, null, 2, 6, 5);
+
+insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id)
+values ('EX', '2020-3-12 15:35', 60, false, 1, null, 1, 6, null);
+
+insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id)
+values ('EX', '2020-5-10 16:30', 60, false, 1, null, 1, 6, null);
+
+insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id)
+values ('EX', '2020-5-10 16:45', 60, false, 1, null, 1, 1, 2);
+
+insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id)
+values ('EX', '2020-5-10 16:55', 60, false, 1, null, 2, 2, 3);
+
+insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id)
+values ('EX', '2020-5-10 15:55', 60, false, 1, null, 3, 3, 4);
+
+insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id)
+values ('EX', '2020-5-10 15:45', 60, false, 1, null, 2, 4, 5);
+
+insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id)
+values ('EX', '2020-5-10 16:30', 60, false, 1, null, 3, 5, 1);
+
+insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id)
+values ('EX', '2020-5-15 16:30', 60, false, 1, null, 3, 5, 1);
+
 insert into doctors_examinations(doctor_id, examination_id)
 values (4, 1);
 
@@ -151,6 +179,42 @@ values (5, 5);
 
 insert into doctors_examinations(doctor_id, examination_id)
 values (6, 6);
+
+insert into doctors_examinations(doctor_id, examination_id)
+values (4, 7);
+
+insert into doctors_examinations(doctor_id, examination_id)
+values (4, 8);
+
+insert into doctors_examinations(doctor_id, examination_id)
+values (12, 9);
+
+insert into doctors_examinations(doctor_id, examination_id)
+values (12, 10);
+
+insert into doctors_examinations(doctor_id, examination_id)
+values (12, 11);
+
+insert into doctors_examinations(doctor_id, examination_id)
+values (12, 12);
+
+insert into doctors_examinations(doctor_id, examination_id)
+values (12, 13);
+
+insert into doctors_examinations(doctor_id, examination_id)
+values (12, 14);
+
+insert into doctors_examinations(doctor_id, examination_id)
+values (12, 15);
+
+insert into doctors_examinations(doctor_id, examination_id)
+values (12, 16);
+
+insert into doctors_examinations(doctor_id, examination_id)
+values (12, 17);
+
+insert into doctors_examinations(doctor_id, examination_id)
+values (12, 18);
 
 
 
