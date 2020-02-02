@@ -18,5 +18,9 @@ public interface DoctorRepository extends JpaRepository<Doctor, Long> {
             value = "SELECT * FROM app_user d WHERE d.id = ?1",
             nativeQuery = true)
     Optional<Doctor> findById(Long id);
+
+    List<Doctor> findAllByExaminations(Examination ex);
+
+    List<Doctor> findAllByOperations(Operation op);
 }
 
