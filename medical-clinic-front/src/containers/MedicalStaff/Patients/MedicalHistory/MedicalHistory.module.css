@@ -3,7 +3,6 @@
 }
 
 .Header {
-    border-radius: 15px;
     background-color: #1abc9c;
     padding: 5px 20px;
     color: white;
@@ -17,7 +16,7 @@
 }
 
 .Medicalhistory {
-    display: flex;
+    display: block;
 }
 
 .Appointment {

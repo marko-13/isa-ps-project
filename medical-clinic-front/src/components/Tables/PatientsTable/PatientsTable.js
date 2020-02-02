@@ -7,6 +7,7 @@ import Button from '../../../components/UI/Button/Button';
 import Auxiliary from '../../../hoc/Auxiliary/Auxiliary';
 import UserInfo from '../../../components/Homepage/UserInfo/UserInfo';
 import UserCard from '../../Homepage/UserCards/UserCard/UserCard';
+import MedicalHistory from '../../../containers/MedicalStaff/Patients/MedicalHistory/MedicalHistory';
 
 class PatientsTable extends Component {
 
@@ -15,7 +16,10 @@ class PatientsTable extends Component {
         name: '',
         lastname: '',
         role: '',
-        showPatient: false
+        showPatient: false,
+        userCardClick: false,
+        back: false,
+        medicalHistoryContent: null
     }
 
     getAllPatients = () => {
@@ -45,9 +49,22 @@ class PatientsTable extends Component {
         });
     }
 
+    onClickUserCardHandler = () => {
+        this.setState({userCardClick: true});
+    }
+
+    onClickBackHandler = () => {
+        this.setState({userCardClick: false});
+        console.log('Usao ovde')
+    }
+
     render() {
         let table = null;
         let userCards = null;
+        let medicalHistoryContent = null;
+        let displayFirst = 'block';
+        let displaySecond = 'none';
+        let displayThird = 'none';
 
         if (this.state.patients === null) {
             table = <h2>Loading....</h2>;
@@ -82,8 +99,9 @@ class PatientsTable extends Component {
 
             userCards = (
                 <Auxiliary>
-                        <UserCard query={this.props.location.search} buttonText="Show" cardText="Show patients medical history" link={this.props.match.path + '/medical-history'} />
-                        <UserCard buttonText="Start" cardText="Start an examination for this patient" link={'/homepage/doctor/patients/start-exam'} />
+                        {/*<UserCard full query={this.props.location.search} buttonText="Show" cardText="Show patients medical history" link={this.props.match.path + '/medical-history'} />*/}
+                        <UserCard full special click={() => this.onClickUserCardHandler()} buttonText="Show" cardText={"Show patients medical history"} />
+                        <UserCard full buttonText="Start" cardText="Start an examination for this patient" link={'/homepage/doctor/patients/start-exam'} />
                 </Auxiliary>
             );
 
@@ -101,21 +119,46 @@ class PatientsTable extends Component {
                     pageSize={(this.state.patients.length > 7) ? 7 : this.state.patients.length}
                 />
             )
+
+            if (this.state.showPatient) {
+                displayFirst = 'none';
+                displaySecond = 'block';
+                displayThird = 'none';
+            }
+
+            if (this.state.userCardClick) {
+                displayFirst = 'none';
+                displaySecond = 'none';
+                displayThird = 'block';
+
+                medicalHistoryContent = (
+                    <MedicalHistory query = {this.props.location.search} back={() => this.onClickBackHandler()} name={this.state.name + " " + this.state.lastname}/>
+                )
+            }
         } else {
             table = <h2>Something is not right.</h2>;
         }
 
-
         return (
             <Auxiliary>
-                <div className='col-6'>
-                    {table}
-                </div>
-                <div className='col-3'>
-                    {this.state.showPatient ? <UserInfo full name={this.state.name} lastname={this.state.lastname} role='Patient' /> : null}
-                </div>
-                <div className='col-3'>
-                    {this.state.showPatient ? userCards : null}
+                <div className="col-md-7 login-form-1" style={{marginBottom: '2.5%', marginTop: 'auto', marginLeft: 'auto', marginRight: 'auto', padding: '2.5%'}}>
+                    <div style = {{display: displayFirst}}>
+                        {table}
+                    </div>
+                    <div style = {{display: displaySecond}}>
+                        <div className='row'>
+                            {this.state.showPatient ? <UserInfo full name={this.state.name} lastname={this.state.lastname} role='Patient' /> : null}
+                            <div className='col-5' style = {{flex: '0 0 41%', maxWidth: '100%'}}>
+                                {this.state.showPatient ? userCards : null}
+                            </div>
+                        </div>
+                        <div style={{fontSize: '1.25em', paddingTop: '1%'}}>
+                            <Button type='black' click = {() => this.setState({showPatient: false})} style = {{padding: '1px 10px'}}>Back</Button>
+                        </div>
+                    </div>
+                    <div style = {{display: displayThird}}>
+                        {medicalHistoryContent}
+                    </div>
                 </div>
             </Auxiliary>
         );

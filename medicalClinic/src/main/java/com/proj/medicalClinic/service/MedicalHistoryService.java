@@ -7,5 +7,5 @@ import org.springframework.stereotype.Service;
 public interface MedicalHistoryService {
 
     MedicalHistoryDTO getMedicalHistory(String email);
-    MedicalHistoryDTO getMedicalHistoryByPatientId(Long patientId);
+    MedicalHistoryDTO getMedicalHistoryByPatientId(Long patientId, String email);
 }
