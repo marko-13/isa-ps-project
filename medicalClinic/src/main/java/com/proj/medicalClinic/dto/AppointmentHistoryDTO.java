@@ -29,6 +29,7 @@ public class AppointmentHistoryDTO {
     private String patient;
 
     public AppointmentHistoryDTO(Appointment a){
+        System.out.println(a.getId());
         this.type = a.getClass().getAnnotation(DiscriminatorValue.class).value();
 
         if(this.type.equals("EX")){
@@ -38,7 +39,11 @@ public class AppointmentHistoryDTO {
 
 
             this.clinic = examination.getClinic().getName();
-            this.operationRoom = examination.getOperationRoom().getName();
+            if (examination.getOperationRoom() == null) {
+                this.operationRoom = "Examination room not assigned";
+            } else {
+                this.operationRoom = examination.getOperationRoom().getName();
+            }
             this.service = examination.getService().getType();
 
 
@@ -55,7 +60,11 @@ public class AppointmentHistoryDTO {
             this.duration = operation.getDuration();
 
             this.clinic = operation.getClinic().getName();
-            this.operationRoom = operation.getOperationRoom().getName();
+            if (operation.getOperationRoom() == null) {
+                this.operationRoom = "Operation room not assigned";
+            } else {
+                this.operationRoom = operation.getOperationRoom().getName();
+            }
             this.service = operation.getService().getType();
 
             if(operation.getPatient() == null){
