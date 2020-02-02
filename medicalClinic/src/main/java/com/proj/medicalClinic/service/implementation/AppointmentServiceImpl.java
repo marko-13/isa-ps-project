@@ -99,7 +99,13 @@ public class AppointmentServiceImpl implements AppointmentService {
             }
             
             if (user instanceof Nurse) {
+                System.out.println(email);
+                System.out.println(user.getId());
                 List<Appointment> appointments = appointmentRepository.findAllByNurse(user.getId());
+
+                for(Appointment ap: appointments) {
+                    System.out.println(ap.getId());
+                }
 
                 List<AppointmentHistoryDTO> appointmentHistoryDTO = appointments.stream().map(
                         s -> new AppointmentHistoryDTO(s)
