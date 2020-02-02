@@ -61,6 +61,10 @@ class PatientsTable extends Component {
     render() {
         let table = null;
         let userCards = null;
+        let medicalHistoryContent = null;
+        let displayFirst = 'block';
+        let displaySecond = 'none';
+        let displayThird = 'none';
 
         if (this.state.patients === null) {
             table = <h2>Loading....</h2>;
