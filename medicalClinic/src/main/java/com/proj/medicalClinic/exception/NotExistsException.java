@@ -1,6 +1,6 @@
 package com.proj.medicalClinic.exception;
 
-public class NotExistsException extends RuntimeException{
+public class NotExistsException extends RuntimeException {
 
     public NotExistsException() {
         super();
