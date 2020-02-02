@@ -9,9 +9,7 @@ class Patients extends Component {
     render() {
         return (
             <Auxiliary>
-                <PatientsTable/>
-                <Route path={this.props.match.path + '/medical-history'} component={MedicalHistory}></Route>
-                <Route path='/homepage/doctor/patients/start-exam' render={() => <h1>EXAM</h1>}></Route>        
+	            <PatientsTable/>      
             </Auxiliary>
         );
     }
