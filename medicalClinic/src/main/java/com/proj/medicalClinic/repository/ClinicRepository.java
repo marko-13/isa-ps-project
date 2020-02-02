@@ -24,4 +24,18 @@ public interface ClinicRepository extends JpaRepository<Clinic, Long> {
                     " FROM clinic JOIN app_user a ON clinic.Id = a.clinic_id WHERE a.id = ?1",
             nativeQuery = true)
     Optional<Clinic> findByDoctorId(Long id);
+
+    //upit koji vraca sve klinike na kojima je pacijent ciji je id prosledjen bio
+    @Query(
+            value = "SELECT c.id, c.name, c.address, c.description, c.review, c.review_count, c.clinical_center_id" +
+                    " FROM clinic as c, clinics_patients as cp WHERE c.id = cp.clinic_id and cp.patient_id = ?1",
+            nativeQuery = true)
+    List<Clinic> findAllByPatientId(Long id);
+
+    // upit koji vraca sve klinike na kojima zeljeni pregled moze da se obavi
+    @Query(
+            value = "SELECT c.id, c.name, c.address, c.description, c.review, c.review_count, c.clinical_center_id" +
+                    " FROM clinic as c, clinics_services as cs WHERE c.id = cs.clinic_id and cs.service_id = ?1",
+            nativeQuery = true)
+    List<Clinic> findByServiceId(Long id);
 }

@@ -1,6 +1,7 @@
 package com.proj.medicalClinic.controller;
 
 import com.proj.medicalClinic.dto.ClinicDTO;
+import com.proj.medicalClinic.dto.ClinicServiceDTO;
 import com.proj.medicalClinic.exception.NotExistsException;
 import com.proj.medicalClinic.exception.NotValidParamsException;
 import com.proj.medicalClinic.security.TokenUtils;
@@ -54,8 +55,6 @@ public class ClinicController {
         }catch (NotExistsException e){
             return new ResponseEntity<>("Klinika nije pronadjena!", HttpStatus.NOT_FOUND);
         }
-
-
     }
 
     @RequestMapping(value = "/get-all-clinical-center-clinics")
@@ -80,6 +79,27 @@ public class ClinicController {
             return new ResponseEntity<>(clinicDTO, HttpStatus.OK);
         }catch (NotExistsException e){
             return new ResponseEntity<>("Klinika nije pronadjena!", HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping(value = "/reviewed/{id}/{score}")
+    public ResponseEntity<?> recieve_review(@PathVariable Long id, @PathVariable int score){
+        try{
+            clinicService.review_clinic(id, score);
+            return new ResponseEntity<>("Success", HttpStatus.OK);
+        }catch(NotExistsException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/findCorrespondingClincis/{service_id}/{appointment_date}/{min_clinic_score}")
+    public ResponseEntity<?> findCorespondingClinics(@PathVariable Long service_id,
+                                                     @PathVariable Long appointment_date, @PathVariable double min_clinc_score){
+        try{
+            List<ClinicServiceDTO> ret = clinicService.findCorresponding(service_id, appointment_date, min_clinc_score);
+            return new ResponseEntity<>(ret, HttpStatus.OK);
+        }catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 }

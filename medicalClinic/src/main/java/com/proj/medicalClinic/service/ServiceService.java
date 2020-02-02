@@ -15,4 +15,6 @@ public interface ServiceService {
 
     ServiceDTO edit(ServiceDTO service);
 
+    // vraca listu serviceDTO-a gde su svi servisi koji nisu obrisani
+    List<ServiceDTO> getAllNotDeleted();
 }

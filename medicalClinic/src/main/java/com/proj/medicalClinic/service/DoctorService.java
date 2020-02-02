@@ -1,5 +1,6 @@
 package com.proj.medicalClinic.service;
 
+import com.proj.medicalClinic.dto.AppointmentRequestDTO;
 import com.proj.medicalClinic.dto.DoctorDTO;
 import com.proj.medicalClinic.model.Doctor;
 
@@ -10,5 +11,9 @@ public interface DoctorService {
     List<DoctorDTO> getAll();
     DoctorDTO save(Doctor doctorRequest);
     DoctorDTO remove(Long id);
+    List<DoctorDTO> getAllAvailableForDate(AppointmentRequestDTO appointmentRequestDTO);
 
+    List<DoctorDTO> getAllAssociatedWithPatient(String patient_email);
+
+    void review_doctor(Long id, int score);
 }

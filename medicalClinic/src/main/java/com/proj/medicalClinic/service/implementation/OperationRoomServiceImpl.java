@@ -5,12 +5,14 @@ import com.proj.medicalClinic.dto.OperationRoomDTO;
 import com.proj.medicalClinic.exception.NotExistsException;
 import com.proj.medicalClinic.exception.ResourceConflictException;
 import com.proj.medicalClinic.model.*;
+import com.proj.medicalClinic.repository.AppointmentRepository;
 import com.proj.medicalClinic.repository.ClinicRepository;
 import com.proj.medicalClinic.repository.OperationRoomRepository;
 import com.proj.medicalClinic.security.TokenUtils;
 import com.proj.medicalClinic.service.AppointmentService;
 import com.proj.medicalClinic.service.ClinicService;
 import com.proj.medicalClinic.service.OperationRoomService;
+import com.sun.deploy.util.ArrayUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,8 +20,8 @@ import org.springframework.stereotype.Service;
 
 import javax.print.Doc;
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service
 public class OperationRoomServiceImpl implements OperationRoomService {
@@ -41,6 +43,9 @@ public class OperationRoomServiceImpl implements OperationRoomService {
 
     @Autowired
     ClinicRepository clinicRepository;
+
+    @Autowired
+    private AppointmentRepository appointmentRepository;
 
     @Override
     public List<OperationRoomDTO> getAll() {
@@ -99,4 +104,54 @@ public class OperationRoomServiceImpl implements OperationRoomService {
 
         throw new ResourceConflictException(operationRoomRequest.getRoomId(), "Soba ima rezervisane preglede!");
     }
+
+    @Override
+    public List<OperationRoomDTO> getAllAvailable(long selectedDate) {
+
+        Calendar c = Calendar.getInstance();
+        c.setTimeInMillis(selectedDate);
+
+        c.add(Calendar.DAY_OF_MONTH, -1);
+        Date dayBefore = c.getTime();
+
+        c.add(Calendar.DAY_OF_MONTH, 2);
+        Date dayAfter = c.getTime();
+
+        System.out.println(dayBefore);
+        System.out.println(dayAfter);
+
+        List<Appointment> appointmentsBetweenDates = appointmentService.getAllDayBeforeAndDayAfter(dayBefore, dayAfter);
+        if(appointmentsBetweenDates == null){
+            System.out.println("NIJE NASAO NI JEDAN IZMEDJU");
+            return getAll();
+        }
+
+        List<OperationRoom> availableRooms = operationRoomRepository.findAllByDeletedNot(true);
+        List<OperationRoomDTO> operationRoomDTOS = new ArrayList<>();
+        for(Appointment appointment : appointmentsBetweenDates){
+            long appStart = appointment.getDate().getTime();
+            long appEnd = (long) (appointment.getDate().getTime() + appointment.getDuration() * 60000);
+
+            if(selectedDate < (appStart - 30 * 60000) || selectedDate > (appEnd)){
+                System.out.println("SLOBODAN TERMIN");
+            }else {
+                System.out.println("ZAUZET");
+                for(int i = 0; i < availableRooms.size(); i++){
+                    if (availableRooms.get(i).getId() == appointment.getOperationRoom().getId()){
+                        availableRooms.remove(i);
+                    }
+                }
+            }
+        }
+
+        for(OperationRoom or : availableRooms){
+            System.out.println(or.getName() + " OVU SOBU DODAJE");
+            operationRoomDTOS.add(new OperationRoomDTO(or));
+        }
+
+        return operationRoomDTOS;
+    }
+
+
+
 }

@@ -1,6 +1,7 @@
 package com.proj.medicalClinic.controller;
 
 import com.proj.medicalClinic.dto.AdminClinicDTO;
+import com.proj.medicalClinic.dto.AppointmentRequestDTO;
 import com.proj.medicalClinic.dto.DoctorDTO;
 import com.proj.medicalClinic.exception.NotExistsException;
 import com.proj.medicalClinic.exception.NotValidParamsException;
@@ -12,6 +13,7 @@ import com.proj.medicalClinic.service.DoctorService;
 import com.proj.medicalClinic.service.implementation.DoctorServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -57,6 +59,26 @@ public class DoctorController {
         }catch (ResourceConflictException e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.FORBIDDEN);
         }
+    }
 
+    // Post za vrsenje ocenjivanja doktora
+    @RequestMapping(value = "/reviewed/{id}/{score}", method = RequestMethod.POST)
+    public ResponseEntity<?> recieve_review(@PathVariable Long id,@PathVariable int score){
+        try{
+            doctorService.review_doctor(id, score);
+            return new ResponseEntity<>("Success", HttpStatus.OK);
+        }catch(NotExistsException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/getAllAvailable", method = RequestMethod.POST)
+    public ResponseEntity<?> getAllAvailable(@RequestBody AppointmentRequestDTO appointmentRequestDTO){
+        try {
+            List<DoctorDTO> doctorDTOS = doctorService.getAllAvailableForDate(appointmentRequestDTO);
+            return new ResponseEntity<>(doctorDTOS, HttpStatus.OK);
+        }catch (NotExistsException e){
+            return new ResponseEntity<>("Nije nasao doktore", HttpStatus.NOT_FOUND);
+        }
     }
 }
