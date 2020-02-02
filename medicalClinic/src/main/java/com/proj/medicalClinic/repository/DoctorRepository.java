@@ -18,7 +18,7 @@ public interface DoctorRepository extends JpaRepository<Doctor, Long> {
     List<Doctor> findAllByDeletedNot(boolean deleted);
 
     //Returns doctor employed in given clinic
-    List<Doctor> findAllByClinic(List<Clinic> c);
+    List<Doctor> findAllByClinicIn(List<Clinic> c);
   
     List<Doctor> findAllByExaminations(Examination examination);
   
@@ -30,8 +30,6 @@ public interface DoctorRepository extends JpaRepository<Doctor, Long> {
             nativeQuery = true)
     Optional<Doctor> findById(Long id);
 
-
-    List<Doctor> findAllByExaminations(Examination ex);
 
     List<Doctor> findAllByOperations(Operation op);
 
