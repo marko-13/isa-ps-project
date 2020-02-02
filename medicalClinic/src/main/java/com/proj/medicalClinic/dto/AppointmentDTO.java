@@ -45,6 +45,7 @@ public class AppointmentDTO {
             Examination examination = (Examination) a;
             this.date = examination.getDate();
             this.duration = examination.getDuration();
+            this.held = examination.isHeld();
 
             if(examination.isFast()){
                 this.fastExam = "Fast";
