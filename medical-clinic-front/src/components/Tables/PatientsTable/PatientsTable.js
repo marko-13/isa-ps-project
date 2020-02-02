@@ -49,6 +49,15 @@ class PatientsTable extends Component {
         });
     }
 
+    onClickUserCardHandler = () => {
+        this.setState({userCardClick: true});
+    }
+
+    onClickBackHandler = () => {
+        this.setState({userCardClick: false});
+        console.log('Usao ovde')
+    }
+
     render() {
         let table = null;
         let userCards = null;
