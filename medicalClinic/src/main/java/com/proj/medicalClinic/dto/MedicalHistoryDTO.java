@@ -30,19 +30,16 @@ public class MedicalHistoryDTO {
         this.allergies = medicalHistory.getAllergy();
     }
 
+    public MedicalHistoryDTO(MedicalHistory medicalHistory, List<AppointmentDTO> appointmentDTOS){
+        this.id = medicalHistory.getId();
+        this.height = medicalHistory.getHeight();
+        this.weight = medicalHistory.getWeight();
+        this.dioptre = medicalHistory.getDioptre();
+        this.allergies = medicalHistory.getAllergy();
+        this.appointments = appointmentDTOS;
+    }
+
     public List<AppointmentDTO> getAppointments() {
         return appointments;
-    }
-
-    public List<DiagnosisRegistryDTO> getDiagnosis() {
-        return diagnosis;
-    }
-
-    public void setAppointments(List<AppointmentDTO> appointments) {
-        this.appointments = appointments;
-    }
-
-    public void setDiagnosis(List<DiagnosisRegistryDTO> diagnosis) {
-        this.diagnosis = diagnosis;
     }
 }
