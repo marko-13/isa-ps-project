@@ -31,7 +31,16 @@ public class ServiceController {
         }catch (NotExistsException e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
+    }
 
+    @RequestMapping(value = "/getAllNotDeleted", method = RequestMethod.GET)
+    public ResponseEntity<?> getAllNotDeleted(){
+        try{
+            List<ServiceDTO> serviceDTO = serviceService.getAllNotDeleted();
+            return new ResponseEntity<>(serviceDTO, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
