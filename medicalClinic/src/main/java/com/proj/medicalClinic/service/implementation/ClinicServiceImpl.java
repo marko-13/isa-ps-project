@@ -118,7 +118,7 @@ public class ClinicServiceImpl implements ClinicService {
         List<Clinic> my_clinics = clinicRepository.findByServiceId(service_id);
 
         //svi doktori koji rade u tim klinikama
-        List<Doctor> my_doctors = doctorRepository.findAllByClinic(my_clinics);
+        List<Doctor> my_doctors = doctorRepository.findAllByClinicIn(my_clinics);
         if(!(my_doctors.isEmpty())){
             throw new NotExistsException();
         }
