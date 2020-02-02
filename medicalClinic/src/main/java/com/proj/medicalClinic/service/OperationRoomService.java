@@ -17,4 +17,6 @@ public interface OperationRoomService {
 
     OperationRoomDTO update(OperationRoomDTO operationRoomDTO);
 
+    List<OperationRoomDTO> getAllAvailable(long selectedDate);
+
 }

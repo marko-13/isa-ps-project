@@ -32,7 +32,7 @@ class RequestsTable extends Component {
 
         const queryParams = [];
         queryParams.push(encodeURIComponent('start') + '=' + encodeURIComponent(app.date));
-        queryParams.push(encodeURIComponent('end') + '=' + encodeURIComponent(app.date + app.duration * 60000));
+        queryParams.push(encodeURIComponent('appId') + '=' + encodeURIComponent(app.id));
         const queryString = queryParams.join('&');
 
         this.props.history.push({
@@ -126,7 +126,7 @@ class RequestsTable extends Component {
                     {table}
                 </div>
                 <div style={{margin: '0px', width: '100%'}} hidden={!this.state.showRooms}>
-                    <OperationRooms  fromRequests show={this.showRoomHandler}/>
+                    {this.state.showRooms ? <OperationRooms  fromRequests show={this.showRoomHandler}/> : null}
                 </div>
             </Auxiliary>
         );

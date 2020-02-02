@@ -1,16 +1,19 @@
 package com.proj.medicalClinic.controller;
 
+import com.proj.medicalClinic.dto.AppointmentRequestDTO;
 import com.proj.medicalClinic.dto.OperationRoomDTO;
 import com.proj.medicalClinic.exception.NotExistsException;
 import com.proj.medicalClinic.exception.ResourceConflictException;
 import com.proj.medicalClinic.model.OperationRoom;
 import com.proj.medicalClinic.service.OperationRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -57,5 +60,12 @@ public class OperationRoomController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.FORBIDDEN);
         }
 
+    }
+
+    @RequestMapping(value = "/getAllAvailable", method = RequestMethod.POST)
+    public ResponseEntity<?> getAllAvailable(@RequestBody AppointmentRequestDTO app){
+        System.out.println(app.getStart());
+        List<OperationRoomDTO> operationRooms = operationRoomService.getAllAvailable(app.getStart());
+        return new ResponseEntity<>(operationRooms, HttpStatus.OK);
     }
 }
