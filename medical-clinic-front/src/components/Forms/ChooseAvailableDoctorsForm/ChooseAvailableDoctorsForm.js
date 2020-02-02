@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from '../../../axios';
 
+import classes from './ChooseAvailableDoctorsForm.module.css';
+
 class ChooseAvailableDoctorsForm extends Component {
 
     state = {
@@ -8,8 +10,6 @@ class ChooseAvailableDoctorsForm extends Component {
     }
 
     componentDidMount() {
-
-        console.log("COMPONENT DID MOUNT");
 
         const data = {
             start: this.props.start,
@@ -32,6 +32,9 @@ class ChooseAvailableDoctorsForm extends Component {
 
         return (
             <div>
+                <div>
+                    <h2>Select new doctor for appointment</h2>
+                </div>
                 <h2>Doktor isn't available for this date, please choose another doctor.</h2>
                 <h1>LISTA DOKTORA</h1>
             </div>
