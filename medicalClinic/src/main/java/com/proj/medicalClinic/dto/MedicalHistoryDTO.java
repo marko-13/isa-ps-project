@@ -21,7 +21,6 @@ public class MedicalHistoryDTO {
     private double dioptre;
     private String allergies;
     private List<AppointmentDTO> appointments = new ArrayList<>();
-    private List<DiagnosisRegistryDTO> diagnosis = new ArrayList<>();
 
     public MedicalHistoryDTO(MedicalHistory medicalHistory){
         this.id = medicalHistory.getId();
