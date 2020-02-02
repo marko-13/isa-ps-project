@@ -171,6 +171,12 @@ public class AppointmentDTO {
             }else{
                 this.patient = examination.getPatient().getName() + " " + examination.getPatient().getLastName();
             }
+
+            if (examination.getMReport() != null) {
+                this.medicalReport = new MedicalReportDTO(examination.getMReport());
+            } else {
+                this.medicalReport = null;
+            }
         }
         else{
             Operation operation = (Operation) a;
@@ -189,14 +195,12 @@ public class AppointmentDTO {
 
             this.service = operation.getService().getType();
 
-            if(operation.getDoctors() == null){
+            if (operation.getDoctors() != null) {
+                this.doctors = operation.getDoctors().stream().map(
+                        s -> new DoctorDTO(s)
+                ).collect(Collectors.toList());
+            } else {
                 this.doctors = null;
-            }
-            else{
-                List<Doctor> doctors = operation.getDoctors();
-                for(Doctor d : doctors){
-                    this.doctors.add(d.getId());
-                }
             }
 
             this.nurse = null;
@@ -206,6 +210,8 @@ public class AppointmentDTO {
             }else{
                 this.patient = operation.getPatient().getName() + " " +  operation.getPatient().getLastName();
             }
+
+            this.medicalReport = null;
         }
     }
 
