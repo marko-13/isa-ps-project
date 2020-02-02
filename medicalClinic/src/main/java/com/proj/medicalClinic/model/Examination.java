@@ -16,6 +16,8 @@ import java.util.List;
 @DiscriminatorValue("EX")
 public class Examination extends Appointment {
 
+    @Column(name = "held", unique = false, nullable = false)
+    private boolean held;
 
     @Column(name = "fast", unique = false, nullable = false)
     private boolean fast;
