@@ -112,4 +112,17 @@ public class ServiceServiceImpl implements ServiceService {
         }
     }
 
+    // return list of services that are not deleted
+    @Override
+    public List<ServiceDTO> getAllNotDeleted() {
+        List<com.proj.medicalClinic.model.Service> services = serviceRepository.findAllWhereDeletedFalse();
+        List<ServiceDTO> ret = new ArrayList<>();
+
+        for(com.proj.medicalClinic.model.Service s : services){
+            ret.add(new ServiceDTO(s));
+        }
+
+        return ret;
+    }
+
 }
