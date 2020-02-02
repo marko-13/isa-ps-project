@@ -119,21 +119,46 @@ class PatientsTable extends Component {
                     pageSize={(this.state.patients.length > 7) ? 7 : this.state.patients.length}
                 />
             )
+
+            if (this.state.showPatient) {
+                displayFirst = 'none';
+                displaySecond = 'block';
+                displayThird = 'none';
+            }
+
+            if (this.state.userCardClick) {
+                displayFirst = 'none';
+                displaySecond = 'none';
+                displayThird = 'block';
+
+                medicalHistoryContent = (
+                    <MedicalHistory query = {this.props.location.search} back={() => this.onClickBackHandler()} name={this.state.name + " " + this.state.lastname}/>
+                )
+            }
         } else {
             table = <h2>Something is not right.</h2>;
         }
 
-
         return (
             <Auxiliary>
-                <div className='col-6'>
-                    {table}
-                </div>
-                <div className='col-3'>
-                    {this.state.showPatient ? <UserInfo full name={this.state.name} lastname={this.state.lastname} role='Patient' /> : null}
-                </div>
-                <div className='col-3'>
-                    {this.state.showPatient ? userCards : null}
+                <div className="col-md-7 login-form-1" style={{marginBottom: '2.5%', marginTop: 'auto', marginLeft: 'auto', marginRight: 'auto', padding: '2.5%'}}>
+                    <div style = {{display: displayFirst}}>
+                        {table}
+                    </div>
+                    <div style = {{display: displaySecond}}>
+                        <div className='row'>
+                            {this.state.showPatient ? <UserInfo full name={this.state.name} lastname={this.state.lastname} role='Patient' /> : null}
+                            <div className='col-5' style = {{flex: '0 0 41%', maxWidth: '100%'}}>
+                                {this.state.showPatient ? userCards : null}
+                            </div>
+                        </div>
+                        <div style={{fontSize: '1.25em', paddingTop: '1%'}}>
+                            <Button type='black' click = {() => this.setState({showPatient: false})} style = {{padding: '1px 10px'}}>Back</Button>
+                        </div>
+                    </div>
+                    <div style = {{display: displayThird}}>
+                        {medicalHistoryContent}
+                    </div>
                 </div>
             </Auxiliary>
         );
