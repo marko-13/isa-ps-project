@@ -16,5 +16,9 @@ public interface ServiceRepository extends JpaRepository<Service, Long> {
             nativeQuery = true)
     List<Service> findAllByClinic(Long id);
 
-
+    // upit koji vraca sve service(usluge) koji nisu obrisani, kojima je deleted na false
+    @Query(
+            value = "SELECT s.id, s.deleted, s.price, s.service_type FROM service as s where s.deleted = false",
+            nativeQuery = true)
+    List<Service> findAllWhereDeletedFalse();
 }

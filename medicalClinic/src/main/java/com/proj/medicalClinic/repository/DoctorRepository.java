@@ -15,7 +15,12 @@ public interface DoctorRepository extends JpaRepository<Doctor, Long> {
 
     //Doctors are deleted logically, this returns all non-deleted doctors
     List<Doctor> findAllByDeletedNot(boolean deleted);
+
+    //Returns doctor employed in given clinic
+    List<Doctor> findAllByClinic(List<Clinic> c);
+  
     List<Doctor> findAllByExaminations(Examination examination);
+  
     List<Doctor> findAllByClinicAndDeletedNot(Clinic clinic, boolean deleted);
 
     

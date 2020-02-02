@@ -49,6 +49,11 @@ const Homepage = (props) => {
         name = decodedToken.name;
         lastname = decodedToken.lastname;
 
+        //pacijent ne mora da menja sifru pri prvom prijavljivanju na sistem
+        if(role === 'patient'){
+          passChanged = true;
+        }
+
         if (passChanged) {
             switch (role) {
                 case 'nurse':
