@@ -52,13 +52,17 @@ public class MedicalHistoryController {
         }
     }
 
-    @RequestMapping(value = "/getMedicalHistoryFromPatient/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/getMedicalHistoryFromPatient/{id}")
     public ResponseEntity<?> getMedicalHistoryFromPatient(@PathVariable Long id){
         try {
-            MedicalHistoryDTO medicalHistoryDTO = medicalHistoryService.getMedicalHistoryByPatientId(id);
-            return new ResponseEntity<>(medicalHistoryDTO, HttpStatus.OK);
-        }catch (NotExistsException e){
-            return new ResponseEntity<>("Zdravstveni karton nije pronadjen", HttpStatus.NOT_FOUND);
+            String email = this.tokenUtils.getUsernameFromToken(this.tokenUtils.getToken(this.httpServletRequest));
+            return new ResponseEntity<>(this.medicalHistoryService.getMedicalHistoryByPatientId(id, email), HttpStatus.OK);
+        } catch (NotValidParamsException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.FORBIDDEN);
+        } catch (NotExistsException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 }
