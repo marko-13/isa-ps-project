@@ -13,6 +13,7 @@ import javax.persistence.DiscriminatorValue;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @Builder
@@ -27,10 +28,13 @@ public class AppointmentDTO {
     private String clinic;
     private String operationRoom;
     private String service;
-    private List<Long> doctors;
+    private List<DoctorDTO> doctors;
     private Long nurse;
     private String patient;
     private Long id;
+    private MedicalReportDTO medicalReport;
+    private boolean held;
+    private boolean assigned;
 
     public AppointmentDTO(Appointment a){
         this.type = a.getClass().getAnnotation(DiscriminatorValue.class).value();
