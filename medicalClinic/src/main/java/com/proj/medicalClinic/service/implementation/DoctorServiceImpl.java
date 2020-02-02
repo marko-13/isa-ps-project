@@ -46,8 +46,6 @@ public class DoctorServiceImpl implements DoctorService {
     @Autowired
     private AppUserRepository userRepository;
 
-    @Autowired
-    private AppointmentRepository appointmentRepository;
 
     public List<DoctorDTO> getAll(){
         List<Doctor> doctors = doctorRepository.findAllByDeletedNot(true);
