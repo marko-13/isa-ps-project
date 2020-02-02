@@ -1,20 +1,20 @@
 package com.proj.medicalClinic.service.implementation;
 
 import com.proj.medicalClinic.dto.ClinicDTO;
+import com.proj.medicalClinic.dto.ClinicServiceDTO;
 import com.proj.medicalClinic.dto.DoctorDTO;
 import com.proj.medicalClinic.dto.DrugsRegistryDTO;
 import com.proj.medicalClinic.exception.NotExistsException;
 import com.proj.medicalClinic.exception.NotValidParamsException;
 import com.proj.medicalClinic.model.*;
-import com.proj.medicalClinic.repository.AppUserRepository;
-import com.proj.medicalClinic.repository.ClinicRepository;
+import com.proj.medicalClinic.repository.*;
 import com.proj.medicalClinic.service.ClinicService;
+import com.sun.xml.bind.v2.TODO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -28,6 +28,18 @@ public class ClinicServiceImpl implements ClinicService {
 
     @Autowired
     private AppUserRepository appUserRepository;
+
+    @Autowired
+    private DoctorRepository doctorRepository;
+
+    @Autowired
+    private ServiceRepository serviceRepository;
+
+    @Autowired
+    private OperationRepository operationRepository;
+
+    @Autowired
+    private ExaminationRepository examinationRepository;
 
     @Override
     public List<ClinicDTO> getAllClinics() {
@@ -92,6 +104,63 @@ public class ClinicServiceImpl implements ClinicService {
         c.setReview(c.getReview() + (float)score);
 
         clinicRepository.save(c);
+    }
+
+
+    // Returns list of clinics where its possible to get selected service(appropriate doctors exist)
+    // and where are appointemnts available for selected date
+    @Override
+    public List<ClinicServiceDTO> findCorresponding(Long service_id, Long appointment_date, double min_clinic_score) {
+        //Requested service
+        com.proj.medicalClinic.model.Service my_service = serviceRepository.findById(service_id).orElseThrow(NotExistsException::new);
+        Long my_duration = 3600000L;
+        //sve klinike u kojima moze da se izvrsi odredjeni pregled
+        List<Clinic> my_clinics = clinicRepository.findByServiceId(service_id);
+
+        //svi doktori koji rade u tim klinikama
+        List<Doctor> my_doctors = doctorRepository.findAllByClinic(my_clinics);
+        if(!(my_doctors.isEmpty())){
+            throw new NotExistsException();
+        }
+        List<Doctor> ok_doktori = new ArrayList<>();
+
+
+        Date my_date = new Date(appointment_date);
+        long eight_hrs_in_miliseconds = 28800000L;
+        //for each doctor check if there is free time in his schedule
+        for(Doctor d : my_doctors){
+            List<Operation> docs_operations = operationRepository.findAllByDoctorsContaining(d);
+
+            //IZBACI SVE KOJI NISU U ZELJENOM DANU
+            for(Operation o : docs_operations){
+                if(o.getDate().getDay() != my_date.getDay()){
+                    docs_operations.remove(o);
+                }
+            }
+
+            //SORTIRAJ IH PO VREMENU
+            Collections.sort(docs_operations, new Comparator<Operation>() {
+                public int compare(Operation o1, Operation o2) {
+                    // compare two instance of `Operation` and return `int` as result.
+                    return (int) (o2.getDate().getTime()-(o1.getDate().getTime()));
+                }
+            });
+
+            //ZA SVAKU IZRACUNAJ UDALJENOST OD SLEDECE I AKO JE VECA OD 1h DODAJ VREME KAO OPCIJU
+            for(int i =0; i<docs_operations.size()- 1; i++){
+                if(-docs_operations.get(i).getDate().getTime() - docs_operations.get(i).getDuration() +
+                  docs_operations.get(i + 1).getDate().getTime() < my_duration){
+                    ok_doktori.add(d);
+                }
+            }
+        }
+
+        // TODO
+        //PROVDJI KROZ SVE DOKTORE I VRATI KLINIKE NA KOJIMA SU TI DOKTORI JER TAMO IMA SLOBODNIH TERMINA
+
+
+
+        return null;
     }
 
     @Override
