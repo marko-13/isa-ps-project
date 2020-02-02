@@ -1,19 +1,21 @@
 package com.proj.medicalClinic.service.implementation;
 
 import com.proj.medicalClinic.dto.AppointmentDTO;
+import com.proj.medicalClinic.dto.ClinicDTO;
 import com.proj.medicalClinic.dto.DiagnosisRegistryDTO;
 import com.proj.medicalClinic.dto.MedicalHistoryDTO;
 import com.proj.medicalClinic.exception.NotExistsException;
+import com.proj.medicalClinic.exception.NotValidParamsException;
 import com.proj.medicalClinic.model.*;
-import com.proj.medicalClinic.repository.AppUserRepository;
-import com.proj.medicalClinic.repository.MedicalHistoryRepository;
-import com.proj.medicalClinic.repository.MedicalReportRepository;
+import com.proj.medicalClinic.repository.*;
 import com.proj.medicalClinic.service.MedicalHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class MedicalHistoryServiceImpl implements MedicalHistoryService {
