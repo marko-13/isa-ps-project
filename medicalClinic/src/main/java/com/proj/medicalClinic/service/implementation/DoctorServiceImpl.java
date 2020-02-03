@@ -16,6 +16,8 @@ import com.proj.medicalClinic.service.AuthorityService;
 import com.proj.medicalClinic.service.DoctorService;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -99,6 +101,30 @@ public class DoctorServiceImpl implements DoctorService {
         return ret_val;
     }
 
+    @Override
+    public List<DoctorDTO> getAllFromClinicAndIsNotDeleted() {
+
+        Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
+        String username = currentUser.getName();
+
+        AdminClinic adminClinic = (AdminClinic) userRepository.findByEmail(username).orElseThrow(NotExistsException::new);
+
+        Clinic c = adminClinic.getClinic();
+
+        List<Doctor> doctors = doctorRepository.findAllByClinicAndDeletedNot(c, true);
+
+        if(doctors == null || doctors.isEmpty()){
+            throw new NotExistsException();
+        }
+
+        List<DoctorDTO> doctorDTOS = new ArrayList<>();
+        for(Doctor d : doctors){
+            doctorDTOS.add(new DoctorDTO(d));
+        }
+
+        return doctorDTOS;
+    }
+
     // Update broja review-a i zbira svih rview-a doktora
     @Override
     public void review_doctor(Long id, int score) {
@@ -153,18 +179,41 @@ public class DoctorServiceImpl implements DoctorService {
     @Override
     public List<DoctorDTO> getAllAvailableForDate(AppointmentRequestDTO appointmentRequestDTO) {
 
-        System.out.println("USAO");
-        Appointment appointment = appointmentRepository.findById(appointmentRequestDTO.getAppId()).orElseThrow(NotExistsException::new);
-        Clinic clinic = appointment.getClinic();
-        List<Doctor> doctors = doctorRepository.findAllByClinicAndDeletedNot(clinic, true);
+        Appointment appointment;
+        Clinic clinic;
+        List<Doctor> doctors;
         List<DoctorDTO> availableDoctors = new ArrayList<>();
+
+        System.out.println(appointmentRequestDTO.getAppId());
+
+
+        if(appointmentRequestDTO.getAppId() == 0){
+            System.out.println("ULAZI IZ NEW MEDICAL EXAM");
+            Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
+            String username = currentUser.getName();
+
+            AdminClinic adminClinic = (AdminClinic) userRepository.findByEmail(username).orElseThrow(NotExistsException::new);
+
+            clinic = adminClinic.getClinic();
+            doctors = doctorRepository.findAllByClinicAndDeletedNot(clinic, true);
+
+        }else {
+            System.out.println("ULAZI PREKO SEARCH");
+            appointment = appointmentRepository.findById(appointmentRequestDTO.getAppId()).orElseThrow(NotExistsException::new);
+            clinic = appointment.getClinic();
+            doctors = doctorRepository.findAllByClinicAndDeletedNot(clinic, true);
+        }
+
+//        Appointment appointment = appointmentRepository.findById(appointmentRequestDTO.getAppId()).orElseThrow(NotExistsException::new);
+//        Clinic clinic = appointment.getClinic();
+//        List<Doctor> doctors = doctorRepository.findAllByClinicAndDeletedNot(clinic, true);
+//        List<DoctorDTO> availableDoctors = new ArrayList<>();
 
         for(Doctor d : doctors){
             availableDoctors.add(new DoctorDTO(d));
         }
 
         long selectedDate = appointmentRequestDTO.getStart();
-        System.out.println(selectedDate);
         for(Doctor d : doctors){
             for(Examination e : d.getExaminations()){
                 long exStart = e.getDate().getTime();
