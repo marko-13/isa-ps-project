@@ -1,5 +1,22 @@
 .Header {
     color:white;
+    margin-bottom: 10px;
+    background-color: #1abc9c;
+    padding: 5px 20px;
     text-align: center;
-    background-color: red;
+    
+}
+
+.Buttons {
+    float: right;
+}
+
+.Buttons button {
+    padding: 5px 15px;
+    margin: 0px 10px;
+}
+
+.Error {
+    color: red;
+    font-size: 1.2em;
 }
