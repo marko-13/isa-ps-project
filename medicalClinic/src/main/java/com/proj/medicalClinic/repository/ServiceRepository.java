@@ -11,6 +11,8 @@ import java.util.Optional;
 
 public interface ServiceRepository extends JpaRepository<Service, Long> {
 
+    List<Service> findAllByDoctors(Doctor doctor);
+
     @Query(
             value = "SELECT s.id, s.price, s.service_type, cs.clinic_id, s.deleted FROM service as s, clinics_services as cs where s.id = cs.service_id and cs.clinic_id = ?1",
             nativeQuery = true)
