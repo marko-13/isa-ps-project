@@ -82,4 +82,16 @@ public class ServiceController {
         }
     }
 
+    @RequestMapping(value = "/getAllFromDoctor/{doctorId}", method = RequestMethod.POST)
+    @PreAuthorize("hasAuthority('ADMINCLINIC')")
+    public ResponseEntity<?> getAllFromDoctor(@PathVariable long doctorId){
+        System.out.println(doctorId);
+        try {
+            List<ServiceDTO> serviceDTOS = serviceService.getAllFromDoctor(doctorId);
+            return new ResponseEntity<>(serviceDTOS, HttpStatus.OK);
+        }catch (NotExistsException e) {
+            return new ResponseEntity<>("Servisi za doktora nisu pronadjeni", HttpStatus.NOT_FOUND);
+        }
+    }
+
 }
