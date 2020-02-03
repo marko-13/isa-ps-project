@@ -5,6 +5,7 @@ import com.proj.medicalClinic.dto.OperationRoomDTO;
 import com.proj.medicalClinic.exception.NotExistsException;
 import com.proj.medicalClinic.exception.ResourceConflictException;
 import com.proj.medicalClinic.model.*;
+import com.proj.medicalClinic.repository.AppUserRepository;
 import com.proj.medicalClinic.repository.AppointmentRepository;
 import com.proj.medicalClinic.repository.ClinicRepository;
 import com.proj.medicalClinic.repository.OperationRoomRepository;
@@ -43,6 +44,9 @@ public class OperationRoomServiceImpl implements OperationRoomService {
 
     @Autowired
     ClinicRepository clinicRepository;
+
+    @Autowired
+    private AppUserRepository userRepository;
 
     @Autowired
     private AppointmentRepository appointmentRepository;
@@ -152,6 +156,25 @@ public class OperationRoomServiceImpl implements OperationRoomService {
         return operationRoomDTOS;
     }
 
+    @Override
+    public List<OperationRoomDTO> getAllFromClinic() {
+        Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
+        String username = currentUser.getName();
+
+        AdminClinic adminClinic = (AdminClinic) userRepository.findByEmail(username).orElseThrow(NotExistsException::new);
+
+        Clinic c = adminClinic.getClinic();
+
+        List<OperationRoom> operationRooms = operationRoomRepository.findAllByClinic(c).orElseThrow(NotExistsException::new);
+        List<OperationRoomDTO> operationRoomDTOS = new ArrayList<>();
+
+
+        for(OperationRoom or : operationRooms){
+            operationRoomDTOS.add(new OperationRoomDTO(or));
+        }
+
+        return operationRoomDTOS;
+    }
 
 
 }
