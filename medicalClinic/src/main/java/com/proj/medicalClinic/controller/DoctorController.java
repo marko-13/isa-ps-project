@@ -81,4 +81,15 @@ public class DoctorController {
             return new ResponseEntity<>("Nije nasao doktore", HttpStatus.NOT_FOUND);
         }
     }
+
+    @RequestMapping(value = "/getAllFromClinicAndNotDeleted", method = RequestMethod.GET)
+    public ResponseEntity<?> getAllFromClinicAndAreNotDeleted() {
+        try {
+            List<DoctorDTO> doctorDTOS = doctorService.getAllFromClinicAndIsNotDeleted();
+            return new ResponseEntity<>(doctorDTOS, HttpStatus.OK);
+        }catch (NotExistsException e){
+            return new ResponseEntity<>("Greska pri trazenju doktora", HttpStatus.NOT_FOUND);
+        }
+
+    }
 }
