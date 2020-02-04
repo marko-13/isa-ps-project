@@ -30,6 +30,9 @@ public class PrescriptionServiceImpl implements PrescriptionService {
     @Autowired
     private AppUserRepository appUserRepository;
 
+    @Autowired
+    private DrugsRepository drugsRepository;
+
     @Override
     public List<PrescriptionDTO> getApprovedPrescriptions (String email) {
         try {
