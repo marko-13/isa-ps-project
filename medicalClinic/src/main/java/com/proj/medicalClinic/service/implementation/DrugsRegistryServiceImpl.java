@@ -29,7 +29,7 @@ public class DrugsRegistryServiceImpl implements DrugsRegistryService {
             AppUser user = appUserRepository.findByEmail(email)
                     .orElseThrow(NotExistsException::new);
 
-            if (!(user instanceof AdminClinicalCenter)) {
+            if (!(user instanceof AdminClinicalCenter) && !(user instanceof Doctor) && !(user instanceof Nurse)) {
                 throw new NotValidParamsException("Only admin of the clinical center can see this data");
             }
 
