@@ -1,9 +1,6 @@
 package com.proj.medicalClinic.controller;
 
-import com.proj.medicalClinic.dto.AppointmentDTO;
-import com.proj.medicalClinic.dto.AppointmentHistoryDTO;
-import com.proj.medicalClinic.dto.AppointmentRequestDTO;
-import com.proj.medicalClinic.dto.ChangeDoctorRequestDTO;
+import com.proj.medicalClinic.dto.*;
 import com.proj.medicalClinic.exception.NotExistsException;
 import com.proj.medicalClinic.exception.ResourceConflictException;
 import com.proj.medicalClinic.model.Appointment;
@@ -92,6 +89,17 @@ public class AppointmentController {
         try {
             AppointmentDTO appointmentDTO = appointmentService.changeDoctorAndAddRoom(changeDoctorRequestDTO);
             return new ResponseEntity<>(appointmentDTO, HttpStatus.OK);
+        }catch (NotExistsException e){
+            return new ResponseEntity<>("NOT FOUND", HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping(value = "/getAllHeldAndBetweenDates", method = RequestMethod.POST)
+    public ResponseEntity<?> getAllHeldAndBetweenDates(@RequestBody ClinicReviewRequestDTO clinicReviewRequestDTO){
+        System.out.println(clinicReviewRequestDTO.getStartDate());
+        try {
+            List<AppointmentDTO>  appointmentDTOS = appointmentService.getAllHeldBetweenNowAndEnd(clinicReviewRequestDTO);
+            return new ResponseEntity<>(appointmentDTOS, HttpStatus.OK);
         }catch (NotExistsException e){
             return new ResponseEntity<>("NOT FOUND", HttpStatus.NOT_FOUND);
         }

@@ -1,9 +1,6 @@
 package com.proj.medicalClinic.service;
 
-import com.proj.medicalClinic.dto.AppointmentDTO;
-import com.proj.medicalClinic.dto.AppointmentHistoryDTO;
-import com.proj.medicalClinic.dto.AppointmentRequestDTO;
-import com.proj.medicalClinic.dto.ChangeDoctorRequestDTO;
+import com.proj.medicalClinic.dto.*;
 import com.proj.medicalClinic.model.Appointment;
 
 import java.util.Date;
@@ -20,4 +17,5 @@ public interface AppointmentService {
     AppointmentDTO changeDateAndAddRoom(AppointmentRequestDTO appointmentRequestDTO);
     void cronAddRooms();
     AppointmentDTO changeDoctorAndAddRoom(ChangeDoctorRequestDTO changeDoctorRequestDTO);
+    List<AppointmentDTO> getAllHeldBetweenNowAndEnd(ClinicReviewRequestDTO interval);
 }

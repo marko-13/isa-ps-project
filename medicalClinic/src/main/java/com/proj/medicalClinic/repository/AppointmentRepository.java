@@ -22,6 +22,12 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     List<Appointment> findAllByDateBetweenAndOperationRoomIsNotNull(Date start, Date end);
     List<Appointment> findAllByOperationRoomIsNull();
 
+
+    @Query(
+            value = "select * from appointment where held = true and clinic_id = ?1 and date between ?2 and ?3",
+            nativeQuery = true)
+    Optional<List<Appointment>> findAllHeldAndFromClinicBetweenNowAndEndDate(Long clinicId, Date start, Date end);
+
     @Query(
             value = "select * from appointment where clinic_id = ?1 and operation_room_id IS NULL;",
             nativeQuery = true)

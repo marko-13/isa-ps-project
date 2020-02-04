@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import javax.print.Doc;
 import javax.transaction.Transactional;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -392,6 +393,35 @@ public class AppointmentServiceImpl implements AppointmentService {
         }
 
         return null;
+    }
+
+    @Override
+    public List<AppointmentDTO> getAllHeldBetweenNowAndEnd(ClinicReviewRequestDTO interval) {
+
+        Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
+        String username = currentUser.getName();
+
+        AdminClinic adminClinic = (AdminClinic) appUserRepository.findByEmail(username).orElseThrow(NotExistsException::new);
+        Long clinicId = adminClinic.getClinic().getId();
+
+        Date startDate = interval.getStartDate();
+        Date endDate = interval.getEndDate();
+
+        String pattern = "yyyy-MM-dd hh:mm";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        String startDateString = simpleDateFormat.format(startDate);
+        String endDateString = simpleDateFormat.format(endDate);
+
+        System.out.println(startDateString);
+        System.out.println(endDateString);
+
+        List<Appointment> appointments = appointmentRepository.findAllHeldAndFromClinicBetweenNowAndEndDate(clinicId, startDate, endDate).orElseThrow(NotExistsException::new);
+        List<AppointmentDTO> appointmentDTOS = new ArrayList<>();
+        for(Appointment a : appointments){
+            appointmentDTOS.add(new AppointmentDTO(a));
+        }
+
+        return appointmentDTOS;
     }
 
 
