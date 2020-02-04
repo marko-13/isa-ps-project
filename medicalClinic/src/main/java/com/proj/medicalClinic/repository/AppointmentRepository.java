@@ -20,6 +20,7 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     Optional<List<Appointment>> findAllByPatientId(Long id);
     List<Appointment> findByServiceId(Long serviceId);
     List<Appointment> findAllByDateBetweenAndOperationRoomIsNotNull(Date start, Date end);
+    List<Appointment> findAllByDateBetween(Date start, Date end);
     List<Appointment> findAllByOperationRoomIsNull();
 
 
@@ -43,12 +44,12 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
             nativeQuery = true)
     Optional<Appointment> findById(Long id);
 
+
     @Modifying(clearAutomatically = true)
     @Query(
             value = "UPDATE appointment SET operation_room_id = ?1 WHERE appointment.id = ?2",
             nativeQuery = true
     )
     void saveNative(long roomId, long appointmentId);
-
 
 }

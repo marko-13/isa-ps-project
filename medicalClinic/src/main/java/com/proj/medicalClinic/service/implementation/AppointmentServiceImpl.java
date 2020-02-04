@@ -18,12 +18,21 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.print.Doc;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.*;
+
 import javax.transaction.Transactional;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+
 import java.util.stream.Collectors;
 
 @Service
@@ -51,7 +60,11 @@ public class AppointmentServiceImpl implements AppointmentService {
     private OperationRoomService operationRoomService;
 
     @Autowired
+    private LeaveRepository leaveRepository;
+
+    @Autowired
     private EmailService emailService;
+
 
     @Autowired
     private ServiceRepository serviceRepository;
@@ -395,6 +408,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         return null;
     }
 
+
     @Override
     public List<AppointmentDTO> getAllHeldBetweenNowAndEnd(ClinicReviewRequestDTO interval) {
 
@@ -422,6 +436,109 @@ public class AppointmentServiceImpl implements AppointmentService {
         }
 
         return appointmentDTOS;
+    }
+  
+  
+
+    // tries to schedule an appointment for selected date and time and doctor if he is available
+    @Override
+    public void reserveExaminationForPatient(Long selected_date, int hours, int minutes, Long doc_id, Long service_id) {
+        Long millis_in_hour = 3600000L;
+        Long millis_in_min = 60000L;
+        Long duration = 1800000L;
+        Long my_date = selected_date + (hours * millis_in_hour) + (minutes * millis_in_min);
+
+        //DATUMI PODESENI
+
+        com.proj.medicalClinic.model.Service my_service = serviceRepository.findById(service_id).orElseThrow(NotExistsException::new);
+        Doctor my_doc = doctorRepository.findById(doc_id).orElseThrow(NotExistsException::new);
+        // check shifts
+//        if(my_doc.getShift() == 1){
+//            if(hours >= 8){
+//                throw new NotExistsException();
+//            }
+//        }
+//        else if(my_doc.getShift() == 2){
+//            if(hours < 8 || hours >= 16){
+//                throw new NotExistsException();
+//            }
+//        }
+//        else{
+//            if(hours < 16){
+//                throw new NotExistsException();
+//            }
+//        }
+
+
+        List<Operation> operations = operationRepository.findAllByDoctorsContaining(my_doc);
+        List<Examination> examinations = examinationRepository.findAllByDoctorsContaining(my_doc);
+        List<Leave> leaves = leaveRepository.findAllByDoctor(my_doc);
+
+        for(Operation o : operations){
+            // ako pocetak upada izmedju neko app
+            if((o.getDate().getTime() < my_date) && ((o.getDate().getTime() + o.getDuration() * millis_in_min) > my_date)){
+                System.out.println("UDJE JEDAN");
+                throw new NotExistsException();
+            }
+            // ako kraj upada izmedju nekog app
+            if((o.getDate().getTime() < (my_date + 30 * millis_in_min)) && ((o.getDate().getTime() + o.getDuration() * millis_in_min) > (my_date + 30 * millis_in_min))){
+                System.out.println("UDJE DVA");
+                throw new NotExistsException();
+            }
+        }
+
+        for(Examination o : examinations){
+            if((o.getDate().getTime() < my_date) && ((o.getDate().getTime() + o.getDuration() * millis_in_min) > my_date)){
+                System.out.println("UDJE TRI");
+                throw new NotExistsException();
+            }
+            if((o.getDate().getTime() < (my_date + 30 * millis_in_min)) && ((o.getDate().getTime() + o.getDuration() * millis_in_min) > (my_date + 30 * millis_in_min))){
+                System.out.println("UDJE CETIRI");
+                throw new NotExistsException();
+            }
+        }
+
+        for(Leave l : leaves){
+            if((l.getDateStart().getTime() < my_date) && (l.getDateEnd().getTime() > my_date)){
+                System.out.println("UDJE PET");
+                throw new NotExistsException();
+            }
+            if((l.getDateStart().getTime() < (my_date + 30 * millis_in_min)) && (l.getDateEnd().getTime() > (my_date + 30 * millis_in_min))){
+                System.out.println("UDJE SEST");
+                throw new NotExistsException();
+            }
+        }
+
+        Examination ex = new Examination();
+        List<Doctor> list_doc = new ArrayList<Doctor>();
+        list_doc.add(my_doc);
+        ex.setDoctors(list_doc);
+        ex.setFast(false);
+        ex.setHeld(false);
+        ex.setNurse(null);
+        ex.setOperationRoom(null);
+        ex.setDate(new Date(my_date));
+        ex.setDuration(30);
+        // kako preuzeti pacijenta
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        System.out.println(username);
+        Patient p =(Patient) appUserRepository.findByEmail(username).orElseThrow(NotExistsException::new);
+
+        ex.setPatient(p);
+        ex.setClinic(my_doc.getClinic());
+        ex.setService(my_service);
+
+        examinationRepository.save(ex);
+
+        List<Examination> ex_for_doc = new ArrayList<>();
+        ex_for_doc = my_doc.getExaminations();
+        ex_for_doc.add(ex);
+        my_doc.setExaminations(ex_for_doc);
+
+        doctorRepository.save(my_doc);
+
+        return;
     }
 
 

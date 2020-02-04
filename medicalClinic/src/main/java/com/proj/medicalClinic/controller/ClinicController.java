@@ -92,14 +92,14 @@ public class ClinicController {
         }
     }
 
-    @RequestMapping(value = "/findCorrespondingClincis/{service_id}/{appointment_date}/{min_clinic_score}")
+    @RequestMapping(value = "/findCorrespondingClinics/{service_id}/{appointment_date}/{min_clinic_score}")
     public ResponseEntity<?> findCorespondingClinics(@PathVariable Long service_id,
-                                                     @PathVariable Long appointment_date, @PathVariable double min_clinc_score){
+                                                     @PathVariable Long appointment_date, @PathVariable double min_clinic_score){
         try{
-            List<ClinicServiceDTO> ret = clinicService.findCorresponding(service_id, appointment_date, min_clinc_score);
+            List<ClinicServiceDTO> ret = clinicService.findCorresponding(service_id, appointment_date, min_clinic_score);
             return new ResponseEntity<>(ret, HttpStatus.OK);
         }catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 }

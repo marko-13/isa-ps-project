@@ -14,6 +14,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import javax.print.Doc;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -40,6 +47,9 @@ public class ClinicServiceImpl implements ClinicService {
 
     @Autowired
     private ExaminationRepository examinationRepository;
+
+    @Autowired
+    private LeaveRepository leaveRepository;
 
     @Override
     public List<ClinicDTO> getAllClinics() {
@@ -111,56 +121,243 @@ public class ClinicServiceImpl implements ClinicService {
     // and where are appointemnts available for selected date
     @Override
     public List<ClinicServiceDTO> findCorresponding(Long service_id, Long appointment_date, double min_clinic_score) {
+        Long eight_hrs_in_miliseconds = 28800000L;
+        Long one_hour_in_millis = 3600000L; //ONE HOUR
+
+        // kalendar
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(appointment_date);
+        cal.add(Calendar.DAY_OF_MONTH, -1);
+        Date dayBefore = cal.getTime();
+        //kalendar
+
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        Date my_date = new Date(appointment_date);
+        String my_date1 = df.format(my_date);
+        String my_date2 = df.format(dayBefore);
+
+        LocalDate localDate = LocalDate.parse(my_date1);
+        LocalDate localDate2 = LocalDate.parse(my_date2);
+        LocalDateTime day_beginning = LocalDateTime.of(localDate2, LocalTime.MAX);
+        LocalDateTime day_ending = LocalDateTime.of(localDate, LocalTime.MAX);
+
+        LocalDateTime start_app_date = LocalDateTime.of(localDate, LocalTime.MIN);
+
+        Date day1 = java.sql.Timestamp.valueOf(day_beginning);
+        Date day2 = java.sql.Timestamp.valueOf(day_ending);
+        //pocetak dana da mogu da proverim da li ima mesta za appointment
+        Date start_dates = java.sql.Timestamp.valueOf(start_app_date);
+        //DATUMI PODESENI
+        //--------------------------------------------------------------------------------------------------------------
+
+
         //Requested service
         com.proj.medicalClinic.model.Service my_service = serviceRepository.findById(service_id).orElseThrow(NotExistsException::new);
-        Long my_duration = 3600000L;
+        System.out.println("Id trazenog servicea: " + my_service.getId());
+
         //sve klinike u kojima moze da se izvrsi odredjeni pregled
         List<Clinic> my_clinics = clinicRepository.findByServiceId(service_id);
+        for(Clinic c : my_clinics){
+            System.out.println("Id klinika gde se moze izvrsiti service: " + c.getId());
+        }
 
         //svi doktori koji rade u tim klinikama
-        List<Doctor> my_doctors = doctorRepository.findAllByClinicIn(my_clinics);
-        if(!(my_doctors.isEmpty())){
+        List<Doctor> my_doctors1 = doctorRepository.findAllByClinicIn(my_clinics);
+        for(Doctor d : my_doctors1){
+            System.out.println("Id doktora iz klinika: " + d.getId());
+        }
+        if(my_doctors1.isEmpty()){
+            System.out.println("Ne postoje doktori koj izadovoljavaju krietrijum");
             throw new NotExistsException();
         }
-        List<Doctor> ok_doktori = new ArrayList<>();
+
+        // u my_doctors_pom su svi oni doktori koji nisu na godisnjem iz zeljene klinike
+        List<Doctor> my_doctors_pom = new ArrayList<>();
+        List<Doctor> temp_docs = new ArrayList<>();
+        temp_docs = doctorRepository.findByDateBeforeOrAfter(day1, day2);
+        for (Doctor doca : my_doctors1) {
+            if (!(temp_docs.contains(doca))) {
+                my_doctors_pom.add(doca);
+            } else {
+                System.out.println("Izbacen zbog godisnjeg: " + doca.getId());
+            }
+        }
+        if(my_doctors_pom.isEmpty()){
+            System.out.println("Ne postoje doktori koj izadovoljavaju krietrijum");
+            throw new NotExistsException();
+        }
+
+        // u my_doctors su svi oni doktori koji mogu da obave zeljeni service
+        List<Doctor> my_doctors = new ArrayList<>();
+        List<Doctor> temp_docs2 = new ArrayList<>();
+        temp_docs2 = doctorRepository.findAllByServices(my_service);
+        for(Doctor doca2 : my_doctors_pom) {
+            if((temp_docs2.contains(doca2))){
+                my_doctors.add(doca2);
+            }
+            else{
+                System.out.println("Izbacen jer ne obavlja service: " + doca2.getId());
+            }
+        }
+        if(my_doctors.isEmpty()){
+            System.out.println("Ne postoje doktori koj izadovoljavaju krietrijum");
+            throw new NotExistsException();
+        }
 
 
-        Date my_date = new Date(appointment_date);
-        long eight_hrs_in_miliseconds = 28800000L;
-        //for each doctor check if there is free time in his schedule
+
+
+
+
+            // liste svih pregleda i operacija za trazeni dan
+        List<Examination> examinations = examinationRepository.findAllByDateBetween(day1, day2);
+        List<Operation> operations = operationRepository.findAllByDateBetween(day1, day2);
+
+
+//        Map<Long, Long> appointment_vremena = new HashMap<Long, Long>();
+        //MAPA GDE JE KLJUC ID DOKTORA A VREDNOST JE LISTA VREMENA
+        Map<Doctor, Map<Long, Double>> my_map = new HashMap<>();
         for(Doctor d : my_doctors){
-            List<Operation> docs_operations = operationRepository.findAllByDoctorsContaining(d);
+            my_map.put(d, new HashMap<Long,Double>());
+        }
 
-            //IZBACI SVE KOJI NISU U ZELJENOM DANU
-            for(Operation o : docs_operations){
-                if(o.getDate().getDay() != my_date.getDay()){
-                    docs_operations.remove(o);
+
+        // ako doktor iz operacije nije u doktorima klinike izbaci
+        for(Examination ex : examinations){
+            for(Doctor d : ex.getDoctors()){
+                // ako taj pregled nema sve doktore iz zeljene klinike izbaci
+                if(!(my_doctors.contains(d))){
+                    examinations.remove(ex);
+                    System.out.println("Nasao pregled za zeljeni dan koji nema doktore iz klinike: " + ex.getId());
+                    continue;
                 }
+////                appointment_vremena.put(ex.getId(), ex.getDate().getTime());
+                Map<Long, Double> temp_map = new HashMap<>();
+                temp_map.putAll(my_map.get(d));
+                temp_map.put(ex.getDate().getTime(), ex.getDuration());
+                my_map.replace(d, temp_map);
+            }
+            System.out.println("NADJEN OK PREGLED: " + ex.getId());
+        }
+        for(Operation ex : operations){
+            for(Doctor d : ex.getDoctors()){
+                // ako taj pregled nema sve doktore iz zeljene klinike izbac
+                if(!(my_doctors.contains(d))){
+                    operations.remove(ex);
+                    System.out.println("Nasao operaciju za zeljeni dan koja nema doktore iz klinike: " + ex.getId());
+                    continue;
+                }
+////                appointment_vremena.put(ex.getId(), ex.getDate().getTime());
+                Map<Long, Double> temp_map = new HashMap<>();
+                temp_map.putAll(my_map.get(d));
+                // mnozim sa 60000 jer je u minutama a treba prebaciti u milices
+                temp_map.put(ex.getDate().getTime(), ex.getDuration() * 60000);
+                my_map.replace(d, temp_map);
+            }
+            System.out.println("NADJEN OK PREGLED: " + ex.getId());
+        }
+
+
+        List<Doctor> ok_docs = new ArrayList<>();
+        //nema doktora nema nicega u klinici, ovo ne bi trebalo nikad da se desi
+        if(my_map.isEmpty()){
+            System.out.println("Nista nije nasao");
+            ok_docs = my_doctors;
+        }
+
+
+        // SORTIRANJE REZULTATA I TRAZENJE PRAZNINA U RASPOREDU
+        // prodji kroz sve elemente mape i za svakog doktora sortiraj po redu raspored
+        for(Map.Entry<Doctor, Map<Long, Double>> entry : my_map.entrySet()){
+
+            Doctor d = entry.getKey();
+            Map<Long, Double> list_of_appointments = entry.getValue();
+
+            System.out.println("DOKTOR: " + d.getId());
+            //ako nema appointmenta u listi app samo dodaj doktora i break
+            if(list_of_appointments.isEmpty()){
+                System.out.println("Nema appointmenta za doktora: " + d.getName());
+                ok_docs.add(d);
+                continue;
             }
 
-            //SORTIRAJ IH PO VREMENU
-            Collections.sort(docs_operations, new Comparator<Operation>() {
-                public int compare(Operation o1, Operation o2) {
-                    // compare two instance of `Operation` and return `int` as result.
-                    return (int) (o2.getDate().getTime()-(o1.getDate().getTime()));
-                }
-            });
 
-            //ZA SVAKU IZRACUNAJ UDALJENOST OD SLEDECE I AKO JE VECA OD 1h DODAJ VREME KAO OPCIJU
-            for(int i =0; i<docs_operations.size()- 1; i++){
-                if(-docs_operations.get(i).getDate().getTime() - docs_operations.get(i).getDuration() +
-                  docs_operations.get(i + 1).getDate().getTime() < my_duration){
-                    ok_doktori.add(d);
+            // SORTIRAJ SVE OPERACIJE I PREGLEDE PO VREMENU. REZ SORTIRANJA JE U TEMP
+            //ali sortiraj samo ako ih ima vise od dva
+            Map<Long, Double> temp = new HashMap<Long, Double>();
+            if(list_of_appointments.size() > 1) {
+                // Create a list from elements of HashMap
+                List<Map.Entry<Long, Double>> list =
+                        new LinkedList<Map.Entry<Long, Double>>(list_of_appointments.entrySet());
+
+                // Sort the list
+                Collections.sort(list, new Comparator<Map.Entry<Long, Double>>() {
+                    public int compare(Map.Entry<Long, Double> o1,
+                                       Map.Entry<Long, Double> o2) {
+                        return (o1.getKey()).compareTo(o2.getKey());
+                    }
+                });
+
+                // put data from sorted list to hashmap
+                for (Map.Entry<Long, Double> aa : list) {
+                    temp.put(aa.getKey(), aa.getValue());
+                }
+            }
+            else{
+                temp = list_of_appointments;
+            }
+            // -----------------------------------------------------
+            my_map.replace(d, temp);
+
+
+
+
+            //E SAD ZA SVAKI TEMP PROVERI DA LI IMA DOVOLJNO VELIKA RUPA DA FITUJE PREGLED
+            // prolazi kroz sve
+
+            //OVDE PUKNE ALI ZASTOOOOOOOO
+            Collection<Double> trajanja = temp.values();
+            Set<Long> vreme_poc = temp.keySet();
+
+
+            List<Long> vreme_poc_lista = new ArrayList<>();
+            vreme_poc_lista.addAll(vreme_poc);
+            List<Double> trajanja_lista = new ArrayList<>();
+            trajanja_lista.addAll(trajanja);
+
+
+            for(int i=0; i<vreme_poc_lista.size()-1; i++){
+                if(i == 0){
+                    if(vreme_poc_lista.get(i) - start_dates.getTime() > one_hour_in_millis){
+                        ok_docs.add(d);
+                        break;
+                    }
+                }
+                else {
+                    if(vreme_poc_lista.get(i + 1) - (vreme_poc_lista.get(i) + trajanja_lista.get(i)) > one_hour_in_millis){
+                        ok_docs.add(d);
+                        break;
+                    }
                 }
             }
         }
 
-        // TODO
-        //PROVDJI KROZ SVE DOKTORE I VRATI KLINIKE NA KOJIMA SU TI DOKTORI JER TAMO IMA SLOBODNIH TERMINA
 
+        // za sve doktore koji imaju vise od 1h slobodnog vremena u nizu
+        // vrati njihove klinike
+        List<ClinicServiceDTO> ok_clincs = new ArrayList<>();
+        for(Clinic c1 : my_clinics){
+            for(Doctor d1 : ok_docs){
+                // System.out.println("EVO EVO EVO");
+                if(d1.getClinic().equals(c1)){
+                    System.out.println("Ok klinika: " + c1.getId());
+                    ok_clincs.add(new ClinicServiceDTO(c1, my_service.getPrice()));
+                    break;
+                }
+            }
+        }
 
-
-        return null;
+        return ok_clincs;
     }
 
     @Override

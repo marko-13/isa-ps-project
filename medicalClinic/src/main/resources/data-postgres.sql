@@ -299,19 +299,19 @@ values (12, 4);
 
 
 
-insert into leave (date_end, date_start, doctor_id, nurse_id, approved, active)
+insert into leave (date_start, date_end, doctor_id, nurse_id, approved, active)
 values ('2020-5-5', '2020-11-5', null, 9, false, true);
 
-insert into leave (date_end, date_start, doctor_id, nurse_id, approved, active)
+insert into leave (date_start, date_end, doctor_id, nurse_id, approved, active)
 values ('2020-5-5', '2020-11-5', 4, null, false, true);
 
-insert into leave (date_end, date_start, doctor_id, nurse_id, approved, active)
+insert into leave (date_start, date_end, doctor_id, nurse_id, approved, active)
 values ('2020-8-8', '2020-12-8', 5, null, false, true);
 
-insert into leave (date_end, date_start, doctor_id, nurse_id, approved, active)
+insert into leave (date_start, date_end, doctor_id, nurse_id, approved, active)
 values ('2020-10-2', '2020-12-2', null, 7, false, true);
 
-insert into leave (date_end, date_start, doctor_id, nurse_id, approved, active)
+insert into leave (date_start, date_end, doctor_id, nurse_id, approved, active)
 values ('2020-1-1', '2030-12-12', 12, null, false, true);
 
 
