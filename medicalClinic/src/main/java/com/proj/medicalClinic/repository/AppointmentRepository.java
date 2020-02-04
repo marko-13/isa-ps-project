@@ -18,6 +18,7 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     Optional<List<Appointment>> findAllByPatientId(Long id);
     List<Appointment> findByServiceId(Long serviceId);
     List<Appointment> findAllByDateBetweenAndOperationRoomIsNotNull(Date start, Date end);
+    List<Appointment> findAllByDateBetween(Date start, Date end);
     List<Appointment> findAllByOperationRoomIsNull();
 
     @Query(
@@ -34,6 +35,5 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
             value = "SELECT ap.type, ap.held, ap.id, ap.date, ap.duration, ap.fast, ap.clinic_id, ap.operation_room_id, ap.patient_id, ap.service_id, ap.nurse_id FROM appointment as ap where ap.id = ?1",
             nativeQuery = true)
     Optional<Appointment> findById(Long id);
-
 
 }
