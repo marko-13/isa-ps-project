@@ -16,6 +16,7 @@ public class DoctorDTO {
     private String lastname;
     private String email;
     private double review;
+    private int reviewCount;
     private int shift;
     private String address;
     private String city;
@@ -34,6 +35,7 @@ public class DoctorDTO {
         this.state = d.getState();
         this.mobile = d.getMobile();
         this.id = d.getId();
+        this.reviewCount = d.getReviewCount();
     }
 
 }
