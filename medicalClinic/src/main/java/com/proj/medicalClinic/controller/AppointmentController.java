@@ -97,4 +97,14 @@ public class AppointmentController {
         }
     }
 
+    @RequestMapping(value = "/reserve/{selected_date}/{hours}/{minutes}/{doc_id}/{service_id}", method = RequestMethod.POST)
+    public ResponseEntity<?> reserveExaminationAsPatient(@PathVariable Long selected_date, @PathVariable int hours, @PathVariable int minutes, @PathVariable Long doc_id, @PathVariable Long service_id){
+        try{
+            appointmentService.reserveExaminationForPatient(selected_date, hours, minutes, doc_id, service_id);
+            return new ResponseEntity<>("Reserved", HttpStatus.OK);
+        }catch (NotExistsException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }
