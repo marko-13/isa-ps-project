@@ -8,103 +8,91 @@ import 'react-table-6/react-table.css';
 import Auxiliary from '../../../../hoc/Auxiliary/Auxiliary';
 import classes from './MedicalReport.module.css';
 import Button from '../../../../components/UI/Button/Button';
-import selectTableHOC from "react-table-6/lib/hoc/selectTable";
-import PropTypes from "prop-types";
-
-const SelectTable = selectTableHOC(ReactTable);
+import SelectTableComponent from '../../../../components/UI/SelectTableComponent/SelectTableComponent';
 
 class ModifyMedicalReport extends Component {
 	state = {
 		dataProps: null,
 		id: null,
-		examDescription: null,
+		examDescription: '',
 		diagnosisRegistry: null,
 		prescription: null,
-		selectAll: false,
-    	selection: []
+		selectedDiagnosis: [],
+		selectedDrugs: [],
+		diagnosisRegistryAll: [],
+		drugsRegistryAll: [],
+		newMedicalReport: {
+			examDescription: null,
+			medicalReportID: null,
+			selectedDrugs: [],
+			selectedDiagnosis: [],
+			examID: null
+		},
+		refresh: true,
+		examID: null
 	}
 
-	toggleAll = () => {
-	    const { keyField } = this.props;
-	    const selectAll = !this.state.selectAll;
-	    const selection = [];
+	componentDidMount() {
+		axios.get('/admin-clinic-center/diagnosis/get-all-diagnosis')
+			.then(diagnosisRegistry => {
+				this.setState({diagnosisRegistryAll: diagnosisRegistry.data})})
+			.catch(err => console.log(err));
 
-	    if (selectAll) {
-	      // we need to get at the internals of ReactTable
-	      const wrappedInstance = this.checkboxTable.getWrappedInstance();
-	      // the 'sortedData' property contains the currently accessible records based on the filter and sort
-	      const currentRecords = wrappedInstance.getResolvedState().sortedData;
-	      // we just push all the IDs onto the selection array
-	      currentRecords.forEach(item => {
-	        selection.push(`select-${item._original[keyField]}`);
-	      });
-	    }
-	    this.setState({ selectAll, selection });
-	  };
-
-	rowFn = (state, rowInfo, column, instance) => {
-	    const { selection } = this.state;
-
-	    return {
-	      onClick: (e, handleOriginal) => {
-	        console.log("It was in this row:", rowInfo);
-
-	        // IMPORTANT! React-Table uses onClick internally to trigger
-	        // events like expanding SubComponents and pivots.
-	        // By default a custom 'onClick' handler will override this functionality.
-	        // If you want to fire the original onClick handler, call the
-	        // 'handleOriginal' function.
-	        if (handleOriginal) {
-	          handleOriginal();
-	        }
-	      },
-	      style: {
-	        background:
-	          rowInfo &&
-	          selection.includes(`select-${rowInfo.original.id}`) &&
-	          "#a3e4d7"
-	      }
-	    };
-	  };
-
-	/**
-	* Toggle a single checkbox for select table
-	*/
-	toggleSelection = (key, shift, row) => {
-	// start off with the existing state
-	let selection = [...this.state.selection];
-	const keyIndex = selection.indexOf(key);
-
-	// check to see if the key exists
-	if (keyIndex >= 0) {
-	  // it does exist so we will remove it using destructing
-	  selection = [
-	    ...selection.slice(0, keyIndex),
-	    ...selection.slice(keyIndex + 1)
-	  ];
-	} else {
-	  // it does not exist so add it
-	  selection.push(key);
+		axios.get('/admin-clinic-center/drugs/get-all-drugs')
+			.then(drugsRegistry => {
+				this.setState({drugsRegistryAll: drugsRegistry.data})})
+			.catch(err => console.log(err));
 	}
-	// update the state
-	this.setState({ selection });
-	};
-
-	/**
-	* Whether or not a row is selected for select table
-	*/
-	isSelected = key => {
-	return this.state.selection.includes(`select-${key}`);
-	};
 
 	static getDerivedStateFromProps(nextProps, prevState) {
-		if(nextProps.data !== prevState.dataProps) {
+		if((nextProps.data !== prevState.dataProps) && nextProps.data !== null || (prevState.refresh && !nextProps.addNew)) {
+			let selectedDiagnosisList = [];
+			let selectedDrugsList = [];
+
+			for (var i = 0; i < nextProps.data.diagnosisRegistry.length; i++) {
+				selectedDiagnosisList.push('select-'+ nextProps.data.diagnosisRegistry[i].id);
+			}
+
+			for (var i = 0; i < nextProps.data.prescription.drugs.length; i++) {
+				selectedDrugsList.push('select-'+ nextProps.data.prescription.drugs[i].id);
+			}
+
+			var newMedicalReport = {...prevState.newMedicalReport};
+			newMedicalReport.medicalReportID = nextProps.data.id;
+			newMedicalReport.examDescription = nextProps.data.examDescription;
+			newMedicalReport.selectedDrugs = nextProps.data.selectedDrugs;
+			newMedicalReport.selectedDiagnosis = nextProps.data.selectedDiagnosis;
+			newMedicalReport.examID = null;
+
 			return {
 				dataProps: nextProps.data,
 				id: nextProps.data.id,
 				examDescription: nextProps.data.examDescription,
 				diagnosisRegistry: nextProps.data.diagnosisRegistry,
-				prescription: nextProps.data.prescription
+				prescription: nextProps.data.prescription,
+				selectedDiagnosis: selectedDiagnosisList,
+				selectedDrugs: selectedDrugsList,
+				newMedicalReport: newMedicalReport,
+				refresh: false
+			}
+		} else if (((nextProps.examId !== prevState.examID) || (prevState.refresh && nextProps.addNew))) {
+			var newMedicalReport = {...prevState.newMedicalReport};
+			newMedicalReport.medicalReportID = null;
+			newMedicalReport.examDescription = '';
+			newMedicalReport.selectedDrugs = [];
+			newMedicalReport.selectedDiagnosis = [];
+			newMedicalReport.examID = nextProps.examId;
+			return {
+				dataProps: nextProps.data,
+				id: null,
+				examDescription: '',
+				diagnosisRegistry: [],
+				prescription: null,
+				selectedDiagnosis: [],
+				selectedDrugs: [],
+				newMedicalReport: newMedicalReport,
+				refresh: false,
+				examID: nextProps.examId
 			}
 		}
 
@@ -113,8 +101,61 @@ class ModifyMedicalReport extends Component {
 
 	onSave = (event) => {
 		event.preventDefault();
-		console.log(this.state.examDescription);
+		console.log(this.state.newMedicalReport);
+		if (this.props.addNew) {
+			axios.post('/medical-reports/add', this.state.newMedicalReport)
+        	.then(rsp => {
+                console.log(rsp);
+                alert('Successfuly added medical report');
+                window.location.reload();
+                //this.props.back();
+            })
+            .catch(err => {
+            	console.log(err);
+            	alert('Unable to added medical report.\nReason: ' + err.response.data)
+            	this.setState({refresh: true});
+            	this.props.back();
+            });
+		} else {
+			axios.post('/medical-reports/modify', this.state.newMedicalReport)
+	        	.then(rsp => {
+	                console.log(rsp);
+	                alert('Successfuly modified medical report');
+	                window.location.reload();
+	                //this.props.back();
+	            })
+	            .catch(err => {
+	            	console.log(err);
+	            	alert('Unable to modify medical report.\nReason: ' + err.response.data)
+	            	this.setState({refresh: true});
+	            	this.props.back();
+	            });
+        }
 	} 
+
+	onBack = (event) => {
+		event.preventDefault();
+		this.setState({refresh: true});
+		this.props.back();
+	}
+
+	onChangeTextAreaHandler = (event) => {
+		var newMedicalReport = {...this.state.newMedicalReport};
+		newMedicalReport.examDescription = event.target.value;
+		this.setState({newMedicalReport: newMedicalReport});
+	}
+
+	handlerSelectedDiagnosis = (event) => {
+		var newMedicalReport = {...this.state.newMedicalReport};
+		newMedicalReport.selectedDiagnosis = event;
+		this.setState({newMedicalReport: newMedicalReport});
+	}
+
+	handlerSelectedDrugs = (event) => {
+		var newMedicalReport = {...this.state.newMedicalReport};
+		newMedicalReport.selectedDrugs = event;
+		this.setState({newMedicalReport: newMedicalReport});
+	}
 
 	render () {
 		let content = null;
@@ -129,48 +170,65 @@ class ModifyMedicalReport extends Component {
                     ]
         }];
 
+        let columnsDrugs = [{
+                    Header: 'Drugs',
+                    columns: [
+                    {
+                        id: 'drugName',
+                        Header: 'Drug name',
+                        accessor: d => d.drugName}
+                    ]
+        }];
+
 		if (this.props.data !== undefined) {
 			content = (
 				<Auxiliary>
 					<div className={classes.Header}>
-		                	<h3 style={{color: 'white'}}>Modify medical report</h3>
+		                	<h3 style={{color: 'white'}}>Medical report</h3>
 		            </div>
 					<form onSubmit = {this.onSave} >
 	                    <div className="form-group">
 	                    	<label className = 'label' style={{fontWeight: 'bold'}}>Exam description</label>
 	                        <textarea
 	                        	className="form-control"
-	                            value={this.state.examDescription}
-	                            onChange={(event) => this.setState({ examDescription: event.target.value })}
-	                            required
+	                            value={this.state.newMedicalReport.examDescription}
+	                            onChange={(event) => this.onChangeTextAreaHandler(event)}
 	                        />
 	                    </div>
 
 	                    <div className="form-group">
-	                    	<ReactTable data = {this.state.diagnosisRegistry}
-			                    pageSize={(this.state.diagnosisRegistry.length > 5) ? 5 : this.state.diagnosisRegistry.length}
-			                    columns = {columnsDiagnosis}
-			                    filterable = {true}
-			                    defaultFilterMethod={(filter, row, column) => {
+			                <SelectTableComponent 
+				                	data = {this.state.diagnosisRegistryAll} 
+				                	columns = {columnsDiagnosis} 
+				                	pageSize = {(this.state.diagnosisRegistryAll.length > 5) ? 5 : this.state.diagnosisRegistryAll.length} 
+				                	filterable = {true} 
+				                	defaultFilterMethod={(filter, row, column) => {
 			                        const id = filter.pivotId || filter.id
 			                        console.log(row[id]);
 			                        return row[id] !== undefined ? String(row[id]).toLowerCase().includes(filter.value.toLowerCase()) : true
-			                      }}/>
-			                <SelectTable data = {this.state.diagnosisRegistry}
-			                	pageSize={(this.state.diagnosisRegistry.length > 5) ? 5 : this.state.diagnosisRegistry.length}
-			                	columns = {columnsDiagnosis}
-			                	keyField="id" 
-			                	selectType="checkbox"
-			                	isSelected={this.isSelected}
-			                	toggleSelection={this.toggleSelection}
-			                	getTrProps={this.rowFn}
-			                	toggleAll={this.toggleAll}
-			                	selectAll={this.state.selectAll}
-			                	ref={r => (this.checkboxTable = r)}
-			                />
+			                      }}
+			                    keyField="id"
+			                    selected = {this.state.selectedDiagnosis}
+			                    handlerSelected = {this.handlerSelectedDiagnosis}/>
+	                    </div>
+	                    <div className="form-group">
+			                <SelectTableComponent 
+				                	data = {this.state.drugsRegistryAll} 
+				                	columns = {columnsDrugs} 
+				                	pageSize = {(this.state.drugsRegistryAll.length > 5) ? 5 : this.state.drugsRegistryAll.length} 
+				                	filterable = {true} 
+				                	defaultFilterMethod={(filter, row, column) => {
+			                        const id = filter.pivotId || filter.id
+			                        console.log(row[id]);
+			                        return row[id] !== undefined ? String(row[id]).toLowerCase().includes(filter.value.toLowerCase()) : true
+			                      }}
+			                    keyField="id"
+			                    selected = {this.state.selectedDrugs}
+			                    handlerSelected = {this.handlerSelectedDrugs}
+			                    />
 	                    </div>
 	                    <button className="btnSubmit" style={{width: '15%', float: 'right'}} type = "submit">Save</button>
-	                    <button className="btnSubmit" onClick={this.props.back} style={{width: '15%', float: 'right', marginRight: '1%'}}>Back</button>
+	                    <button className="btnSubmit" onClick={this.onBack} style={{width: '15%', float: 'right', marginRight: '1%'}}>Back</button>
 	                </form>
 				</Auxiliary>
 			);
