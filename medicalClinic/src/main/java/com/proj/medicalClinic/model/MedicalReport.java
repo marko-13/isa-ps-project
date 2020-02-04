@@ -35,11 +35,12 @@ public class MedicalReport {
 
 	@OneToOne
 	@MapsId
-	private Prescription prescription;
+	private Examination examination;
 
 	@OneToOne
 	@MapsId
-	private Examination examination;
+	@JoinColumn(nullable = true)
+	private Prescription prescription;
 
 	@ManyToOne
 	@JoinColumn(name = "medical_history_id", nullable = false)
