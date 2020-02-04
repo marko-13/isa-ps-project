@@ -4,16 +4,16 @@ insert into clinical_center (name) values ('Clinical center 2');
 
 
 insert into clinic (address, description, name, review, clinical_center_id, review_count)
-values ('Bulevar Oslobodjenja 50', 'Jako lepa klinika', 'Svetlost', 9, 1, 7);
+values ('Bulevar Oslobodjenja 50', 'Jako lepa klinika', 'Svetlost', 25, 1, 7);
 
 insert into clinic (address, description, name, review, clinical_center_id, review_count)
-values ('Bulevar Oslobodjenja 80', 'Bjutiful amejzing', 'Zakuco', 9, 1, 7);
+values ('Bulevar Oslobodjenja 80', 'Bjutiful amejzing', 'Zakuco', 32, 1, 7);
 
 insert into clinic (address, description, name, review, clinical_center_id, review_count)
-values ('Groblje 10', 'Ne toliko sjajna klinika', 'Krematorijum', 8, 1, 2);
+values ('Groblje 10', 'Ne toliko sjajna klinika', 'Krematorijum', 6, 1, 2);
 
 insert into clinic (address, description, name, review, clinical_center_id, review_count)
-values ('Sajlovo 1', 'Super', 'Svetlost Paralelna', 8, 2, 2);
+values ('Sajlovo 1', 'Super', 'Svetlost Paralelna', 5, 2, 2);
 
 
 insert into app_user (type, user_role, email, password, name, last_name, JMBG, enabled, adress, city, state, mobile, rejected, deleted, last_password_reset_date, enabled_patient)
@@ -26,13 +26,13 @@ insert into app_user (type, user_role, email, password, name, last_name, JMBG, e
 values ('P', 'PATIENT', 'Frustuk@mailinator.com', '$2a$10$eZFvWClzdfGfgvmKDjEmvewURZTW0Hl26OH0GH9eUdosD9RVqgchq', 'Frustuk', 'Jeltako', '0881736727645', false, 'Adresa3', 'Grad3', 'Drzava3', '333', false, false, '2020-01-10 19:43:44.503', true);
 
 insert into app_user (type, user_role, email, password, name, last_name, review, shift, review_count, enabled, adress, city, state, mobile, rejected, deleted, last_password_reset_date, enabled_patient, clinic_id)
-values ('DR', 'DOCTOR', 'Vladan@mailinator.com', '$2a$10$EcjftqmPpW.usBG8k4OMWOqEo9LA9QMBaEy8XFbZCNBY9oY..jd62', 'Vladan', 'Dragic', 3, 1, 2, true, 'Adresa4', 'Grad4', 'Drzava4', '444', false, false, '2020-01-10 19:43:44.503', true, 1);
+values ('DR', 'DOCTOR', 'Vladan@mailinator.com', '$2a$10$EcjftqmPpW.usBG8k4OMWOqEo9LA9QMBaEy8XFbZCNBY9oY..jd62', 'Vladan', 'Dragic', 9, 1, 2, true, 'Adresa4', 'Grad4', 'Drzava4', '444', false, false, '2020-01-10 19:43:44.503', true, 1);
 
 insert into app_user (type, user_role, email, password, name, last_name, review, shift, review_count, enabled, adress, city, state, mobile, rejected, deleted, last_password_reset_date, enabled_patient, clinic_id)
-values ('DR', 'DOCTOR', 'Dusko@mailinator.com', '$2y$10$XbVPhmbyDT28Yp6v8BMLCeLUpmS3FtHNWhUHCIieJ2oQT0MXuK.66', 'Dusko', 'Jovanovic', 10, 2, 15, true, 'Adresa5', 'Grad5', 'Drzava5', '555', false, false, '2020-01-10 19:43:44.503', true, 1);
+values ('DR', 'DOCTOR', 'Dusko@mailinator.com', '$2y$10$XbVPhmbyDT28Yp6v8BMLCeLUpmS3FtHNWhUHCIieJ2oQT0MXuK.66', 'Dusko', 'Jovanovic', 56, 2, 15, true, 'Adresa5', 'Grad5', 'Drzava5', '555', false, false, '2020-01-10 19:43:44.503', true, 1);
 
 insert into app_user (type, user_role, email, password, name, last_name, review, shift, review_count, enabled, adress, city, state, mobile, rejected, deleted, last_password_reset_date, enabled_patient, clinic_id)
-values ('DR', 'DOCTOR', 'Sara@mailinator.com', '$2a$10$IzuVyeH5cKEw5c17WO2H1OuLMKVN2.2FjjP8e3S.RyNvPNdqUSAKe', 'Sara', 'Loncar', 6, 3, 9, true, 'Adresa6', 'Grad6', 'Drzava6', '666', false, false, '2020-01-10 19:43:44.503', true, 1);
+values ('DR', 'DOCTOR', 'Sara@mailinator.com', '$2a$10$IzuVyeH5cKEw5c17WO2H1OuLMKVN2.2FjjP8e3S.RyNvPNdqUSAKe', 'Sara', 'Loncar', 28, 3, 9, true, 'Adresa6', 'Grad6', 'Drzava6', '666', false, false, '2020-01-10 19:43:44.503', true, 1);
 
 insert into app_user (type, user_role, email, password, name, last_name, shift, enabled, adress, city, state, mobile, rejected, deleted, last_password_reset_date, enabled_patient, clinic_id)
 values ('NR', 'NURSE', 'Sergej@mailinator.com', '$2a$10$Gd7bGnGZroF.ckbJDE1efu7C.tENXHDkS7CCNwV8IWKWTfSm/7Hx.', 'Sergej', 'Tomic', 1, true, 'Adresa7', 'Grad7', 'Drzava7', '777', false, false, '2020-01-10 19:43:44.503', true, 1);
@@ -50,7 +50,7 @@ insert into app_user (type, user_role, email, password, name, last_name, clinica
 values ('ACC', 'ADMINCLINICALCENTER', 'Radoslav@mailinator.com', '$2a$10$PpuFaY9yRRdUj9l4lr7sueTutLXXWxlgGRomEFH2lNQRYhiGwlMmS', 'Radoslav', 'Brankovic', 1, true, 'Adresa11', 'Grad11', 'Drzava11', '1111', false, false, '2020-01-10 19:43:44.503', true);
 
 insert into app_user (type, user_role, email, password, name, last_name, review, shift, review_count, enabled, adress, city, state, mobile, rejected, deleted, enabled_patient, clinic_id)
-values ('DR', 'DOCTOR', 'dervy97@gmail.com', '$2a$10$EcjftqmPpW.usBG8k4OMWOqEo9LA9QMBaEy8XFbZCNBY9oY..jd62', 'Boris', 'Zavis', 7, 1, 15, true, 'Omladinska 1', 'Kisac', 'Srbija', '123-123', false, false, true, 1);
+values ('DR', 'DOCTOR', 'dervy97@gmail.com', '$2a$10$EcjftqmPpW.usBG8k4OMWOqEo9LA9QMBaEy8XFbZCNBY9oY..jd62', 'Boris', 'Zavis', 68, 1, 15, true, 'Omladinska 1', 'Kisac', 'Srbija', '123-123', false, false, true, 1);
 
 insert into clinics_patients (clinic_id, patient_id)
 values (1, 1);
