@@ -6,10 +6,8 @@ import com.proj.medicalClinic.exception.ResourceConflictException;
 import com.proj.medicalClinic.model.AdminClinic;
 import com.proj.medicalClinic.model.Appointment;
 import com.proj.medicalClinic.model.Clinic;
-import com.proj.medicalClinic.repository.AppUserRepository;
-import com.proj.medicalClinic.repository.AppointmentRepository;
-import com.proj.medicalClinic.repository.ClinicRepository;
-import com.proj.medicalClinic.repository.ServiceRepository;
+import com.proj.medicalClinic.model.Doctor;
+import com.proj.medicalClinic.repository.*;
 import com.proj.medicalClinic.service.ServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -33,6 +31,9 @@ public class ServiceServiceImpl implements ServiceService {
 
     @Autowired
     private AppointmentRepository appointmentRepository;
+
+    @Autowired
+    private DoctorRepository doctorRepository;
 
     @Override
     public List<ServiceDTO> getAllFromClinic() {
@@ -110,6 +111,25 @@ public class ServiceServiceImpl implements ServiceService {
         }else {
             throw new ResourceConflictException(serviceReq.getId(), "Ovaj tip pregleda je zakazan!");
         }
+    }
+
+    @Override
+    public List<ServiceDTO> getAllFromDoctor(long doctorId) {
+
+        Doctor doctor = doctorRepository.findById(doctorId).orElseThrow(NotExistsException::new);
+        List<com.proj.medicalClinic.model.Service> services = serviceRepository.findAllByDoctors(doctor);
+
+        if(services == null || services.isEmpty()){
+            throw new NotExistsException();
+        }
+
+        List<ServiceDTO> serviceDTOS = new ArrayList<>();
+        for(com.proj.medicalClinic.model.Service s : services){
+            serviceDTOS.add(new ServiceDTO(s));
+        }
+
+        return serviceDTOS;
+
     }
 
     // return list of services that are not deleted

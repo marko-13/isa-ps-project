@@ -4,7 +4,9 @@ import com.proj.medicalClinic.model.AppUser;
 import com.proj.medicalClinic.model.Appointment;
 import com.proj.medicalClinic.model.Clinic;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
@@ -34,6 +36,13 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
             value = "SELECT ap.type, ap.held, ap.id, ap.date, ap.duration, ap.fast, ap.clinic_id, ap.operation_room_id, ap.patient_id, ap.service_id, ap.nurse_id FROM appointment as ap where ap.id = ?1",
             nativeQuery = true)
     Optional<Appointment> findById(Long id);
+
+    @Modifying(clearAutomatically = true)
+    @Query(
+            value = "UPDATE appointment SET operation_room_id = ?1 WHERE appointment.id = ?2",
+            nativeQuery = true
+    )
+    void saveNative(long roomId, long appointmentId);
 
 
 }

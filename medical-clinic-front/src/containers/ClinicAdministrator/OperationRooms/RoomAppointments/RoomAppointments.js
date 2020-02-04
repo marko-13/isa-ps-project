@@ -176,7 +176,11 @@ class RoomAppointments extends Component {
                 />
 
                 <Modal modalClosed={this.closeModalHandler} show={this.state.modalOpen}>
-                    <ChooseAvailableDoctorsForm roomId={this.props.roomId} appId={appDate.appId} start={appDate.start} />
+                    <ChooseAvailableDoctorsForm 
+                        roomId={this.props.roomId} 
+                        appId={appDate.appId} 
+                        start={appDate.start} 
+                        closeModal={this.closeModalHandler} />
                 </Modal>
             </div>
         );
