@@ -280,10 +280,22 @@ insert into doctors_services (doctor_id, service_id)
 values (6, 3);
 
 insert into doctors_services (doctor_id, service_id)
-values (6, 3);
+values (6, 4);
 
 insert into doctors_services (doctor_id, service_id)
-values (6, 3);
+values (6, 5);
+
+insert into doctors_services (doctor_id, service_id)
+values (12, 1);
+
+insert into doctors_services (doctor_id, service_id)
+values (12, 2);
+
+insert into doctors_services (doctor_id, service_id)
+values (12, 3);
+
+insert into doctors_services (doctor_id, service_id)
+values (12, 4);
 
 
 

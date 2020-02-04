@@ -9,6 +9,7 @@ import com.proj.medicalClinic.exception.NotValidParamsException;
 import com.proj.medicalClinic.model.*;
 import com.proj.medicalClinic.repository.*;
 import com.proj.medicalClinic.service.AppointmentService;
+import com.proj.medicalClinic.service.EmailService;
 import com.proj.medicalClinic.service.OperationRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -17,12 +18,20 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.print.Doc;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.*;
+
+import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
+
 import java.util.stream.Collectors;
 
 @Service
@@ -53,7 +62,14 @@ public class AppointmentServiceImpl implements AppointmentService {
     private LeaveRepository leaveRepository;
 
     @Autowired
+    private EmailService emailService;
+
+
+    @Autowired
     private ServiceRepository serviceRepository;
+
+    @Autowired
+    private ClinicRepository clinicRepository;
 
 
     @Override
@@ -162,12 +178,42 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     public AppointmentDTO addRoom(Long appointmentId, Long roomId) {
+
         Appointment appointment = appointmentRepository.findById(appointmentId).orElseThrow(NotExistsException::new);
         OperationRoom operationRoom = operationRoomRepository.findById(roomId).orElseThrow(NotExistsException::new);
 
         appointment.setOperationRoom(operationRoom);
-        appointmentRepository.save(appointment);
 
+        //POSALJI MAIL PACIJENTU
+        Patient patient = appointment.getPatient();
+        try {
+            this.emailService.sendNotificaitionAsync(patient, "<a href=''>Confirm</a> <br></br> <a href=''>Deny</a>", "Appointment confirmation");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        //POSALJI MAIL DOKTORU
+        if(appointment instanceof Examination){
+
+            Examination ex = (Examination) appointment;
+            List<Doctor> doctors = ex.getDoctors();
+
+            if(doctors != null || !doctors.isEmpty()){
+
+                Doctor doctor = doctors.get(0);
+
+                try {
+                    this.emailService.sendNotificaitionAsync(doctor,
+                            "Appointment has been set. <br></br> Date: " + appointment.getDate() + "<br></br> Patient: " + patient.getName() + " " + patient.getLastName() ,
+                            "Appointment confirmation");
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
+            }
+        }
+
+        appointmentRepository.save(appointment);
         return new AppointmentDTO(appointment);
     }
 
@@ -206,22 +252,48 @@ public class AppointmentServiceImpl implements AppointmentService {
                     throw new ResourceConflictException(ex.getId(), "Doktor " + currentDoctor.getName() + " vec ima zakazan pregled u ovo vreme");
                 }
             }
+
             appointment.setDate(selectedDate);
             appointment.setOperationRoom(operationRoom);
+
+            //SALJI MAIL PATIENTU
+            Patient patient = appointment.getPatient();
+            try {
+                this.emailService.sendNotificaitionAsync(patient, "<a href=''>Confirm</a> <br></br> <a href=''>Deny</a>", "Appointment confirmation");
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
+            //SALJI MAIL DOKTORU
+            try {
+                this.emailService.sendNotificaitionAsync(currentDoctor,
+                        "Appointment has been set. <br></br> Date: " + appointment.getDate() + "<br></br> Patient: " + patient.getName() + " " + patient.getLastName() ,
+                        "Appointment confirmation");
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
+
             appointmentRepository.save(appointment);
             return new AppointmentDTO(appointment);
         }
         return null;
     }
 
+    @Transactional
     public void cronAddRooms(){
 
+        //Appointment a = appointmentRepository.findById(7l);
+        //appointmentRepository.save(a);
+        //OVO NE RADI
 
         List<Appointment> unnaprovedRequests = appointmentRepository.findAllByOperationRoomIsNull();
         if(unnaprovedRequests.isEmpty() || unnaprovedRequests == null){
             System.out.println("NEMA ZAHTEVA");
             return;
         }
+
+        System.out.println(unnaprovedRequests.size());
 
         List<OperationRoom> operationRooms = operationRoomRepository.findAllByDeletedNot(true);
         if(operationRooms.isEmpty() || operationRooms == null){
@@ -232,25 +304,57 @@ public class AppointmentServiceImpl implements AppointmentService {
         for(Appointment unnaprovedApp : unnaprovedRequests){
 
             if(unnaprovedApp instanceof Examination){
+                Patient patient = unnaprovedApp.getPatient();
+                Examination ex = (Examination) unnaprovedApp;
                 //UZMI SVE SLOBODNE SOBE ZA TAJ DATUM
-                List<OperationRoomDTO> availableRooms = operationRoomService.getAllAvailable(unnaprovedApp.getDate().getTime());
+                List<OperationRoomDTO> availableRooms = operationRoomService.getAllAvailable(ex.getDate().getTime());
                 if(availableRooms.isEmpty() || availableRooms == null){
-                    return;
+                    continue;
                 }
 
                 //PROVERI DA JE APPOINTMENT I SOBA IZ ISTE KLINIKE
                 for(OperationRoomDTO or : availableRooms){
-                    if(or.getClinicId() == unnaprovedApp.getClinic().getId()){
+                    if(or.getClinicId() == ex.getClinic().getId()){
                         //ZAUZMI SOBU
 
                         OperationRoom operationRoom = operationRoomRepository.findById(or.getRoomId()).orElse(null);
                         if(operationRoom == null){
                             return;
                         }
+
                         unnaprovedApp.setOperationRoom(operationRoom);
-                        appointmentRepository.save(unnaprovedApp);
+                        appointmentRepository.saveNative(operationRoom.getId(), unnaprovedApp.getId());
+
+                        //SALJI MAIL PACIJENTU
+
+                        try {
+                            this.emailService.sendNotificaitionAsync(patient, "<a href=''>Confirm</a> <br></br> <a href=''>Deny</a>", "Appointment confirmation");
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+
+                        //SALJI MAIL DOKTORU
+
+                        List<Doctor> doctors = doctorRepository.findAllByExaminations(ex);
+
+                        if(doctors != null || !doctors.isEmpty()){
+
+                            Doctor doctor = doctors.get(0);
+
+                            try {
+                                this.emailService.sendNotificaitionAsync(doctor,
+                                        "Appointment has been set. <br></br> Date: " + unnaprovedApp.getDate() + "<br></br> Patient: " + patient.getName() + " " + patient.getLastName() ,
+                                        "Appointment confirmation");
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                        }
+
+                        break;
                     }
                 }
+
+
             }else {
                 //AUTOMACKI ZAUZMI SOBE ZA OPERACIJE
             }
@@ -274,12 +378,30 @@ public class AppointmentServiceImpl implements AppointmentService {
                 throw new NotExistsException();
             }
 
+            Patient patient = appointment.getPatient();
             doctor.getExaminations().add(ex);
-            doctorRepository.save(doctor);
             appointment.setOperationRoom(operationRoom);
-            appointmentRepository.save(appointment);
-            return new AppointmentDTO(appointment);
 
+            //POSALJI MAIL DOKTORU
+            try {
+                this.emailService.sendNotificaitionAsync(doctor,
+                        "Appointment has been set. <br></br> Date: " + appointment.getDate() + "<br></br> Patient: " + patient.getName() + " " + patient.getLastName() ,
+                        "Appointment confirmation");
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
+            //POSALJI MAIL PACIJENTU
+            try {
+                this.emailService.sendNotificaitionAsync(patient, "<a href=''>Confirm</a> <br></br> <a href=''>Deny</a>", "Appointment confirmation");
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
+            doctorRepository.save(doctor);
+            appointmentRepository.save(appointment);
+
+            return new AppointmentDTO(appointment);
         }
 
         return null;

@@ -19,4 +19,6 @@ public interface OperationRoomService {
 
     List<OperationRoomDTO> getAllAvailable(long selectedDate);
 
+    List<OperationRoomDTO> getAllFromClinic();
+
 }
