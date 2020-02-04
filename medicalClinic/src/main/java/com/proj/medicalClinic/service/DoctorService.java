@@ -16,4 +16,7 @@ public interface DoctorService {
     List<DoctorDTO> getAllAssociatedWithPatient(String patient_email);
 
     void review_doctor(Long id, int score);
+
+    // returns list of doctors that cen perform given examination for given date and work in given clinic
+    List<DoctorDTO> getAllAvailableForExam(Long clinc_id, Long selected_date, Long service_id);
 }
