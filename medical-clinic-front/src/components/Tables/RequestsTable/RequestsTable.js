@@ -7,6 +7,7 @@ import Button from '../../../components/UI/Button/Button';
 import ReactTable from 'react-table-6';
 import OperationRooms from '../../../containers/ClinicAdministrator/OperationRooms/OperationRooms';
 import Auxiliary from '../../../hoc/Auxiliary/Auxiliary';
+import moment from 'moment';
 
 class RequestsTable extends Component {
 
@@ -71,17 +72,19 @@ class RequestsTable extends Component {
                     {
                         id: 'type',
                         Header: 'Type',
-                        accessor: d => d.type
+                        accessor: d => d.type,
+                        width: 75
                     },
                     {
                         id: 'date',
                         Header: 'Date',
-                        accessor: d => d.date
+                        accessor: d => moment(d.date).format("YYYY-MM-DD hh:mm")
                     },
                     {
                         id: 'regular',
                         Header: 'Regular',
-                        accessor: d => d.fastExam
+                        accessor: d => d.fastExam,
+                        width: 100
                     },
                     {
                         id: 'service',
