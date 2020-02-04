@@ -11,11 +11,19 @@ class ShowClinics extends Component {
 
   state = {
     show_first: true,
+    show_third: false,
     clinics: [],
     services: [],
     selected_service: null,
     selected_date: null,
-    selected_score: null
+    selected_score: null,
+    exam_time : null,
+
+    clinics_for_selected_date_and_service: [],
+    doctors_for_selected_clinic : [],
+    exam_time_hrs : null,
+    exam_time_mins : null,
+    doc_selected : null
   }
 
   componentDidMount() {
@@ -44,16 +52,37 @@ class ShowClinics extends Component {
 //handle change in react date
   handleChange = date => {
         this.setState({
-            selected_date: date,
+            selected_date: date.getTime()
         });
         console.log(date.getTime());
     };
+
+//handle change in react time
+  handleChangeTime = date => {
+    this.setState({exam_time_hrs: date.getHours()});
+    this.setState({exam_time_mins: date.getMinutes()});
+    this.setState({exam_time: date});
+    console.log(date);
+  }
 
 //handle change in min selected_score
   handleInputChange = input_data => {
     console.log(input_data.target.value);
     this.setState({selected_score: input_data.target.value});
   };
+
+//select clinic halnder
+selectClinicHandler = (row) => {
+    axios.get('/doctor/getAllAvailableForExam/' + row.id + '/' + this.state.selected_date + '/' + this.state.selected_service)
+        .then(response => {
+            console.log('UDJE');
+            console.log(response.data)
+            this.setState({show_third: true});
+            this.setState({doctors_for_selected_clinic: response.data});
+        })
+        .catch(err => alert('There are no available doctors'));
+}
+
 
 //submit search
   submitSearch(evt) {
@@ -74,20 +103,72 @@ class ShowClinics extends Component {
     }
     //AKO SVE PRODJE POSALJI NA PRETRAGU
     let pod_service_id = this.state.selected_service;
-    let pod_date = this.state.selected_date;
+    let pod_date = +this.state.selected_date;
     let pod_score = 0;
     if(this.state.selected_score !== null && this.state.selected_score !== ''){
       pod_score = this.state.selected_score;
     }
 
-    this.setState({show_first: false});
+    console.log('Servis: ' + pod_service_id);
+    console.log('Vreme: ' + pod_date);
+    console.log('Ocena: ' + pod_score);
+    // this.setState({show_first: false});
     const token = localStorage.getItem('token');
-    // axios.post('clinics/findCorrespondingClinics/' + pod_service_id + '/' + pod_date + '/' + pod_score, {
-    //   headers: { 'Authorization': 'Bearer ' + token }
-    // })
-    //   .then(res => {
-    //   })
-    //   .catch(err => console.log(err));
+    axios.post('clinics/findCorrespondingClinics/' + pod_service_id + '/' + pod_date + '/' + pod_score, {
+      headers: { 'Authorization': 'Bearer ' + token }
+    })
+      .then(res => {
+        console.log(res.data);
+        this.setState({show_first: false});
+        this.setState({clinics_for_selected_date_and_service: res.data})
+
+      })
+      .catch(err => {
+        console.log(err);
+        alert('Nothing matches your search');
+      });
+};
+
+
+//submit reservation
+submitReservation(evt) {
+    evt.preventDefault();
+
+    if(this.state.exam_time_hrs === null){
+      alert('Time must be selected');
+      return;
+    }
+    else if (this.state.exam_time_mins === null){
+      alert('Date must be selected');
+      return;
+    }
+    else if (this.state.doc_selected === null) {
+        alert('Doctor must be selected');
+        return;
+    }
+
+    //AKO SVE PRODJE POSALJI NA PRETRAGU
+    let pod_time_hrs = this.state.exam_time_hrs;
+    let pod_time_mins = this.state.exam_time_mins;
+    let pod_doc_id = this.state.doc_selected;
+
+
+    console.log('Sati: ' + pod_time_hrs);
+    console.log('Minuti: ' + pod_time_mins);
+    console.log('Doktor id: ' + pod_doc_id);
+
+    const token = localStorage.getItem('token');
+    axios.post('appointment/reserve/'+ this.state.selected_date + '/' + pod_time_hrs + '/' + pod_time_mins + '/' + pod_doc_id + '/' + this.state.selected_service, {
+      headers: { 'Authorization': 'Bearer ' + token }
+    })
+      .then(res => {
+        alert('Appointment requested. Please wait for confirmation email');
+        this.props.history.push('/homepage');
+      })
+      .catch(err => {
+        console.log(err);
+        alert('Doctor is busy for selected time, select another time and try again');
+      });
 };
 
 
@@ -96,6 +177,7 @@ class ShowClinics extends Component {
     // });
     let content = null;
 
+    // Columns za inicijalnu tabelu klinika
     const columns = [{
       id: 'name',
       Header: 'Name',
@@ -106,7 +188,7 @@ class ShowClinics extends Component {
       Header: 'Address',
       accessor: d => d.address
     }]
-
+    // Podaci o svim servisima u klinickom centru
     const podaci = this.state.services.map(s => {
       return {
         id : s.id,
@@ -114,6 +196,55 @@ class ShowClinics extends Component {
         serviceType : s.serviceType
       }
     })
+    //POdaci o svim doktorima
+    const podaci_doc = this.state.doctors_for_selected_clinic.map(s => {
+      return {
+        id : s.id,
+        name : s.name,
+        lastname : s.lastname
+      }
+    })
+
+    // Columns za tabelu svih klinika gde ima mesta za pregled
+    const columns_1 = [{
+      id : 'name',
+      Header : 'Name',
+      accessor : f => f.name
+    },
+    {
+      id : 'address',
+      Header : 'Address',
+      accessor : f => f.address
+    },
+    {
+      id : 'score',
+      Header : 'Score',
+      accessor : f => Number((f.review / f.reviewCount).toFixed(2))
+    },
+    {
+      id : 'price',
+      Header : 'Price',
+      accessor : f => f.service_price
+    },
+    {
+      Header: "",
+      Cell: ({ original }) => (
+          <center><Button type='green' click={() => this.selectClinicHandler(original)}>Select</Button></center>),
+      filterable: false,
+      sortable: false
+    }]
+    // if (this.state.clinics_for_selected_date_and_service !== undefined || this.state.clinics_for_selected_date_and_service !== null){
+    //   const podaci1 = this.state.clinics_for_selected_date_and_service.map(s => {
+    //     return {
+    //       id : s.id,
+    //       name : s.name,
+    //       address : s.address,
+    //       price : s.service_price,
+    //       score : s.review / s.reviewCount,
+    //     }
+    //   })
+    // }
+
 
     if(this.state.show_first){
       content = (
@@ -130,12 +261,14 @@ class ShowClinics extends Component {
             {/*OVO JE DIV ZA FORMU ZA PRETRAGU PO DATUMU I TIPU PREGLEDA i opciono lokacija klinike i ocena*/}
             <div class = "col-sm-6 col-md-6 col-lg-6" style={{height: 'calc(100vh - 100px)', width: '50%'}}>
               <form>
-                {/*KALENDAR ZA ODABIR DATUMA KLINIKE*/}
+                {/*TYPEAHEAD ZA ODABIR SERVISA*/}
                 <div class = "form-group">
                   <h5>Select a service</h5>
                   <Typeahead id = "my_typeahead" placeholder="Choose a service..." onChange={(selected) => {
-                      console.log(selected[0].id)
-                      this.setState({selected_service : selected.id})
+                      if(selected[0] !== null && selected[0] !== undefined){
+                        console.log(selected[0].id)
+                        this.setState({selected_service : selected[0].id})
+                      }
                     }}
                     labelKey={option => `${option.serviceType}`}
                     options = {podaci}
@@ -166,8 +299,58 @@ class ShowClinics extends Component {
           </div>
         </div>
       );
-    }else {
-      content = <h1>Nesto drugo</h1>;
+    }
+    if(this.state.show_first===false && this.state.show_third ===false) {
+      content = (
+      <div class="container">
+        <h1>Select a clinic</h1>
+        <div class = "row">
+          {/*OVO JE DIV ZA REACT TABLE SA LISTOM SVIH KLINIKA */}
+          <div class = "col-sm-12 col-md-12 col-lg-12" style={{height: 'calc(100vh - 100px)', width: '100%'}}>
+            {<ReactTable data={this.state.clinics_for_selected_date_and_service}
+              pageSize={(this.state.clinics_for_selected_date_and_service.length > 10) ? 10 : this.state.clinics_for_selected_date_and_service.length}
+              columns={columns_1}
+              filterable={true} />}
+          </div>
+        </div>
+      </div>
+      );
+    }
+
+    if(this.state.show_third === true){
+      content = (
+        <form className = "login-form-1" style={{height: 'calc(45vh - 100px)', width: '100%'}}>
+          <h3>Select examination doctor and time</h3>
+
+          <div className = "form-row" style={{margin : 'auto'}}>
+
+              {/*SELECT EXAMINATION TIME*/}
+              <div className = "form-group col-md-6">
+                <h5>Select time</h5>
+                <DatePicker selected={this.state.exam_time} onChange={this.handleChangeTime}
+                showTimeSelect showTimeSelectOnly timeIntervals={30} timeCaption="Time"
+                dateFormat="h:mm aa" placeholderText="Select time"/>
+              </div>
+
+              {/*TYPEAHEAD ZA DOKTORE*/}
+              <div className = "form-group col-md-6">
+                <h5>Select a doctor</h5>
+                <Typeahead style = {{width : '80%'}} id = "doc_typeahead" placeholder="Choose a doctor..." onChange={(selected) => {
+                  if(selected[0] !== null && selected[0] !== undefined){
+                    console.log(selected[0].id)
+                    this.setState({doc_selected : selected[0].id})
+                  }
+                }}
+                labelKey={option => `${option.name} ${option.lastname}`}
+                options = {podaci_doc}
+              />
+              </div>
+          </div>
+
+          {/*BUTTON TO PERFORM RESERVATION*/}
+          <Button type="green" style = {{}} click={evt => this.submitReservation(evt)}>Reserve</Button>
+        </form>
+      );
     }
 
 
