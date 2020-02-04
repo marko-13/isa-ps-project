@@ -4,6 +4,7 @@ import com.proj.medicalClinic.dto.ServiceDTO;
 import com.proj.medicalClinic.model.Doctor;
 import com.proj.medicalClinic.model.Service;
 
+import java.util.Date;
 import java.util.List;
 
 public interface ServiceService {
@@ -20,4 +21,6 @@ public interface ServiceService {
 
     // vraca listu serviceDTO-a gde su svi servisi koji nisu obrisani
     List<ServiceDTO> getAllNotDeleted();
+
+    List<ServiceDTO> getAllHeldAndFromOneYearAndFromClinic();
 }

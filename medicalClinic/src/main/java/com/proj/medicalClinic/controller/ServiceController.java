@@ -94,4 +94,17 @@ public class ServiceController {
         }
     }
 
+    @RequestMapping(value = "/getAllHeldAndFromOneYearAndFromClinic", method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('ADMINCLINIC')")
+    public ResponseEntity<?> getAllHeldAndFromOneYearAndFromClinic(){
+        try {
+            List<ServiceDTO> serviceDTOS = serviceService.getAllHeldAndFromOneYearAndFromClinic();
+            return new ResponseEntity<>(serviceDTOS, HttpStatus.OK);
+        }catch (NotExistsException e) {
+            return new ResponseEntity<>("Servisi za doktora nisu pronadjeni", HttpStatus.NOT_FOUND);
+        }
+    }
+
+
+
 }

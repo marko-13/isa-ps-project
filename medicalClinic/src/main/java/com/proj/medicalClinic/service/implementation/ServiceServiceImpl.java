@@ -15,6 +15,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -143,6 +145,36 @@ public class ServiceServiceImpl implements ServiceService {
         }
 
         return ret;
+    }
+
+    @Override
+    public List<ServiceDTO> getAllHeldAndFromOneYearAndFromClinic() {
+
+        Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
+        String username = currentUser.getName();
+
+        AdminClinic adminClinic = (AdminClinic) appUserRepository.findByEmail(username).orElseThrow(NotExistsException::new);
+
+        Long clinicId = adminClinic.getClinic().getId();
+
+        Date currentDate = new Date();
+        Calendar c = Calendar.getInstance();
+        c.setTime(currentDate);
+        c.add(Calendar.YEAR, -1);
+        Date yearBefore = c.getTime();
+
+        List<com.proj.medicalClinic.model.Service> services = serviceRepository.findAllHeldAndNotDeletedAndFromBeforeOneYearAndFromClinic(yearBefore,currentDate, clinicId);
+        if(services == null || services.isEmpty()){
+            throw new NotExistsException();
+        }
+
+        List<ServiceDTO> serviceDTOS = new ArrayList<>();
+        for(com.proj.medicalClinic.model.Service s : services){
+            serviceDTOS.add(new ServiceDTO(s));
+        }
+
+        return serviceDTOS;
+
     }
 
 }
