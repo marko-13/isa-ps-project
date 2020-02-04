@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import javax.swing.text.html.Option;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -14,4 +15,8 @@ import java.util.UUID;
 @Repository
 public interface ExaminationRepository extends JpaRepository<Examination, Long> {
     List<Examination> findAllByDoctorsContaining(Doctor doctor);
+
+    List<Examination> findAllByDateBetween(Date d1, Date d2);
+
+    List<Examination> findAll();
 }
