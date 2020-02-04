@@ -96,7 +96,7 @@ public class AdminClinicCenterController {
     }
 
     @RequestMapping(value = "/diagnosis/get-all-diagnosis")
-    @PreAuthorize("hasAuthority('ADMINCLINICALCENTER')")
+    @PreAuthorize("hasAnyAuthority('ADMINCLINICALCENTER', 'DOCTOR', 'NURSE')")
     public ResponseEntity<?> getAllDiagnosis() {
         try {
             String email = this.tokenUtils.getUsernameFromToken(this.tokenUtils.getToken(this.httpServletRequest));
@@ -126,7 +126,7 @@ public class AdminClinicCenterController {
     }
 
     @RequestMapping(value = "/drugs/get-all-drugs")
-    @PreAuthorize("hasAuthority('ADMINCLINICALCENTER')")
+    @PreAuthorize("hasAuthority('ADMINCLINICALCENTER') or hasAuthority('DOCTOR') or hasAuthority('NURSE')")
     public ResponseEntity<?> getAllDrugs() {
         try {
             String email = this.tokenUtils.getUsernameFromToken(this.tokenUtils.getToken(this.httpServletRequest));
