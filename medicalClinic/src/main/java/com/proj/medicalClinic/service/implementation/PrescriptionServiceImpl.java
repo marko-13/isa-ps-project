@@ -70,7 +70,16 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 
             List<PrescriptionDTO> prescriptionsDTO = new ArrayList<>();
             for (Prescription p : prescriptions) {
+                System.out.println("Prescription id " + p.getId());
+                if(p.getDrugsRegistry().isEmpty()) {
+                    System.out.println("Jeste prazno");
+                }
+
+
+
+                //if (!drugsRegistry.isEmpty()) {
                 prescriptionsDTO.add(new PrescriptionDTO(p));
+                //}
             }
 
             return prescriptionsDTO;
