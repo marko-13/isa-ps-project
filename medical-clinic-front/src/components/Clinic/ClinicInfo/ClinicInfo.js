@@ -8,12 +8,17 @@ import Auxiliary from '../../../hoc/Auxiliary/Auxiliary';
 import Modal from '../../UI/Modal/Modal';
 import EditClinic from '../../Forms/EditClinic/EditClinic';
 
+import {
+    LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
+} from 'recharts';
+
 class ClinicInfo extends Component {
 
     state = {
         error: false,
         clinic: null,
-        modalOpen: false
+        modalOpen: false,
+        totalPrice: 0
     }
 
     componentDidMount() {
@@ -23,12 +28,29 @@ class ClinicInfo extends Component {
             const userId = decodedToken.userId;
 
             axios.get('/clinics/getByAdmin/' + userId)
-                .then(clinic => this.setState({ clinic: clinic.data }))
+                .then(clinic => {
+                    this.setState({ clinic: clinic.data });
+                    this.getServices();
+                })
                 .catch(err => console.log(err));
 
         } else {
             this.setState({ error: true });
         }
+    }
+
+    getServices = () => {
+
+        let sum = 0;
+
+        axios.get('/service/getAllHeldAndFromOneYearAndFromClinic/')
+            .then(res => {
+                res.data.map(s => {
+                    sum += s.price;
+                })
+                this.setState({ totalPrice: sum });
+            })
+            .catch(err => console.log(err));
     }
 
     modalCloseHandler = () => {
@@ -45,10 +67,12 @@ class ClinicInfo extends Component {
             ...updatedClinic
         }
 
-        this.setState({clinic: clinic});
+        this.setState({ clinic: clinic });
     }
 
     render() {
+
+        console.log(this.state.clinic);
 
         let ret = null;
 
@@ -72,7 +96,30 @@ class ClinicInfo extends Component {
                             <h6 className={classes.Description}>Description:</h6>
                             <p style={{ paddingLeft: '8px', marginBottom: '25px' }}>{this.state.clinic.description}</p>
 
-                            <h5>Clinic review (0-10): <span className={classes.Review}>{this.state.clinic.review}</span></h5>
+                            <h5>Clinic review (0-5): <span className={classes.Review}>{Number(this.state.clinic.review / this.state.clinic.reviewCount).toFixed(2)}</span></h5>
+                            <hr></hr>
+                        </div>
+                        <div className='row'>
+                            <div className={classes.Chart + ' col'}>
+                                <h4>Clinic income in last year : {this.state.totalPrice}</h4>
+                                {/* <LineChart
+                                    width={800}
+                                    height={300}
+                                    style={{ margin: 'auto' }}
+                                    data={data}
+                                    margin={{
+                                        top: 15, right: 30, left: 20, bottom: 5,
+                                    }}
+                                >
+                                    <CartesianGrid strokeDasharray="3 3" />
+                                    <XAxis dataKey="name" />
+                                    <YAxis />
+                                    <Tooltip />
+                                    <Legend />
+                                    <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{ r: 8 }} />
+                                    <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+                                </LineChart> */}
+                            </div>
                         </div>
                     </div>
                     <Modal show={this.state.modalOpen} modalClosed={this.state.modalCloseHandler}>
