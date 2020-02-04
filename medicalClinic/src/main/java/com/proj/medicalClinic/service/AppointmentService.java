@@ -20,4 +20,7 @@ public interface AppointmentService {
     AppointmentDTO changeDateAndAddRoom(AppointmentRequestDTO appointmentRequestDTO);
     void cronAddRooms();
     AppointmentDTO changeDoctorAndAddRoom(ChangeDoctorRequestDTO changeDoctorRequestDTO);
+
+    // tries to reserv appointemnt for selected date and time and doctor if he is free
+    void reserveExaminationForPatient(Long selected_date, int hours, int minutes, Long doc_id, Long service_id);
 }
