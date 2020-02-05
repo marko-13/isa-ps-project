@@ -32,6 +32,16 @@ class SelectTableComponent extends Component {
 	      });
 	    }
 	    this.setState({ selectAll, selection });
+
+	    if (this.props.handlerSelected !== undefined) {
+			var selectedId = []
+			for (var i = 0; i < selection.length; i++) {
+				var num = parseInt(selection[i].split("-")[1]);
+				selectedId.push(num);
+			}
+			
+			this.props.handlerSelected(selectedId);
+		}
 	  };
 
 	rowFn = (state, rowInfo, column, instance) => {
