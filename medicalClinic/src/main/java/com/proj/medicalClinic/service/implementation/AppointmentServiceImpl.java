@@ -577,7 +577,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 
                 Examination newExamination = new Examination();
                 newExamination.setDate(selectedDate);
-                newExamination.setOperationRoom(operationRoom);
+                newExamination.setOperationRoom(null);
                 newExamination.setDoctors(appointmentDoctors);
                 newExamination.setService(lastApp.getService());
                 newExamination.setDuration(30);
@@ -599,7 +599,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 
                     Operation operation = new Operation();
                     operation.setDate(selectedDate);
-                    operation.setOperationRoom(operationRoom);
+                    operation.setOperationRoom(null);
                     operation.setDoctors(appointmentDoctors);
                     operation.setService(lastApp.getService());
                     operation.setDuration(30);
