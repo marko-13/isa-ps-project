@@ -4,6 +4,8 @@ import ClinicInfo from '../../../components/Clinic/ClinicInfo/ClinicInfo';
 import Auxiliary from '../../../hoc/Auxiliary/Auxiliary';
 import DoctorsReview from '../../../components/Tables/DoctorsReview/DoctorsReview';
 import ClinicAppointmentsReview from '../../../components/Clinic/ClinicAppointmentsReview/ClinicAppointmentsReview';
+import ClinicMap from '../../../components/Clinic/ClinicMap/ClinicMap';
+
 
 class Clinic extends Component {
     render() {
@@ -30,8 +32,8 @@ class Clinic extends Component {
                                 <div className='col-6'>
                                     <ClinicInfo />
                                 </div>
-                                <div className='col-6'>
-                                    <h1>MAPA</h1>
+                                <div className='col-6' id='map-container'>
+                                    <ClinicMap />
                                 </div>
                             </div>
                         </div>
