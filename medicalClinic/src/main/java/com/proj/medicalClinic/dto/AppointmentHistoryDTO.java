@@ -27,6 +27,8 @@ public class AppointmentHistoryDTO {
     private String operationRoom;
     private String service;
     private String patient;
+    private boolean held;
+    private Long patientId;
 
     public AppointmentHistoryDTO(Appointment a){
         System.out.println(a.getId());
@@ -49,9 +51,13 @@ public class AppointmentHistoryDTO {
 
             if(examination.getPatient() == null){
                 this.patient = "No patient";
+                this.patientId = null;
             }else{
                 this.patient = examination.getPatient().getName() + " " + examination.getPatient().getLastName();
+                this.patientId = examination.getPatient().getId();
             }
+
+            this.held = examination.isHeld();
         }
         else{
             Operation operation = (Operation) a;
