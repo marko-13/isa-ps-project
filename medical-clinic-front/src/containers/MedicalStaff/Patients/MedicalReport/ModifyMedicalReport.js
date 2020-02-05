@@ -107,7 +107,7 @@ class ModifyMedicalReport extends Component {
 	onSave = (event) => {
 		event.preventDefault();
 		console.log(this.state.newMedicalReport);
-		if (this.props.addNew) {
+		if (this.props.addNew && this.props.editMedicalHistory === undefined) {
 			axios.post('/medical-reports/add', this.state.newMedicalReport)
         	.then(rsp => {
                 console.log(rsp);
