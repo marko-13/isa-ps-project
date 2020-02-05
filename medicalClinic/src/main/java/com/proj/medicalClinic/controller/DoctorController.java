@@ -37,6 +37,9 @@ public class DoctorController {
     @Autowired
     AppointmentService appointmentService;
 
+    @Autowired
+    StartExamService startExamService;
+
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
     public ResponseEntity<?> getAllDoctors() {
         List<DoctorDTO> doctorDTOS = doctorService.getAll();
