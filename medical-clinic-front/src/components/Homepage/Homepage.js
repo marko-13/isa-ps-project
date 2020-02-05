@@ -136,7 +136,7 @@ const Homepage = (props) => {
                                 <UserCard buttonText={"Operation Rooms"} cardText={"Search and filter operation rooms"} link={'/homepage/admin-clinic/operation-rooms'} />
                                 <UserCard buttonText={"Show"} cardText={"Show all requests for leave of absence"} link={'/homepage/admin-clinic/leaves'} />
                                 <UserCard buttonText={"Show doctors"} cardText={"Search, add or remove doctors"} link={'/homepage/admin-clinic/doctors'} />
-                                <UserCard buttonText={"Clinic's profile"} cardText={"Show and modify clinic's profile"} link={'/homepage/admin-clinic/clinic'} />
+                                <UserCard buttonText={"Show"} cardText={"Show clinic and buisness info"} link={'/homepage/admin-clinic/clinic'} />
                                 <UserCard buttonText={"Show services"} cardText={"Search, add modify or add new medical services"} link={'/homepage/admin-clinic/services'} />
                                 <UserCard buttonText={"Show requests"} cardText={"Show requests for all appointments"} link={'/homepage/admin-clinic/requests'} />
                                 <UserCard buttonText={"Create"} cardText={"Create new fast medical examination"} link={'/homepage/admin-clinic/new-exam'} />
