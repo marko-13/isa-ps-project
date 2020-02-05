@@ -84,4 +84,35 @@ public class DoctorController {
             return new ResponseEntity<>("Nije nasao doktore", HttpStatus.NOT_FOUND);
         }
     }
+
+    @RequestMapping(value = "/start-exam/{patientId}", method = RequestMethod.POST)
+    @PreAuthorize("hasAuthority('DOCTOR')")
+    public ResponseEntity<?> getMedicalHistoryStartExamination(@PathVariable Long patientId) {
+        try {
+            String email = this.tokenUtils.getUsernameFromToken(this.tokenUtils.getToken(this.httpServletRequest));
+            return new ResponseEntity<>(this.startExamService.getMedicalHistoryStartExamination(email, patientId), HttpStatus.OK);
+        } catch (NotValidParamsException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.FORBIDDEN);
+        } catch (NotExistsException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping(value = "/finish-exam/{patientId}")
+    @PreAuthorize("hasAuthority('DOCTOR')")
+    public ResponseEntity<?> saveMedicalHistoryFinishExam(@PathVariable Long patientId, @RequestBody StartExamDTO startExamDTO) {
+        try {
+            String email = this.tokenUtils.getUsernameFromToken(this.tokenUtils.getToken(this.httpServletRequest));
+            this.startExamService.saveMedicalHistoryFinishExamination(email, startExamDTO, patientId);
+            return new ResponseEntity<>("Successfully finished the examination", HttpStatus.OK);
+        } catch (NotValidParamsException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.FORBIDDEN);
+        } catch (NotExistsException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
 }
