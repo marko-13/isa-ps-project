@@ -95,7 +95,9 @@ class ModifyMedicalReport extends Component {
 				selectedDrugs: [],
 				newMedicalReport: newMedicalReport,
 				refresh: false,
-				examID: nextProps.examId
+				examID: nextProps.examId,
+				editMedicalHistory: nextProps.editMedicalHistory,
+				patientId: nextProps.patientId
 			}
 		}
 
