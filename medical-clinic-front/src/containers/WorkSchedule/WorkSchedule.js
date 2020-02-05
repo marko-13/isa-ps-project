@@ -46,7 +46,24 @@ class WorkSchedule extends Component {
         this.closeModal();
     }
 
+    onStartExamHandler = () => {
+    	const queryParams = [];
+        queryParams.push(encodeURIComponent('patientId') + '=' + encodeURIComponent(this.state.data.patientId));
+        const queryString = queryParams.join('&');
+
+        this.props.history.push({
+            pathname: '/homepage/start-exam',
+            search: '?' + queryString
+        });
+    }
+
 	render() {
+		let displayButton = 'none';
+		const token = localStorage.getItem('token');
+        const decodedToken = jwt.decode(token);
+        let passChanged = decodedToken.passChanged;
+        let role = decodedToken.role.toLowerCase();
+
 		if (this.state.appointments.data !== undefined) {
 			let events = this.state.appointments.data.map(app => {
 		            let title = app.patient;
