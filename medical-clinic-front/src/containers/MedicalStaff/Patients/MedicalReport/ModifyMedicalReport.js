@@ -117,10 +117,60 @@ class ModifyMedicalReport extends Component {
             })
             .catch(err => {
             	console.log(err);
-            	alert('Unable to added medical report.\nReason: ' + err.response.data)
+            	alert('Unable to add medical report.\nReason: ' + err.response.data)
             	this.setState({refresh: true});
             	this.props.back();
             });
+		} else if (this.props.addNew) {
+			//Proveri ovde kada saljes ako nije nista u medical reportu da ne prijavljuje to kao add, nego kao null
+            //let firstSuccess = false
+
+            if (this.state.newMedicalReport.examDescription !== '' || this.state.newMedicalReport.selectedDiagnosis.length !== 0 || this.state.newMedicalReport.selectedDrugs.length !== 0) {
+	            axios.post('/medical-reports/add', this.state.newMedicalReport)
+	        	.then(rsp => {
+	                console.log(rsp);
+	                console.log(this.state.newMedicalReport);
+	                //firstSuccess = true;
+	                axios.post('/doctor/finish-exam/' + this.state.patientId, this.state.editMedicalHistory)
+			        	.then(rsp => {
+			                console.log(rsp);
+			                alert('Successfuly finished examination');
+			                this.props.history.push({
+            					pathname: '/homepage/doctor/patients',
+            					search: ''
+        					});
+			            })
+			            .catch(err => {
+			            	console.log(err);
+			            	alert('Unable to finish examination.\nReason: ' + err.response.data);
+			            	this.setState({refresh: true});
+			            	this.props.back();
+			            });
+	            })
+	            .catch(err => {
+	            	console.log(err);
+	            	alert('Unable to add medical report.\nReason: ' + err.response.data);
+	            	this.setState({refresh: true});
+	            	this.props.back();
+	            });
+        	} else {
+        		axios.post('/doctor/finish-exam/' + this.state.patientId, this.state.editMedicalHistory)
+			        	.then(rsp => {
+			                console.log(rsp);
+			                alert('Successfuly finished examination');
+			                this.props.history.push({
+            					pathname: '/homepage/doctor/patients',
+            					search: ''
+        					});
+			            })
+			            .catch(err => {
+			            	console.log(err);
+			            	alert('Unable to finish examination.\nReason: ' + err.response.data);
+			            	this.setState({refresh: true});
+			            	this.props.back();
+			            });
+        	}
+
 		} else {
 			axios.post('/medical-reports/modify', this.state.newMedicalReport)
 	        	.then(rsp => {
