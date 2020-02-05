@@ -94,14 +94,6 @@ class MedicalHistory extends Component {
 
                 this.setState({seeMedicalReport: seeMedicalReportVar,
                                 addMedicalReport: addMedicalReportVar})
-
-                console.log("Varovi");
-                console.log(seeMedicalReportVar);
-                console.log(addMedicalReportVar);
-
-                console.log("Stateovi");
-                console.log(this.state.seeMedicalReport);
-                console.log(this.state.addMedicalReport);
             } else {
                 this.setState({medicalHistory: {
                     appointments: []},
