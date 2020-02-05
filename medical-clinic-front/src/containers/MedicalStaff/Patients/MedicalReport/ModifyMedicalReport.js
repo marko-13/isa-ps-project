@@ -45,6 +45,8 @@ class ModifyMedicalReport extends Component {
 			.then(drugsRegistry => {
 				this.setState({drugsRegistryAll: drugsRegistry.data})})
 			.catch(err => console.log(err));
+
+		console.log(this.props);
 	}
 
 	static getDerivedStateFromProps(nextProps, prevState) {
