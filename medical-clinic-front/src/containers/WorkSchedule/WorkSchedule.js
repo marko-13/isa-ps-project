@@ -25,7 +25,6 @@ class WorkSchedule extends Component {
 		axios.post('/nurse/get-work-schedule')
         	.then(rsp => {
                 this.setState({appointments: rsp});
-                console.log(rsp);
             })
             .catch(err => {
             	this.setState({appointments: []});
