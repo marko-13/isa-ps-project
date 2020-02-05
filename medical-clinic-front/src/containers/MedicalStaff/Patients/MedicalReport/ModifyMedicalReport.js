@@ -214,6 +214,7 @@ class ModifyMedicalReport extends Component {
 
 	render () {
 		let content = null;
+		let displayButton = 'block';
 
 		let columnsDiagnosis = [{
                     Header: 'Diagnosis',
@@ -236,6 +237,10 @@ class ModifyMedicalReport extends Component {
         }];
 
 		if (this.props.data !== undefined) {
+			if(this.props.isStartExam) {
+				displayButton = 'none';
+			}
+
 			content = (
 				<Auxiliary>
 					<div className={classes.Header}>
@@ -283,7 +288,7 @@ class ModifyMedicalReport extends Component {
 			                    />
 	                    </div>
 	                    <button className="btnSubmit" style={{width: '15%', float: 'right'}} type = "submit">Save</button>
-	                    <button className="btnSubmit" onClick={this.onBack} style={{width: '15%', float: 'right', marginRight: '1%'}}>Back</button>
+	                    <button className="btnSubmit" onClick={this.onBack} style={{width: '15%', float: 'right', marginRight: '1%', display: displayButton}}>Back</button>
 	                </form>
 				</Auxiliary>
 			);
