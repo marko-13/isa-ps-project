@@ -133,4 +133,4 @@ class WorkSchedule extends Component {
     	return (null);
     }
 }
-export default WorkSchedule;
+export default withRouter(WorkSchedule);
