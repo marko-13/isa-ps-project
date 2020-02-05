@@ -125,7 +125,7 @@ const Homepage = (props) => {
                         <Route path='/homepage/doctor/workschedule' component={WorkSchedule}></Route>
                         <Route path='/homepage/doctor/patients' component={Patients} />
                         <Route path='/homepage/start-exam' component={StartExam} />
-                        <Route parh='/homepage/add-another-exam' component={AppointmentForPatient} />
+                        <Route path='/homepage/doctor/add-another-appointment/:examID' component={AppointmentForPatient} />
                       </Auxiliary>
                     );
                     break;
