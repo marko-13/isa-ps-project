@@ -1,9 +1,6 @@
 package com.proj.medicalClinic.controller;
 
-import com.proj.medicalClinic.dto.AppointmentDTO;
-import com.proj.medicalClinic.dto.AppointmentHistoryDTO;
-import com.proj.medicalClinic.dto.AppointmentRequestDTO;
-import com.proj.medicalClinic.dto.ChangeDoctorRequestDTO;
+import com.proj.medicalClinic.dto.*;
 import com.proj.medicalClinic.exception.NotExistsException;
 import com.proj.medicalClinic.exception.ResourceConflictException;
 import com.proj.medicalClinic.model.Appointment;
@@ -104,6 +101,28 @@ public class AppointmentController {
             return new ResponseEntity<>("Reserved", HttpStatus.OK);
         }catch (NotExistsException e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    // vraca sve brze preglede koji se mogu obaviti u toj klinici, koji su slobodni i koji nisu prosli
+    @RequestMapping(value =  "/getAllFastForClinic/{clinic_id}", method = RequestMethod.GET)
+    public ResponseEntity<?> findAllAvailableFastExams(@PathVariable Long clinic_id){
+        try{
+            List<FastExamDTO> ret = appointmentService.findAllFastForClinic(clinic_id);
+            return new ResponseEntity<>(ret, HttpStatus.OK);
+        }catch(NotExistsException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
+
+
+    @RequestMapping(value = "reserveFast/{appointment_id}", method = RequestMethod.POST)
+    public ResponseEntity<?> reserveFastAppointment(@PathVariable Long appointment_id){
+        try{
+            appointmentService.reserveFastAppointment(appointment_id);
+            return new ResponseEntity<>("Reserved", HttpStatus.OK);
+        }catch(NotExistsException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 
