@@ -541,5 +541,83 @@ public class AppointmentServiceImpl implements AppointmentService {
         return;
     }
 
+    @Override
+    public boolean addNextForPatient(NetxAppointmentRequestDTO nextAppointment) {
+
+        Appointment lastApp = appointmentRepository.findById(nextAppointment.getLastAppointmentId()).orElseThrow(NotExistsException::new);
+
+        Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
+        String username = currentUser.getName();
+
+        Doctor doctor = (Doctor) appUserRepository.findByEmail(username).orElseThrow(NotExistsException::new);
+        ArrayList<Doctor> appointmentDoctors = new ArrayList<>();
+        appointmentDoctors.add(doctor);
+
+        OperationRoom operationRoom = lastApp.getOperationRoom();
+
+        Date selectedDate = new Date(nextAppointment.getStartDate());
+
+        List<OperationRoomDTO> availableRooms = operationRoomService.getAllAvailable(nextAppointment.getStartDate());
+
+        if(availableRooms.isEmpty()){
+            throw new NotExistsException();
+        }
+
+        boolean isAvailable = false;
+
+        for(OperationRoomDTO or : availableRooms){
+            if(or.getRoomId() == operationRoom.getId()){
+                isAvailable = true;
+            }
+        }
+
+
+        if(isAvailable){
+            if(nextAppointment.getAppointmentType().equals("Examination")){
+
+                Examination newExamination = new Examination();
+                newExamination.setDate(selectedDate);
+                newExamination.setOperationRoom(operationRoom);
+                newExamination.setDoctors(appointmentDoctors);
+                newExamination.setService(lastApp.getService());
+                newExamination.setDuration(30);
+                newExamination.setFast(false);
+                newExamination.setPatient(lastApp.getPatient());
+                newExamination.setHeld(false);
+                newExamination.setNurse(null);
+                newExamination.setMReport(null);
+                newExamination.setClinic(lastApp.getClinic());
+
+                examinationRepository.save(newExamination);
+
+                doctor.getExaminations().add(newExamination);
+                doctorRepository.save(doctor);
+
+                return true;
+
+            }else if(nextAppointment.getAppointmentType().equals("Operation")){
+
+                    Operation operation = new Operation();
+                    operation.setDate(selectedDate);
+                    operation.setOperationRoom(operationRoom);
+                    operation.setDoctors(appointmentDoctors);
+                    operation.setService(lastApp.getService());
+                    operation.setDuration(30);
+                    operation.setPatient(lastApp.getPatient());
+                    operation.setClinic(lastApp.getClinic());
+                    operation.setFast(false);
+                    operation.setHeld(false);
+
+                    operationRepository.save(operation);
+                    doctor.getOperations().add(operation);
+                    doctorRepository.save(doctor);
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            return false;
+        }
+    }
 
 }
