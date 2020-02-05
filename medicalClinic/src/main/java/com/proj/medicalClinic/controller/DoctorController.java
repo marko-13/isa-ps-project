@@ -1,8 +1,6 @@
 package com.proj.medicalClinic.controller;
 
-import com.proj.medicalClinic.dto.AdminClinicDTO;
-import com.proj.medicalClinic.dto.AppointmentRequestDTO;
-import com.proj.medicalClinic.dto.DoctorDTO;
+import com.proj.medicalClinic.dto.*;
 import com.proj.medicalClinic.exception.NotExistsException;
 import com.proj.medicalClinic.exception.NotValidParamsException;
 import com.proj.medicalClinic.exception.ResourceConflictException;
