@@ -23,7 +23,8 @@ class Modal extends Component {
                         width: this.props.largeWidth ? '60%' : '500px',
                         left: this.props.largeWidth ? '20%' : 'left: calc(50% - 250px)',
                         maxHeight: this.props.largeWidth ? '80%' : '',
-                        top: this.props.largeWidth ? '10%' : '30%'
+                        top: this.props.largeWidth ? '10%' : '30%',
+                        overflow: this.props.largeWidth ? 'auto' : ''
                 }}>
                     {this.props.children}
                 </div>     

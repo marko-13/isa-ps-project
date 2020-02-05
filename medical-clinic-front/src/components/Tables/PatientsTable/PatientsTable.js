@@ -101,7 +101,7 @@ class PatientsTable extends Component {
                 <Auxiliary>
                         {/*<UserCard full query={this.props.location.search} buttonText="Show" cardText="Show patients medical history" link={this.props.match.path + '/medical-history'} />*/}
                         <UserCard full special click={() => this.onClickUserCardHandler()} buttonText="Show" cardText={"Show patients medical history"} />
-                        <UserCard full buttonText="Start" cardText="Start an examination for this patient" link={'/homepage/doctor/patients/start-exam'} />
+                        <UserCard full query={this.props.location.search} buttonText="Start" cardText="Start an examination for this patient" link={'/homepage/start-exam'} />
                 </Auxiliary>
             );
 
