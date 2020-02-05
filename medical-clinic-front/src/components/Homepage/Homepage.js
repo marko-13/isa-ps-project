@@ -28,8 +28,9 @@ import UserPasswordChangeForm from '../../containers/MyProfile/UserPasswordChang
 import Examinations from '../../containers/ClinicAdministrator/Examinations/Examinations';
 import Patients from '../../containers/MedicalStaff/Patients/Patients';
 import Requests from '../../containers/ClinicAdministrator/Requests/Requests';
-import ReviewClinic from '../../components/Clinic/ReviewClinic/ReviewClinic'
-import ReviewDoctor from '../../components/Doctor/ReviewDoctor/ReviewDoctor'
+import ReviewClinic from '../../components/Clinic/ReviewClinic/ReviewClinic';
+import ReviewDoctor from '../../components/Doctor/ReviewDoctor/ReviewDoctor';
+import StartExam from '../../containers/MedicalStaff/Doctors/StartExam/StartExam';
 
 
 const Homepage = (props) => {
