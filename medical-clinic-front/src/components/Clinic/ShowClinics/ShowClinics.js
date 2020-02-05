@@ -23,7 +23,11 @@ class ShowClinics extends Component {
     doctors_for_selected_clinic : [],
     exam_time_hrs : null,
     exam_time_mins : null,
-    doc_selected : null
+    doc_selected : null,
+
+    // kad klikne na fast appointments dugme klinike prikazi formu
+    show_fast_appointments : false,
+    list_fast_appointemnts : []
   }
 
   componentDidMount() {
@@ -81,6 +85,31 @@ selectClinicHandler = (row) => {
             this.setState({doctors_for_selected_clinic: response.data});
         })
         .catch(err => alert('There are no available doctors'));
+}
+
+
+//select fast clinic halnder
+selectClinicFastHandler = (row) => {
+    axios.get('/appointment/getAllFastForClinic/' + row.id)
+        .then(response => {
+            console.log('UDJE U GET FAST APPOINTMENTS FOR CLINIC');
+            console.log(response.data)
+            this.setState({show_fast_appointments : true});
+            this.setState({list_fast_appointemnts: response.data});
+        })
+        .catch(err => alert('There are no available fast exams for selected clinic: ' + row.name));
+}
+
+// selectFastExamHandler
+selectFastExamHandler = (row) => {
+    axios.post('/appointment/reserveFast/' + row.id)
+        .then(response => {
+            console.log('UDJE U RESERVE FAST APPOINTMENTS');
+            alert('Appointment scheduled');
+            //this.setState({show_fast_appointments : true});
+            this.props.history.push('/homepage');
+        })
+        .catch(err => alert('Something went wrong, please try again' + row.id));
 }
 
 
@@ -187,6 +216,13 @@ submitReservation(evt) {
       id: 'address',
       Header: 'Address',
       accessor: d => d.address
+    },
+    {
+      Header: "",
+      Cell: ({ original }) => (
+          <center><Button type='green' click={() => this.selectClinicFastHandler(original)}>Fast exams</Button></center>),
+      filterable: false,
+      sortable: false
     }]
     // Podaci o svim servisima u klinickom centru
     const podaci = this.state.services.map(s => {
@@ -204,6 +240,46 @@ submitReservation(evt) {
         lastname : s.lastname
       }
     })
+
+    // Columns za tabelu svih fast appointmentsa odabrane klinike
+    const columns_fast_appointemnt = [{
+        id : 'date',
+        Header : 'Date',
+        accessor : r => r.date
+      },
+      {
+        id : 'room',
+        Header : 'Room',
+        accessor : r => r.operationRoom
+      },
+      {
+        id : 'doctor',
+        Header : 'Doctor',
+        accessor : r => r.doctor
+      },
+      {
+        id : 'service',
+        Header : 'Service',
+        accessor : r => r.service
+      },
+      {
+        id : 'price',
+        Header : 'Price',
+        accessor : r => r.price
+      },
+      {
+        id : 'discount',
+        Header : 'Discount',
+        accessor : r => r.discount
+
+      },
+      {
+        Header: "",
+        Cell: ({ original }) => (
+            <center><Button type='green' click={() => this.selectFastExamHandler(original)}>Schedule</Button></center>),
+        filterable: false,
+        sortable: false
+      }]
 
     // Columns za tabelu svih klinika gde ima mesta za pregled
     const columns_1 = [{
@@ -246,12 +322,12 @@ submitReservation(evt) {
     // }
 
 
-    if(this.state.show_first){
+    if(this.state.show_first && this.state.show_fast_appointments === false){
       content = (
         <div class="container">
           <div class = "row">
             {/*OVO JE DIV ZA REACT TABLE SA LISTOM SVIH KLINIKA */}
-            <div class = "col-sm-6 col-md-6 col-lg-6" style={{height: 'calc(100vh - 100px)', width: '50%'}}>
+            <div class = "col-sm-7 col-md-7 col-lg-7" style={{height: 'calc(100vh - 100px)', width: '50%'}}>
               {<ReactTable data={this.state.clinics}
                 pageSize={(this.state.clinics.length > 10) ? 10 : this.state.clinics.length}
                 columns={columns}
@@ -259,7 +335,7 @@ submitReservation(evt) {
             </div>
 
             {/*OVO JE DIV ZA FORMU ZA PRETRAGU PO DATUMU I TIPU PREGLEDA i opciono lokacija klinike i ocena*/}
-            <div class = "col-sm-6 col-md-6 col-lg-6" style={{height: 'calc(100vh - 100px)', width: '50%'}}>
+            <div class = "col-sm-5 col-md-5 col-lg-5" style={{height: 'calc(100vh - 100px)', width: '50%'}}>
               <form>
                 {/*TYPEAHEAD ZA ODABIR SERVISA*/}
                 <div class = "form-group">
@@ -300,7 +376,7 @@ submitReservation(evt) {
         </div>
       );
     }
-    if(this.state.show_first===false && this.state.show_third ===false) {
+    if(this.state.show_first===false && this.state.show_third ===false && this.state.show_fast_appointments === false) {
       content = (
       <div class="container">
         <h1>Select a clinic</h1>
@@ -317,7 +393,7 @@ submitReservation(evt) {
       );
     }
 
-    if(this.state.show_third === true){
+    if(this.state.show_third === true && this.state.show_fast_appointments === false){
       content = (
         <form className = "login-form-1" style={{height: 'calc(45vh - 100px)', width: '100%'}}>
           <h3>Select examination doctor and time</h3>
@@ -350,6 +426,23 @@ submitReservation(evt) {
           {/*BUTTON TO PERFORM RESERVATION*/}
           <Button type="green" style = {{}} click={evt => this.submitReservation(evt)}>Reserve</Button>
         </form>
+      );
+    }
+
+    if(this.state.show_fast_appointments === true){
+      content = (
+        <div class="container">
+          <h1>Choose an appointment</h1>
+          <div class = "row">
+            {/*OVO JE DIV ZA REACT TABLE SA LISTOM SVIH BRZIH PREGLEDA ODABRANE KLINIKE */}
+            <div class = "col-sm-12 col-md-12 col-lg-12" style={{height: 'calc(100vh - 100px)', width: '100%'}}>
+              {<ReactTable data={this.state.list_fast_appointemnts}
+                pageSize={(this.state.list_fast_appointemnts.length > 10) ? 10 : this.state.list_fast_appointemnts.length}
+                columns={columns_fast_appointemnt}
+                filterable={true} />}
+            </div>
+          </div>
+        </div>
       );
     }
 
