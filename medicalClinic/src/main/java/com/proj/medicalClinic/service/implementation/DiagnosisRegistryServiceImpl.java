@@ -3,9 +3,7 @@ package com.proj.medicalClinic.service.implementation;
 import com.proj.medicalClinic.dto.DiagnosisRegistryDTO;
 import com.proj.medicalClinic.exception.NotExistsException;
 import com.proj.medicalClinic.exception.NotValidParamsException;
-import com.proj.medicalClinic.model.AdminClinicalCenter;
-import com.proj.medicalClinic.model.AppUser;
-import com.proj.medicalClinic.model.DiagnosisRegistry;
+import com.proj.medicalClinic.model.*;
 import com.proj.medicalClinic.repository.AppUserRepository;
 import com.proj.medicalClinic.repository.DiagnosisRepository;
 import com.proj.medicalClinic.service.DiagnosisRegistryService;
@@ -32,7 +30,7 @@ public class DiagnosisRegistryServiceImpl implements DiagnosisRegistryService {
             AppUser user = appUserRepository.findByEmail(email)
                     .orElseThrow(NotExistsException::new);
 
-            if (!(user instanceof AdminClinicalCenter)) {
+            if (!(user instanceof AdminClinicalCenter) && !(user instanceof Doctor) && !(user instanceof Nurse)) {
                 throw new NotValidParamsException("Only admin of the clinical center can see this data");
             }
 

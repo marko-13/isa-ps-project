@@ -28,8 +28,9 @@ import UserPasswordChangeForm from '../../containers/MyProfile/UserPasswordChang
 import Examinations from '../../containers/ClinicAdministrator/Examinations/Examinations';
 import Patients from '../../containers/MedicalStaff/Patients/Patients';
 import Requests from '../../containers/ClinicAdministrator/Requests/Requests';
-import ReviewClinic from '../../components/Clinic/ReviewClinic/ReviewClinic'
-import ReviewDoctor from '../../components/Doctor/ReviewDoctor/ReviewDoctor'
+import ReviewClinic from '../../components/Clinic/ReviewClinic/ReviewClinic';
+import ReviewDoctor from '../../components/Doctor/ReviewDoctor/ReviewDoctor';
+import StartExam from '../../containers/MedicalStaff/Doctors/StartExam/StartExam';
 import ChooseAvailableDoctorsForm from '../../components/Forms/ChooseAvailableDoctorsForm/ChooseAvailableDoctorsForm';
 import FastExam from '../../containers/ClinicAdministrator/FastExam/FastExam';
 
@@ -75,6 +76,7 @@ const Homepage = (props) => {
                         <Route path='/homepage/nurse/prescriptions' component={Prescriptions}></Route>
                         <Route path='/homepage/nurse/patients' component={Patients}></Route>
                         <Route path='/homepage/patient/clinics' component={null}></Route>
+                        <Route path='/homepage/start-exam' component={StartExam} />
                       </Auxiliary>
                     );
                     break;
@@ -109,10 +111,10 @@ const Homepage = (props) => {
                         <Auxiliary>
                             <UserInfo name={name} lastname={lastname} role={role} />
                             <UserCards>
-                                <UserCard buttonText={"Work schedule"} cardText={"Schedule an appointment for operation or medical exam"}  link ={'/homepage/doctor/workschedule'}/>
+                                <UserCard buttonText={"Schedule appointment"} cardText={"Schedule an appointment for operation or medical exam"}  link ={'/homepage/doctor/workschedule'}/>
                                  <UserCard buttonText={"List of patients"} cardText={"Shows a list of patients"} link={'/homepage/doctor/patients'} />
-                                <UserCard buttonText={"Start exam"} cardText={"Starta a new medical exam"} link ={'/homepage/patient/clinics'} />
-                                <UserCard buttonText={"Work schedule"} cardText={"Shows my work schedule"}  link ={'/homepage/patient/clinics'}/>
+                                {/*<UserCard buttonText={"Start exam"} cardText={"Start a new medical exam"} link ={'/homepage/start-exam'} />*/}
+                                <UserCard buttonText={"Work schedule"} cardText={"Shows my work schedule"}  link ={'/homepage/doctor/workschedule'}/>
                                 <UserCard buttonText={"Ask for leave of absence"} cardText={"Shows form for leave of absence"}  link ={'/homepage/patient/clinics'}/>
                             </UserCards>
                         </Auxiliary>
@@ -122,6 +124,7 @@ const Homepage = (props) => {
                       <Auxiliary>
                         <Route path='/homepage/doctor/workschedule' component={WorkSchedule}></Route>
                         <Route path='/homepage/doctor/patients' component={Patients} />
+                        <Route path='/homepage/start-exam' component={StartExam} />
                       </Auxiliary>
                     );
                     break;
@@ -133,7 +136,7 @@ const Homepage = (props) => {
                                 <UserCard buttonText={"Operation Rooms"} cardText={"Search and filter operation rooms"} link={'/homepage/admin-clinic/operation-rooms'} />
                                 <UserCard buttonText={"Show"} cardText={"Show all requests for leave of absence"} link={'/homepage/admin-clinic/leaves'} />
                                 <UserCard buttonText={"Show doctors"} cardText={"Search, add or remove doctors"} link={'/homepage/admin-clinic/doctors'} />
-                                <UserCard buttonText={"Clinic's profile"} cardText={"Show and modify clinic's profile"} link={'/homepage/admin-clinic/clinic'} />
+                                <UserCard buttonText={"Show"} cardText={"Show clinic and buisness info"} link={'/homepage/admin-clinic/clinic'} />
                                 <UserCard buttonText={"Show services"} cardText={"Search, add modify or add new medical services"} link={'/homepage/admin-clinic/services'} />
                                 <UserCard buttonText={"Show requests"} cardText={"Show requests for all appointments"} link={'/homepage/admin-clinic/requests'} />
                                 <UserCard buttonText={"Create"} cardText={"Create new fast medical examination"} link={'/homepage/admin-clinic/new-exam'} />

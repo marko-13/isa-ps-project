@@ -94,6 +94,18 @@ public class AppointmentController {
         }
     }
 
+    @RequestMapping(value = "/getAllHeldAndBetweenDates", method = RequestMethod.POST)
+    public ResponseEntity<?> getAllHeldAndBetweenDates(@RequestBody ClinicReviewRequestDTO clinicReviewRequestDTO){
+        System.out.println(clinicReviewRequestDTO.getStartDate());
+        try {
+            List<AppointmentDTO>  appointmentDTOS = appointmentService.getAllHeldBetweenNowAndEnd(clinicReviewRequestDTO);
+            return new ResponseEntity<>(appointmentDTOS, HttpStatus.OK);
+        }catch (NotExistsException e){
+            return new ResponseEntity<>("NOT FOUND", HttpStatus.NOT_FOUND);
+        }
+    }
+  
+  
     @RequestMapping(value = "/reserve/{selected_date}/{hours}/{minutes}/{doc_id}/{service_id}", method = RequestMethod.POST)
     public ResponseEntity<?> reserveExaminationAsPatient(@PathVariable Long selected_date, @PathVariable int hours, @PathVariable int minutes, @PathVariable Long doc_id, @PathVariable Long service_id){
         try{

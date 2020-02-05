@@ -22,7 +22,8 @@ class MedicalHistory extends Component {
         seeMedicalReport: [],
         addMedicalReport: [],
         isModalOpen: false,
-        medicalReport: null
+        medicalReport: null,
+        examId: null
     }
 
     componentDidMount() {
@@ -93,14 +94,6 @@ class MedicalHistory extends Component {
 
                 this.setState({seeMedicalReport: seeMedicalReportVar,
                                 addMedicalReport: addMedicalReportVar})
-
-                console.log("Varovi");
-                console.log(seeMedicalReportVar);
-                console.log(addMedicalReportVar);
-
-                console.log("Stateovi");
-                console.log(this.state.seeMedicalReport);
-                console.log(this.state.addMedicalReport);
             } else {
                 this.setState({medicalHistory: {
                     appointments: []},
@@ -196,6 +189,7 @@ class MedicalHistory extends Component {
                                 console.log(original.medicalReport);
                                 this.setState({isModalOpen : true});
                                 this.setState({medicalReport: original.medicalReport});
+                                this.setState({examId: original.id});
                                 console.log("Prosledjeno u stanje");
                                 console.log(this.state.medicalReport);
                             }
@@ -238,10 +232,9 @@ class MedicalHistory extends Component {
                     Header: "",
                     Cell: ({ original }) => (
                         <center><Button type="black" click={() => {
-                            console.log(original);
                             this.setState({isModalOpen : true});
                             this.setState({medicalReport: original.medicalReport});
-                            console.log(this.state.medicalReport);
+                            this.setState({examId: original.id});
                         }
                     }>
                             Add report
@@ -378,7 +371,7 @@ class MedicalHistory extends Component {
                             </div>
                         </div>
                         <Modal show = {this.state.isModalOpen} modalClosed = {this.closeModal} largeWidth = {true}>
-                            <MedicalReport medicalReport = {this.state.medicalReport}  show = {this.state.isModalOpen} back = {() => this.closeModal()}/>
+                            <MedicalReport medicalReport = {this.state.medicalReport}  show = {this.state.isModalOpen} back = {() => this.closeModal()} examId = {this.state.examId}/>
                         </Modal>
                     </Auxiliary>
                 );

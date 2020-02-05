@@ -1,8 +1,6 @@
 package com.proj.medicalClinic.controller;
 
-import com.proj.medicalClinic.dto.AdminClinicDTO;
-import com.proj.medicalClinic.dto.AppointmentRequestDTO;
-import com.proj.medicalClinic.dto.DoctorDTO;
+import com.proj.medicalClinic.dto.*;
 import com.proj.medicalClinic.exception.NotExistsException;
 import com.proj.medicalClinic.exception.NotValidParamsException;
 import com.proj.medicalClinic.exception.ResourceConflictException;
@@ -10,6 +8,7 @@ import com.proj.medicalClinic.model.Doctor;
 import com.proj.medicalClinic.security.TokenUtils;
 import com.proj.medicalClinic.service.AppointmentService;
 import com.proj.medicalClinic.service.DoctorService;
+import com.proj.medicalClinic.service.StartExamService;
 import com.proj.medicalClinic.service.implementation.DoctorServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,7 +21,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/doctor")
+@CrossOrigin(origins = "http://localhost:3000")
+@RequestMapping(value = "/doctor", produces = MediaType.APPLICATION_JSON_VALUE)
 public class DoctorController {
 
     @Autowired
@@ -36,6 +36,9 @@ public class DoctorController {
 
     @Autowired
     AppointmentService appointmentService;
+
+    @Autowired
+    StartExamService startExamService;
 
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
     public ResponseEntity<?> getAllDoctors() {
@@ -82,6 +85,36 @@ public class DoctorController {
         }
     }
 
+    @RequestMapping(value = "/start-exam/{patientId}", method = RequestMethod.POST)
+    @PreAuthorize("hasAuthority('DOCTOR')")
+    public ResponseEntity<?> getMedicalHistoryStartExamination(@PathVariable Long patientId) {
+        try {
+            String email = this.tokenUtils.getUsernameFromToken(this.tokenUtils.getToken(this.httpServletRequest));
+            return new ResponseEntity<>(this.startExamService.getMedicalHistoryStartExamination(email, patientId), HttpStatus.OK);
+        } catch (NotValidParamsException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.FORBIDDEN);
+        } catch (NotExistsException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping(value = "/finish-exam/{patientId}")
+    @PreAuthorize("hasAuthority('DOCTOR')")
+    public ResponseEntity<?> saveMedicalHistoryFinishExam(@PathVariable Long patientId, @RequestBody StartExamDTO startExamDTO) {
+        try {
+            String email = this.tokenUtils.getUsernameFromToken(this.tokenUtils.getToken(this.httpServletRequest));
+            this.startExamService.saveMedicalHistoryFinishExamination(email, startExamDTO, patientId);
+            return new ResponseEntity<>("Successfully finished the examination", HttpStatus.OK);
+        } catch (NotValidParamsException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.FORBIDDEN);
+        } catch (NotExistsException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
 
     // returns all doctors that can perform selected service on a selected date and clinic
     @RequestMapping(value = "/getAllAvailableForExam/{clinc_id}/{selected_date}/{service_id}", method = RequestMethod.GET)
@@ -95,6 +128,7 @@ public class DoctorController {
             return new ResponseEntity<>("Nije nasao doktore" + e.getMessage(), HttpStatus.NOT_FOUND);
         }
       }
+  
     @RequestMapping(value = "/getAllFromClinicAndNotDeleted", method = RequestMethod.GET)
     public ResponseEntity<?> getAllFromClinicAndAreNotDeleted() {
         try {
@@ -103,6 +137,5 @@ public class DoctorController {
         }catch (NotExistsException e){
             return new ResponseEntity<>("Greska pri trazenju doktora", HttpStatus.NOT_FOUND);
         }
-
     }
 }

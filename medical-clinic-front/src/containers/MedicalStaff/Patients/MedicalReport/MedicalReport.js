@@ -19,7 +19,7 @@ class MedicalReport extends Component {
 		isModalOpen: false,
 		hasAuthority: false,
 		displayFirst: true,
-		displaySecond: false,
+		displaySecond: false
 	}
 
 	componentDidMount() {
@@ -56,6 +56,7 @@ class MedicalReport extends Component {
     	let buttonEdit = null;
     	let displayFirst = 'block';
     	let displaySecond = 'none';
+    	console.log("Exam id je " + this.props.examId);
 
 
     	if (this.state.displaySecond) {
@@ -83,93 +84,99 @@ class MedicalReport extends Component {
                 }];
         let approved = '';
 
-    	if (this.props.medicalReport !== undefined && this.props.medicalReport !== null) {
-    		if (this.props.medicalReport.prescription.approved) {
-    			approved = 'Approved';
-    		} else {
-    			if(this.props.medicalReport.prescription.drugs.length === 0) {
-    				approved = 'No prescription';
-    			} else {
-    				approved = 'Not approved';
-    			}
-    		}
+        if (this.props.medicalReport !== undefined) {
+	    	if (this.props.medicalReport !== null) {
+	    		if (this.props.medicalReport.prescription.approved) {
+	    			approved = 'Approved';
+	    		} else {
+	    			if(this.props.medicalReport.prescription.drugs.length === 0) {
+	    				approved = 'No prescription';
+	    			} else {
+	    				approved = 'Not approved';
+	    			}
+	    		}
 
-    		if (this.state.hasAuthority) {
-    			buttonEdit = (
-    				<Auxiliary>
-    					<Button type = 'black' click = {() => this.onClickShowEdit()}>Edit</Button>
-    				</Auxiliary>
-    				);
-    		} else {
-    			buttonEdit = null;
-    		}
+	    		if (this.state.hasAuthority) {
+	    			buttonEdit = (
+	    				<Auxiliary>
+	    					<Button type = 'black' click = {() => this.onClickShowEdit()}>Edit</Button>
+	    				</Auxiliary>
+	    				);
+	    		} else {
+	    			buttonEdit = null;
+	    		}
 
-    		content = (
-    			<Auxiliary>
-	    			<div style={{display: displayFirst}}>
-		    			<div className={classes.Header}>
-		                	<h3 style={{color: 'white'}}>Medical report # {this.props.medicalReport.id}</h3>
-		                </div>
-		    			<div className = "row">
-		                    <div className="col-md-9 col-lg-9 ">
-		                        <table className="table table-user-information">
-		                            <tbody>
-		                                <tr>
-		                                    <td style={{fontWeight: 'bold'}}>Exam's description:</td>
-		                                    <td>{this.props.medicalReport.examDescription}</td>
-		                                </tr> 
-		                                <tr>
-		                                	<td style={{fontWeight: 'bold'}}>Prescription approval:</td>
-		                                    <td style={{color: approved === 'Approved'? '#1abc9c' : 'salmon', fontWeight: 'bold'}}>{approved}</td>
-		                                </tr>
-		                                <tr>
-		                                	<td></td>
-		                                	<td></td>
-		                                </tr>       
-		                            </tbody>
-		                        </table>
-		                    </div>
-		                    <div className="col-3">
-		                        <div className="row" style={{textAlign: 'right', paddingRight: '15px', float: 'right'}}>
-		                            <div style={{fontSize: '1.25em'}}>
-		                                <Button type = 'black' click = {this.props.back}>Back</Button>
-		                                {buttonEdit}
-		                            </div>
-		                        </div>
-		                    </div>
-		                </div>
-		                <div className = "row">
-		                	<div className="col-md-6">
-			                	<ReactTable data = {this.props.medicalReport.diagnosisRegistry}
-				                    pageSize={(this.props.medicalReport.diagnosisRegistry.length > 5) ? 5 : this.props.medicalReport.diagnosisRegistry.length}
-				                    columns = {columnsDiagnosis}
-				                    filterable = {true}
-				                    defaultFilterMethod={(filter, row, column) => {
-				                        const id = filter.pivotId || filter.id
-				                        console.log(row[id]);
-				                        return row[id] !== undefined ? String(row[id]).toLowerCase().includes(filter.value.toLowerCase()) : true
-				                      }}/>
+	    		content = (
+	    			<Auxiliary>
+		    			<div style={{display: displayFirst}}>
+			    			<div className={classes.Header}>
+			                	<h3 style={{color: 'white'}}>Medical report # {this.props.medicalReport.id}</h3>
 			                </div>
-			                <div className="col-md-6">
-			                	<ReactTable data = {this.props.medicalReport.prescription.drugs}
-				                    pageSize={(this.props.medicalReport.prescription.drugs.length > 5) ? 5 : this.props.medicalReport.prescription.drugs.length}
-				                    columns = {columnsDrugs}
-				                    filterable = {true}
-				                    defaultFilterMethod={(filter, row, column) => {
-				                        const id = filter.pivotId || filter.id
-				                        console.log(row[id]);
-				                        return row[id] !== undefined ? String(row[id]).toLowerCase().includes(filter.value.toLowerCase()) : true
-				                      }}/>
+			    			<div className = "row">
+			                    <div className="col-md-9 col-lg-9 ">
+			                        <table className="table table-user-information">
+			                            <tbody>
+			                                <tr>
+			                                    <td style={{fontWeight: 'bold'}}>Exam's description:</td>
+			                                    <td>{this.props.medicalReport.examDescription}</td>
+			                                </tr> 
+			                                <tr>
+			                                	<td style={{fontWeight: 'bold'}}>Prescription approval:</td>
+			                                    <td style={{color: approved === 'Approved'? '#1abc9c' : 'salmon', fontWeight: 'bold'}}>{approved}</td>
+			                                </tr>
+			                                <tr>
+			                                	<td></td>
+			                                	<td></td>
+			                                </tr>       
+			                            </tbody>
+			                        </table>
+			                    </div>
+			                    <div className="col-3">
+			                        <div className="row" style={{textAlign: 'right', paddingRight: '15px', float: 'right'}}>
+			                            <div style={{fontSize: '1.25em'}}>
+			                                <Button type = 'black' click = {this.props.back}>Back</Button>
+			                                {buttonEdit}
+			                            </div>
+			                        </div>
+			                    </div>
 			                </div>
-		                </div>
-		            </div>
-		            <div style={{display: displaySecond}}>
-		            	<ModifyMedicalReport data = {this.props.medicalReport} back = {() => this.onClickBack()}/>
-		            </div>
-                </Auxiliary>
-    			);
-    	} else {
-    		content = <h2>Loading...</h2>
+			                <div className = "row">
+			                	<div className="col-md-6">
+				                	<ReactTable data = {this.props.medicalReport.diagnosisRegistry}
+					                    pageSize={(this.props.medicalReport.diagnosisRegistry.length > 5) ? 5 : this.props.medicalReport.diagnosisRegistry.length}
+					                    columns = {columnsDiagnosis}
+					                    filterable = {true}
+					                    defaultFilterMethod={(filter, row, column) => {
+					                        const id = filter.pivotId || filter.id
+					                        console.log(row[id]);
+					                        return row[id] !== undefined ? String(row[id]).toLowerCase().includes(filter.value.toLowerCase()) : true
+					                      }}/>
+				                </div>
+				                <div className="col-md-6">
+				                	<ReactTable data = {this.props.medicalReport.prescription.drugs}
+					                    pageSize={(this.props.medicalReport.prescription.drugs.length > 5) ? 5 : this.props.medicalReport.prescription.drugs.length}
+					                    columns = {columnsDrugs}
+					                    filterable = {true}
+					                    defaultFilterMethod={(filter, row, column) => {
+					                        const id = filter.pivotId || filter.id
+					                        console.log(row[id]);
+					                        return row[id] !== undefined ? String(row[id]).toLowerCase().includes(filter.value.toLowerCase()) : true
+					                      }}/>
+				                </div>
+			                </div>
+			            </div>
+			            <div style={{display: displaySecond}}>
+			            	<ModifyMedicalReport data = {this.props.medicalReport} back = {() => this.onClickBack()} addNew = {false}/>
+			            </div>
+	                </Auxiliary>
+	    			);
+	    	} else {
+	    		content = (
+	    			<Auxiliary>
+		    			<ModifyMedicalReport data = {null} back = {this.props.back} addNew = {true} examId = {this.props.examId}/>
+	    			</Auxiliary>
+	    		);
+	    	}
     	}
     	return (
     		<div>{content}</div>);

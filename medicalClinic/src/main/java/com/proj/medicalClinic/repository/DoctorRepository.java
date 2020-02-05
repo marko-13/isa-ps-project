@@ -19,6 +19,8 @@ public interface DoctorRepository extends JpaRepository<Doctor, Long> {
     List<Doctor> findAllByClinicIn(List<Clinic> c);
   
     List<Doctor> findAllByExaminations(Examination examination);
+
+    Doctor findByExaminations(Examination ex);
   
     List<Doctor> findAllByClinicAndDeletedNot(Clinic clinic, boolean deleted);
     
