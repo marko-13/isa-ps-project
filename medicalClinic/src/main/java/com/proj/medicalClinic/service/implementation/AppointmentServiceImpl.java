@@ -64,7 +64,6 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Autowired
     private EmailService emailService;
 
-
     @Autowired
     private ServiceRepository serviceRepository;
 
@@ -506,6 +505,61 @@ public class AppointmentServiceImpl implements AppointmentService {
         doctorRepository.save(my_doc);
 
         return;
+    }
+
+    // returns list of all available fast appointments in selected clinic
+    @Override
+    public List<FastExamDTO> findAllFastForClinic(Long clinic_id) {
+        Date date = new Date();
+        List<Appointment> apps = appointmentRepository.findAllByClinicIdAndDateAfterAndPatientId(clinic_id, date, null);
+
+        if(apps.isEmpty()){
+            throw new NotExistsException();
+        }
+
+        List<FastExamDTO> ret = new ArrayList<>();
+        for(Appointment a : apps){
+            Examination ap = examinationRepository.findById(a.getId()).orElseThrow(NotExistsException::new);
+            List<Doctor> docs = doctorRepository.findAllByExaminations(ap);
+            ret.add(new FastExamDTO(ap, docs.get(0)));
+        }
+
+        return ret;
+    }
+
+    @Override
+    public void reserveFastAppointment(Long appointment_id) {
+        Examination ex = examinationRepository.findById(appointment_id).orElseThrow(NotExistsException::new);
+        Appointment ap = appointmentRepository.findById(appointment_id).orElseThrow(NotExistsException::new);
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        System.out.println(username);
+        Patient p =(Patient) appUserRepository.findByEmail(username).orElseThrow(NotExistsException::new);
+
+        ex.setPatient(p);
+        List<Appointment> a = p.getAppointments();
+        a.add(ap);
+        p.setAppointments(a);
+
+        Doctor d = doctorRepository.findAllByExaminations(ex).get(0);
+        Clinic c = clinicRepository.findByDoctorId(d.getId()).orElseThrow(NotExistsException::new);
+
+        List<Patient> patients_clinic = c.getPatients();
+        if(!patients_clinic.contains(p)){
+            patients_clinic.add(p);
+            c.setPatients(patients_clinic);
+            clinicRepository.save(c);
+        }
+
+        examinationRepository.save(ex);
+        appUserRepository.save(p);
+
+        try {
+            emailService.sendNotificaitionAsync((AppUser) p, "Brz pregled uspesno rezervisan", "Potvrda rezervacije brzog pregleda");
+
+        }catch( Exception e ){
+        }
     }
 
 
