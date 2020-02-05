@@ -121,8 +121,9 @@ class WorkSchedule extends Component {
 			            	<br/>
 			            	<div style={{fontWeight: 'bold'}}>Room:</div><div>{this.state.data.operationRoom}</div>
 			            	<br/>
-		            		<div style={{float: 'right'}}>
+		            		<div className="row" style={{float: 'right'}}>
 			                    <Button style={{ margin: '0px 5px' }} type='green' click={this.onCloseHandler}>Close</Button>
+			                    <Button style={{ margin: '0px 5px', display: displayButton}} type='green' click={this.onStartExamHandler}>Start exam</Button>
 			               	</div>
 			            </Modal>
 	    		</div>
