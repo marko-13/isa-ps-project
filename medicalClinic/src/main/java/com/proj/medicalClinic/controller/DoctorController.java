@@ -8,6 +8,7 @@ import com.proj.medicalClinic.model.Doctor;
 import com.proj.medicalClinic.security.TokenUtils;
 import com.proj.medicalClinic.service.AppointmentService;
 import com.proj.medicalClinic.service.DoctorService;
+import com.proj.medicalClinic.service.StartExamService;
 import com.proj.medicalClinic.service.implementation.DoctorServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
