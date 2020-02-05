@@ -9,6 +9,7 @@ import Auxiliary from '../../../../hoc/Auxiliary/Auxiliary';
 import classes from './MedicalReport.module.css';
 import Button from '../../../../components/UI/Button/Button';
 import SelectTableComponent from '../../../../components/UI/SelectTableComponent/SelectTableComponent';
+import {withRouter} from 'react-router-dom';
 
 class ModifyMedicalReport extends Component {
 	state = {
@@ -245,4 +246,4 @@ class ModifyMedicalReport extends Component {
 	}
 }
 
-export default ModifyMedicalReport;
+export default withRouter(ModifyMedicalReport);
