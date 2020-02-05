@@ -123,6 +123,7 @@ const Homepage = (props) => {
                       <Auxiliary>
                         <Route path='/homepage/doctor/workschedule' component={WorkSchedule}></Route>
                         <Route path='/homepage/doctor/patients' component={Patients} />
+                        <Route path='/homepage/start-exam' component={StartExam} />
                       </Auxiliary>
                     );
                     break;
