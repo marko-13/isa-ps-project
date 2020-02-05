@@ -116,4 +116,26 @@ public class AppointmentController {
         }
     }
 
+    // vraca sve brze preglede koji se mogu obaviti u toj klinici, koji su slobodni i koji nisu prosli
+    @RequestMapping(value =  "/getAllFastForClinic/{clinic_id}", method = RequestMethod.GET)
+    public ResponseEntity<?> findAllAvailableFastExams(@PathVariable Long clinic_id){
+        try{
+            List<FastExamDTO> ret = appointmentService.findAllFastForClinic(clinic_id);
+            return new ResponseEntity<>(ret, HttpStatus.OK);
+        }catch(NotExistsException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
+
+
+    @RequestMapping(value = "reserveFast/{appointment_id}", method = RequestMethod.POST)
+    public ResponseEntity<?> reserveFastAppointment(@PathVariable Long appointment_id){
+        try{
+            appointmentService.reserveFastAppointment(appointment_id);
+            return new ResponseEntity<>("Reserved", HttpStatus.OK);
+        }catch(NotExistsException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
+
 }
