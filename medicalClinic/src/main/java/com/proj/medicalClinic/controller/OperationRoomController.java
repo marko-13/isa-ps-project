@@ -64,8 +64,18 @@ public class OperationRoomController {
 
     @RequestMapping(value = "/getAllAvailable", method = RequestMethod.POST)
     public ResponseEntity<?> getAllAvailable(@RequestBody AppointmentRequestDTO app){
-        System.out.println(app.getStart());
         List<OperationRoomDTO> operationRooms = operationRoomService.getAllAvailable(app.getStart());
         return new ResponseEntity<>(operationRooms, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/getAllFromClinic", method = RequestMethod.GET)
+    public ResponseEntity<?> getAllFromClinic(){
+        try {
+            List<OperationRoomDTO> operationRooms = operationRoomService.getAllFromClinic();
+            return new ResponseEntity<>(operationRooms, HttpStatus.OK);
+        }catch (NotExistsException e){
+            return new ResponseEntity<>("Greska pri nalazenju soba", HttpStatus.NOT_FOUND);
+        }
+
     }
 }

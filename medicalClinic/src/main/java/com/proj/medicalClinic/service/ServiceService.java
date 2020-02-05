@@ -1,6 +1,7 @@
 package com.proj.medicalClinic.service;
 
 import com.proj.medicalClinic.dto.ServiceDTO;
+import com.proj.medicalClinic.model.Doctor;
 import com.proj.medicalClinic.model.Service;
 
 import java.util.List;
@@ -14,6 +15,8 @@ public interface ServiceService {
     ServiceDTO remove(Long serviceId);
 
     ServiceDTO edit(ServiceDTO service);
+
+    List<ServiceDTO> getAllFromDoctor(long doctorId);
 
     // vraca listu serviceDTO-a gde su svi servisi koji nisu obrisani
     List<ServiceDTO> getAllNotDeleted();

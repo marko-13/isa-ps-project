@@ -31,7 +31,8 @@ import Requests from '../../containers/ClinicAdministrator/Requests/Requests';
 import ReviewClinic from '../../components/Clinic/ReviewClinic/ReviewClinic';
 import ReviewDoctor from '../../components/Doctor/ReviewDoctor/ReviewDoctor';
 import StartExam from '../../containers/MedicalStaff/Doctors/StartExam/StartExam';
-
+import ChooseAvailableDoctorsForm from '../../components/Forms/ChooseAvailableDoctorsForm/ChooseAvailableDoctorsForm';
+import FastExam from '../../containers/ClinicAdministrator/FastExam/FastExam';
 
 const Homepage = (props) => {
 
@@ -136,8 +137,9 @@ const Homepage = (props) => {
                                 <UserCard buttonText={"Show"} cardText={"Show all requests for leave of absence"} link={'/homepage/admin-clinic/leaves'} />
                                 <UserCard buttonText={"Show doctors"} cardText={"Search, add or remove doctors"} link={'/homepage/admin-clinic/doctors'} />
                                 <UserCard buttonText={"Clinic's profile"} cardText={"Show and modify clinic's profile"} link={'/homepage/admin-clinic/clinic'} />
-                                <UserCard buttonText={"Show examinations"} cardText={"Search, add modify or add new medical exminations"} link={'/homepage/admin-clinic/examinations'} />
+                                <UserCard buttonText={"Show services"} cardText={"Search, add modify or add new medical services"} link={'/homepage/admin-clinic/services'} />
                                 <UserCard buttonText={"Show requests"} cardText={"Show requests for all appointments"} link={'/homepage/admin-clinic/requests'} />
+                                <UserCard buttonText={"Create"} cardText={"Create new fast medical examination"} link={'/homepage/admin-clinic/new-exam'} />
                             </UserCards>
                         </Auxiliary>
 
@@ -149,8 +151,9 @@ const Homepage = (props) => {
                             <Route path='/homepage/admin-clinic/leaves' component={Leaves}></Route>
                             <Route path='/homepage/admin-clinic/doctors' component={Doctors}></Route>
                             <Route path='/homepage/admin-clinic/clinic' component={Clinic}></Route>
-                            <Route path='/homepage/admin-clinic/examinations' component={Examinations}></Route>
+                            <Route path='/homepage/admin-clinic/services' component={Examinations}></Route>
                             <Route path='/homepage/admin-clinic/requests' component={Requests}></Route>
+                            <Route path='/homepage/admin-clinic/new-exam' component={FastExam}></Route>
                         </Auxiliary>
                     );
 

@@ -115,4 +115,27 @@ public class DoctorController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
+
+    // returns all doctors that can perform selected service on a selected date and clinic
+    @RequestMapping(value = "/getAllAvailableForExam/{clinc_id}/{selected_date}/{service_id}", method = RequestMethod.GET)
+    public ResponseEntity<?> getAllAvailableForExam(@PathVariable Long clinc_id, @PathVariable Long selected_date,
+                                                    @PathVariable Long service_id){
+
+        try{
+            List<DoctorDTO> doctorDTOS = doctorService.getAllAvailableForExam(clinc_id, selected_date, service_id);
+            return new ResponseEntity<>(doctorDTOS, HttpStatus.OK);
+        }catch (NotExistsException e){
+            return new ResponseEntity<>("Nije nasao doktore" + e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+      }
+  
+    @RequestMapping(value = "/getAllFromClinicAndNotDeleted", method = RequestMethod.GET)
+    public ResponseEntity<?> getAllFromClinicAndAreNotDeleted() {
+        try {
+            List<DoctorDTO> doctorDTOS = doctorService.getAllFromClinicAndIsNotDeleted();
+            return new ResponseEntity<>(doctorDTOS, HttpStatus.OK);
+        }catch (NotExistsException e){
+            return new ResponseEntity<>("Greska pri trazenju doktora", HttpStatus.NOT_FOUND);
+        }
+    }
 }

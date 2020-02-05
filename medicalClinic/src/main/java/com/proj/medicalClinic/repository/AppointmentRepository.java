@@ -4,7 +4,9 @@ import com.proj.medicalClinic.model.AppUser;
 import com.proj.medicalClinic.model.Appointment;
 import com.proj.medicalClinic.model.Clinic;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
@@ -18,6 +20,7 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     Optional<List<Appointment>> findAllByPatientId(Long id);
     List<Appointment> findByServiceId(Long serviceId);
     List<Appointment> findAllByDateBetweenAndOperationRoomIsNotNull(Date start, Date end);
+    List<Appointment> findAllByDateBetween(Date start, Date end);
     List<Appointment> findAllByOperationRoomIsNull();
 
     @Query(
@@ -35,5 +38,12 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
             nativeQuery = true)
     Optional<Appointment> findById(Long id);
 
+
+    @Modifying(clearAutomatically = true)
+    @Query(
+            value = "UPDATE appointment SET operation_room_id = ?1 WHERE appointment.id = ?2",
+            nativeQuery = true
+    )
+    void saveNative(long roomId, long appointmentId);
 
 }
