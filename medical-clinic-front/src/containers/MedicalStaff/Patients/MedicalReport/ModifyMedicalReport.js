@@ -30,7 +30,9 @@ class ModifyMedicalReport extends Component {
 			examID: null
 		},
 		refresh: true,
-		examID: null
+		examID: null,
+		editMedicalHistory: null,
+		patientId: null
 	}
 
 	componentDidMount() {
