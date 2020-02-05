@@ -79,11 +79,20 @@ class WorkSchedule extends Component {
 		                type: app.type,
 		                duration: app.duration,
 		                service: app.service,
-		                operationRoom: app.operationRoom
+		                operationRoom: app.operationRoom,
+		                held: app.held,
+		                patientId: app.patientId
 		            }
-			        console.log("Usao")
 		    });
-		    console.log(events)
+
+		    if(this.state.data.length !== 0) {
+			    if(!this.state.data.held && role === 'doctor' && moment(this.state.data.start).isSame(new Date(), "day") && this.state.data.type === 'EX' && this.state.data.operationRoom !== 'Examination room not assigned') {
+			    	displayButton = 'block';
+			    } else {
+			    	displayButton = 'none';
+			    }
+			}
+
 	    	return(
 	    		<div className="col-md-7 login-form-1" style={{marginBottom: '2.5%', marginTop: 'auto', marginLeft: 'auto', marginRight: 'auto', padding: '2.5%', height: 'calc(100vh - 100px)', width: '100%'}}>
 	    			<Calendar
