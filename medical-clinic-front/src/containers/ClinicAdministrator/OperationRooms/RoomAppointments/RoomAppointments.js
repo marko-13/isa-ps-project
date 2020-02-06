@@ -181,7 +181,41 @@ class RoomAppointments extends Component {
 
     }
 
+    onScheduleHandlerOperation = () => {
+        this.setState({showListDoctors: true});
+    }
+
+    handlerSelectedDoctors = (event) => {
+        let selected = this.state.alreadySelectedDoctor;
+        selected.push("select-" + event.id);
+
+        this.setState({selectedDoctors: event});
+        this.setState({alreadySelectedDoctor: selected});
+    }
+
     render() {
+        const query = new URLSearchParams(this.props.location.search);
+        let columnsDoctors = [{
+                    Header: 'Doctors',
+                    columns: [
+                    {
+                        id: 'docName',
+                        Header: 'First name',
+                        accessor: d => d.name},
+                    {
+                        id: 'docLastName',
+                        Header: 'Last name',
+                        accessor: d => d.lastname}
+                    ]
+        }];
+
+        let exam ={
+            type: ''
+        }
+
+        for (let param of query.entries()) {
+                exam[param[0]] = param[1];
+        }
 
         let appDate = null;
 
