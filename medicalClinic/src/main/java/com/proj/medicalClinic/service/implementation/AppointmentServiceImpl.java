@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import javax.print.Doc;
 
+import java.net.URLEncoder;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -186,8 +187,11 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         //POSALJI MAIL PACIJENTU
         Patient patient = appointment.getPatient();
+
+
+        Long app = appointmentId;
         try {
-            this.emailService.sendNotificaitionAsync(patient, "<a href=''>Confirm</a> <br></br> <a href=''>Deny</a>", "Appointment confirmation");
+            this.emailService.sendNotificaitionAsync(patient, "<a href=\"http://localhost:3000/confirm_exam?"+"val=2&app="+app+"\">Confirm</a> <br></br> <a href=\"http://localhost:3000/confirm_exam?"+"val=3&app=" + app + "\""+">Deny</a>", "Appointment confirmation");
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -258,8 +262,11 @@ public class AppointmentServiceImpl implements AppointmentService {
 
             //SALJI MAIL PATIENTU
             Patient patient = appointment.getPatient();
+
+
+            Long app = appointmentRequestDTO.getAppId();
             try {
-                this.emailService.sendNotificaitionAsync(patient, "<a href=''>Confirm</a> <br></br> <a href=''>Deny</a>", "Appointment confirmation");
+                this.emailService.sendNotificaitionAsync(patient, "<a href=\"http://localhost:3000/confirm_exam?"+"val=2&app="+app+"\">Confirm</a> <br></br> <a href=\"http://localhost:3000/confirm_exam?"+"val=3&app=" + app + "\""+">Deny</a>", "Appointment confirmation");
             }catch (Exception e){
                 e.printStackTrace();
             }
@@ -326,9 +333,10 @@ public class AppointmentServiceImpl implements AppointmentService {
                         appointmentRepository.saveNative(operationRoom.getId(), unnaprovedApp.getId());
 
                         //SALJI MAIL PACIJENTU
+                        Long app = ex.getId();
 
                         try {
-                            this.emailService.sendNotificaitionAsync(patient, "<a href=''>Confirm</a> <br></br> <a href=''>Deny</a>", "Appointment confirmation");
+                            this.emailService.sendNotificaitionAsync(patient, "<a href=\"http://localhost:3000/confirm_exam?"+"val=2&app="+app+"\">Confirm</a> <br></br> <a href=\"http://localhost:3000/confirm_exam?"+"val=3&app=" + app + "\""+">Deny</a>", "Appointment confirmation");
                         }catch (Exception e){
                             e.printStackTrace();
                         }
@@ -382,6 +390,8 @@ public class AppointmentServiceImpl implements AppointmentService {
             doctor.getExaminations().add(ex);
             appointment.setOperationRoom(operationRoom);
 
+
+            Long app = ex.getId();
             //POSALJI MAIL DOKTORU
             try {
                 this.emailService.sendNotificaitionAsync(doctor,
@@ -393,7 +403,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 
             //POSALJI MAIL PACIJENTU
             try {
-                this.emailService.sendNotificaitionAsync(patient, "<a href=''>Confirm</a> <br></br> <a href=''>Deny</a>", "Appointment confirmation");
+                this.emailService.sendNotificaitionAsync(patient, "<a href=\"http://localhost:3000/confirm_exam?"+"val=2&app="+app+"\">Confirm</a> <br></br> <a href=\"http://localhost:3000/confirm_exam?"+"val=3&app=" + app + "\""+">Deny</a>", "Appointment confirmation");
             }catch (Exception e){
                 e.printStackTrace();
             }
