@@ -30,10 +30,10 @@ class RequestsTable extends Component {
     }
 
     onClickHandler = (app) => {
-
         const queryParams = [];
         queryParams.push(encodeURIComponent('start') + '=' + encodeURIComponent(app.date));
         queryParams.push(encodeURIComponent('appId') + '=' + encodeURIComponent(app.id));
+        queryParams.push(encodeURIComponent('type') + '=' + encodeURIComponent(app.type));
         const queryString = queryParams.join('&');
 
         this.props.history.push({
