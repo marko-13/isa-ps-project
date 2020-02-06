@@ -15,6 +15,8 @@ import Button from '../../../../components/UI/Button/Button';
 import Modal from '../../../../components/UI/Modal/Modal';
 import ChooseAvailableDoctorsForm from '../../../../components/Forms/ChooseAvailableDoctorsForm/ChooseAvailableDoctorsForm';
 
+import SelectTableComponent from '../../../../components/UI/SelectTableComponent/SelectTableComponent';
+
 const localizer = momentLocalizer(moment)
 
 
