@@ -116,6 +116,16 @@ public class AppointmentController {
         }
     }
 
+    @RequestMapping(value = "/addAnotherForPatient", method = RequestMethod.POST)
+    public ResponseEntity<?> reserveExaminationAsPatient(@RequestBody NetxAppointmentRequestDTO nextApp){
+        try{
+            boolean scheduled = appointmentService.addNextForPatient(nextApp);
+            return new ResponseEntity<>("Appointment added successfully", HttpStatus.OK);
+        }catch (NotExistsException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
     // vraca sve brze preglede koji se mogu obaviti u toj klinici, koji su slobodni i koji nisu prosli
     @RequestMapping(value =  "/getAllFastForClinic/{clinic_id}", method = RequestMethod.GET)
     public ResponseEntity<?> findAllAvailableFastExams(@PathVariable Long clinic_id){

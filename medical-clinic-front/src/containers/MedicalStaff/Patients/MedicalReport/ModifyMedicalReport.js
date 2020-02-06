@@ -136,9 +136,10 @@ class ModifyMedicalReport extends Component {
 	                axios.post('/doctor/finish-exam/' + this.state.patientId, this.state.editMedicalHistory)
 			        	.then(rsp => {
 			                console.log(rsp);
-			                alert('Successfuly finished examination');
+							alert('Successfuly finished examination');
+							//TU REDIREKTUJ
 			                this.props.history.push({
-            					pathname: '/homepage/doctor/patients',
+            					pathname: '/homepage/doctor/add-another-appointment/' + this.state.examID,
             					search: ''
         					});
 			            })
@@ -159,9 +160,11 @@ class ModifyMedicalReport extends Component {
         		axios.post('/doctor/finish-exam/' + this.state.patientId, this.state.editMedicalHistory)
 			        	.then(rsp => {
 			                console.log(rsp);
-			                alert('Successfuly finished examination');
+							alert('Successfuly finished examination');
+							//TU REDIREKTUJ
+
 			                this.props.history.push({
-            					pathname: '/homepage/doctor/patients',
+            					pathname: '/homepage/doctor/add-another-appointment/' + this.state.examID,
             					search: ''
         					});
 			            })
