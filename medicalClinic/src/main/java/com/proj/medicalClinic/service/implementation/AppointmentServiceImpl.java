@@ -122,6 +122,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         List<Appointment> appointments = appointmentRepository.findAllAppointmentRequests(clinicId).orElseThrow(NotExistsException::new);
         List<AppointmentDTO> appointmentDTOS = new ArrayList<>();
         for (Appointment a : appointments) {
+            System.out.println("Id appointmenta " + a.getId());
             appointmentDTOS.add(new AppointmentDTO(a));
         }
 
