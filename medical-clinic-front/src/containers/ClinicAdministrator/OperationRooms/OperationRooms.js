@@ -52,6 +52,8 @@ class OperationRooms extends Component {
 
         let exam = {
             start: '',
+            appId: '',
+            type: ''
         }
         for (let param of query.entries()) {
             exam[param[0]] = param[1];
