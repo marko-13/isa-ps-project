@@ -21,7 +21,7 @@ public class Nurse extends AppUser{
 	private int shift;
 
 	@ManyToOne
-	@JoinColumn(name = "clinic_id", nullable = false)
+	@JoinColumn(name = "clinic_id", nullable = true)
 	private Clinic clinic;
 
 	@OneToMany(mappedBy = "nurse", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
