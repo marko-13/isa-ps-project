@@ -74,6 +74,36 @@ public class AppointmentController {
         }
     }
 
+    @RequestMapping(value = "/addOperationRoomToAppointment/{appointmentId}/{roomId}")
+    @PreAuthorize("hasAuthority('ADMINCLINIC') ")
+    public ResponseEntity<?> addOperationRoomToAppointment(@PathVariable Long appointmentId, @PathVariable Long roomId, @RequestBody List<Long> doctorsId) {
+        try {
+            this.appointmentService.addOperationRoom(appointmentId, roomId, doctorsId);
+            return new ResponseEntity<>("Successfully added room to the operation", HttpStatus.OK);
+        } catch (NotValidParamsException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.FORBIDDEN);
+        } catch (NotExistsException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping(value = "/addChangedOperationRoomToAppointment/{appointmentId}/{roomId}/{start}")
+    @PreAuthorize("hasAuthority('ADMINCLINIC') ")
+    public ResponseEntity<?> addChangedOperationRoomToAppointment(@PathVariable Long appointmentId, @PathVariable Long roomId, @PathVariable Long start, @RequestBody List<Long> doctorsId) {
+        try {
+            this.appointmentService.addChangedOperationRoom(appointmentId, roomId, doctorsId, start);
+            return new ResponseEntity<>("Successfully added room to the operation", HttpStatus.OK);
+        } catch (NotValidParamsException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.FORBIDDEN);
+        } catch (NotExistsException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
+
     @RequestMapping(value = "/changeDateAndAddRoomToApointment", method = RequestMethod.POST)
     public ResponseEntity<?> changeDateAndAddRoomToApointment(@RequestBody AppointmentRequestDTO appDto){
         try{
