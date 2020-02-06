@@ -35,4 +35,11 @@ public interface AppointmentService {
 
     void addChangedOperationRoom(Long appointmentId, Long roomId, List<Long> doctorsId, Long start);
 
+    // returns list of all available fast exams for given clinic
+    List<FastExamDTO> findAllFastForClinic(Long clinic_id);
+
+    // reserves fast appointment
+    void reserveFastAppointment(Long appointment_id);
+
+
 }

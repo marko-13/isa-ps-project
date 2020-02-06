@@ -52,4 +52,6 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     )
     void saveNative(long roomId, long appointmentId);
 
+    // find all by clinic id and date greater than today and where patient is null
+    List<Appointment> findAllByClinicIdAndDateAfterAndPatientId(Long clinic_id, Date date, Long patient_id);
 }
