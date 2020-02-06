@@ -7,6 +7,7 @@ import Homepage from './components/Homepage/Homepage';
 import MyProfile from './containers/MyProfile/MyProfile';
 import ClinicInfo from './components/WelcomePage/ClinicInfo/ClinicInfo';
 import Confirm_auth from './components/Confirm_auth/Confirm_auth/Confirm_auth'
+import ConfirmDeclineExam from './components/Appointment/ConfirmDeclineExam/ConfirmDeclineExam.js'
 
 class App extends React.Component {
 
@@ -19,6 +20,7 @@ class App extends React.Component {
         <Route path="/profile" exact component={MyProfile} />
         <Route path="/clinic-info" exact component={ClinicInfo} />
         <Route path="/confirm_auth" exact component={Confirm_auth} />
+        <Route path="/confirm_exam" exact component={ConfirmDeclineExam} />
       </BrowserRouter>
     );
 
