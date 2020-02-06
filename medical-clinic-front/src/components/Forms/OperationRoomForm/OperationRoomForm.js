@@ -74,7 +74,11 @@ class OperationRoomForm extends Component {
                         <div className='form-col'>
 
                             <div className='col'>
-                                <input type="text" className="form-control" placeholder="Name" name="name" value={this.state.room.name} onChange={this.changeHandler} required />
+                                <select className="form-control" name="name" id="exampleFormControlSelect1" onChange={this.changeHandler} >
+                                  <option>Ordinacija</option>
+                                  <option>Operaciona sala</option>
+                                </select>
+                                {/*<input type="text" className="form-control" placeholder="Name" name="name" value={this.state.room.name} onChange={this.changeHandler} disabled />*/}
                             </div>
 
                             <div className='col'>
