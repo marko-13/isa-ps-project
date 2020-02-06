@@ -208,7 +208,8 @@ class OperationRooms extends Component {
 
         let exam = {
             start: '',
-            appId: ''
+            appId: '',
+            type: ''
         };
 
         for (let param of query.entries()) {
