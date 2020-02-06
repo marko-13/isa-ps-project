@@ -273,12 +273,21 @@ class RoomAppointments extends Component {
 
             const displayDate = moment.unix(appDate.start / 1000).format('YYYY-MM-DD hh:mm');
 
-            scheduleInfo = (
-                <div style={{ marginTop: '20px' }}>
-                    Schedule room for this appointment. ({displayDate})
-                    <Button type='green' style={{ padding: '5px 15px', marginLeft: '20px' }} click={() => this.onScheduleHandler(appDate)}>Schedule</Button>
-                </div>
-            );
+            if (exam.type !== 'OP') {
+                scheduleInfo = (
+                    <div style={{ marginTop: '20px' }}>
+                        Schedule room for this appointment. ({displayDate})
+                        <Button type='green' style={{ padding: '5px 15px', marginLeft: '20px' }} click={() => this.onScheduleHandler(appDate)}>Schedule</Button>
+                    </div>
+                );
+            } else {
+                scheduleInfo = (
+                    <div style={{ marginTop: '20px' }}>
+                        Schedule room for this appointment. ({displayDate})
+                        <Button type='green' style={{ padding: '5px 15px', marginLeft: '20px' }} click={() => this.onScheduleHandler(appDate)}>Schedule</Button>
+                    </div>
+                );
+            }
         } else {
             scheduleInfo = (
                 <div style={{ display: 'flex', marginTop: '20px' }}>
