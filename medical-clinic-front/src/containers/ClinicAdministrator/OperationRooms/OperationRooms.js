@@ -61,7 +61,19 @@ class OperationRooms extends Component {
 
         axios.post("/operationRoom/getAllAvailable", exam)
             .then(res => {
-                this.setState({ operationRooms: res.data });
+                let data = [];
+                for(var i = 0; i < res.data.length; i++) {
+                    if(exam.type === 'EX') {
+                        if(res.data[i].name === 'Ordinacija') {
+                            data.push(res.data[i]);
+                        }
+                    } else {
+                        if(res.data[i].name === 'Operaciona sala') {
+                            data.push(res.data[i]);
+                        }
+                    }
+                }
+                this.setState({ operationRooms: data });
             })
             .catch(err => {
                 this.setState({ operationRooms: [] });
