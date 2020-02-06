@@ -243,6 +243,7 @@ class OperationRooms extends Component {
         const queryParams = [];
         queryParams.push(encodeURIComponent('start') + '=' + encodeURIComponent(milisecs.start));
         queryParams.push(encodeURIComponent('appId') + '=' + encodeURIComponent(exam.appId));
+        queryParams.push(encodeURIComponent('type') + '=' + encodeURIComponent(exam.type));
         const queryString = queryParams.join('&');
 
         this.props.history.push({
