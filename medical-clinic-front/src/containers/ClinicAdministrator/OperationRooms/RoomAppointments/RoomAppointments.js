@@ -100,6 +100,7 @@ class RoomAppointments extends Component {
             let exam = {
                 start: '',
                 appId: '',
+                type: '',
                 roomId: this.props.roomId
             };
 
