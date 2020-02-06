@@ -226,6 +226,128 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
+    @Transactional
+    public void addOperationRoom(Long appointmentId, Long roomId, List<Long> doctorsId) {
+        try {
+            Appointment appointment = appointmentRepository.findById(appointmentId).orElseThrow(() -> new NotExistsException("Appointment not found"));
+            OperationRoom operationRoom = operationRoomRepository.findById(roomId).orElseThrow(() -> new NotExistsException("Room not found"));
+
+            appointment.setOperationRoom(operationRoom);
+
+            //POSALJI MAIL PACIJENTU
+            Patient patient = appointment.getPatient();
+            try {
+                this.emailService.sendNotificaitionAsync(patient, "Appointment has been set. <br></br> Date: " + appointment.getDate() + "<br></br>Room: " + appointment.getOperationRoom().getName() + " " +appointment.getOperationRoom().getNumber(), "Appointment confirmation");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            //POSALJI MAIL DOKTORU
+            if (appointment instanceof Operation) {
+
+                Operation op = (Operation) appointment;
+                List<Doctor> doctors = new ArrayList<>();
+
+                for (Long doctorId : doctorsId) {
+                    Doctor dr = doctorRepository.findById(doctorId).orElse(null);
+                    String queryMR = "INSERT INTO doctors_operations (doctor_id, operation_id) VALUES (?1, ?2)";
+                    Query queryMREm = em.createNativeQuery(queryMR)
+                            .setParameter(1, dr.getId())
+                            .setParameter(2, appointmentId);
+                    em.joinTransaction();
+                    queryMREm.executeUpdate();
+                    doctors.add(dr);
+                }
+
+                ((Operation) appointment).setDoctors(doctors);
+
+                if (doctors != null || !doctors.isEmpty()) {
+
+                    for (Doctor dr : doctors) {
+                        try {
+                            this.emailService.sendNotificaitionAsync(dr,
+                                    "Appointment has been set. <br></br> Date: " + appointment.getDate() + "<br></br> Patient: " + patient.getName() + " " + patient.getLastName() + "<br></br>Room: " + appointment.getOperationRoom().getName() + " " +appointment.getOperationRoom().getNumber(),
+                                    "Appointment confirmation");
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                } else {
+                    throw new NotValidParamsException("There isn't any doctor");
+                }
+            } else {
+                throw new NotValidParamsException("This is an examination, not an operation.");
+            }
+
+            appointmentRepository.save(appointment);
+            System.out.println("Sacuvao appointment");
+        } catch (NotExistsException | NotValidParamsException e) {
+            throw e;
+        }
+    }
+
+    @Override
+    @Transactional
+    public void addChangedOperationRoom(Long appointmentId, Long roomId, List<Long> doctorsId, Long start) {
+        try {
+            Appointment appointment = appointmentRepository.findById(appointmentId).orElseThrow(() -> new NotExistsException("Appointment not found"));
+            OperationRoom operationRoom = operationRoomRepository.findById(roomId).orElseThrow(() -> new NotExistsException("Room not found"));
+            Date selectedDate = new Date(start);
+
+            appointment.setOperationRoom(operationRoom);
+            appointment.setDate(selectedDate);
+
+            //POSALJI MAIL PACIJENTU
+            Patient patient = appointment.getPatient();
+            try {
+                this.emailService.sendNotificaitionAsync(patient, "Appointment has been set. <br></br> Date: " + appointment.getDate() + "<br></br>Room: " + appointment.getOperationRoom().getName() + " " +appointment.getOperationRoom().getNumber(), "Appointment confirmation");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            //POSALJI MAIL DOKTORU
+            if (appointment instanceof Operation) {
+
+                Operation op = (Operation) appointment;
+                List<Doctor> doctors = new ArrayList<>();
+
+                for (Long doctorId : doctorsId) {
+                    Doctor dr = doctorRepository.findById(doctorId).orElse(null);
+                    String queryMR = "INSERT INTO doctors_operations (doctor_id, operation_id) VALUES (?1, ?2)";
+                    Query queryMREm = em.createNativeQuery(queryMR)
+                            .setParameter(1, dr.getId())
+                            .setParameter(2, appointmentId);
+                    em.joinTransaction();
+                    queryMREm.executeUpdate();
+                    doctors.add(dr);
+                }
+
+                if (doctors != null || !doctors.isEmpty()) {
+
+                    for (Doctor dr : doctors) {
+                        try {
+                            this.emailService.sendNotificaitionAsync(dr,
+                                    "Appointment has been set. <br></br> Date: " + appointment.getDate() + "<br></br> Patient: " + patient.getName() + " " + patient.getLastName() + "<br></br>Room: " + appointment.getOperationRoom().getName() + " " +appointment.getOperationRoom().getNumber(),
+                                    "Appointment confirmation");
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                } else {
+                    throw new NotValidParamsException("There isn't any doctor");
+                }
+            } else {
+                throw new NotValidParamsException("This is an examination, not an operation.");
+            }
+
+            appointmentRepository.save(appointment);
+            System.out.println("Sacuvao appointment");
+        } catch (NotExistsException | NotValidParamsException e) {
+            throw e;
+        }
+    }
+
+    @Override
     public AppointmentDTO changeDateAndAddRoom(AppointmentRequestDTO appointmentRequestDTO) {
         Appointment appointment = appointmentRepository.findById(appointmentRequestDTO.getAppId()).orElseThrow(NotExistsException::new);
         OperationRoom operationRoom = operationRoomRepository.findById(appointmentRequestDTO.getRoomId()).orElseThrow(NotExistsException::new);
