@@ -36,6 +36,50 @@ class RoomAppointments extends Component {
 
     componentDidMount() {
         this.checkFirstAvailable();
+        this.getDoctors();
+    }
+
+    getDoctors() {
+        const query = new URLSearchParams(this.props.location.search);
+
+        let exam = {
+            start: '',
+            appId: '',
+            type: '',
+            roomId: this.props.roomId
+        };
+
+        for (let param of query.entries()) {
+            exam[param[0]] = param[1];
+        }
+
+        axios.post('/doctor/getAllAvailable', exam)
+            .then(res => {
+                let listDoctors = res.data;
+
+                axios.post('/doctor/getCurrent/' + exam.appId, null)
+                    .then(res => {
+                        let list = [];
+                        let shouldAdd = true;
+                        list.push('select-' + res.data.id);
+
+                        for(var i = 0; i < listDoctors.length; i++) {
+                            if (listDoctors[i].id === res.data.id) {
+                                shouldAdd = false;
+                                break;
+                            }
+                        }
+
+                        if (shouldAdd) {
+                            listDoctors.push(res.data);
+                        }
+
+                        this.setState({alreadySelectedDoctor: list});
+                        this.setState({listDoctors: listDoctors});
+                    })
+                    .catch(err => console.log(err.response));
+            })
+            .catch(err => console.log(err.response));
     }
 
     handleChange = date => {
