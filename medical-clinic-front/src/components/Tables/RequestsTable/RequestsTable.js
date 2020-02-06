@@ -22,7 +22,10 @@ class RequestsTable extends Component {
 
     getAllRequests = () => {
         axios.get('/appointment/getAllAppointmentRequests')
-            .then(res => this.setState({ requests: res.data }))
+            .then(res => {
+                this.setState({ requests: res.data });
+                console.log(res.data);
+            })
             .catch(err => {
                 console.log(err);
                 this.setState({ requests: -1 })
