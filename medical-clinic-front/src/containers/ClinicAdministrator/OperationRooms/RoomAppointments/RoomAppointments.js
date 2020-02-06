@@ -235,6 +235,28 @@ class RoomAppointments extends Component {
         })
 
         let scheduleInfo = null;
+        let showDoctors = null;
+
+        if (exam.type === 'OP' && this.state.listDoctors !== null) {
+            if(this.state.listDoctors.length !== 0) {
+                showDoctors = (
+                    <SelectTableComponent 
+                        data = {this.state.listDoctors} 
+                        columns = {columnsDoctors} 
+                        pageSize = {(this.state.listDoctors.length > 5) ? 5 : this.state.listDoctors.length} 
+                        filterable = {true} 
+                        defaultFilterMethod={(filter, row, column) => {
+                        const id = filter.pivotId || filter.id
+                        console.log(row[id]);
+                        return row[id] !== undefined ? String(row[id]).toLowerCase().includes(filter.value.toLowerCase()) : true
+                      }}
+                    keyField="id"
+                    selected = {this.state.alreadySelectedDoctor}
+                    handlerSelected = {this.handlerSelectedDoctors}
+                    />
+                );
+            }
+        }
 
         if (this.props.fromRequests) {
 
