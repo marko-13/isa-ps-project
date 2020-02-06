@@ -35,6 +35,8 @@ public interface AppointmentService {
 
     void addChangedOperationRoom(Long appointmentId, Long roomId, List<Long> doctorsId, Long start);
 
+    boolean addNextForPatient(NetxAppointmentRequestDTO nextAppointment);
+
     // returns list of all available fast exams for given clinic
     List<FastExamDTO> findAllFastForClinic(Long clinic_id);
 
