@@ -26,6 +26,8 @@ class OperationRoomForm extends Component {
             [event.target.name]: event.target.value
         }
 
+        console.log(room);
+
         this.setState({ room: room });
     };
 
@@ -41,6 +43,8 @@ class OperationRoomForm extends Component {
         const newRoom = {
             ...this.state.room
         }
+
+        console.log(newRoom);
 
         if(this.props.header !== undefined){
             axios.post('/operationRoom/save', newRoom)
