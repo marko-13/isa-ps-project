@@ -27,7 +27,11 @@ class RoomAppointments extends Component {
         startDate: new Date(),
         availableSchedule: null,
         firstAvailable: null,
-        modalOpen: false
+        modalOpen: false,
+        showListDoctors: false,
+        listDoctors: null,
+        selectedDoctors: null,
+        alreadySelectedDoctor: null
     }
 
     componentDidMount() {
