@@ -308,9 +308,13 @@ class RoomAppointments extends Component {
 
                 <div className={classes.Subheader}>
                     <Button style={{ float: 'right', marginBottom: '10px' }} type='black' click={() => this.props.back(null, false)}>Nazad</Button>
-
                 </div>
+
                 {scheduleInfo}
+
+                <br/>
+
+                {showDoctors}
 
                 <Calendar
                     localizer={localizer}
