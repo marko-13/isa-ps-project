@@ -485,8 +485,58 @@ public class AppointmentServiceImpl implements AppointmentService {
                 }
 
 
-            }else {
-                //AUTOMACKI ZAUZMI SOBE ZA OPERACIJE
+            } else if (unnaprovedApp instanceof Operation){
+                Patient patient = unnaprovedApp.getPatient();
+                Operation op = (Operation) unnaprovedApp;
+
+                List<OperationRoomDTO> availableRooms = operationRoomService.getAllAvailable(op.getDate().getTime());
+                if(availableRooms.isEmpty() || availableRooms == null){
+                    continue;
+                }
+
+                for(OperationRoomDTO or : availableRooms){
+                    if(or.getClinicId() == op.getClinic().getId()){
+                        //ZAUZMI SOBU
+
+                        OperationRoom operationRoom = operationRoomRepository.findById(or.getRoomId()).orElse(null);
+                        if(operationRoom == null){
+                            return;
+                        }
+
+                        unnaprovedApp.setOperationRoom(operationRoom);
+                        appointmentRepository.saveNative(operationRoom.getId(), unnaprovedApp.getId());
+
+                        //SALJI MAIL PACIJENTU
+
+                        try {
+                            this.emailService.sendNotificaitionAsync(patient, "Appointment has been set. <br></br> Date: " + unnaprovedApp.getDate() + "<br></br>Room: " + unnaprovedApp.getOperationRoom().getName() + " " + unnaprovedApp.getOperationRoom().getNumber(), "Appointment confirmation");
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+
+                        //SALJI MAIL DOKTORU
+
+                        List<Doctor> doctors = doctorRepository.findAllByOperations(op);
+
+                        if (doctors != null || !doctors.isEmpty()) {
+
+                            for (Doctor dr : doctors) {
+                                try {
+                                    this.emailService.sendNotificaitionAsync(dr,
+                                            "Appointment has been set. <br></br> Date: " + unnaprovedApp.getDate() + "<br></br> Patient: " + patient.getName() + " " + patient.getLastName() + "<br></br>Room: " + unnaprovedApp.getOperationRoom().getName() + " " + unnaprovedApp.getOperationRoom().getNumber(),
+                                            "Appointment confirmation");
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        } else {
+                            throw new NotValidParamsException("There isn't any doctor");
+                        }
+
+                        break;
+                    }
+                }
+
             }
         }
     }
