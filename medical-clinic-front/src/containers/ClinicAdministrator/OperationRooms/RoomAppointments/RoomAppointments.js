@@ -108,26 +108,57 @@ class RoomAppointments extends Component {
                 exam[param[0]] = param[1];
             }
 
-            axios.post('/appointment/changeDateAndAddRoomToApointment', exam)
-                .then(res => {
-                    alert('Room has been added to appointment!');
-                    this.props.history.push('/homepage/admin-clinic');
-                })
-                .catch(err => {
-                    if (err.response.status === 400) {
-                        this.setState({ modalOpen: true });
-                    } else {
-                        console.log(err);
-                    }
-                });
+            if (exam.type !== 'OP') { 
+                axios.post('/appointment/changeDateAndAddRoomToApointment', exam)
+                    .then(res => {
+                        alert('Room has been added to appointment!');
+                        this.props.history.push('/homepage/admin-clinic');
+                    })
+                    .catch(err => {
+                        if (err.response.status === 400) {
+                            this.setState({ modalOpen: true });
+                        } else {
+                            console.log(err);
+                        }
+                    });
+            } else {
+                axios.post('/appointment/addChangedOperationRoomToAppointment/' + app.appId + '/' + this.props.roomId + '/' + exam.start, this.state.selectedDoctors)
+                    .then(res => {
+                        alert('Appointment has been scheduled!');
+                        this.props.history.push('/homepage/admin-clinic');
+                    })
+                    .catch(err => console.log(err.response));
+            }
 
         } else {
-            axios.post('/appointment/addRoomToAppointment/' + app.appId + '/' + this.props.roomId, null)
-                .then(res => {
-                    alert('Appointment has been scheduled!');
-                    this.props.history.push('/homepage/admin-clinic');
-                })
-                .catch(err => console.log(err.response));
+            const query = new URLSearchParams(this.props.location.search);
+
+            let exam = {
+                start: '',
+                appId: '',
+                type: '',
+                roomId: this.props.roomId
+            };
+
+            for (let param of query.entries()) {
+                exam[param[0]] = param[1];
+            }
+
+            if (exam.type !== 'OP') { 
+                axios.post('/appointment/addRoomToAppointment/' + app.appId + '/' + this.props.roomId, null)
+                    .then(res => {
+                        alert('Appointment has been scheduled!');
+                        this.props.history.push('/homepage/admin-clinic');
+                    })
+                    .catch(err => console.log(err.response));
+            } else {
+                axios.post('/appointment/addOperationRoomToAppointment/' + app.appId + '/' + this.props.roomId, this.state.selectedDoctors)
+                    .then(res => {
+                        alert('Appointment has been scheduled!');
+                        this.props.history.push('/homepage/admin-clinic');
+                    })
+                    .catch(err => console.log(err.response));
+            }
         }
     }
 
