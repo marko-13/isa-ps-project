@@ -75,6 +75,9 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Autowired
     private ClinicRepository clinicRepository;
 
+    @PersistenceContext
+    EntityManager em;
+
 
     @Override
     public List<AppointmentDTO> getAllByOperationRoom(Long id){
