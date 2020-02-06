@@ -31,4 +31,8 @@ public interface AppointmentService {
     // tries to reserv appointemnt for selected date and time and doctor if he is free
     void reserveExaminationForPatient(Long selected_date, int hours, int minutes, Long doc_id, Long service_id);
 
+    void addOperationRoom(Long appointmentId, Long roomId, List<Long> doctorsId);
+
+    void addChangedOperationRoom(Long appointmentId, Long roomId, List<Long> doctorsId, Long start);
+
 }
