@@ -8,7 +8,7 @@ import Button from '../../components/UI/Button/Button';
 class UserApproval extends Component {
 
     state = {
-        users: null,
+        users: [],
         isModalOpen: false,
         userDenyId: null,
         msg: ""
@@ -17,19 +17,33 @@ class UserApproval extends Component {
     getAllUnapproved = () => {
     	axios.get('/admin-clinic-center/approve', {headers: { Authorization: 'Bearer '.concat(localStorage.getItem("token")) }})
             .then(users => {
-            	this.setState({users: users});
-            	console.log(users)
+            	this.setState({users: users.data});
             })
             .catch(err => console.log(err));
     }
 
     approveUser = (id) => {
-        axios.post('/admin-clinic-center/approve/' + id, " ", {headers: { Authorization: 'Bearer '.concat(localStorage.getItem("token")) }})
-             .then(rsp => {
-                console.log(rsp);
-                this.getAllUnapproved();
-            })
-             .catch(err => console.log(err));
+        let newUsers = [...this.state.users];
+        let saveUser = null;
+        for(var i = 0; i < newUsers.length; i++) {
+            if(newUsers[i].id === id) {
+                saveUser = newUsers[i];
+                newUsers.splice(i, 1);
+                break;
+            }
+        }
+        this.setState({users: newUsers});
+
+        axios.post('/admin-clinic-center/approve-user/' + id, " ", {headers: { Authorization: 'Bearer '.concat(localStorage.getItem("token")) }})
+             .then(rsp => alert("Successfully approved user"))
+             .catch(err => {
+                if(saveUser !== null) {
+                    newUsers.push(saveUser);
+                    this.setState({users: newUsers});
+                }
+                alert("Not able to approve user");
+                console.log(err);
+            });
     }
 
     denyUser = (event) => {
@@ -41,12 +55,30 @@ class UserApproval extends Component {
     			'Content-Type': "text/plain"
     		}
     	}
-        axios.post('/admin-clinic-center/deny/' + this.state.userDenyId, this.state.msg.toString(), config)
-             .then(rsp => {
-                console.log(rsp);
-                this.getAllUnapproved();
-            })
-             .catch(err => console.log(err));
+
+        let saveUserDenyId = this.state.userDenyId;
+        let newUsers = [...this.state.users];
+        let saveUser = null;
+        for(var i = 0; i < newUsers.length; i++) {
+            if(newUsers[i].id === saveUserDenyId) {
+                saveUser = newUsers[i];
+                newUsers.splice(i, 1);
+                break;
+            }
+        }
+        this.setState({users: newUsers});
+
+        axios.post('/admin-clinic-center/deny-user/' + this.state.userDenyId, this.state.msg.toString(), config)
+             .then(rsp => alert("Successfully denied user"))
+             .catch(err => {
+                if(saveUser !== null) {
+                    newUsers.push(saveUser);
+                    this.setState({users: newUsers});
+                }
+                alert("Not able to deny user");
+                console.log(err);
+            });
+
         this.setState({userDenyId: null, msg: ""});
         this.closeModal();
     }
@@ -66,9 +98,9 @@ class UserApproval extends Component {
 
     render() {
 
-        if(this.state.users !== null) {
+        if(this.state.users.length !== null) {
             const columns = [{
-                Header: '',
+                Header: 'List of not approved users',
                 columns: [
                 {
                     id: 'Email',
@@ -109,14 +141,12 @@ class UserApproval extends Component {
                 }
                 ]
             }];
-            console.log(this.state.users);
+
             return(
                 <div className="col-md-7 login-form-1" style={{marginBottom: '2.5%', marginTop: 'auto', marginLeft: 'auto', marginRight: 'auto', padding: '2.5%'}}>
-                    <h3>List of not approved users</h3>
-                    <br/>
-                    <ReactTable data = {this.state.users.data}
+                    <ReactTable data = {this.state.users}
                     pageSizeOptions={[20, 30, 50, 100, 200, 500]}
-                    pageSize={(this.state.users.data.length > 10) ? 10 : this.state.users.data.length}
+                    pageSize={(this.state.users.length > 10) ? 10 : this.state.users.length}
                     getTrProps={(state, rowInfo, column, instance) => ({
                         onClick: e => console.log('A row was clicked!')
                     })}
