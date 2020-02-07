@@ -491,4 +491,22 @@ public class DoctorServiceImpl implements DoctorService {
         return availableDoctors;
     }
 
+    @Override
+    public DoctorDTO getCurrent(Long appointmentId) {
+        try {
+            DoctorDTO doctorDTO = new DoctorDTO();
+
+            if (appointmentId != 0) {
+                Appointment appointment = appointmentRepository.findById(appointmentId).orElseThrow(() -> new NotExistsException("Operation not found"));
+                Operation op = (Operation) appointment;
+                doctorDTO = new DoctorDTO(doctorRepository.findByOperations(op));
+                return doctorDTO;
+            } else {
+                return doctorDTO;
+            }
+        } catch (NotExistsException | NotValidParamsException e) {
+            throw e;
+        }
+    }
+
 }

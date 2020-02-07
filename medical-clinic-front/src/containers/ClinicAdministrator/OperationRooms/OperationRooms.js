@@ -52,6 +52,8 @@ class OperationRooms extends Component {
 
         let exam = {
             start: '',
+            appId: '',
+            type: ''
         }
         for (let param of query.entries()) {
             exam[param[0]] = param[1];
@@ -59,7 +61,19 @@ class OperationRooms extends Component {
 
         axios.post("/operationRoom/getAllAvailable", exam)
             .then(res => {
-                this.setState({ operationRooms: res.data });
+                let data = [];
+                for(var i = 0; i < res.data.length; i++) {
+                    if(exam.type === 'EX') {
+                        if(res.data[i].name === 'Ordinacija') {
+                            data.push(res.data[i]);
+                        }
+                    } else {
+                        if(res.data[i].name === 'Operaciona sala') {
+                            data.push(res.data[i]);
+                        }
+                    }
+                }
+                this.setState({ operationRooms: data });
             })
             .catch(err => {
                 this.setState({ operationRooms: [] });
@@ -173,9 +187,33 @@ class OperationRooms extends Component {
             milisecs: date.getTime()
         };
 
+        const query = new URLSearchParams(this.props.location.search);
+
+        let exam = {
+            start: '',
+            appId: '',
+            type: ''
+        };
+
+        for (let param of query.entries()) {
+            exam[param[0]] = param[1];
+        }
+
         axios.post("/operationRoom/getAllAvailable", milisecs)
             .then(res => {
-                this.setState({ operationRooms: res.data });
+                let data = [];
+                for(var i = 0; i < res.data.length; i++) {
+                    if(exam.type === 'EX') {
+                        if(res.data[i].name === 'Ordinacija') {
+                            data.push(res.data[i]);
+                        }
+                    } else {
+                        if(res.data[i].name === 'Operaciona sala') {
+                            data.push(res.data[i]);
+                        }
+                    }
+                }
+                this.setState({ operationRooms: data });
             })
             .catch(err => {
                 this.setState({ operationRooms: [] });
@@ -194,7 +232,8 @@ class OperationRooms extends Component {
 
         let exam = {
             start: '',
-            appId: ''
+            appId: '',
+            type: ''
         };
 
         for (let param of query.entries()) {
@@ -204,6 +243,7 @@ class OperationRooms extends Component {
         const queryParams = [];
         queryParams.push(encodeURIComponent('start') + '=' + encodeURIComponent(milisecs.start));
         queryParams.push(encodeURIComponent('appId') + '=' + encodeURIComponent(exam.appId));
+        queryParams.push(encodeURIComponent('type') + '=' + encodeURIComponent(exam.type));
         const queryString = queryParams.join('&');
 
         this.props.history.push({
@@ -214,7 +254,19 @@ class OperationRooms extends Component {
 
         axios.post("/operationRoom/getAllAvailable", milisecs)
             .then(res => {
-                this.setState({ operationRooms: res.data });
+                let data = [];
+                for(var i = 0; i < res.data.length; i++) {
+                    if(exam.type === 'EX') {
+                        if(res.data[i].name === 'Ordinacija') {
+                            data.push(res.data[i]);
+                        }
+                    } else {
+                        if(res.data[i].name === 'Operaciona sala') {
+                            data.push(res.data[i]);
+                        }
+                    }
+                }
+                this.setState({ operationRooms: data });
             })
             .catch(err => {
                 this.setState({ operationRooms: [] });
