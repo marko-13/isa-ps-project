@@ -34,14 +34,19 @@ public class UserConfirmationImpl implements UserConfirmation {
     private PasswordEncoder passwordEncoder;
 
     @Override
-    public List<PatientDTO> getNotApprovedUsers() {
+    public List<PatientDTO> getNotApprovedUsers(String email) {
         try {
+            AppUser user = appUserRepository.findByEmail(email)
+                    .orElseThrow(() -> new NotExistsException("Not allowed to retrieve this data"));
+
             List<AppUser> users = appUserRepository.findAllByEnabledAndRejected(false, false)
-                    .orElseThrow(NotExistsException::new);
+                    .orElse(new ArrayList<>());
 
             List<PatientDTO> patientsDTO = new ArrayList<>();
-            for (AppUser u : users) {
-                patientsDTO.add(new PatientDTO((Patient) u));
+            if (!users.isEmpty()) {
+                for (AppUser u : users) {
+                    patientsDTO.add(new PatientDTO((Patient) u));
+                }
             }
 
             return patientsDTO;
@@ -67,7 +72,7 @@ public class UserConfirmationImpl implements UserConfirmation {
                 Long my_timestamp = System.currentTimeMillis();
                 this.emailService.sendNotificaitionAsync(updated, "\n\nYour account has been approved.<br></br><a href=\"http://localhost:3000/confirm_auth?id="+pass+"&timestamp="+my_timestamp+ "&broj="+ id+"\">Activate</a>");
 
-            }catch( Exception e ){
+            } catch( Exception e ){
             }
 
             return new PatientDTO(updated);

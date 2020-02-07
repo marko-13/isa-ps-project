@@ -54,10 +54,17 @@ public class AdminClinicCenterController {
     @RequestMapping(value = "/approve")
     @PreAuthorize("hasAuthority('ADMINCLINICALCENTER')")
     public ResponseEntity<?> getNotApprovedUsers() {
-        return new ResponseEntity<>(this.userConfirmation.getNotApprovedUsers(), HttpStatus.OK);
+        try {
+            String email = this.tokenUtils.getUsernameFromToken(this.tokenUtils.getToken(this.httpServletRequest));
+            return new ResponseEntity<>(this.userConfirmation.getNotApprovedUsers(email), HttpStatus.OK);
+        } catch(NotValidParamsException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.FORBIDDEN);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
     }
 
-    @RequestMapping(value = "/approve/{id}")
+    @RequestMapping(value = "/approve-user/{id}")
     @PreAuthorize("hasAuthority('ADMINCLINICALCENTER')")
     public ResponseEntity<?> approvePatients(@PathVariable Long id) {
         try {
@@ -69,7 +76,7 @@ public class AdminClinicCenterController {
     }
 
 
-    @RequestMapping(value = "/deny/{id}")
+    @RequestMapping(value = "/deny-user/{id}")
     @PreAuthorize("hasAuthority('ADMINCLINICALCENTER')")
     public ResponseEntity<?> denyPatients(@PathVariable Long id, @RequestBody String msg) {
         try {

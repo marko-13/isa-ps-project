@@ -103,7 +103,13 @@ public class AppointmentServiceImpl implements AppointmentService {
         List<AppointmentHistoryDTO> appointmentDTOS = new ArrayList<>();
 
         for(Appointment a : appointments){
-            appointmentDTOS.add(new AppointmentHistoryDTO(a));
+            if(a instanceof Examination) {
+                if (((Examination) a).getConfirmed() == 2) {
+                    appointmentDTOS.add(new AppointmentHistoryDTO(a));
+                }
+            } else {
+                appointmentDTOS.add(new AppointmentHistoryDTO(a));
+            }
         }
 
         return appointmentDTOS;
@@ -138,12 +144,11 @@ public class AppointmentServiceImpl implements AppointmentService {
             if (!(user instanceof Doctor || user instanceof Nurse)) {
                 throw new NotValidParamsException("Only medical staff members can see this data");
             }
-            
+
             if (user instanceof Nurse) {
                 System.out.println(email);
                 System.out.println(user.getId());
                 List<Appointment> appointments = appointmentRepository.findAllByNurse(user.getId());
-
                 for(Appointment ap: appointments) {
                     System.out.println(ap.getId());
                 }
@@ -154,7 +159,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 
                 return appointmentHistoryDTO;
             } else {
-                List<Examination> examinations = examinationRepository.findAllByDoctorsContaining((Doctor) user);
+                List<Examination> examinations = examinationRepository.findAllByDoctorsContainingAndConfirmed((Doctor) user, 2);
 
                 List<AppointmentHistoryDTO> appointmentHistoryDTO = examinations.stream().map(
                         s -> new AppointmentHistoryDTO(s)
@@ -659,7 +664,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 
 
         List<Operation> operations = operationRepository.findAllByDoctorsContaining(my_doc);
-        List<Examination> examinations = examinationRepository.findAllByDoctorsContaining(my_doc);
+        List<Examination> examinations = examinationRepository.findAllByDoctorsContainingAndConfirmed(my_doc, 2);
         List<Leave> leaves = leaveRepository.findAllByDoctor(my_doc);
 
         for(Operation o : operations){
@@ -731,6 +736,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 
 
     @Override
+    @Transactional
     public boolean addNextForPatient(NetxAppointmentRequestDTO nextAppointment) {
 
         Appointment lastApp = appointmentRepository.findById(nextAppointment.getLastAppointmentId()).orElseThrow(NotExistsException::new);
@@ -775,6 +781,7 @@ public class AppointmentServiceImpl implements AppointmentService {
                 newExamination.setHeld(false);
                 newExamination.setNurse(null);
                 newExamination.setMReport(null);
+                newExamination.setConfirmed(1);
                 newExamination.setClinic(lastApp.getClinic());
 
                 examinationRepository.save(newExamination);
@@ -797,9 +804,17 @@ public class AppointmentServiceImpl implements AppointmentService {
                     operation.setFast(false);
                     operation.setHeld(false);
 
+
                     operationRepository.save(operation);
                     doctor.getOperations().add(operation);
                     doctorRepository.save(doctor);
+
+                    String queryMR = "UPDATE appointment SET confirmed = ?1 WHERE id = ?2";
+                    Query queryMREm = em.createNativeQuery(queryMR)
+                            .setParameter(1, 2)
+                            .setParameter(2, operation.getId());
+                    em.joinTransaction();
+                    queryMREm.executeUpdate();
                 return true;
             }else{
                 return false;
