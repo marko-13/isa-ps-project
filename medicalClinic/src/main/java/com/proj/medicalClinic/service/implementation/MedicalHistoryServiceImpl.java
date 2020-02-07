@@ -70,7 +70,7 @@ public class MedicalHistoryServiceImpl implements MedicalHistoryService {
                     Doctor dr = (Doctor) user;
                     for (Appointment ap : appointments) {
 
-                        if (ap instanceof Examination) {
+                        if (ap instanceof Examination && ((Examination) ap).getConfirmed() == 2) {
                             Examination ex = (Examination) ap;
                             List<Doctor> doctors = doctorRepository.findAllByExaminations(ex);
 
@@ -98,7 +98,7 @@ public class MedicalHistoryServiceImpl implements MedicalHistoryService {
 
                     for (Appointment ap : appointments) {
 
-                        if (ap instanceof Examination) {
+                        if (ap instanceof Examination && ((Examination) ap).getConfirmed() == 2) {
                             Examination ex = (Examination) ap;
                             if (ex.getNurse() != null) {
                                 if (ex.getNurse().getId() == nr.getId()) {
