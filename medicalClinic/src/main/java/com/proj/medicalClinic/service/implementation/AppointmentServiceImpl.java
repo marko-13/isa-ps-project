@@ -781,6 +781,7 @@ public class AppointmentServiceImpl implements AppointmentService {
                 newExamination.setHeld(false);
                 newExamination.setNurse(null);
                 newExamination.setMReport(null);
+                newExamination.setConfirmed(1);
                 newExamination.setClinic(lastApp.getClinic());
 
                 examinationRepository.save(newExamination);
