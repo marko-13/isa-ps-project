@@ -327,7 +327,7 @@ submitReservation(evt) {
         <div class="container">
           <div class = "row">
             {/*OVO JE DIV ZA REACT TABLE SA LISTOM SVIH KLINIKA */}
-            <div class = "col-sm-7 col-md-7 col-lg-7" style={{height: 'calc(100vh - 100px)', width: '50%'}}>
+            <div id="inspect_clinics_allClinics_table" class = "col-sm-7 col-md-7 col-lg-7" style={{height: 'calc(100vh - 100px)', width: '50%'}}>
               {<ReactTable data={this.state.clinics}
                 pageSize={(this.state.clinics.length > 10) ? 10 : this.state.clinics.length}
                 columns={columns}
@@ -335,12 +335,12 @@ submitReservation(evt) {
             </div>
 
             {/*OVO JE DIV ZA FORMU ZA PRETRAGU PO DATUMU I TIPU PREGLEDA i opciono lokacija klinike i ocena*/}
-            <div class = "col-sm-5 col-md-5 col-lg-5" style={{height: 'calc(100vh - 100px)', width: '50%'}}>
+            <div id='inspect_clinics_appointment_form' class = "col-sm-5 col-md-5 col-lg-5" style={{height: 'calc(100vh - 100px)', width: '50%'}}>
               <form>
                 {/*TYPEAHEAD ZA ODABIR SERVISA*/}
                 <div class = "form-group">
                   <h5>Select a service</h5>
-                  <Typeahead id = "my_typeahead" placeholder="Choose a service..." onChange={(selected) => {
+                  <Typeahead id = "patient_typeahed_service" placeholder="Choose a service..." onChange={(selected) => {
                       if(selected[0] !== null && selected[0] !== undefined){
                         console.log(selected[0].id)
                         this.setState({selected_service : selected[0].id})

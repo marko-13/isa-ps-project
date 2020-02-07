@@ -45,6 +45,8 @@ public class LoginTest {
         (new WebDriverWait(browser, 8)).until(ExpectedConditions.urlContains("/homepage"));
         assertEquals(baseUrl + "/homepage", browser.getCurrentUrl());
 
+
+
     }
 
 

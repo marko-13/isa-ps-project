@@ -50,4 +50,5 @@ public class WelcomePage {
                 .until(ExpectedConditions.elementToBeClickable(loginButton));
     }
 
+
 }

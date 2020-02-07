@@ -205,7 +205,7 @@ const Homepage = (props) => {
 
     return (
         <Layout>
-            <div className={'container'}>
+            <div className={'container'} id='user_homepage_container'>
                 <div className='row' style={{ margin: '0px 5px' }}>
                     {page}
                 </div>
