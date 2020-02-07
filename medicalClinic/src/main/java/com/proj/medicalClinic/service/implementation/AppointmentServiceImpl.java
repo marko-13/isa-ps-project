@@ -804,9 +804,17 @@ public class AppointmentServiceImpl implements AppointmentService {
                     operation.setFast(false);
                     operation.setHeld(false);
 
+
                     operationRepository.save(operation);
                     doctor.getOperations().add(operation);
                     doctorRepository.save(doctor);
+
+                    String queryMR = "UPDATE appointment SET confirmed = ?1 WHERE id = ?2";
+                    Query queryMREm = em.createNativeQuery(queryMR)
+                            .setParameter(1, 2)
+                            .setParameter(2, operation.getId());
+                    em.joinTransaction();
+                    queryMREm.executeUpdate();
                 return true;
             }else{
                 return false;
