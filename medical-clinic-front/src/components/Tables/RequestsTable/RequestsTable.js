@@ -22,7 +22,10 @@ class RequestsTable extends Component {
 
     getAllRequests = () => {
         axios.get('/appointment/getAllAppointmentRequests')
-            .then(res => this.setState({ requests: res.data }))
+            .then(res => {
+                this.setState({ requests: res.data });
+                console.log(res.data);
+            })
             .catch(err => {
                 console.log(err);
                 this.setState({ requests: -1 })
@@ -30,10 +33,10 @@ class RequestsTable extends Component {
     }
 
     onClickHandler = (app) => {
-
         const queryParams = [];
         queryParams.push(encodeURIComponent('start') + '=' + encodeURIComponent(app.date));
         queryParams.push(encodeURIComponent('appId') + '=' + encodeURIComponent(app.id));
+        queryParams.push(encodeURIComponent('type') + '=' + encodeURIComponent(app.type));
         const queryString = queryParams.join('&');
 
         this.props.history.push({

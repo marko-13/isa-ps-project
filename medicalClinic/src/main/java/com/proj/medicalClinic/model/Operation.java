@@ -16,4 +16,10 @@ public class Operation extends Appointment {
 
     @ManyToMany(mappedBy = "operations", fetch = FetchType.LAZY)
     private List<Doctor> doctors;
+
+    @Column(name = "held", unique = false, nullable = false)
+    private boolean held;
+
+    @Column(name = "fast", unique = false, nullable = false)
+    private boolean fast;
 }

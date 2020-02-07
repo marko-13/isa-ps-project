@@ -177,14 +177,35 @@ values ('EX', '2020-2-9', 30, false, 1, 7, 3, 5, null, false, 1);
 insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed)
 values ('EX', '2020-2-8', 30, false, 1, 7, 3, 5, null, true, 1);
 
-insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed)
-values ('EX', '2020-2-5', 30, false, 1, 7, 1, 5, 1, false, 1);
+insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held)
+values ('EX', '2020-2-5', 30, false, 1, 7, 1, 5, 3, false);
+
+insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held)
+values ('OP', '2020-2-7 16:30', 30, false, 1, 7, 1, 5, null, false);
+
+insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held)
+values ('OP', '2020-2-7 16:30', 30, false, 1, 7, 1, 5, 2, false);
+
+insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held)
+values ('OP', '2020-5-10 15:15', 30, false, 1, 7, 1, 5, null, false);
+
+insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held)
+values ('EX', '2020-5-10 15:30', 60, false, 1, 8, 3, 5, 1, false);
+
+insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held)
+values ('EX', '2020-5-10 15:30', 60, false, 1, 7, 3, 5, 2, false);
+
+insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held)
+values ('EX', '2020-5-10 16:00', 60, false, 1, 8, 3, 5, 5, false);
+
+insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held)
+values ('EX', '2020-12-10', 60, true, 1, null, null, 1, 1, false);
 
 insert into doctors_examinations(doctor_id, examination_id)
 values (4, 1);
 
 insert into doctors_examinations(doctor_id, examination_id)
-values (4, 2);
+values (4, 22);
 
 insert into doctors_examinations(doctor_id, examination_id)
 values(5, 2);
@@ -278,7 +299,14 @@ values (6, 3);
 insert into doctors_operations (doctor_id, operation_id)
 values (4, 4);
 
+insert into doctors_operations (doctor_id, operation_id)
+values (5, 22);
 
+insert into doctors_operations (doctor_id, operation_id)
+values (6, 24);
+
+insert into doctors_operations (doctor_id, operation_id)
+values (5, 23);
 
 
 insert into doctors_services (doctor_id, service_id)

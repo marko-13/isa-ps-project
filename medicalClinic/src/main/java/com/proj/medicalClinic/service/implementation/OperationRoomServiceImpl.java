@@ -65,17 +65,20 @@ public class OperationRoomServiceImpl implements OperationRoomService {
 
     @Override
     public OperationRoomDTO remove(Long roomId) {
-        try {
             List<AppointmentDTO> appointmentDTOS = appointmentService.getAllByOperationRoom(roomId);
-        }catch (NotExistsException e){
-            OperationRoom operationRoom = operationRoomRepository.findById(roomId).orElseThrow(NotExistsException::new);
-            System.out.println(operationRoom.getName());
-            operationRoom.setDeleted(true);
-            operationRoomRepository.save(operationRoom);
-            return new OperationRoomDTO(operationRoom);
-        }
-        throw new ResourceConflictException(roomId, "Soba ima rezervisane preglede!");
 
+            if(appointmentDTOS.isEmpty()){
+
+                OperationRoom operationRoom = operationRoomRepository.findById(roomId).orElseThrow(NotExistsException::new);
+                System.out.println(operationRoom.getName());
+                operationRoom.setDeleted(true);
+                operationRoomRepository.save(operationRoom);
+                return new OperationRoomDTO(operationRoom);
+
+            }else {
+
+                throw new ResourceConflictException(roomId, "Soba ima rezervisane preglede!");
+            }
     }
 
     @Override
