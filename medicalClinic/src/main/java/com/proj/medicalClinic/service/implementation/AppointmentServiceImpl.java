@@ -736,6 +736,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 
 
     @Override
+    @Transactional
     public boolean addNextForPatient(NetxAppointmentRequestDTO nextAppointment) {
 
         Appointment lastApp = appointmentRepository.findById(nextAppointment.getLastAppointmentId()).orElseThrow(NotExistsException::new);
