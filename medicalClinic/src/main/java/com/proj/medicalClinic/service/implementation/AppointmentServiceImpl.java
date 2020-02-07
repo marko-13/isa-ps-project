@@ -159,7 +159,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 
                 return appointmentHistoryDTO;
             } else {
-                List<Examination> examinations = examinationRepository.findAllByDoctorsContaining((Doctor) user);
+                List<Examination> examinations = examinationRepository.findAllByDoctorsContainingAndConfirmed((Doctor) user, 2);
 
                 List<AppointmentHistoryDTO> appointmentHistoryDTO = examinations.stream().map(
                         s -> new AppointmentHistoryDTO(s)
@@ -664,7 +664,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 
 
         List<Operation> operations = operationRepository.findAllByDoctorsContaining(my_doc);
-        List<Examination> examinations = examinationRepository.findAllByDoctorsContaining(my_doc);
+        List<Examination> examinations = examinationRepository.findAllByDoctorsContainingAndConfirmed(my_doc, 2);
         List<Leave> leaves = leaveRepository.findAllByDoctor(my_doc);
 
         for(Operation o : operations){
