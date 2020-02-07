@@ -103,7 +103,13 @@ public class AppointmentServiceImpl implements AppointmentService {
         List<AppointmentHistoryDTO> appointmentDTOS = new ArrayList<>();
 
         for(Appointment a : appointments){
-            appointmentDTOS.add(new AppointmentHistoryDTO(a));
+            if(a instanceof Examination) {
+                if (((Examination) a).getConfirmed() == 2) {
+                    appointmentDTOS.add(new AppointmentHistoryDTO(a));
+                }
+            } else {
+                appointmentDTOS.add(new AppointmentHistoryDTO(a));
+            }
         }
 
         return appointmentDTOS;
