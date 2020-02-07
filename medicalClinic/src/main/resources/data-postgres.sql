@@ -199,7 +199,7 @@ insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patien
 values ('EX', '2020-5-10 16:00', 60, false, 1, 8, 3, 5, 5, false, 2);
 
 insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed)
-values ('EX', '2020-12-10', 60, true, 1, 7, null, 1, 1, false, 2);
+values ('EX', '2020-07-10 10:30', 60, true, 1, 7, null, 1, 1, false, 2);
 
 insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed)
 values ('EX', '2020-2-7', 30, false, 1, 7, 1, 5, 3, false, 2);
@@ -265,7 +265,9 @@ insert into doctors_examinations(doctor_id, examination_id)
 values (4, 21);
 
 insert into doctors_examinations(doctor_id, examination_id)
-values (4, 30);
+values (4, 29);
+
+
 
 
 

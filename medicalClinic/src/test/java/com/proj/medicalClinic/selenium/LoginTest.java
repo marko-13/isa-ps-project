@@ -34,7 +34,7 @@ public class LoginTest {
 
     @Test
     public void testLoginValidData() {
-       welcomePage.ensureLoginButtonIsDisplayed();
+       welcomePage.ensureLoginButtonIsClickable();
 
        welcomePage.setUsernameInput("Miljana@mailinator.com");
        welcomePage.setPasswordInput("miljana");

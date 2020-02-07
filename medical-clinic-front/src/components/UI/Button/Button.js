@@ -16,7 +16,7 @@ const Button = (props) => {
     }
 
     return (
-        <button className={btnclass} style={props.style} onClick={props.click} hidden = {props.hidden}>{props.children}</button>
+        <button id={props.id} className={btnclass} style={props.style} onClick={props.click} hidden = {props.hidden}>{props.children}</button>
     );
 };
 

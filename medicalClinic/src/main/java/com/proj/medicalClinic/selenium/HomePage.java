@@ -28,7 +28,7 @@ public class HomePage {
     @FindBy(xpath = "//button[text()='Inspect clinics']")
     private WebElement inspectClinicsButton;
 
-    public void ensureInspectClinicsButtonIsDisplayed() {
+    public void ensureInspectClinicsButtonIsClickable() {
         (new WebDriverWait(driver, 10))
                 .until(ExpectedConditions.elementToBeClickable(inspectClinicsButton));
     }

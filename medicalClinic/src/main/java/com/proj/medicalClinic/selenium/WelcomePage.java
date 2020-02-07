@@ -45,7 +45,7 @@ public class WelcomePage {
         (new WebDriverWait(webDriver, 5)).until(ExpectedConditions.visibilityOf(loginForm));
     }
 
-    public void ensureLoginButtonIsDisplayed() {
+    public void ensureLoginButtonIsClickable() {
         (new WebDriverWait(webDriver, 10))
                 .until(ExpectedConditions.elementToBeClickable(loginButton));
     }

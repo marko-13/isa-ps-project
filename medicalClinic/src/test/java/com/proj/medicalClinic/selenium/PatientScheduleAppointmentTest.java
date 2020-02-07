@@ -2,6 +2,7 @@ package com.proj.medicalClinic.selenium;
 
 
 import lombok.Getter;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
@@ -18,9 +19,11 @@ import static org.junit.Assert.assertTrue;
 public class PatientScheduleAppointmentTest {
 
     private WebDriver browser;
-    private PatientAllClinics inspectClinicsPage;
+    private PatientAllClinicsPage inspectClinicsPage;
     private WelcomePage welcomePage;
     private HomePage homePage;
+    private PatientSelectClinicPage patientSelectClinicPage;
+    private PatientSelectDoctorAndTimePage patientSelectDoctorAndTimePage;
 
     private static final String baseUrl = "http://localhost:3000";
 
@@ -33,14 +36,15 @@ public class PatientScheduleAppointmentTest {
         browser.navigate().to(baseUrl);
 
         welcomePage = PageFactory.initElements(browser, WelcomePage.class);
-        inspectClinicsPage = PageFactory.initElements(browser, PatientAllClinics.class);
+        inspectClinicsPage = PageFactory.initElements(browser, PatientAllClinicsPage.class);
         homePage = PageFactory.initElements(browser, HomePage.class);
+        patientSelectClinicPage = PageFactory.initElements(browser, PatientSelectClinicPage.class);
+        patientSelectDoctorAndTimePage = PageFactory.initElements(browser, PatientSelectDoctorAndTimePage.class);
 
     }
 
     @Test
-    public void noMatchForSelectedService() {
-
+    public void noTimeSelectedForSelectedClinic(){
         this.loginValid();
 
         this.clinicsShown();
@@ -48,13 +52,80 @@ public class PatientScheduleAppointmentTest {
         inspectClinicsPage.ensureServiceInputIsDisplayed();
         assertTrue(inspectClinicsPage.getServiceInput().isDisplayed());
 
-        inspectClinicsPage.setServiceInput("Testiram");
+        inspectClinicsPage.setServiceInput("Pregled glave");
+        inspectClinicsPage.getSelectedItem().click();
 
+        inspectClinicsPage.ensureInputDateIsDisplayed();
+        assertTrue(inspectClinicsPage.getDateInput().isDisplayed());
+
+        inspectClinicsPage.setDateInput("26-Feb-2020");
+        inspectClinicsPage.getDateInput().sendKeys(Keys.ENTER);
+
+        inspectClinicsPage.ensureSubmitButtonIsClickable();
+        assertTrue(inspectClinicsPage.getSubmitButton().isDisplayed());
+        inspectClinicsPage.getSubmitButton().click();
+
+        patientSelectClinicPage.ensureSelectButtonClinicIsClickable();
+        assertTrue(patientSelectClinicPage.getSelectClinicButton().isDisplayed());
+        patientSelectClinicPage.getSelectClinicButton().click();
+
+        patientSelectDoctorAndTimePage.ensureReserveSubmitButtonIsClickable();
+        assertTrue(getPatientSelectDoctorAndTimePage().getReserveSubmitButton().isDisplayed());
+        patientSelectDoctorAndTimePage.getReserveSubmitButton().click();
+
+        assertEquals(browser.switchTo().alert().getText(), "Time must be selected");
+        browser.switchTo().alert().dismiss();
 
     }
 
+//    @Test
+//    public void noDateSelected() {
+//
+//        this.loginValid();
+//
+//        this.clinicsShown();
+//
+//        inspectClinicsPage.ensureServiceInputIsDisplayed();
+//        assertTrue(inspectClinicsPage.getServiceInput().isDisplayed());
+//
+//        inspectClinicsPage.setServiceInput("Pregled glave");
+//        inspectClinicsPage.getSelectedItem().click();
+//
+//        inspectClinicsPage.ensureSubmitButtonIsClickable();
+//        assertTrue((inspectClinicsPage.getSubmitButton().isDisplayed()));
+//        inspectClinicsPage.getSubmitButton().click();
+//
+//        assertEquals(browser.switchTo().alert().getText(), "Date must be selected");
+//        browser.switchTo().alert().dismiss();
+//
+//    }
+//
+//    @Test
+//    public void noServiceSelected(){
+//        this.loginValid();
+//
+//        this.clinicsShown();
+//
+//        inspectClinicsPage.ensureInputDateIsDisplayed();
+//        assertTrue(inspectClinicsPage.getDateInput().isDisplayed());
+//
+//        inspectClinicsPage.setDateInput("26-Feb-2020");
+//        inspectClinicsPage.getDateInput().sendKeys(Keys.ENTER);
+//
+//        inspectClinicsPage.ensureSubmitButtonIsClickable();
+//        assertTrue((inspectClinicsPage.getSubmitButton().isDisplayed()));
+//        inspectClinicsPage.getSubmitButton().click();
+//
+//        assertEquals(browser.switchTo().alert().getText(), "Service must be selected");
+//        browser.switchTo().alert().dismiss();
+//
+//
+//    }
+
+
+
     private void loginValid(){
-        welcomePage.ensureLoginButtonIsDisplayed();
+        welcomePage.ensureLoginButtonIsClickable();
 
         welcomePage.setUsernameInput("Miljana@mailinator.com");
         welcomePage.setPasswordInput("miljana");
@@ -71,7 +142,7 @@ public class PatientScheduleAppointmentTest {
         homePage.ensureIsDisplayed();
         assertTrue(homePage.getUserHomepageContainer().isDisplayed());
 
-        homePage.ensureInspectClinicsButtonIsDisplayed();
+        homePage.ensureInspectClinicsButtonIsClickable();
         assertTrue(homePage.getInspectClinicsButton().isDisplayed());
 
         homePage.getInspectClinicsButton().click();

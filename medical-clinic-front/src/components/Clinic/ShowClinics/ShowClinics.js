@@ -305,7 +305,7 @@ submitReservation(evt) {
     {
       Header: "",
       Cell: ({ original }) => (
-          <center><Button type='green' click={() => this.selectClinicHandler(original)}>Select</Button></center>),
+          <center><Button id={"select_clinic_" + original.id + "_button"} type='green' click={() => this.selectClinicHandler(original)}>Select</Button></center>),
       filterable: false,
       sortable: false
     }]
@@ -355,6 +355,7 @@ submitReservation(evt) {
                 <div class = "form-group">
                   <h5>Select desired date for appointment</h5>
                   <DatePicker
+                    id="inspect_clinics_datepicker"
                     class="form-control"
                     selected={this.state.selected_date}
                     onChange={this.handleChange}
@@ -368,7 +369,7 @@ submitReservation(evt) {
                 </div>
 
                 {/*BUTTON TO PERFORM SEARCH - SHOULD RETURN SELECT FOR DOCTORS AND TIMES*/}
-                <Button type="green" click={evt => this.submitSearch(evt)}>Submit</Button>
+                <Button id='inspect_clinics_search_submit' type="green" click={evt => this.submitSearch(evt)}>Submit</Button>
               </form>
             </div>
 
@@ -424,7 +425,7 @@ submitReservation(evt) {
           </div>
 
           {/*BUTTON TO PERFORM RESERVATION*/}
-          <Button type="green" style = {{}} click={evt => this.submitReservation(evt)}>Reserve</Button>
+          <Button id="inspect_clinics_reserve_button" type="green" style = {{}} click={evt => this.submitReservation(evt)}>Reserve</Button>
         </form>
       );
     }
