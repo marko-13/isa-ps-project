@@ -2,6 +2,7 @@ package com.proj.medicalClinic.controller;
 
 import com.proj.medicalClinic.dto.*;
 import com.proj.medicalClinic.exception.NotExistsException;
+import com.proj.medicalClinic.exception.NotValidParamsException;
 import com.proj.medicalClinic.exception.ResourceConflictException;
 import com.proj.medicalClinic.model.Appointment;
 import com.proj.medicalClinic.model.Operation;
@@ -12,6 +13,7 @@ import org.aspectj.weaver.ast.Not;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -72,6 +74,36 @@ public class AppointmentController {
         }
     }
 
+    @RequestMapping(value = "/addOperationRoomToAppointment/{appointmentId}/{roomId}")
+    @PreAuthorize("hasAuthority('ADMINCLINIC') ")
+    public ResponseEntity<?> addOperationRoomToAppointment(@PathVariable Long appointmentId, @PathVariable Long roomId, @RequestBody List<Long> doctorsId) {
+        try {
+            this.appointmentService.addOperationRoom(appointmentId, roomId, doctorsId);
+            return new ResponseEntity<>("Successfully added room to the operation", HttpStatus.OK);
+        } catch (NotValidParamsException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.FORBIDDEN);
+        } catch (NotExistsException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping(value = "/addChangedOperationRoomToAppointment/{appointmentId}/{roomId}/{start}")
+    @PreAuthorize("hasAuthority('ADMINCLINIC') ")
+    public ResponseEntity<?> addChangedOperationRoomToAppointment(@PathVariable Long appointmentId, @PathVariable Long roomId, @PathVariable Long start, @RequestBody List<Long> doctorsId) {
+        try {
+            this.appointmentService.addChangedOperationRoom(appointmentId, roomId, doctorsId, start);
+            return new ResponseEntity<>("Successfully added room to the operation", HttpStatus.OK);
+        } catch (NotValidParamsException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.FORBIDDEN);
+        } catch (NotExistsException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
+
     @RequestMapping(value = "/changeDateAndAddRoomToApointment", method = RequestMethod.POST)
     public ResponseEntity<?> changeDateAndAddRoomToApointment(@RequestBody AppointmentRequestDTO appDto){
         try{
@@ -111,6 +143,16 @@ public class AppointmentController {
         try{
             appointmentService.reserveExaminationForPatient(selected_date, hours, minutes, doc_id, service_id);
             return new ResponseEntity<>("Reserved", HttpStatus.OK);
+        }catch (NotExistsException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/addAnotherForPatient", method = RequestMethod.POST)
+    public ResponseEntity<?> reserveExaminationAsPatient(@RequestBody NetxAppointmentRequestDTO nextApp){
+        try{
+            boolean scheduled = appointmentService.addNextForPatient(nextApp);
+            return new ResponseEntity<>("Appointment added successfully", HttpStatus.OK);
         }catch (NotExistsException e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }

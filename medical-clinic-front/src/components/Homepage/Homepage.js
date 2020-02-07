@@ -33,6 +33,7 @@ import ReviewDoctor from '../../components/Doctor/ReviewDoctor/ReviewDoctor';
 import StartExam from '../../containers/MedicalStaff/Doctors/StartExam/StartExam';
 import ChooseAvailableDoctorsForm from '../../components/Forms/ChooseAvailableDoctorsForm/ChooseAvailableDoctorsForm';
 import FastExam from '../../containers/ClinicAdministrator/FastExam/FastExam';
+import AppointmentForPatient from '../../containers/MedicalStaff/Patients/AppointmentForPatient/AppointmentForPatient';
 
 const Homepage = (props) => {
 
@@ -112,7 +113,6 @@ const Homepage = (props) => {
                         <Auxiliary>
                             <UserInfo name={name} lastname={lastname} role={role} />
                             <UserCards>
-                                <UserCard buttonText={"Schedule appointment"} cardText={"Schedule an appointment for operation or medical exam"}  link ={'/homepage/doctor/workschedule'}/>
                                  <UserCard buttonText={"List of patients"} cardText={"Shows a list of patients"} link={'/homepage/doctor/patients'} />
                                 {/*<UserCard buttonText={"Start exam"} cardText={"Start a new medical exam"} link ={'/homepage/start-exam'} />*/}
                                 <UserCard buttonText={"Work schedule"} cardText={"Shows my work schedule"}  link ={'/homepage/doctor/workschedule'}/>
@@ -126,6 +126,7 @@ const Homepage = (props) => {
                         <Route path='/homepage/doctor/workschedule' component={WorkSchedule}></Route>
                         <Route path='/homepage/doctor/patients' component={Patients} />
                         <Route path='/homepage/start-exam' component={StartExam} />
+                        <Route path='/homepage/doctor/add-another-appointment/:examID' component={AppointmentForPatient} />
                       </Auxiliary>
                     );
                     break;

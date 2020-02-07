@@ -1,0 +1,11 @@
+.Content {
+    margin: auto;
+}
+
+.Header {
+    background-color: #1abc9c;
+    padding: 5px 20px;
+    color: white;
+    margin-bottom: 10px;
+    text-align: center;
+}
