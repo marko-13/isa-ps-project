@@ -35,12 +35,12 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     Optional<List<Appointment>> findAllAppointmentRequests(Long clinicId);
   
     @Query(
-            value = "SELECT ap.type, ap.id, ap.date, ap.duration, ap.fast, ap.clinic_id, ap.operation_room_id, ap.patient_id, ap.service_id, ap.nurse_id, ap.held FROM appointment as ap where ap.nurse_id = ?1",
+            value = "SELECT ap.type, ap.confirmed, ap.id, ap.date, ap.duration, ap.fast, ap.clinic_id, ap.operation_room_id, ap.patient_id, ap.service_id, ap.nurse_id, ap.held FROM appointment as ap where ap.nurse_id = ?1",
             nativeQuery = true)
     List<Appointment> findAllByNurse(Long id);
 
     @Query(
-            value = "SELECT ap.type, ap.held, ap.id, ap.date, ap.duration, ap.fast, ap.clinic_id, ap.operation_room_id, ap.patient_id, ap.service_id, ap.nurse_id FROM appointment as ap where ap.id = ?1",
+            value = "SELECT ap.type,ap.confirmed, ap.held, ap.id, ap.date, ap.duration, ap.fast, ap.clinic_id, ap.operation_room_id, ap.patient_id, ap.service_id, ap.nurse_id FROM appointment as ap where ap.id = ?1",
             nativeQuery = true)
     Optional<Appointment> findById(Long id);
 

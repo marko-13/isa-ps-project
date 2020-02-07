@@ -92,6 +92,7 @@ const Homepage = (props) => {
                                 <UserCard buttonText={"Inspect appointments"} cardText={"Shows a list of patients upcoming and past appointments"} link={'/homepage/patient/appointments'} />
                                 <UserCard buttonText={"Review doctors"} cardText={"Shows all doctors you have associated with and provides an option to rate them"} link={'/homepage/patient/review_doctors'} />
                                 <UserCard buttonText={"Review clinic"} cardText={"Shows all clinics you have previously visited and provides an option to rate them"} link={'/homepage/patient/review_clinics'} />
+                                <UserCard buttonText={"Inspect doctors"} cardText={"Shows all doctors"} link={'/homepage/patient/review_clinics'} />
                             </UserCards>
                         </Auxiliary>
 

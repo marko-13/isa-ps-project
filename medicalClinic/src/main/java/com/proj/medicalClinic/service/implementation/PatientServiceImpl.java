@@ -2,9 +2,12 @@ package com.proj.medicalClinic.service.implementation;
 
 import com.proj.medicalClinic.dto.PatientDTO;
 import com.proj.medicalClinic.exception.NotExistsException;
+import com.proj.medicalClinic.exception.NotValidParamsException;
 import com.proj.medicalClinic.model.AppUser;
+import com.proj.medicalClinic.model.Examination;
 import com.proj.medicalClinic.model.Patient;
 import com.proj.medicalClinic.repository.AppUserRepository;
+import com.proj.medicalClinic.repository.ExaminationRepository;
 import com.proj.medicalClinic.repository.PatientRepository;
 import com.proj.medicalClinic.service.PatientService;
 import org.apache.tomcat.util.codec.binary.Base64;
@@ -12,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -24,6 +29,9 @@ public class PatientServiceImpl implements PatientService {
 
     @Autowired
     private AppUserRepository appUserRepository;
+
+    @Autowired
+    private ExaminationRepository examinationRepository;
 
     @Override
     public List<PatientDTO> getAll() {
@@ -83,5 +91,28 @@ public class PatientServiceImpl implements PatientService {
         patientRepository.save(my_patient);
         System.out.println("DOSAO DO KRAJA");
         return flag;
+    }
+
+    @Override
+    public void confirm_exam(int broj, Long app_id) {
+        if(broj == 2){
+            Examination ex = examinationRepository.findById(app_id).orElseThrow(NotExistsException::new);
+//            if(ex.getConfirmed() !=1 || ex.getConfirmed()!=0){
+//                throw new NotValidParamsException();
+//            }
+            ex.setConfirmed(2);
+            examinationRepository.save(ex);
+            return;
+        }
+        if(broj == 3){
+            Examination ex = examinationRepository.findById(app_id).orElseThrow(NotExistsException::new);
+//            if(ex.getConfirmed() !=1 || ex.getConfirmed()!=0){
+//                throw new NotValidParamsException();
+//            }
+            ex.setConfirmed(3);
+            examinationRepository.save(ex);
+            return;
+        }
+
     }
 }
