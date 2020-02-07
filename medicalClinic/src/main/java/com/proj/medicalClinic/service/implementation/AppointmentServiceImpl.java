@@ -144,12 +144,11 @@ public class AppointmentServiceImpl implements AppointmentService {
             if (!(user instanceof Doctor || user instanceof Nurse)) {
                 throw new NotValidParamsException("Only medical staff members can see this data");
             }
-            
+
             if (user instanceof Nurse) {
                 System.out.println(email);
                 System.out.println(user.getId());
                 List<Appointment> appointments = appointmentRepository.findAllByNurse(user.getId());
-
                 for(Appointment ap: appointments) {
                     System.out.println(ap.getId());
                 }
