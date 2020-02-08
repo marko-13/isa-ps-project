@@ -31,4 +31,6 @@ public interface LeaveRepository extends JpaRepository<Leave, Long> {
 
     // valjda ce raditi
     List<Leave> findAllByDoctor(Doctor d);
+
+    List<Leave> findAllByNurse(Nurse n);
 }
