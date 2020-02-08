@@ -82,13 +82,18 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     public List<AppointmentDTO> getAllByOperationRoom(Long id){
+        System.out.println("Prosao ovaj 1");
         List<Appointment> appointments = appointmentRepository.findAllByOperationRoomId(id)
                 .orElse(null);
-
+        System.out.println("Prosao ovaj 2");
+        if (appointments == null) {
+            System.out.println("Prosao ovaj 3");
+        }
         List<AppointmentDTO> appointmentDTOS = new ArrayList<>();
 
         if(appointments != null){
             for(Appointment a : appointments){
+                System.out.println("Prosao ovaj 4");
                 appointmentDTOS.add(new AppointmentDTO(a));
             }
         }
@@ -646,6 +651,58 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         com.proj.medicalClinic.model.Service my_service = serviceRepository.findById(service_id).orElseThrow(NotExistsException::new);
         Doctor my_doc = doctorRepository.findById(doc_id).orElseThrow(NotExistsException::new);
+
+        List<AppUser> nurses = appUserRepository.findByUserRole(RoleType.NURSE).orElse(null);
+        Nurse assignedNurse = null;
+
+        for(AppUser ap: nurses) {
+            Nurse nr = (Nurse) ap;
+            if (nr.getClinic().getId() == my_doc.getClinic().getId()) {
+                boolean allowNurse = true;
+                List<Appointment> appointmentsNurse = appointmentRepository.findAllByNurse(nr.getId());
+                List<Leave> leavesNurse = leaveRepository.findAllByNurse(nr);
+
+                for (Appointment o : appointmentsNurse) {
+                    if ((o.getDate().getTime() < my_date) && ((o.getDate().getTime() + o.getDuration() * millis_in_min) > my_date)) {
+                        System.out.println("UDJE 1");
+                        allowNurse = false;
+                        break;
+                    }
+
+                    if ((o.getDate().getTime() < (my_date + 30 * millis_in_min)) && ((o.getDate().getTime() + o.getDuration() * millis_in_min) > (my_date + 30 * millis_in_min))) {
+                        System.out.println("UDJE 2");
+                        allowNurse = false;
+                        break;
+                    }
+                }
+
+                if (allowNurse) {
+                    for (Leave l : leavesNurse) {
+                        if ((l.getDateStart().getTime() < my_date) && (l.getDateEnd().getTime() > my_date)) {
+                            System.out.println("UDJE 3");
+                            allowNurse = false;
+                            break;
+                        }
+                        if ((l.getDateStart().getTime() < (my_date + 30 * millis_in_min)) && (l.getDateEnd().getTime() > (my_date + 30 * millis_in_min))) {
+                            System.out.println("UDJE 4");
+                            allowNurse = false;
+                            break;
+                        }
+                    }
+                    if(allowNurse) {
+                        System.out.println("Asisgned nurse " + nr.getId() + " " + nr.getEmail());
+                        assignedNurse = nr;
+                        break;
+                    }
+                }
+            }
+        }
+
+        if (assignedNurse == null) {
+            assignedNurse = (Nurse) nurses.get(-1);
+            System.out.println("Assigned last nurse " + assignedNurse.getId() + " " + assignedNurse.getEmail());
+        }
+
         // check shifts
 //        if(my_doc.getShift() == 1){
 //            if(hours >= 8){
@@ -770,6 +827,8 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         if(isAvailable){
             if(nextAppointment.getAppointmentType().equals("Examination")){
+                Examination ex = (Examination) lastApp;
+                Nurse nurse = ex.getNurse();
 
                 Examination newExamination = new Examination();
                 newExamination.setDate(selectedDate);
@@ -780,7 +839,7 @@ public class AppointmentServiceImpl implements AppointmentService {
                 newExamination.setFast(false);
                 newExamination.setPatient(lastApp.getPatient());
                 newExamination.setHeld(false);
-                newExamination.setNurse(null);
+                newExamination.setNurse(nurse);
                 newExamination.setMReport(null);
                 newExamination.setConfirmed(1);
                 newExamination.setClinic(lastApp.getClinic());
@@ -831,6 +890,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         Date date = new Date();
         List<Appointment> apps = appointmentRepository.findAllByClinicIdAndDateAfterAndPatientId(clinic_id, date, null);
 
+
         if(apps.isEmpty()){
             throw new NotExistsException();
         }
@@ -839,6 +899,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         for(Appointment a : apps){
             Examination ap = examinationRepository.findById(a.getId()).orElseThrow(NotExistsException::new);
             List<Doctor> docs = doctorRepository.findAllByExaminations(ap);
+            System.out.println(ap.getId());
             ret.add(new FastExamDTO(ap, docs.get(0)));
         }
 
@@ -879,5 +940,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         }catch( Exception e ){
         }
     }
+
+
 
 }
