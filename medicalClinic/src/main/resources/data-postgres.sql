@@ -267,10 +267,8 @@ values (4, 21);
 insert into doctors_examinations(doctor_id, examination_id)
 values (4, 29);
 
-
-
 insert into doctors_examinations(doctor_id, examination_id)
-values (4, 29);
+values (5, 30);
 
 
 
