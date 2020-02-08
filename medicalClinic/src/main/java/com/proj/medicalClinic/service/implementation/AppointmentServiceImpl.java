@@ -10,6 +10,7 @@ import com.proj.medicalClinic.model.*;
 import com.proj.medicalClinic.repository.*;
 import com.proj.medicalClinic.service.AppointmentService;
 import com.proj.medicalClinic.service.EmailService;
+import com.proj.medicalClinic.service.ExaminationService;
 import com.proj.medicalClinic.service.OperationRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
