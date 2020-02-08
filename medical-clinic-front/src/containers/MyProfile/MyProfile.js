@@ -50,7 +50,7 @@ class MyProfile extends Component {
 
                     updatedUser.role = role;
                     updatedUser.name = user.data.name;
-                    updatedUser.lastname = user.data.lastname;
+                    updatedUser.lastname = user.data.lastName;
                     updatedUser.email = user.data.email
                     updatedUser.jmbg = user.data.jmbg;
                     updatedUser.review = user.data.review;
@@ -61,6 +61,8 @@ class MyProfile extends Component {
                     updatedUser.city = user.data.city;
                     updatedUser.state = user.data.state;
                     updatedUser.mobile = user.data.mobile;
+
+                    console.log(updatedUser);
 
                     this.setState({ user: updatedUser, isAuth: true })
                 })
