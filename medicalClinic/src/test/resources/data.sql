@@ -68,7 +68,7 @@ values ('Ordinacija', 10, 2, false);
 
 -- insert appointemnts into database
 insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed)
-values ('EX', '2019-12-10', 60, true, 1, 5, null, 1, 1, true, 1);
+values ('EX', '2019-12-10', 60, true, 1, 5, null, 1, 1, true, 2);
 
 insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed)
 values ('EX', '2020-12-10', 60, true, 1, 6, null, 1, 1, false, 1);
@@ -76,11 +76,11 @@ values ('EX', '2020-12-10', 60, true, 1, 6, null, 1, 1, false, 1);
 insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed)
 values ('EX', '2019-9-12', 45, false, 1, 7, 1, 2, 2, true, 1);
 
-insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held)
-values ('OP', '2019-5-12', 120, false, 1, 5, 2, 3, 2, true);
+insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed)
+values ('OP', '2019-5-12', 120, false, 1, null, 2, 3, 2, true, 2);
 
-insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held)
-values ('OP', '2019-1-12', 90, false, 1, 6, 1, 2, 2, true);
+insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed)
+values ('OP', '2019-1-12', 90, false, 1, null, 1, 2, 2, true, 2);
 
 
 -- merge doctors and examinations
