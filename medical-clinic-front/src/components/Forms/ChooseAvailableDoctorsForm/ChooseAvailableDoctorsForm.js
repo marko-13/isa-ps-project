@@ -54,7 +54,7 @@ class ChooseAvailableDoctorsForm extends Component {
         axios.post("/appointment/changeDoctorAndAddRoomToAppointment", sendDoctor)
             .then(res => {
                 alert(`Doctor ${this.state.selectedDoctor.name} ${this.state.selectedDoctor.lastname} has been added sucessfully!`);
-                this.props.history.push('/homepage/adminc-clinic');
+                this.props.history.push('/homepage/admin-clinic');
             })
             .catch(err => {
                 console.log(err);
