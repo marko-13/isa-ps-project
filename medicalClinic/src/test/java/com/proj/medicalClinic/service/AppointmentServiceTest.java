@@ -56,7 +56,7 @@ public class AppointmentServiceTest {
         List<AppointmentHistoryDTO> found = appointmentService.getAllByPatient(1L);
 
         // then
-        assertEquals(2, found.size());
+        assertEquals(1, found.size());
     }
 
 
@@ -94,7 +94,7 @@ public class AppointmentServiceTest {
         List<AppointmentHistoryDTO> found = appointmentService.getAllAppointmentsByMedicalStaffMember("Vladan@mailinator.com");
 
         // then
-        assertEquals(2, found.size());
+        assertEquals(1, found.size());
     }
 
 
@@ -107,7 +107,7 @@ public class AppointmentServiceTest {
         List<AppointmentHistoryDTO> found = appointmentService.getAllAppointmentsByMedicalStaffMember("Sergej@mailinator.com");
 
         // then
-        assertEquals(2, found.size());
+        assertEquals(1, found.size());
     }
 
     @Test
