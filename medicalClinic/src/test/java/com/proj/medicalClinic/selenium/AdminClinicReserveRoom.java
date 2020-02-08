@@ -1,6 +1,5 @@
 package com.proj.medicalClinic.selenium;
 
-import com.proj.medicalClinic.model.AdminClinic;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -11,7 +10,6 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.security.Key;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -44,6 +42,51 @@ public class AdminClinicReserveRoom {
         adminClinicNewDoctorModalPage = PageFactory.initElements(browser, AdminClinicNewDoctorModalPage.class);
 
 
+    }
+
+    @Test
+    public void addRoomToOperationBySelectingNewDatePass() {
+
+        this.loginValid();
+        this.requestsShown();
+
+        adminClinicRequestsPage.setDateInputSearch("2020-05-10 03");
+
+        adminClinicRequestsPage.ensureSerachRoomButton2IsClickable();
+        assertTrue(adminClinicRequestsPage.getSerachRoomButton2().isDisplayed());
+        adminClinicRequestsPage.getSerachRoomButton2().click();
+
+        adminClinicRoomsPage.ensureIsDisplayed();
+        assertTrue(adminClinicRoomsPage.getRoomsTable().isDisplayed());
+
+        adminClinicRoomsPage.setSerachNewDateInput("2020-02-23, 09:30 AM");
+        adminClinicRoomsPage.getSerachNewDateInput().sendKeys(Keys.ENTER);
+
+        adminClinicRoomsPage.ensureSearchNewDateButtonIsClickable();
+        assertTrue(adminClinicRoomsPage.getSerachNewDateButton().isDisplayed());
+        adminClinicRoomsPage.getSerachNewDateButton().click();
+
+        adminClinicRoomsPage.ensureShowCalendarButton2AfterSearchIsClickable();
+        assertTrue(adminClinicRoomsPage.getShowCalendarButton2().isDisplayed());
+        adminClinicRoomsPage.getShowCalendarButton2().click();
+
+        adminClinicRoomCalendarPage.ensureIsDisplayed();
+        assertTrue(adminClinicRoomCalendarPage.getRoomCalendar().isDisplayed());
+
+        adminClinicRoomCalendarPage.getSelectDoctorCheckBox().click();
+
+        adminClinicRoomCalendarPage.ensureScheduleRoomButtonIsClickable();
+        assertTrue(adminClinicRoomCalendarPage.getScheduleRoomButton().isDisplayed());
+        adminClinicRoomCalendarPage.getScheduleRoomButton().click();
+
+        WebDriverWait wait = new WebDriverWait(browser, 15);
+        wait.until(ExpectedConditions.alertIsPresent());
+
+        assertEquals(browser.switchTo().alert().getText(), "Appointment has been scheduled!");
+        browser.switchTo().alert().accept();
+
+        (new WebDriverWait(browser, 8)).until(ExpectedConditions.urlContains("/homepage/admin-clinic"));
+        assertEquals(baseUrl + "/homepage/admin-clinic", browser.getCurrentUrl());
     }
 
     @Test
@@ -82,57 +125,68 @@ public class AdminClinicReserveRoom {
        adminClinicNewDoctorModalPage.ensureIsDisplayed();
        assertTrue(adminClinicNewDoctorModalPage.getModalForm().isDisplayed());
 
-      // adminClinicNewDoctorModalPage.setChoseNewDoctorInput("");
+       adminClinicNewDoctorModalPage.setChoseNewDoctorInput("Dusko Jovanovic");
+       adminClinicNewDoctorModalPage.getSelectedItem().click();
 
+       adminClinicNewDoctorModalPage.ensureAddDoctorButtonIsClickable();
+       assertTrue(adminClinicNewDoctorModalPage.getAddDoctorButton().isDisplayed());
+       adminClinicNewDoctorModalPage.getAddDoctorButton().click();
 
+        WebDriverWait wait = new WebDriverWait(browser, 15);
+        wait.until(ExpectedConditions.alertIsPresent());
 
+        assertEquals(browser.switchTo().alert().getText(), "Doctor Dusko Jovanovic has been added sucessfully!");
+        browser.switchTo().alert().accept();
+
+        (new WebDriverWait(browser, 8)).until(ExpectedConditions.urlContains("/homepage/admin-clinic"));
+        assertEquals(baseUrl + "/homepage/admin-clinic", browser.getCurrentUrl());
 
     }
 
 
 
-//    @Test
-//    public void adRoomToRequestPass() {
-//        this.loginValid();
-//        this.requestsShown();
-//
-//        adminClinicRequestsPage.setPatientInputSearch("jeltako");
-//        adminClinicRequestsPage.setDateInputSearch("02-1");
-//        adminClinicRequestsPage.setServiceInputSerach("glave");
-//
-//        adminClinicRequestsPage.ensureSerachRoomButtonIsClickable();
-//        assertTrue(adminClinicRequestsPage.getSerachRoomButton().isDisplayed());
-//        adminClinicRequestsPage.getSerachRoomButton().click();
-//
-//
-//        adminClinicRoomsPage.ensureIsDisplayed();
-//        assertTrue(adminClinicRoomsPage.getRoomsTable().isDisplayed());
-//
-//        adminClinicRoomsPage.setSearchRoomName("Ordinacija");
-//        adminClinicRoomsPage.setSerachRoomNumber("15");
-//
-//        adminClinicRoomsPage.ensureShowCalendarButtonIsClickable();
-//        assertTrue(adminClinicRoomsPage.getShowCalendarButton().isDisplayed());
-//        adminClinicRoomsPage.getShowCalendarButton().click();
-//
-//        adminClinicRoomCalendarPage.ensureIsDisplayed();
-//        assertTrue(adminClinicRoomCalendarPage.getRoomCalendar().isDisplayed());
-//
-//        adminClinicRoomCalendarPage.ensureScheduleRoomButtonIsClickable();
-//        assertTrue(adminClinicRoomCalendarPage.getScheduleRoomButton().isDisplayed());
-//        adminClinicRoomCalendarPage.getScheduleRoomButton().click();
-//
-//        WebDriverWait wait = new WebDriverWait(browser, 15);
-//        wait.until(ExpectedConditions.alertIsPresent());
-//
-//        assertEquals(browser.switchTo().alert().getText(), "Appointment has been scheduled!");
-//        browser.switchTo().alert().accept();
-//
-//        (new WebDriverWait(browser, 8)).until(ExpectedConditions.urlContains("/homepage/admin-clinic"));
-//        assertEquals(baseUrl + "/homepage/admin-clinic", browser.getCurrentUrl());
-//
-//
-//    }
+    @Test
+    public void adRoomToRequestPass() {
+        this.loginValid();
+        this.requestsShown();
+
+        adminClinicRequestsPage.setPatientInputSearch("jeltako");
+        adminClinicRequestsPage.setDateInputSearch("02-1");
+        adminClinicRequestsPage.setServiceInputSerach("glave");
+
+        adminClinicRequestsPage.ensureSerachRoomButton3IsClickable();
+        assertTrue(adminClinicRequestsPage.getSerachRoomButton3().isDisplayed());
+        adminClinicRequestsPage.getSerachRoomButton3().click();
+
+
+        adminClinicRoomsPage.ensureIsDisplayed();
+        assertTrue(adminClinicRoomsPage.getRoomsTable().isDisplayed());
+
+        adminClinicRoomsPage.setSearchRoomName("Ordinacija");
+        adminClinicRoomsPage.setSerachRoomNumber("15");
+
+        adminClinicRoomsPage.ensureShowCalendarButton1AfterSearchIsClickable();
+        assertTrue(adminClinicRoomsPage.getShowCalendarButton1().isDisplayed());
+        adminClinicRoomsPage.getShowCalendarButton1().click();
+
+        adminClinicRoomCalendarPage.ensureIsDisplayed();
+        assertTrue(adminClinicRoomCalendarPage.getRoomCalendar().isDisplayed());
+
+        adminClinicRoomCalendarPage.ensureScheduleRoomButtonIsClickable();
+        assertTrue(adminClinicRoomCalendarPage.getScheduleRoomButton().isDisplayed());
+        adminClinicRoomCalendarPage.getScheduleRoomButton().click();
+
+        WebDriverWait wait = new WebDriverWait(browser, 15);
+        wait.until(ExpectedConditions.alertIsPresent());
+
+        assertEquals(browser.switchTo().alert().getText(), "Appointment has been scheduled!");
+        browser.switchTo().alert().accept();
+
+        (new WebDriverWait(browser, 8)).until(ExpectedConditions.urlContains("/homepage/admin-clinic"));
+        assertEquals(baseUrl + "/homepage/admin-clinic", browser.getCurrentUrl());
+
+
+    }
 
     private void loginValid(){
         welcomePage.ensureLoginButtonIsClickable();

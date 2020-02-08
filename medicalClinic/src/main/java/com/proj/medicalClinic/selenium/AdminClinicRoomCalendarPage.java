@@ -22,6 +22,8 @@ public class AdminClinicRoomCalendarPage {
     @FindBy(xpath = "//*[@id='user_homepage_container']/div[2]/div[2]/div[2]/div/div[3]/button")
     private WebElement scheduleRoomButton;
 
+    @FindBy(xpath = "//*[@id='select-4']")
+    private WebElement selectDoctorCheckBox;
 
 
     public void ensureScheduleRoomButtonIsClickable(){

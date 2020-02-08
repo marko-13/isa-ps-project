@@ -25,9 +25,6 @@ public class AdminClinicRoomsPage {
     @FindBy(xpath = "//*[@id='user_homepage_container']/div[2]/div[2]/div[1]/div[2]/div[1]/div[3]/div/div[2]/input")
     private WebElement serachRoomNumber;
 
-    @FindBy(xpath = "//*[@id='user_homepage_container']/div[2]/div[2]/div[1]/div[1]/div/div/div/div/button")
-    private WebElement showCalendarButton;
-
     @FindBy(xpath = "//*[@id='user_homepage_container']/div[2]/div[2]/div[1]/div[1]/div/div/div/div/div[1]/div/input")
     private WebElement serachNewDateInput;
 
@@ -36,6 +33,20 @@ public class AdminClinicRoomsPage {
 
     @FindBy(xpath = "//*[@id='user_homepage_container']/div[2]/div[2]/div[1]/div[2]/div[1]/div[4]/div[1]/div/div[3]/center/button")
     private WebElement showCalendarButtonAfterSearch;
+
+    @FindBy(id = "show_room_calendar_5")
+    private WebElement showCalendarButton2;
+
+    @FindBy(id = "show_room_calendar_4")
+    private WebElement showCalendarButton1;
+
+    public void ensureShowCalendarButton1AfterSearchIsClickable(){
+        (new WebDriverWait(driver, 10)).until(ExpectedConditions.elementToBeClickable(showCalendarButton1));
+    }
+
+    public void ensureShowCalendarButton2AfterSearchIsClickable(){
+        (new WebDriverWait(driver, 10)).until(ExpectedConditions.elementToBeClickable(showCalendarButton2));
+    }
 
     public void ensureShowCalendarButtonAfterSearchIsClickable(){
         (new WebDriverWait(driver, 10)).until(ExpectedConditions.elementToBeClickable(showCalendarButtonAfterSearch));
@@ -54,11 +65,6 @@ public class AdminClinicRoomsPage {
 
     public void ensureIsDisplayed(){
         (new WebDriverWait(driver, 10)).until(ExpectedConditions.visibilityOf(roomsTable));
-    }
-
-    public void ensureShowCalendarButtonIsClickable() {
-        (new WebDriverWait(driver, 10))
-                .until(ExpectedConditions.elementToBeClickable(showCalendarButton));
     }
 
     public void setSerachRoomNumber(String input){

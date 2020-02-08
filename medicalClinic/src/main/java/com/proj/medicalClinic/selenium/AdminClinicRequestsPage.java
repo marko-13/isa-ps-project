@@ -28,9 +28,25 @@ public class AdminClinicRequestsPage {
     @FindBy(xpath = "//*[@id='user_homepage_container']/div[2]/div[1]/div/div[1]/div[3]/div/div[4]/input")
     private WebElement serviceInputSerach;
 
-    @FindBy(xpath = "//*[@id='user_homepage_container']/div[2]/div[1]/div/div[1]/div[4]/div[1]/div/div[6]/center/button")
+    @FindBy(id = "search_room_btn_13")
     private WebElement serachRoomButton;
 
+    @FindBy(id = "search_room_btn_25")
+    private WebElement serachRoomButton2;
+
+    @FindBy(id = "search_room_btn_8")
+    private WebElement serachRoomButton3;
+
+
+    public void ensureSerachRoomButton3IsClickable() {
+        (new WebDriverWait(driver, 10))
+                .until(ExpectedConditions.elementToBeClickable(serachRoomButton3));
+    }
+
+    public void ensureSerachRoomButton2IsClickable() {
+        (new WebDriverWait(driver, 10))
+                .until(ExpectedConditions.elementToBeClickable(serachRoomButton2));
+    }
 
 
     public void ensureSerachRoomButtonIsClickable() {
