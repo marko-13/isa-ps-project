@@ -118,6 +118,7 @@ class ModifyMedicalReport extends Component {
 		console.log(this.state.newMedicalReport);
 		if (this.props.addNew && this.props.editMedicalHistory === undefined) {
 			console.log("Valjda je ovde usao");
+			console.log(this.state.newMedicalReport);
 			axios.post('/medical-reports/add', this.state.newMedicalReport)
         	.then(rsp => {
                 console.log(rsp);
@@ -134,7 +135,8 @@ class ModifyMedicalReport extends Component {
 		} else if (this.props.addNew) {
 			//Proveri ovde kada saljes ako nije nista u medical reportu da ne prijavljuje to kao add, nego kao null
             //let firstSuccess = false
-            console.log("ili pak ovde");
+			console.log("ili pak ovde");
+			console.log(this.state.newMedicalReport);
             if (this.state.newMedicalReport.examDescription !== '' || this.state.newMedicalReport.selectedDiagnosis.length !== 0 || this.state.newMedicalReport.selectedDrugs.length !== 0) {
 	            axios.post('/medical-reports/add', this.state.newMedicalReport)
 	        	.then(rsp => {
@@ -165,7 +167,7 @@ class ModifyMedicalReport extends Component {
 	            	this.props.back();
 	            });
         	} else {
-        		axios.post('/doctor/finish-exam/' + this.state.patientId, this.state.editMedicalHistory)
+        		axios.post('/doctor/finish-exam/' + this.state.patientId, this.props.editMedicalHistory)
 			        	.then(rsp => {
 			                console.log(rsp);
 							alert('Successfuly finished examination');
