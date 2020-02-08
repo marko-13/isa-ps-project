@@ -19,7 +19,9 @@ class MedicalReport extends Component {
 		isModalOpen: false,
 		hasAuthority: false,
 		displayFirst: true,
-		displaySecond: false
+		displaySecond: false,
+		diagnosisRegistryAll: [],
+        drugsRegistryAll: []
 	}
 
 	componentDidMount() {
@@ -36,6 +38,17 @@ class MedicalReport extends Component {
             this.setState({medicalReport: this.props.medicalReport});
             console.log("POSLANO OD PROPSA");
             console.log(this.props.medicalReport);
+
+            axios.get('/admin-clinic-center/diagnosis/get-all-diagnosis')
+            .then(diagnosisRegistry => {
+                this.setState({diagnosisRegistryAll: diagnosisRegistry.data});
+            })
+            .catch(err => console.log(err));
+
+            axios.get('/admin-clinic-center/drugs/get-all-drugs')
+                .then(drugsRegistry => {
+                    this.setState({drugsRegistryAll: drugsRegistry.data})})
+                .catch(err => console.log(err));
 		}
 	}
 
@@ -166,14 +179,14 @@ class MedicalReport extends Component {
 			                </div>
 			            </div>
 			            <div style={{display: displaySecond}}>
-			            	<ModifyMedicalReport data = {this.props.medicalReport} back = {() => this.onClickBack()} addNew = {false}/>
+			            	<ModifyMedicalReport data = {this.props.medicalReport} back = {() => this.onClickBack()} addNew = {false} drugsRegistryAll = {this.state.drugsRegistryAll} diagnosisRegistryAll = {this.state.diagnosisRegistryAll}/>
 			            </div>
 	                </Auxiliary>
 	    			);
 	    	} else {
 	    		content = (
 	    			<Auxiliary>
-		    			<ModifyMedicalReport data = {null} back = {this.props.back} addNew = {true} examId = {this.props.examId}/>
+		    			<ModifyMedicalReport data = {null} back = {this.props.back} addNew = {true} examId = {this.props.examId} drugsRegistryAll = {this.state.drugsRegistryAll} diagnosisRegistryAll = {this.state.diagnosisRegistryAll}/>
 	    			</Auxiliary>
 	    		);
 	    	}
