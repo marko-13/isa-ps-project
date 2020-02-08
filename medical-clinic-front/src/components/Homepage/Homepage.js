@@ -67,7 +67,7 @@ const Homepage = (props) => {
                                 <UserCard buttonText={"Work schedule"} cardText={"Shows work schedule"} link = {'/homepage/nurse/workschedule'}/>
                                 <UserCard buttonText={"Validate perscriptions"} cardText={"Shows a list of perscriptions that need to be validated"}  link ={'/homepage/nurse/prescriptions'}/>
                                 <UserCard buttonText={"List of patients"} cardText={"Shows a list of patients"} link={'/homepage/nurse/patients'} />
-                                <UserCard buttonText={"Ask for leave of absence"} cardText={"Shows form for leave of absence"}  link ={'/homepage/patient/clinics'}/>
+                                <UserCard buttonText={"Ask for leave of absence"} cardText={"Shows form for leave of absence"}  link ={'/homepage/nurse/leave'}/>
                             </UserCards>
                         </Auxiliary>
                     );
