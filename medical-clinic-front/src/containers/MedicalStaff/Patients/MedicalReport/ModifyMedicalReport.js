@@ -32,11 +32,12 @@ class ModifyMedicalReport extends Component {
 		refresh: true,
 		examID: null,
 		editMedicalHistory: null,
-		patientId: null
+		patientId: null,
+		medicalReportId: null
 	}
 
 	componentDidMount() {
-		axios.get('/admin-clinic-center/diagnosis/get-all-diagnosis')
+		/*axios.get('/admin-clinic-center/diagnosis/get-all-diagnosis')
 			.then(diagnosisRegistry => {
 				this.setState({diagnosisRegistryAll: diagnosisRegistry.data})})
 			.catch(err => console.log(err));
@@ -44,7 +45,7 @@ class ModifyMedicalReport extends Component {
 		axios.get('/admin-clinic-center/drugs/get-all-drugs')
 			.then(drugsRegistry => {
 				this.setState({drugsRegistryAll: drugsRegistry.data})})
-			.catch(err => console.log(err));
+			.catch(err => console.log(err));*/
 
 		console.log(this.props);
 	}
@@ -62,6 +63,10 @@ class ModifyMedicalReport extends Component {
 				selectedDrugsList.push('select-'+ nextProps.data.prescription.drugs[i].id);
 			}
 
+			console.log("ged derived state from props");
+			console.log(nextProps);
+			console.log(nextProps.diagnosisRegistryAll);
+			console.log("Iznad gledaj");
 			var newMedicalReport = {...prevState.newMedicalReport};
 			newMedicalReport.medicalReportID = nextProps.data.id;
 			newMedicalReport.examDescription = nextProps.data.examDescription;
@@ -76,8 +81,11 @@ class ModifyMedicalReport extends Component {
 				diagnosisRegistry: nextProps.data.diagnosisRegistry,
 				prescription: nextProps.data.prescription,
 				selectedDiagnosis: selectedDiagnosisList,
+				diagnosisRegistryAll: nextProps.diagnosisRegistryAll,
+				drugsRegistryAll: nextProps.drugsRegistryAll,
 				selectedDrugs: selectedDrugsList,
 				newMedicalReport: newMedicalReport,
+				medicalReportId: nextProps.data.id,
 				refresh: false
 			}
 		} else if (((nextProps.examId !== prevState.examID) || (prevState.refresh && nextProps.addNew))) {
@@ -90,11 +98,10 @@ class ModifyMedicalReport extends Component {
 			return {
 				dataProps: nextProps.data,
 				id: null,
-				examDescription: '',
 				diagnosisRegistry: [],
 				prescription: null,
-				selectedDiagnosis: [],
-				selectedDrugs: [],
+				diagnosisRegistryAll: nextProps.diagnosisRegistryAll,
+				drugsRegistryAll: nextProps.drugsRegistryAll,
 				newMedicalReport: newMedicalReport,
 				refresh: false,
 				examID: nextProps.examId,
@@ -110,6 +117,7 @@ class ModifyMedicalReport extends Component {
 		event.preventDefault();
 		console.log(this.state.newMedicalReport);
 		if (this.props.addNew && this.props.editMedicalHistory === undefined) {
+			console.log("Valjda je ovde usao");
 			axios.post('/medical-reports/add', this.state.newMedicalReport)
         	.then(rsp => {
                 console.log(rsp);
@@ -126,7 +134,7 @@ class ModifyMedicalReport extends Component {
 		} else if (this.props.addNew) {
 			//Proveri ovde kada saljes ako nije nista u medical reportu da ne prijavljuje to kao add, nego kao null
             //let firstSuccess = false
-
+            console.log("ili pak ovde");
             if (this.state.newMedicalReport.examDescription !== '' || this.state.newMedicalReport.selectedDiagnosis.length !== 0 || this.state.newMedicalReport.selectedDrugs.length !== 0) {
 	            axios.post('/medical-reports/add', this.state.newMedicalReport)
 	        	.then(rsp => {
@@ -177,14 +185,24 @@ class ModifyMedicalReport extends Component {
         	}
 
 		} else {
-			axios.post('/medical-reports/modify', this.state.newMedicalReport)
+			let newMR = this.state.newMedicalReport;
+			newMR.medicalReportID = this.state.medicalReportId;
+			newMR.examDescription = this.state.examDescription;
+			newMR.selectedDrugs = this.convert2id(this.state.selectedDrugs);
+			newMR.selectedDiagnosis = this.convert2id(this.state.selectedDiagnosis);
+			console.log(this.state);
+			console.log(newMR);
+			axios.post('/medical-reports/modify', newMR)
 	        	.then(rsp => {
 	                console.log(rsp);
+	                //OTKOMENTARISI ALERT I WINDOW.LOCATION.RELOAD 8.2.2020 3.04 ujutru
 	                alert('Successfuly modified medical report');
 	                window.location.reload();
 	                //this.props.back();
 	            })
 	            .catch(err => {
+
+	            	//OTKOMENTARISI ALERT I THIS PROPS BACK 8.2.2020. 2.55 ujutru
 	            	console.log(err);
 	            	alert('Unable to modify medical report.\nReason: ' + err.response.data)
 	            	this.setState({refresh: true});
@@ -192,6 +210,34 @@ class ModifyMedicalReport extends Component {
 	            });
         }
 	} 
+
+	convert2id = (selectList) => {
+		var list = [];
+		if (selectList.length !== 0){
+			for (var i = 0; i < selectList.length; i++) {
+				let num = parseInt(selectList[i].split("-")[1]);
+				list.push(num);
+			}
+
+			return list;
+		} else {
+			return list;
+		}
+	}
+
+	convert2select = (idList) => {
+		var list = [];
+		if (idList.length !== 0){
+			for (var i = 0; i < idList.length; i++) {
+				let str = "select-" + idList[i];
+				list.push(str);
+			}
+
+			return list;
+		} else {
+			return list;
+		}
+	}
 
 	onBack = (event) => {
 		event.preventDefault();
@@ -203,21 +249,28 @@ class ModifyMedicalReport extends Component {
 		var newMedicalReport = {...this.state.newMedicalReport};
 		newMedicalReport.examDescription = event.target.value;
 		this.setState({newMedicalReport: newMedicalReport});
+		this.setState({examDescription: event.target.value});
 	}
 
 	handlerSelectedDiagnosis = (event) => {
 		var newMedicalReport = {...this.state.newMedicalReport};
+		let selected = this.convert2select(event);
 		newMedicalReport.selectedDiagnosis = event;
 		this.setState({newMedicalReport: newMedicalReport});
+		this.setState({selectedDiagnosis: selected});
 	}
 
 	handlerSelectedDrugs = (event) => {
 		var newMedicalReport = {...this.state.newMedicalReport};
+		let selected = this.convert2select(event);
 		newMedicalReport.selectedDrugs = event;
 		this.setState({newMedicalReport: newMedicalReport});
+		this.setState({selectedDrugs: selected});
 	}
 
 	render () {
+		console.log("Sta se ovde desava??????????");
+		console.log(this.state);
 		let content = null;
 		let displayButton = 'block';
 
@@ -241,7 +294,10 @@ class ModifyMedicalReport extends Component {
                     ]
         }];
 
-		if (this.props.data !== undefined) {
+        console.log("Pre ulaska");
+        console.log(this.props.drugsRegistryAll);
+
+		if (this.props.data !== undefined && this.props.drugsRegistryAll !== undefined) {
 			if(this.props.isStartExam) {
 				displayButton = 'none';
 			}
@@ -256,7 +312,7 @@ class ModifyMedicalReport extends Component {
 	                    	<label className = 'label' style={{fontWeight: 'bold'}}>Exam description</label>
 	                        <textarea
 	                        	className="form-control"
-	                            value={this.state.newMedicalReport.examDescription}
+	                            value={this.state.examDescription}
 	                            onChange={(event) => this.onChangeTextAreaHandler(event)}
 	                        />
 	                    </div>
