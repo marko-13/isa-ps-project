@@ -304,7 +304,7 @@ class OperationRooms extends Component {
                     {
                         Header: "",
                         Cell: ({ original }) => (
-                            <center><Button type='green' click={() => this.showScheduleHandler(original)}>Show calendar</Button></center>),
+                            <center><Button id={"show_room_calendar_" + original.roomId} type='green' click={() => this.showScheduleHandler(original)}>Show calendar</Button></center>),
                         filterable: false,
                         sortable: false
                     },

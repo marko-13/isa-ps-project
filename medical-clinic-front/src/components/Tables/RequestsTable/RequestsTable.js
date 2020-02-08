@@ -102,7 +102,7 @@ class RequestsTable extends Component {
                     {
                         Header: "",
                         Cell: ({ original }) => (
-                            <center><Button type='green' click={() => this.onClickHandler(original)}>Search room</Button></center>),
+                            <center><Button id={"search_room_btn_" + original.id} type='green' click={() => this.onClickHandler(original)}>Search room</Button></center>),
                         filterable: false,
                         sortable: false
                     }]

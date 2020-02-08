@@ -220,7 +220,7 @@ submitReservation(evt) {
     {
       Header: "",
       Cell: ({ original }) => (
-          <center><Button type='green' click={() => this.selectClinicFastHandler(original)}>Fast exams</Button></center>),
+          <center><Button id={"fast_exam_button_" + original.id} type='green' click={() => this.selectClinicFastHandler(original)}>Fast exams</Button></center>),
       filterable: false,
       sortable: false
     }]
@@ -276,7 +276,7 @@ submitReservation(evt) {
       {
         Header: "",
         Cell: ({ original }) => (
-            <center><Button type='green' click={() => this.selectFastExamHandler(original)}>Schedule</Button></center>),
+            <center><Button id={"schedule_fast_appointment_button_" + original.id} type='green' click={() => this.selectFastExamHandler(original)}>Schedule</Button></center>),
         filterable: false,
         sortable: false
       }]
@@ -305,7 +305,7 @@ submitReservation(evt) {
     {
       Header: "",
       Cell: ({ original }) => (
-          <center><Button type='green' click={() => this.selectClinicHandler(original)}>Select</Button></center>),
+          <center><Button id={"select_clinic_" + original.id + "_button"} type='green' click={() => this.selectClinicHandler(original)}>Select</Button></center>),
       filterable: false,
       sortable: false
     }]
@@ -327,7 +327,7 @@ submitReservation(evt) {
         <div class="container">
           <div class = "row">
             {/*OVO JE DIV ZA REACT TABLE SA LISTOM SVIH KLINIKA */}
-            <div class = "col-sm-7 col-md-7 col-lg-7" style={{height: 'calc(100vh - 100px)', width: '50%'}}>
+            <div id="inspect_clinics_allClinics_table" class = "col-sm-7 col-md-7 col-lg-7" style={{height: 'calc(100vh - 100px)', width: '50%'}}>
               {<ReactTable data={this.state.clinics}
                 pageSize={(this.state.clinics.length > 10) ? 10 : this.state.clinics.length}
                 columns={columns}
@@ -335,12 +335,12 @@ submitReservation(evt) {
             </div>
 
             {/*OVO JE DIV ZA FORMU ZA PRETRAGU PO DATUMU I TIPU PREGLEDA i opciono lokacija klinike i ocena*/}
-            <div class = "col-sm-5 col-md-5 col-lg-5" style={{height: 'calc(100vh - 100px)', width: '50%'}}>
+            <div id='inspect_clinics_appointment_form' class = "col-sm-5 col-md-5 col-lg-5" style={{height: 'calc(100vh - 100px)', width: '50%'}}>
               <form>
                 {/*TYPEAHEAD ZA ODABIR SERVISA*/}
                 <div class = "form-group">
                   <h5>Select a service</h5>
-                  <Typeahead id = "my_typeahead" placeholder="Choose a service..." onChange={(selected) => {
+                  <Typeahead id = "patient_typeahed_service" placeholder="Choose a service..." onChange={(selected) => {
                       if(selected[0] !== null && selected[0] !== undefined){
                         console.log(selected[0].id)
                         this.setState({selected_service : selected[0].id})
@@ -355,6 +355,7 @@ submitReservation(evt) {
                 <div class = "form-group">
                   <h5>Select desired date for appointment</h5>
                   <DatePicker
+                    id="inspect_clinics_datepicker"
                     class="form-control"
                     selected={this.state.selected_date}
                     onChange={this.handleChange}
@@ -364,11 +365,11 @@ submitReservation(evt) {
                 {/*OVO JE DIV ZA MINIMALNU OCENU*/}
                 <div class = "form-group">
                   <h5>Input min clinic score(optional)</h5>
-                  <input type="number" class="form-control" onChange={this.handleInputChange} placeholder="Input min score..."/>
+                  <input id="input_clinic_score" type="number" class="form-control" onChange={this.handleInputChange} placeholder="Input min score..."/>
                 </div>
 
                 {/*BUTTON TO PERFORM SEARCH - SHOULD RETURN SELECT FOR DOCTORS AND TIMES*/}
-                <Button type="green" click={evt => this.submitSearch(evt)}>Submit</Button>
+                <Button id='inspect_clinics_search_submit' type="green" click={evt => this.submitSearch(evt)}>Submit</Button>
               </form>
             </div>
 
@@ -403,7 +404,7 @@ submitReservation(evt) {
               {/*SELECT EXAMINATION TIME*/}
               <div className = "form-group col-md-6">
                 <h5>Select time</h5>
-                <DatePicker selected={this.state.exam_time} onChange={this.handleChangeTime}
+                <DatePicker id="inspect_clinics_select_time" selected={this.state.exam_time} onChange={this.handleChangeTime}
                 showTimeSelect showTimeSelectOnly timeIntervals={30} timeCaption="Time"
                 dateFormat="h:mm aa" placeholderText="Select time"/>
               </div>
@@ -424,7 +425,7 @@ submitReservation(evt) {
           </div>
 
           {/*BUTTON TO PERFORM RESERVATION*/}
-          <Button type="green" style = {{}} click={evt => this.submitReservation(evt)}>Reserve</Button>
+          <Button id="inspect_clinics_reserve_button" type="green" style = {{}} click={evt => this.submitReservation(evt)}>Reserve</Button>
         </form>
       );
     }
