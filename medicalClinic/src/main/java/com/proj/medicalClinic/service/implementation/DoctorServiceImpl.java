@@ -498,8 +498,13 @@ public class DoctorServiceImpl implements DoctorService {
 
             if (appointmentId != 0) {
                 Appointment appointment = appointmentRepository.findById(appointmentId).orElseThrow(() -> new NotExistsException("Operation not found"));
-                Operation op = (Operation) appointment;
-                doctorDTO = new DoctorDTO(doctorRepository.findByOperations(op));
+                if (appointment instanceof Operation) {
+                    Operation op = (Operation) appointment;
+                    doctorDTO = new DoctorDTO(doctorRepository.findByOperations(op));
+                } else {
+                    Examination ex = (Examination) appointment;
+                    doctorDTO = new DoctorDTO(doctorRepository.findByExaminations(ex));
+                }
                 return doctorDTO;
             } else {
                 return doctorDTO;
