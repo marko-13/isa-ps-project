@@ -422,6 +422,8 @@ public class DoctorServiceImpl implements DoctorService {
     @Override
     public List<DoctorDTO> getAllAvailableForDate(AppointmentRequestDTO appointmentRequestDTO) {
 
+        System.out.println("ALOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+
         Appointment appointment;
         Clinic clinic;
         List<Doctor> doctors;

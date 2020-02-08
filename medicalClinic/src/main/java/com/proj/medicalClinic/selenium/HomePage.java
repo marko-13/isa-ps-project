@@ -28,6 +28,15 @@ public class HomePage {
     @FindBy(xpath = "//button[text()='Inspect clinics']")
     private WebElement inspectClinicsButton;
 
+    @FindBy(xpath = "//*[@id='user_homepage_container']/div[1]/div[2]/div/div/div[6]/div/div/a/button")
+    private WebElement showRequestsButton;
+
+
+    public void ensureRequestButtonIsClickable() {
+        (new WebDriverWait(driver, 10))
+                .until(ExpectedConditions.elementToBeClickable(showRequestsButton));
+    }
+
     public void ensureInspectClinicsButtonIsClickable() {
         (new WebDriverWait(driver, 10))
                 .until(ExpectedConditions.elementToBeClickable(inspectClinicsButton));

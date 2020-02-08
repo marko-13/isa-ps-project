@@ -220,7 +220,7 @@ submitReservation(evt) {
     {
       Header: "",
       Cell: ({ original }) => (
-          <center><Button type='green' click={() => this.selectClinicFastHandler(original)}>Fast exams</Button></center>),
+          <center><Button id={"fast_exam_button_" + original.id} type='green' click={() => this.selectClinicFastHandler(original)}>Fast exams</Button></center>),
       filterable: false,
       sortable: false
     }]
@@ -276,7 +276,7 @@ submitReservation(evt) {
       {
         Header: "",
         Cell: ({ original }) => (
-            <center><Button type='green' click={() => this.selectFastExamHandler(original)}>Schedule</Button></center>),
+            <center><Button id={"schedule_fast_appointment_button_" + original.id} type='green' click={() => this.selectFastExamHandler(original)}>Schedule</Button></center>),
         filterable: false,
         sortable: false
       }]
@@ -365,7 +365,7 @@ submitReservation(evt) {
                 {/*OVO JE DIV ZA MINIMALNU OCENU*/}
                 <div class = "form-group">
                   <h5>Input min clinic score(optional)</h5>
-                  <input type="number" class="form-control" onChange={this.handleInputChange} placeholder="Input min score..."/>
+                  <input id="input_clinic_score" type="number" class="form-control" onChange={this.handleInputChange} placeholder="Input min score..."/>
                 </div>
 
                 {/*BUTTON TO PERFORM SEARCH - SHOULD RETURN SELECT FOR DOCTORS AND TIMES*/}
@@ -404,7 +404,7 @@ submitReservation(evt) {
               {/*SELECT EXAMINATION TIME*/}
               <div className = "form-group col-md-6">
                 <h5>Select time</h5>
-                <DatePicker selected={this.state.exam_time} onChange={this.handleChangeTime}
+                <DatePicker id="inspect_clinics_select_time" selected={this.state.exam_time} onChange={this.handleChangeTime}
                 showTimeSelect showTimeSelectOnly timeIntervals={30} timeCaption="Time"
                 dateFormat="h:mm aa" placeholderText="Select time"/>
               </div>

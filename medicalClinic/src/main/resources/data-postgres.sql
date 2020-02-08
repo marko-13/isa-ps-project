@@ -220,7 +220,7 @@ insert into doctors_examinations(doctor_id, examination_id)
 values (6, 6);
 
 insert into doctors_examinations(doctor_id, examination_id)
-values (4, 19);
+values (12, 19);
 
 insert into doctors_examinations(doctor_id, examination_id)
 values (6, 20);
