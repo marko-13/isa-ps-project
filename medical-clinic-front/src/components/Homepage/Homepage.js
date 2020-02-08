@@ -76,7 +76,7 @@ const Homepage = (props) => {
                         <Route path='/homepage/nurse/workschedule' component={WorkSchedule}></Route>
                         <Route path='/homepage/nurse/prescriptions' component={Prescriptions}></Route>
                         <Route path='/homepage/nurse/patients' component={Patients}></Route>
-                        <Route path='/homepage/patient/clinics' component={null}></Route>
+                        <Route path='/homepage/nurse/leave' component={null}></Route>
                         <Route path='/homepage/start-exam' component={StartExam} />
                       </Auxiliary>
                     );
