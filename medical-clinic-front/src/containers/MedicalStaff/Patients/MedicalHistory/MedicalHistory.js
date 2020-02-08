@@ -190,8 +190,8 @@ class MedicalHistory extends Component {
                                 this.setState({isModalOpen : true});
                                 this.setState({medicalReport: original.medicalReport});
                                 this.setState({examId: original.id});
-                                console.log("Prosledjeno u stanje");
-                                console.log(this.state.medicalReport);
+                                console.log("USEPO");
+                                console.log(this.state.diagnosisRegistryAll);
                             }
                         }>
                                 See report
