@@ -184,7 +184,7 @@ class OperationRooms extends Component {
     onSearchHandler = () => {
         const date = new Date(this.state.startDate);
         const milisecs = {
-            milisecs: date.getTime()
+            start: date.getTime()
         };
 
         const query = new URLSearchParams(this.props.location.search);
@@ -199,6 +199,7 @@ class OperationRooms extends Component {
             exam[param[0]] = param[1];
         }
 
+
         axios.post("/operationRoom/getAllAvailable", milisecs)
             .then(res => {
                 let data = [];
@@ -207,10 +208,13 @@ class OperationRooms extends Component {
                         if(res.data[i].name === 'Ordinacija') {
                             data.push(res.data[i]);
                         }
-                    } else {
+                    } else if(exam.type === 'OP') {
                         if(res.data[i].name === 'Operaciona sala') {
                             data.push(res.data[i]);
                         }
+                    }else if(exam.type === ''){
+                        console.log(res.data);
+                        data.push(res.data[i]);
                     }
                 }
                 this.setState({ operationRooms: data });
@@ -250,7 +254,6 @@ class OperationRooms extends Component {
             pathname: this.props.match.path,
             search: '?' + queryString
         });
-
 
         axios.post("/operationRoom/getAllAvailable", milisecs)
             .then(res => {

@@ -217,7 +217,10 @@ class RoomAppointments extends Component {
                 exam[param[0]] = param[1];
         }
 
-        let appDate = null;
+        let appDate = {
+            start: '',
+            appId: ''
+        }
 
         let events = this.props.appointments.map(app => {
 
