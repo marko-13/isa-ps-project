@@ -17,12 +17,15 @@ class StartExam extends Component {
 		isDoctor: false,
 		isAllowed: false,
 		isSecond: false,
-		patientId: null
+		patientId: null,
+		diagnosisRegistryAll: [],
+		drugsRegistryAll: []
 	}
 
 	startExamination = () => {
 		let number = parseInt(this.props.location.search.split("=")[1]);
 		this.setState({patientId: number});
+		console.log(number);
 		axios.post('doctor/start-exam/' + number)
             .then(rsp => {
                 this.setState({data: rsp.data});
@@ -35,6 +38,17 @@ class StartExam extends Component {
                 console.log(err);
             });
 
+        axios.get('/admin-clinic-center/diagnosis/get-all-diagnosis')
+	        .then(diagnosisRegistry => {
+	            this.setState({diagnosisRegistryAll: diagnosisRegistry.data});
+	        })
+	        .catch(err => console.log(err));
+
+        axios.get('/admin-clinic-center/drugs/get-all-drugs')
+            .then(drugsRegistry => {
+                this.setState({drugsRegistryAll: drugsRegistry.data})})
+            .catch(err => console.log(err));
+
 	}
 
 	componentDidMount() {
@@ -43,6 +57,7 @@ class StartExam extends Component {
         let passChanged = decodedToken.passChanged;
         let role = decodedToken.role.toLowerCase();
         if(role === 'doctor'){
+        	console.log("usao ovde u start exam");
         	this.startExamination();
         	this.setState({isDoctor: true});
         }
@@ -156,7 +171,7 @@ class StartExam extends Component {
 				                    <Button type='black' click = {() => this.onHandlerNext()} style={{marginRight: '1%'}}>Next</Button>
 								</div>
 								<div style={{display: displaySecond}}>
-									<ModifyMedicalReport data = {null} back = {() => this.onHandlerBack()} addNew = {true} examId = {this.state.data.examID} editMedicalHistory = {this.state.data} patientId = {this.state.patientId} isStartExam = {true}/>
+									<ModifyMedicalReport data = {null} back = {() => this.onHandlerBack()} addNew = {true} examId = {this.state.data.examID} editMedicalHistory = {this.state.data} patientId = {this.state.patientId} isStartExam = {true} drugsRegistryAll = {this.state.drugsRegistryAll} diagnosisRegistryAll = {this.state.diagnosisRegistryAll}/>
 								</div>
 							</div>
 						</Auxiliary>
