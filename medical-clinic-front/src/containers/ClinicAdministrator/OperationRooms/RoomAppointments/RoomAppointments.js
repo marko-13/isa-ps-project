@@ -175,7 +175,7 @@ class RoomAppointments extends Component {
             if (!(currentTime >= app.date && (currentTime <= app.date + (app.duration * 60000)))) {
                 this.setState({ firstAvailable: moment(currentTime).format("DD-MM-YYYY hh:mm") })
             } else {
-                this.setState({ firstAvailable: moment(app.date + (app.duration * 60000).format("DD-MMM-YYYY hh:mm")) })
+                this.setState({ firstAvailable: moment(app.date + (app.duration * 60000)).format("DD-MMM-YYYY hh:mm") })
             }
         });
 
