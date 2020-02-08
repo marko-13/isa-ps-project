@@ -37,13 +37,21 @@ class ShowMedicalStaff extends Component{
       id: 'lastName',
       Header: 'Last name',
       accessor: d=> d.lastName
+    },
+    {
+      id: 'email',
+      Header: 'Email',
+      accessor: d=> d.email
     }]
 
     return(
+      <div className="col-sm-8 col-md-8 col-lg-8 login-form-1" style={{marginBottom: '2.5%', marginTop: 'auto', marginLeft: 'auto', marginRight: 'auto', padding: '2.5%'}}>
+
         <ReactTable data={this.state.medicalStaff}
         pageSize={(this.state.medicalStaff.length > 10) ? 10 : this.state.medicalStaff.length}
         columns={columns}
         filterable = {true}/>
+      </div>
     );
   }
 }
