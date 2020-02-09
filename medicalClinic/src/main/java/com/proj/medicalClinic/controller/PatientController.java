@@ -17,7 +17,6 @@ import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping(value = "/patient", produces = MediaType.APPLICATION_JSON_VALUE)
 public class PatientController {
 
