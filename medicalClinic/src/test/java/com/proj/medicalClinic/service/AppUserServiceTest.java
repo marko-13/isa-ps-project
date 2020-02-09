@@ -25,6 +25,9 @@ public class AppUserServiceTest {
     @Autowired
     private AppUserService appUserService;
 
+    @Mock
+    private AppUserRepository appUserRepository;
+
 
     @Test(expected = NotExistsException.class)
     public void shouldThrowNotExistsExceptionWhenAppUserDoesNotExist(){
