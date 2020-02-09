@@ -38,6 +38,8 @@ Open cmd or terminal and navigate to medical-clinic-frontend folder. When opend 
 
 ## Deployment
 
+*Note* Because of the free Heroku version when accessing the website please wait approximately 15 seconds after first access and then refresh the page for the servers to wake up.
+
 [Deployment repo](to be added)
 [Heroku](to be added)
 
