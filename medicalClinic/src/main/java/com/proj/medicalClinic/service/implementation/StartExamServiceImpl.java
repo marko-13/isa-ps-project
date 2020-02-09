@@ -9,6 +9,7 @@ import com.proj.medicalClinic.service.StartExamService;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -18,6 +19,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
+@org.springframework.transaction.annotation.Transactional(propagation = Propagation.REQUIRES_NEW)
 public class StartExamServiceImpl implements StartExamService {
 
     @Autowired

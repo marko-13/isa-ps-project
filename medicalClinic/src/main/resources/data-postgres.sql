@@ -3,54 +3,54 @@ insert into clinical_center (name) values ('Clinical center');
 insert into clinical_center (name) values ('Clinical center 2');
 
 
-insert into clinic (address, description, name, review, clinical_center_id, review_count)
-values ('Bulevar Oslobodjenja 50', 'Jako lepa klinika', 'Svetlost', 25, 1, 7);
+insert into clinic (address, description, name, review, clinical_center_id, review_count, version)
+values ('Bulevar Oslobodjenja 50', 'Jako lepa klinika', 'Svetlost', 25, 1, 7, 0);
 
-insert into clinic (address, description, name, review, clinical_center_id, review_count)
-values ('Bulevar Oslobodjenja 80', 'Bjutiful amejzing', 'Zakuco', 32, 1, 7);
+insert into clinic (address, description, name, review, clinical_center_id, review_count, version)
+values ('Bulevar Oslobodjenja 80', 'Bjutiful amejzing', 'Zakuco', 32, 1, 7, 0);
 
-insert into clinic (address, description, name, review, clinical_center_id, review_count)
-values ('Groblje 10', 'Ne toliko sjajna klinika', 'Krematorijum', 6, 1, 2);
+insert into clinic (address, description, name, review, clinical_center_id, review_count, version)
+values ('Groblje 10', 'Ne toliko sjajna klinika', 'Krematorijum', 6, 1, 2, 0);
 
-insert into clinic (address, description, name, review, clinical_center_id, review_count)
-values ('Sajlovo 1', 'Super', 'Svetlost Paralelna', 5, 2, 2);
+insert into clinic (address, description, name, review, clinical_center_id, review_count, version)
+values ('Sajlovo 1', 'Super', 'Svetlost Paralelna', 5, 2, 2, 0);
 
 
-insert into app_user (type, user_role, email, password, name, last_name, JMBG, enabled, adress, city, state, mobile, rejected, deleted, last_password_reset_date, enabled_patient)
-values ('P', 'PATIENT', 'Miljana@mailinator.com', '$2a$10$hMz0Q7JhystsRnek6D3bLO5mRGU2yPril7EVfLkeqwAUh0JWQYabq', 'Miljana', 'Vlahovic', '1710463172556', true, 'Adresa1', 'Grad1', 'Drzava1', '111', false, false, '2020-01-10 19:43:44.503', true);
+insert into app_user (type, user_role, email, password, name, last_name, JMBG, enabled, adress, city, state, mobile, rejected, deleted, last_password_reset_date, enabled_patient, version)
+values ('P', 'PATIENT', 'Miljana@mailinator.com', '$2a$10$hMz0Q7JhystsRnek6D3bLO5mRGU2yPril7EVfLkeqwAUh0JWQYabq', 'Miljana', 'Vlahovic', '1710463172556', true, 'Adresa1', 'Grad1', 'Drzava1', '111', false, false, '2020-01-10 19:43:44.503', true, 0);
 
-insert into app_user (type, user_role, email, password, name, last_name, JMBG, enabled, adress, city, state, mobile, rejected, deleted, last_password_reset_date, enabled_patient)
-values ('P', 'PATIENT', 'Vlatko@mailinator.com', '$2a$10$oJ4.32dhcYqQAWcqlGYUW.rMBIO3fyhHnyLD4rtnrEKlUqisRexda', 'Vlatko', 'Tomcic', '8773483494930', false, 'Adresa2', 'Grad2', 'Drzava2', '222', false, false, '2020-01-10 19:43:44.503', false);
+insert into app_user (type, user_role, email, password, name, last_name, JMBG, enabled, adress, city, state, mobile, rejected, deleted, last_password_reset_date, enabled_patient, version)
+values ('P', 'PATIENT', 'Vlatko@mailinator.com', '$2a$10$oJ4.32dhcYqQAWcqlGYUW.rMBIO3fyhHnyLD4rtnrEKlUqisRexda', 'Vlatko', 'Tomcic', '8773483494930', false, 'Adresa2', 'Grad2', 'Drzava2', '222', false, false, '2020-01-10 19:43:44.503', false, 0);
 
-insert into app_user (type, user_role, email, password, name, last_name, JMBG, enabled, adress, city, state, mobile, rejected, deleted, last_password_reset_date, enabled_patient)
-values ('P', 'PATIENT', 'Frustuk@mailinator.com', '$2a$10$eZFvWClzdfGfgvmKDjEmvewURZTW0Hl26OH0GH9eUdosD9RVqgchq', 'Frustuk', 'Jeltako', '0881736727645', false, 'Adresa3', 'Grad3', 'Drzava3', '333', false, false, '2020-01-10 19:43:44.503', false);
+insert into app_user (type, user_role, email, password, name, last_name, JMBG, enabled, adress, city, state, mobile, rejected, deleted, last_password_reset_date, enabled_patient, version)
+values ('P', 'PATIENT', 'Frustuk@mailinator.com', '$2a$10$eZFvWClzdfGfgvmKDjEmvewURZTW0Hl26OH0GH9eUdosD9RVqgchq', 'Frustuk', 'Jeltako', '0881736727645', false, 'Adresa3', 'Grad3', 'Drzava3', '333', false, false, '2020-01-10 19:43:44.503', false, 0);
 
-insert into app_user (type, user_role, email, password, name, last_name, review, shift, review_count, enabled, adress, city, state, mobile, rejected, deleted, last_password_reset_date, enabled_patient, clinic_id)
-values ('DR', 'DOCTOR', 'Vladan@mailinator.com', '$2a$10$EcjftqmPpW.usBG8k4OMWOqEo9LA9QMBaEy8XFbZCNBY9oY..jd62', 'Vladan', 'Dragic', 9, 1, 2, true, 'Adresa4', 'Grad4', 'Drzava4', '444', false, false, '2020-01-10 19:43:44.503', true, 1);
+insert into app_user (type, user_role, email, password, name, last_name, review, shift, review_count, enabled, adress, city, state, mobile, rejected, deleted, last_password_reset_date, enabled_patient, clinic_id, version)
+values ('DR', 'DOCTOR', 'Vladan@mailinator.com', '$2a$10$EcjftqmPpW.usBG8k4OMWOqEo9LA9QMBaEy8XFbZCNBY9oY..jd62', 'Vladan', 'Dragic', 9, 1, 2, true, 'Adresa4', 'Grad4', 'Drzava4', '444', false, false, '2020-01-10 19:43:44.503', true, 1, 0);
 
-insert into app_user (type, user_role, email, password, name, last_name, review, shift, review_count, enabled, adress, city, state, mobile, rejected, deleted, last_password_reset_date, enabled_patient, clinic_id)
-values ('DR', 'DOCTOR', 'Dusko@mailinator.com', '$2y$10$XbVPhmbyDT28Yp6v8BMLCeLUpmS3FtHNWhUHCIieJ2oQT0MXuK.66', 'Dusko', 'Jovanovic', 56, 2, 15, true, 'Adresa5', 'Grad5', 'Drzava5', '555', false, false, '2020-01-10 19:43:44.503', true, 1);
+insert into app_user (type, user_role, email, password, name, last_name, review, shift, review_count, enabled, adress, city, state, mobile, rejected, deleted, last_password_reset_date, enabled_patient, clinic_id, version)
+values ('DR', 'DOCTOR', 'Dusko@mailinator.com', '$2y$10$XbVPhmbyDT28Yp6v8BMLCeLUpmS3FtHNWhUHCIieJ2oQT0MXuK.66', 'Dusko', 'Jovanovic', 56, 2, 15, true, 'Adresa5', 'Grad5', 'Drzava5', '555', false, false, '2020-01-10 19:43:44.503', true, 1, 0);
 
-insert into app_user (type, user_role, email, password, name, last_name, review, shift, review_count, enabled, adress, city, state, mobile, rejected, deleted, last_password_reset_date, enabled_patient, clinic_id)
-values ('DR', 'DOCTOR', 'Sara@mailinator.com', '$2a$10$IzuVyeH5cKEw5c17WO2H1OuLMKVN2.2FjjP8e3S.RyNvPNdqUSAKe', 'Sara', 'Loncar', 28, 3, 9, true, 'Adresa6', 'Grad6', 'Drzava6', '666', false, false, '2020-01-10 19:43:44.503', true, 1);
+insert into app_user (type, user_role, email, password, name, last_name, review, shift, review_count, enabled, adress, city, state, mobile, rejected, deleted, last_password_reset_date, enabled_patient, clinic_id, version)
+values ('DR', 'DOCTOR', 'Sara@mailinator.com', '$2a$10$IzuVyeH5cKEw5c17WO2H1OuLMKVN2.2FjjP8e3S.RyNvPNdqUSAKe', 'Sara', 'Loncar', 28, 3, 9, true, 'Adresa6', 'Grad6', 'Drzava6', '666', false, false, '2020-01-10 19:43:44.503', true, 1, 0);
 
-insert into app_user (type, user_role, email, password, name, last_name, shift, enabled, adress, city, state, mobile, rejected, deleted, last_password_reset_date, enabled_patient, clinic_id)
-values ('NR', 'NURSE', 'Sergej@mailinator.com', '$2a$10$Gd7bGnGZroF.ckbJDE1efu7C.tENXHDkS7CCNwV8IWKWTfSm/7Hx.', 'Sergej', 'Tomic', 1, true, 'Adresa7', 'Grad7', 'Drzava7', '777', false, false, '2020-01-10 19:43:44.503', true, 1);
+insert into app_user (type, user_role, email, password, name, last_name, shift, enabled, adress, city, state, mobile, rejected, deleted, last_password_reset_date, enabled_patient, clinic_id, version)
+values ('NR', 'NURSE', 'Sergej@mailinator.com', '$2a$10$Gd7bGnGZroF.ckbJDE1efu7C.tENXHDkS7CCNwV8IWKWTfSm/7Hx.', 'Sergej', 'Tomic', 1, true, 'Adresa7', 'Grad7', 'Drzava7', '777', false, false, '2020-01-10 19:43:44.503', true, 1, 0);
 
-insert into app_user (type, user_role, email, password, name, last_name, shift, enabled, adress, city, state, mobile, rejected, deleted, last_password_reset_date, enabled_patient, clinic_id)
-values ('NR', 'NURSE', 'Djordje@mailinator.com', '$2a$10$cnczzGv7KfqoDAXP.9UdnOfs6GRUH3MSFUb.Fd1FxUc2nxN9IMhte', 'Djordje', 'Jankovic', 2, true, 'Adresa8', 'Grad8', 'Drzava8', '888', false, false, '2020-01-10 19:43:44.503', true, 1);
+insert into app_user (type, user_role, email, password, name, last_name, shift, enabled, adress, city, state, mobile, rejected, deleted, last_password_reset_date, enabled_patient, clinic_id, version)
+values ('NR', 'NURSE', 'Djordje@mailinator.com', '$2a$10$cnczzGv7KfqoDAXP.9UdnOfs6GRUH3MSFUb.Fd1FxUc2nxN9IMhte', 'Djordje', 'Jankovic', 2, true, 'Adresa8', 'Grad8', 'Drzava8', '888', false, false, '2020-01-10 19:43:44.503', true, 1, 0);
 
-insert into app_user (type, user_role, email, password, name, last_name, shift, enabled, adress, city, state, mobile, rejected, deleted, last_password_reset_date, enabled_patient, clinic_id)
-values ('NR', 'NURSE', 'Nevena@mailinator.com', '$2a$10$cK5DzdYh6eVs7ZTW0uepRe6Rm00HaX.0o1E95JQCVq8FvSlh/IEa.', 'Nevena', 'Mihailovic', 3, true, 'Adresa9', 'Grad9', 'Drzava9', '999', false, false, '2020-01-10 19:43:44.503', true, 1);
+insert into app_user (type, user_role, email, password, name, last_name, shift, enabled, adress, city, state, mobile, rejected, deleted, last_password_reset_date, enabled_patient, clinic_id, version)
+values ('NR', 'NURSE', 'Nevena@mailinator.com', '$2a$10$cK5DzdYh6eVs7ZTW0uepRe6Rm00HaX.0o1E95JQCVq8FvSlh/IEa.', 'Nevena', 'Mihailovic', 3, true, 'Adresa9', 'Grad9', 'Drzava9', '999', false, false, '2020-01-10 19:43:44.503', true, 1, 0);
 
-insert into app_user (type, user_role, email, password, name, last_name, clinic_id, enabled, adress, city, state, mobile, rejected, deleted, last_password_reset_date, enabled_patient)
-values ('AC', 'ADMINCLINIC', 'Anastasija@mailinator.com', '$2a$10$nE7tHqDVIG5P6NcGPOgTk.a/KRMhDm0puU6PJjT3nH3dam2EnUKj2', 'Anastasija', 'Milosevic', 1, true, 'Adresa10', 'Grad10', 'Drzava10', '1010', false, false, '2020-01-10 19:43:44.503', true);
+insert into app_user (type, user_role, email, password, name, last_name, clinic_id, enabled, adress, city, state, mobile, rejected, deleted, last_password_reset_date, enabled_patient, version)
+values ('AC', 'ADMINCLINIC', 'Anastasija@mailinator.com', '$2a$10$nE7tHqDVIG5P6NcGPOgTk.a/KRMhDm0puU6PJjT3nH3dam2EnUKj2', 'Anastasija', 'Milosevic', 1, true, 'Adresa10', 'Grad10', 'Drzava10', '1010', false, false, '2020-01-10 19:43:44.503', true, 0);
 
-insert into app_user (type, user_role, email, password, name, last_name, clinical_center_id, enabled, adress, city, state, mobile, rejected,deleted, last_password_reset_date, enabled_patient)
-values ('ACC', 'ADMINCLINICALCENTER', 'Radoslav@mailinator.com', '$2a$10$PpuFaY9yRRdUj9l4lr7sueTutLXXWxlgGRomEFH2lNQRYhiGwlMmS', 'Radoslav', 'Brankovic', 1, true, 'Adresa11', 'Grad11', 'Drzava11', '1111', false, false, '2020-01-10 19:43:44.503', true);
+insert into app_user (type, user_role, email, password, name, last_name, clinical_center_id, enabled, adress, city, state, mobile, rejected,deleted, last_password_reset_date, enabled_patient, version)
+values ('ACC', 'ADMINCLINICALCENTER', 'Radoslav@mailinator.com', '$2a$10$PpuFaY9yRRdUj9l4lr7sueTutLXXWxlgGRomEFH2lNQRYhiGwlMmS', 'Radoslav', 'Brankovic', 1, true, 'Adresa11', 'Grad11', 'Drzava11', '1111', false, false, '2020-01-10 19:43:44.503', true, 0);
 
-insert into app_user (type, user_role, email, password, name, last_name, review, shift, review_count, enabled, adress, city, state, mobile, rejected, deleted, enabled_patient, clinic_id)
-values ('DR', 'DOCTOR', 'dervy97@gmail.com', '$2a$10$EcjftqmPpW.usBG8k4OMWOqEo9LA9QMBaEy8XFbZCNBY9oY..jd62', 'Boris', 'Zavis', 68, 1, 15, true, 'Omladinska 1', 'Kisac', 'Srbija', '123-123', false, false, true, 1);
+insert into app_user (type, user_role, email, password, name, last_name, review, shift, review_count, enabled, adress, city, state, mobile, rejected, deleted, enabled_patient, clinic_id, version)
+values ('DR', 'DOCTOR', 'dervy97@gmail.com', '$2a$10$EcjftqmPpW.usBG8k4OMWOqEo9LA9QMBaEy8XFbZCNBY9oY..jd62', 'Boris', 'Zavis', 68, 1, 15, true, 'Omladinska 1', 'Kisac', 'Srbija', '123-123', false, false, true, 1, 0);
 
 insert into clinics_patients (clinic_id, patient_id)
 values (1, 1);
@@ -95,114 +95,118 @@ values (12400, 'Detaljni pregled', false);
 
 
 
-insert into operation_room (name, number, clinic_id, deleted)
-values ('Operaciona sala', 108, 1, false);
+insert into operation_room (name, number, clinic_id, deleted, version)
+values ('Operaciona sala', 108, 1, false, 0);
 
-insert into operation_room (name, number, clinic_id, deleted)
-values ('Operaciona sala', 100, 1, false);
+insert into operation_room (name, number, clinic_id, deleted, version)
+values ('Operaciona sala', 100, 1, false, 0);
 
-insert into operation_room (name, number, clinic_id, deleted)
-values ('Ordinacija', 10, 1, false);
+insert into operation_room (name, number, clinic_id, deleted, version)
+values ('Ordinacija', 10, 1, false, 0);
 
-insert into operation_room (name, number, clinic_id, deleted)
-values ('Ordinacija', 15, 1, false);
+insert into operation_room (name, number, clinic_id, deleted, version)
+values ('Ordinacija', 15, 1, false, 0);
 
-insert into operation_room (name, number, clinic_id, deleted)
-values ('Operaciona sala', 211, 1, false);
+insert into operation_room (name, number, clinic_id, deleted, version)
+values ('Operaciona sala', 211, 1, false, 0);
+
+-- insert into operation_room (name, number, clinic_id, deleted, version)
+-- values ('Operaciona sala', 555333, 1, false, 0);
 
 
 
 
 
-insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed)
-values ('EX', '2019-12-10', 60, true, 1, 8, null, 1, 1, true, 2);
+insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed, version)
+values ('EX', '2019-12-10', 60, true, 1, 8, null, 1, 1, true, 2, 0);
 
-insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed)
-values ('EX', '2020-12-10', 60, true, 1, 9, null, 1, 1, false, 2);
+insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed, version)
+values ('EX', '2020-12-10', 60, true, 1, 9, null, 1, 1, false, 2, 0);
 
-insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed)
-values ('EX', '2019-9-12', 45, false, 1, 7, 1, 2, 2, true, 2);
+insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed, version)
+values ('EX', '2019-9-12', 45, false, 1, 7, 1, 2, 2, true, 2, 0);
 
-insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed)
-values ('OP', '2019-5-12', 120, false, 1, null, 2, 3, 3, true, 2);
+insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed, version)
+values ('OP', '2019-5-12', 120, false, 1, null, 2, 3, 3, true, 2, 0);
 
-insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed)
-values ('OP', '2019-1-12', 90, false, 1, null, 1, 2, 4, true, 2);
+insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed, version)
+values ('OP', '2019-1-12', 90, false, 1, null, 1, 2, 4, true, 2, 0);
 
-insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed)
-values ('EX', '2019-8-12', 50, false, 1, 7, 1, 2, 2, true, 2);
+insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed, version)
+values ('EX', '2019-8-12', 50, false, 1, 7, 1, 2, 2, true, 2, 0);
 
-insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed)
-values ('EX', '2019-7-12', 55, false, 1, 7, 2, 2, 2, true, 2);
+insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed, version)
+values ('EX', '2019-7-12', 55, false, 1, 7, 2, 2, 2, true, 2, 0);
 
-insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed)
-values ('EX', '2020-2-10', 160, false, 1, 8, 3, 4, null, true, 1);
+insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed, version)
+values ('EX', '2020-2-10', 160, false, 1, 8, 3, 4, null, true, 1, 0);
 
-insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed)
-values ('EX', '2020-2-11', 30, false, 1, 9, 3, 5, null, true, 1);
+insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed, version)
+values ('EX', '2020-2-11', 30, false, 1, 9, 3, 5, null, true, 1, 0);
 
-insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed)
-values ('EX', '2020-3-11 12:30', 30, false, 1, 9, 3, 5, null, false, 1);
+insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed, version)
+values ('EX', '2020-3-11 12:30', 30, false, 1, 9, 3, 5, null, false, 1, 0);
 
-insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed)
-values ('EX', '2020-3-12 15:30', 60, false, 1, 9, 2, 6, 5, true, 2);
+insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed, version)
+values ('EX', '2020-3-12 15:30', 60, false, 1, 9, 2, 6, 5, true, 2, 0);
 
-insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed)
-values ('EX', '2020-3-12 15:35', 60, false, 1, 7, 1, 6, null, false, 1);
+insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed, version)
+values ('EX', '2020-3-12 15:35', 60, false, 1, 7, 1, 6, null, false, 1, 0);
 
-insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed)
-values ('EX', '2020-5-10 16:30', 60, false, 1, 8, 1, 6, null, false, 1);
+insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed, version)
+values ('EX', '2020-5-10 16:30', 60, false, 1, 8, 1, 6, null, false, 1, 0);
 
-insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed)
-values ('EX', '2020-5-10 16:45', 60, false, 1, 9, 1, 1, 2, true, 2);
+insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed, version)
+values ('EX', '2020-5-10 16:45', 60, false, 1, 9, 1, 1, 2, true, 2, 0);
 
-insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed)
-values ('EX', '2020-5-10 16:55', 60, false, 1, 7, 2, 2, 3, true, 2);
+insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed, version)
+values ('EX', '2020-5-10 16:55', 60, false, 1, 7, 2, 2, 3, true, 2, 0);
 
-insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed)
-values ('EX', '2020-5-10 15:55', 60, false, 1, 8, 3, 3, 4, true, 2);
+insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed, version)
+values ('EX', '2020-5-10 15:55', 60, false, 1, 8, 3, 3, 4, true, 2, 0);
 
-insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed)
-values ('EX', '2020-5-10 15:45', 60, false, 1, 9, 2, 4, 5, true, 2);
+insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed, version)
+values ('EX', '2020-5-10 15:45', 60, false, 1, 9, 2, 4, 5, true, 2, 0);
 
-insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed)
-values ('EX', '2020-5-10 16:30', 60, false, 1, 7, 3, 5, 1, true, 2);
+insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed, version)
+values ('EX', '2020-5-10 16:30', 60, false, 1, 7, 3, 5, 1, true, 2, 0);
 
-insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed)
-values ('EX', '2020-5-15 16:30', 60, false, 1, 8, 3, 5, 1, true, 2);
+insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed, version)
+values ('EX', '2020-5-15 16:30', 60, false, 1, 8, 3, 5, 1, true, 2, 0);
 
-insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed)
-values ('EX', '2020-2-9', 30, false, 1, 7, 3, 5, null, false, 1);
+insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed, version)
+values ('EX', '2020-2-9', 30, false, 1, 7, 3, 5, null, false, 1, 0);
 
-insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed)
-values ('EX', '2020-2-8', 30, false, 1, 7, 3, 5, null, true, 1);
+insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed, version)
+values ('EX', '2020-2-8', 30, false, 1, 7, 3, 5, null, true, 1, 0);
 
-insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed)
-values ('EX', '2020-2-5', 30, false, 1, 7, 1, 5, 3, false, 2);
+insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed, version)
+values ('EX', '2020-2-5', 30, false, 1, 7, 1, 5, 3, false, 2, 0);
 
-insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed)
-values ('OP', '2020-2-7 16:30', 30, false, 1, null, 1, 5, null, false, 2);
+insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed, version)
+values ('OP', '2020-2-7 16:30', 30, false, 1, null, 1, 5, null, false, 2, 0);
 
-insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed)
-values ('OP', '2020-2-7 16:30', 30, false, 1, null, 1, 5, 2, false, 2);
+insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed, version)
+values ('OP', '2020-2-7 16:30', 30, false, 1, null, 1, 5, 2, false, 2, 0);
 
-insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed)
-values ('OP', '2020-5-10 15:15', 30, false, 1, null, 1, 5, null, false, 2);
+insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed, version)
+values ('OP', '2020-5-10 15:15', 30, false, 1, null, 1, 5, null, false, 2, 0);
 
-insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed)
-values ('EX', '2020-5-10 15:30', 60, false, 1, 8, 3, 5, 1, false, 2);
+insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed, version)
+values ('EX', '2020-5-10 15:30', 60, false, 1, 8, 3, 5, 1, false, 2, 0);
 
-insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed)
-values ('EX', '2020-5-10 15:30', 60, false, 1, 7, 3, 5, 2, false, 2);
+insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed, version)
+values ('EX', '2020-5-10 15:30', 60, false, 1, 7, 3, 5, 2, false, 2, 0);
 
-insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed)
-values ('EX', '2020-5-10 16:00', 60, false, 1, 8, 3, 5, 5, false, 2);
+insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed, version)
+values ('EX', '2020-5-10 16:00', 60, false, 1, 8, 3, 5, 5, false, 2, 0);
 
-insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed)
-values ('EX', '2020-07-10 10:30', 60, true, 1, 7, null, 1, 1, false, 2);
+insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed, version)
+values ('EX', '2020-07-10 10:30', 60, true, 1, 7, null, 1, 1, false, 2, 0);
 
-insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed)
-values ('EX', '2020-2-9', 30, false, 1, 7, 1, 5, 3, false, 2);
+insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed, version)
+values ('EX', '2020-2-8', 30, false, 1, 7, 1, 5, 3, false, 2, 0);
+
 
 insert into doctors_examinations(doctor_id, examination_id)
 values (4, 1);
