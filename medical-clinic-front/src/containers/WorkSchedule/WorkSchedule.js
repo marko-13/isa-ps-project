@@ -93,6 +93,8 @@ class WorkSchedule extends Component {
 			    }
 			}
 
+			console.log(this.state.data);
+
 	    	return(
 	    		<div className="col-md-7 login-form-1" style={{marginBottom: '2.5%', marginTop: 'auto', marginLeft: 'auto', marginRight: 'auto', padding: '2.5%', height: 'calc(100vh - 100px)', width: '100%'}}>
 	    			<Calendar
