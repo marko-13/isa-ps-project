@@ -39,7 +39,7 @@ public class AppointmentServiceIntegrationTest {
     @Test
     public void getAllByPatient() {
         List<AppointmentHistoryDTO> appointmentsHistory = appointmentService.getAllByPatient(1L);
-        assertEquals(appointmentsHistory.size(), 1);
+        assertEquals(appointmentsHistory.size(), 3);
     }
 
 }

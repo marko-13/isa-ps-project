@@ -35,6 +35,8 @@ values ('AC', 'ADMINCLINIC', 'Anastasija@mailinator.com', '$2a$10$nE7tHqDVIG5P6N
 insert into app_user (type, user_role, email, password, name, last_name, clinical_center_id, enabled, adress, city, state, mobile, rejected,deleted, last_password_reset_date, enabled_patient)
 values ('ACC', 'ADMINCLINICALCENTER', 'Radoslav@mailinator.com', '$2a$10$PpuFaY9yRRdUj9l4lr7sueTutLXXWxlgGRomEFH2lNQRYhiGwlMmS', 'Radoslav', 'Brankovic', 1, true, 'Adresa11', 'Grad11', 'Drzava11', '1111', false, false, '2020-01-10 19:43:44.503', true);
 
+insert into app_user (type, user_role, email, password, name, last_name, review, shift, review_count, enabled, adress, city, state, mobile, rejected, deleted, last_password_reset_date, enabled_patient, clinic_id)
+values ('DR', 'DOCTOR', 'Dragance@mailinator.com', '$2y$10$XbVPhmbyDT28Yp6v8BMLCeLUpmS3FtHNWhUHCIieJ2oQT0MXuK.66', 'Dragance', 'Jovanovic', 56, 2, 15, true, 'Adresa4', 'Grad4', 'Drzava4', '4444', false, false, '2020-01-10 19:43:44.503', true, 1);
 
 -- insert patients and clinics they have visited into database
 insert into clinics_patients (clinic_id, patient_id)
@@ -68,25 +70,28 @@ values ('Ordinacija', 10, 2, false);
 
 -- insert appointemnts into database
 insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed)
-values ('EX', '2019-12-10', 60, true, 1, 5, null, 1, 1, true, 2);
+values ('EX', '2019-12-10 15:00', 60, true, 1, 5, null, 1, 1, true, 2);
 
 insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed)
-values ('EX', '2020-12-10', 60, true, 1, 6, null, 1, 1, false, 1);
+values ('EX', '2020-12-10 00:00', 60, true, 1, 6, null, 1, 1, false, 1);
 
 insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed)
-values ('EX', '2019-9-12', 45, false, 1, 5, 1, 2, 2, true, 1);
+values ('EX', '2019-9-12 16:00', 45, false, 1, 5, 1, 2, 2, true, 1);
 
 insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed)
-values ('OP', '2019-5-12', 120, false, 1, 6, 2, 3, 2, true, 2);
+values ('OP', '2019-5-12 17:00', 120, false, 1, 6, 2, 3, 2, true, 2);
 
 insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed)
-values ('OP', '2019-1-12', 90, false, 1, 6, 1, 2, 2, true, 2);
+values ('OP', '2019-1-12 10:00', 90, false, 1, 6, 1, 2, 2, true, 2);
 
 insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed)
-values ('OP', '2019-7-12', 90, false, 1, 5, 1, 2, null, true, 2);
+values ('OP', '2019-7-12 13:00', 90, false, 1, 5, 1, 2, null, true, 2);
 
 insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed)
-values ('EX', '2019-7-12', 90, false, 1, 5, 1, 2, null, true, 1);
+values ('EX', '2019-7-12 15:00', 90, false, 1, 5, 1, 2, null, true, 1);
+
+insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed)
+values ('OP', '2019-9-12 15:30', 90, false, 1, 6, 1, 2, null, true, 2);
 
 
 -- merge doctors and examinations

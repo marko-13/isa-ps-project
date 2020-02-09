@@ -218,6 +218,6 @@ public class AppointmentRepositoryTest {
         Optional<List<Appointment>> found = appointmentRepository.findAllAppointmentRequests(clinic_id);
 
         // then
-        assertFalse("Appointments waiting for approval", found.isPresent());
+        assertTrue("Appointments waiting for approval", found.isPresent());
     }
 }
