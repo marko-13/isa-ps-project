@@ -69,6 +69,9 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Autowired
     private ClinicRepository clinicRepository;
 
+    @Autowired
+    private AdminClinicRepository adminClinicRepository;
+
     @PersistenceContext
     EntityManager em;
 
@@ -842,6 +845,26 @@ public class AppointmentServiceImpl implements AppointmentService {
                 doctor.getExaminations().add(newExamination);
                 doctorRepository.save(doctor);
 
+                long clinicId = doctor.getClinic().getId();
+
+                Clinic clinic = clinicRepository.findById(clinicId).orElse(null);
+                if(clinic ==  null){
+                    throw new NotExistsException();
+                }
+
+                List<AdminClinic> adminClinics = adminClinicRepository.findAllByClinic(clinic);
+                if(adminClinics.isEmpty() || adminClinics == null){
+                    throw new NotExistsException();
+                }
+
+                for(AdminClinic ac : adminClinics){
+                    try {
+                        this.emailService.sendNotificaitionAsync(ac,"New appointment request has been created" ,"Appointment request");
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
+
                 return true;
 
             }else if(nextAppointment.getAppointmentType().equals("Operation")){
@@ -868,6 +891,28 @@ public class AppointmentServiceImpl implements AppointmentService {
                             .setParameter(2, operation.getId());
                     em.joinTransaction();
                     queryMREm.executeUpdate();
+
+                long clinicId = doctor.getClinic().getId();
+
+                Clinic clinic = clinicRepository.findById(clinicId).orElse(null);
+                if(clinic ==  null){
+                    throw new NotExistsException();
+                }
+
+                List<AdminClinic> adminClinics = adminClinicRepository.findAllByClinic(clinic);
+                if(adminClinics.isEmpty() || adminClinics == null){
+                    throw new NotExistsException();
+                }
+
+                for(AdminClinic ac : adminClinics){
+                    try {
+                        this.emailService.sendNotificaitionAsync(ac,"New appointment request has been created" ,"Appointment request");
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
+
+
                 return true;
             }else{
                 return false;

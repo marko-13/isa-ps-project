@@ -38,7 +38,7 @@ class UserDataForm extends Component {
             //alert(localStorage.getItem('token'));
             this.setState({
                 name: '',
-                lastName: '',
+                lastname: '',
                 email: '',
                 address: '',
                 city: '',
@@ -65,7 +65,7 @@ class UserDataForm extends Component {
                 <form>
                     <input type='text' placeholder='Name' className={classes.InputElement} value={this.state.name} onChange={(event) => this.setState({ name: event.target.value })} />
                     <input type='text' placeholder='Lastname' className={classes.InputElement} value={this.state.lastname} onChange={(event) => this.setState({ lastname: event.target.value })} />
-                    <input type='email' placeholder='Email' className={classes.InputElement} value={this.state.email} onChange={(event) => this.setState({ email: event.target.value, changedEmail: true })} />
+                    <input disabled type='email' placeholder='Email' className={classes.InputElement} value={this.state.email} onChange={(event) => this.setState({ email: event.target.value, changedEmail: true })} />
                     <input type='text' placeholder='Address' className={classes.InputElement} value={this.state.address} onChange={(event) => this.setState({ address: event.target.value })} />
                     <input type='text' placeholder='City' className={classes.InputElement} value={this.state.city} onChange={(event) => this.setState({ city: event.target.value })} />
                     <input type='text' placeholder='State' className={classes.InputElement} value={this.state.state} onChange={(event) => this.setState({ state: event.target.value })} />

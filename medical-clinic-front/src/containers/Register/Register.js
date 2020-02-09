@@ -35,7 +35,16 @@ class Register extends Component {
             alert('Your password does not match!');
             return;
         }
-            
+        
+        if(this.state.password === null || this.state.password === undefined || this.state.password === ""){
+            alert('Username and password must not be empty!');
+            return;
+        }
+
+        if(this.state.email === null || this.state.email === undefined || this.state.email === ""){
+            alert('Username and password must not be empty!')
+            return;
+        }
 
         axios.post('/users/register', newUser)
             .then(res => {
@@ -85,7 +94,7 @@ class Register extends Component {
                             <input
                                 type="text"
                                 className="form-control"
-                                placeholder="Your Name *"
+                                placeholder="Your Name"
                                 value={this.state.name}
                                 onChange={(event) => this.setState({ name: event.target.value })} />
                         </div>
@@ -94,7 +103,7 @@ class Register extends Component {
                             <input
                                 type="text"
                                 className="form-control"
-                                placeholder="Your Lastname *"
+                                placeholder="Your Lastname"
                                 value={this.state.lastname}
                                 onChange={(event) => this.setState({ lastname: event.target.value })}
                             />
@@ -104,7 +113,7 @@ class Register extends Component {
                             <input
                                 type="text"
                                 className="form-control"
-                                placeholder="Your JMBG *"
+                                placeholder="Your JMBG"
                                 value={this.state.jmbg}
                                 onChange={(event) => this.setState({ jmbg: event.target.value })}
                             />
@@ -114,7 +123,7 @@ class Register extends Component {
                             <input
                                 type="text"
                                 className="form-control"
-                                placeholder="Adress *"
+                                placeholder="Adress"
                                 value={this.state.adress}
                                 onChange={(event) => this.setState({ adress: event.target.value })}
                             />
@@ -124,7 +133,7 @@ class Register extends Component {
                             <input
                                 type="text"
                                 className="form-control"
-                                placeholder="City *"
+                                placeholder="City"
                                 value={this.state.city}
                                 onChange={(event) => this.setState({ city: event.target.value })}
                             />
@@ -134,7 +143,7 @@ class Register extends Component {
                             <input
                                 type="text"
                                 className="form-control"
-                                placeholder="State *"
+                                placeholder="State"
                                 value={this.state.state}
                                 onChange={(event) => this.setState({ state: event.target.value })}
                             />
@@ -144,7 +153,7 @@ class Register extends Component {
                             <input
                                 type="text"
                                 className="form-control"
-                                placeholder="Mobile *"
+                                placeholder="Mobile"
                                 value={this.state.mobile}
                                 onChange={(event) => this.setState({ mobile: event.target.value })}
                             />

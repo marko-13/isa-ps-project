@@ -122,7 +122,7 @@ class Leaves extends Component {
             }];
 
             table = (
-                <div className={classes.Row}>
+                <div className="col-md-7 login-form-1" style={{marginBottom: '2.5%', marginTop: 'auto', marginLeft: 'auto', marginRight: 'auto', padding: '2.5%'}}>
                     <ReactTable
                         className={classes.Table}
                         data={data}
@@ -130,7 +130,6 @@ class Leaves extends Component {
                         className="-striped"
                         pageSize={10}
                         filterable={true}
-                        style={{ width: '85vw' }}
                         defaultFilterMethod={(filter, row, column) => {
                             const id = filter.pivotId || filter.id
                             console.log(row[id]);
