@@ -87,6 +87,7 @@ public class DoctorControllerIntegrationTest {
         accessTokenAdminClinic = "Bearer " + responseEntity.getBody().getAccessToken();
     }
 
+
     @Test
     public void testGetAll_Success() throws Exception {
         mockMvc.perform(get(url + "/getAll")
@@ -282,12 +283,57 @@ public class DoctorControllerIntegrationTest {
     //Not Exists -> BadRequest
     //Exception -> NotFound
     //Success: "Successfully finished the examination"
-    /*@Test
+    @Test
     public void testSaveMedicalHistoryFinishExamination_Success() throws Exception {
-        StartExamDTO startExamDTO =
+        StartExamDTO startExamDTO = new StartExamDTO();
+        startExamDTO.setWeight(65.0);
+        startExamDTO.setHeight(185);
+        startExamDTO.setDioptre(1);
+        startExamDTO.setAllergies("cija semenke, kolokvijumi");
+        startExamDTO.setMedicalHistoryId(1L);
+        startExamDTO.setExamID(9L);
+
+        String translatedBody = TranslateToJSON.json(startExamDTO);
+
         mockMvc.perform(post(url + "/finish-exam/" + 1L)
+                .contentType(contentType)
+                .content(translatedBody)
+                .header("Authorization", accessTokenDoctor))
+                .andExpect(status().isOk())
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(content().string("Successfully finished the examination"));
+    }
+
+    @Test
+    public void testSaveMedicalHistoryFinishExamination_BadRequest() throws Exception {
+        StartExamDTO startExamDTO = new StartExamDTO();
+        startExamDTO.setWeight(65.0);
+        startExamDTO.setHeight(185);
+        startExamDTO.setDioptre(1);
+        startExamDTO.setAllergies("cija semenke, kolokvijumi");
+        startExamDTO.setMedicalHistoryId(1L);
+        startExamDTO.setExamID(9L);
+
+        String translatedBody = TranslateToJSON.json(startExamDTO);
+
+        mockMvc.perform(post(url + "/finish-exam/" + 98L)
+                .contentType(contentType)
+                .content(translatedBody)
+                .header("Authorization", accessTokenDoctor))
+                .andExpect(status().isBadRequest())
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(content().string("Patient not found"));
+    }
+
+    ///getAllAvailableForExam/{clinc_id}/{selected_date}/{service_id}
+    //NotExistException -> NotFound
+    //Return doctorsDTOS
+    @Test
+    public void testGetAllFromClinicAndIsNotDeleted_Success() throws Exception {
+        mockMvc.perform(get(url + "/getAllFromClinicAndNotDeleted")
                 .header("Authorization", accessTokenAdminClinic))
-                .andExpect(status().isForbidden())
-                .andDo(MockMvcResultHandlers.print());
-    }*/
+                .andExpect(status().isOk())
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(jsonPath("$").value(hasSize(2)));
+    }
 }
