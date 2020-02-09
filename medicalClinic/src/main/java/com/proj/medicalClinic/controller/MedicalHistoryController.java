@@ -28,15 +28,6 @@ public class MedicalHistoryController {
     HttpServletRequest httpServletRequest;
 
     @Autowired
-    private AuthenticationManager authenticationManager;
-
-    @Autowired
-    private CustomUserDetailsServiceImpl userDetailsService;
-
-    @Autowired
-    private AppUserService userService;
-
-    @Autowired
     private MedicalHistoryService medicalHistoryService;
 
     @RequestMapping(value = "/getMedicalHistory")
