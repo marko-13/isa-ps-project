@@ -183,25 +183,4 @@ public class DoctorRepositoryTest {
         // then
         assertEquals(false, found.isEmpty());
     }
-
-
-    @Test
-    public void whenFindAllByOperation_thenReturnNull(){
-        // given
-        // created in memory database for testing purposes
-        Operation o = new Operation();
-        o.setDoctors(new ArrayList<Doctor>());
-        o.setOperationRoom(new OperationRoom());
-        o.setDate(new Date());
-        o.setClinic(new Clinic());
-        o.setId(1000L);
-        o.setPatient(new Patient());
-        o.setService(new Service());
-
-        // when
-        List<Doctor> found = doctorRepository.findAllByOperations(o);
-
-        // then
-        assertEquals(true, found.isEmpty());
-    }
 }
