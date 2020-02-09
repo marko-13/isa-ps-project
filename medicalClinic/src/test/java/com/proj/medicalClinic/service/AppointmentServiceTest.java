@@ -36,6 +36,8 @@ public class AppointmentServiceTest {
     @Autowired
     private AppointmentService appointmentService;
 
+    @Mock
+    private AppointmentRepository appointmentRepository;
 
     @Test(expected = NotExistsException.class)
     public void whenGetAllByPatientId_thenThrowNotExistsException(){
