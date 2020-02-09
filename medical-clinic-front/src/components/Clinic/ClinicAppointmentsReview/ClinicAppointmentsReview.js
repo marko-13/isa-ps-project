@@ -75,6 +75,7 @@ class ClinicAppointmentsReview extends Component {
 
     countAppointments = (appointments, interval, type) => {
 
+
         let mappedApps = [];
 
         if (appointments === null || appointments === undefined || appointments.length === 0) {
@@ -105,7 +106,7 @@ class ClinicAppointmentsReview extends Component {
                         twoThirdDayCount++;
                     }
 
-                    if (currentDate.isAfter(thirdWeek) && currentDate.isBefore(endDate)) {
+                    if (currentDate.isAfter(secondThirddDay) && currentDate.isBefore(endDate)) {
                         endDayCount++;
                     }
                 });
@@ -113,15 +114,15 @@ class ClinicAppointmentsReview extends Component {
                 mappedApps = [
                     {
                         count: 0,
-                        interval: startDate.format('YYYY-MM-DD')
+                        interval: startDate.format('ddd hh:mm')
                     },
                     {
                         count: oneThirdDayCount,
-                        interval: oneThirdDay.format('YYYY-MM-DD')
+                        interval: oneThirdDay.format('ddd hh:mm')
                     },
                     {
                         count: twoThirdDayCount,
-                        interval: secondThirddDay.format('YYYY-MM-DD')
+                        interval: secondThirddDay.format('ddd hh:mm')
                     },
                     {
                         count: endDayCount,
@@ -133,6 +134,7 @@ class ClinicAppointmentsReview extends Component {
                     appointmments: mappedApps,
                     totalAppointnts: oneThirdDayCount + twoThirdDayCount + endDayCount
                 });
+                break;
 
 
             case 'week':
@@ -176,27 +178,27 @@ class ClinicAppointmentsReview extends Component {
                 mappedApps = [
                     {
                         count: 0,
-                        interval: startDate.format('DD hh:mm')
+                        interval: startDate.format('MM-DD')
                     },
                     {
                         count: day2,
-                        interval: secondDay.format('DD hh:mm')
+                        interval: secondDay.format('MM-DD')
                     },
                     {
                         count: day3,
-                        interval: thirdDay.format('DD hh:mm')
+                        interval: thirdDay.format('MM-DD')
                     },
                     {
                         count: day4,
-                        interval: fourthDay.format('DD hh:mm')
+                        interval: fourthDay.format('MM-DD')
                     },
                     {
                         count: day5,
-                        interval: fifthDay.format('DD hh:mm')
+                        interval: fifthDay.format('MM-DD')
                     },
                     {
                         count: day6,
-                        interval: sixthDay.format('DD hh:mm')
+                        interval: sixthDay.format('MM-DD')
                     },
                     {
                         count: day7,
@@ -208,6 +210,7 @@ class ClinicAppointmentsReview extends Component {
                     appointmments: mappedApps,
                     totalAppointnts: day2 + day3 + day4 + day5 + day6 + day7
                 });
+                break;
 
             case 'month':
                 const secondWeek = moment(startDate).add(1, 'w');
@@ -258,6 +261,7 @@ class ClinicAppointmentsReview extends Component {
                     appointmments: mappedApps,
                     totalAppointnts: secondWeekCount + thirdWeekCount + fourthWeekCount
                 });
+                break;
 
             default:
                

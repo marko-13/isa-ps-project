@@ -34,6 +34,7 @@ import StartExam from '../../containers/MedicalStaff/Doctors/StartExam/StartExam
 import ChooseAvailableDoctorsForm from '../../components/Forms/ChooseAvailableDoctorsForm/ChooseAvailableDoctorsForm';
 import FastExam from '../../containers/ClinicAdministrator/FastExam/FastExam';
 import AppointmentForPatient from '../../containers/MedicalStaff/Patients/AppointmentForPatient/AppointmentForPatient';
+import ShowDoctor from '../Doctor/ShowDoctor/ShowDoctor.js';
 
 const Homepage = (props) => {
 
@@ -92,7 +93,7 @@ const Homepage = (props) => {
                                 <UserCard buttonText={"Inspect appointments"} cardText={"Shows a list of patients upcoming and past appointments"} link={'/homepage/patient/appointments'} />
                                 <UserCard buttonText={"Review doctors"} cardText={"Shows all doctors you have associated with and provides an option to rate them"} link={'/homepage/patient/review_doctors'} />
                                 <UserCard buttonText={"Review clinic"} cardText={"Shows all clinics you have previously visited and provides an option to rate them"} link={'/homepage/patient/review_clinics'} />
-                                <UserCard buttonText={"Inspect doctors"} cardText={"Shows all doctors"} link={'/homepage/patient/review_clinics'} />
+                                <UserCard buttonText={"Inspect doctors"} cardText={"Shows all doctors"} link={'/homepage/patient/show_doctors'} />
                             </UserCards>
                         </Auxiliary>
 
@@ -105,6 +106,7 @@ const Homepage = (props) => {
                             <Route path='/homepage/patient/appointments' component={ShowAppointments}></Route>
                             <Route path='/homepage/patient/review_doctors' component={ReviewDoctor}></Route>
                             <Route path='/homepage/patient/review_clinics' component={ReviewClinic}></Route>
+                            <Route path='/homepage/patient/show_doctors' component={ShowDoctor}></Route>
                         </Auxiliary>
                     );
                     break;
