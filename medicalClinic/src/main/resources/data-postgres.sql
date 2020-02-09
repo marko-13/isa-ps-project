@@ -110,8 +110,8 @@ values ('Ordinacija', 15, 1, false, 0);
 insert into operation_room (name, number, clinic_id, deleted, version)
 values ('Operaciona sala', 211, 1, false, 0);
 
-insert into operation_room (name, number, clinic_id, deleted, version)
-values ('Operaciona sala', 555333, 1, false, 0);
+-- insert into operation_room (name, number, clinic_id, deleted, version)
+-- values ('Operaciona sala', 555333, 1, false, 0);
 
 
 
