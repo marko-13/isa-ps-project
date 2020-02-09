@@ -2,8 +2,10 @@ package com.proj.medicalClinic.service;
 
 
 import com.proj.medicalClinic.dto.OperationRoomDTO;
+import com.proj.medicalClinic.repository.OperationRoomRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
@@ -25,6 +27,9 @@ public class OperationRoomServiceTest{
 
     @Autowired
     private OperationRoomService operationRoomService;
+
+    @Mock
+    private OperationRoomRepository operationRoomRepository;
 
 
     @Test

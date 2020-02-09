@@ -194,9 +194,11 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     public AppointmentDTO addRoom(Long appointmentId, Long roomId) {
 
+        System.out.println("Prosao0 " + appointmentId);
         Appointment appointment = appointmentRepository.findById(appointmentId).orElseThrow(NotExistsException::new);
+        System.out.println("Prosao " + appointment.getId());
         OperationRoom operationRoom = operationRoomRepository.findById(roomId).orElseThrow(NotExistsException::new);
-
+        System.out.println("Prosao1 " + operationRoom.getId());
         appointment.setOperationRoom(operationRoom);
 
         //POSALJI MAIL PACIJENTU
