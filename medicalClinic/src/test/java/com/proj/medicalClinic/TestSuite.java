@@ -6,6 +6,7 @@ import com.proj.medicalClinic.repository.LeaveRepositoryTest;
 import com.proj.medicalClinic.repository.OperationRoomTest;
 
 import com.proj.medicalClinic.service.AppUserServiceTest;
+import com.proj.medicalClinic.service.AppointmentServiceIntegrationTest;
 import com.proj.medicalClinic.service.AppointmentServiceTest;
 import com.proj.medicalClinic.service.OperationRoomServiceTest;
 import org.junit.runner.RunWith;
