@@ -93,6 +93,9 @@ values ('EX', '2019-7-12 15:00', 90, false, 1, 5, 1, 2, null, true, 1,0);
 insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed, version)
 values ('OP', '2019-9-12 15:30', 90, false, 1, 6, 1, 2, null, true, 2,0);
 
+insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed, version)
+values ('EX', '2019-8-12 15:00', 90, false, 1, 5, 1, 2, 3, false, 1,0);
+
 
 -- merge doctors and examinations
 insert into doctors_examinations(doctor_id, examination_id)
