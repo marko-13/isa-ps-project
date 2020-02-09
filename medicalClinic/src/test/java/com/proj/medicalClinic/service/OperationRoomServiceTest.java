@@ -28,6 +28,9 @@ public class OperationRoomServiceTest{
     @Autowired
     private OperationRoomService operationRoomService;
 
+    @Mock
+    private OperationRoomRepository operationRoomRepository;
+
 
     @Test
     public void whenGetAll_thenThrowNotExistsException(){
