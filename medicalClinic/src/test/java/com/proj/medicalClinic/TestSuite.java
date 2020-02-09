@@ -15,7 +15,7 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({AppointmentRepositoryTest.class, DoctorRepositoryTest.class, LeaveRepositoryTest.class, OperationRoomTest.class,
-        AppointmentServiceTest.class, AppUserServiceTest.class, OperationRoomServiceTest.class})
+        AppointmentServiceTest.class, AppUserServiceTest.class, OperationRoomServiceTest.class, AppointmentServiceIntegrationTest.class})
 public class TestSuite {
 }
 
