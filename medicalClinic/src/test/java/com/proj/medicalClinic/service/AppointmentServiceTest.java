@@ -54,12 +54,23 @@ public class AppointmentServiceTest {
     public void whenGetAllByPatientId_thenReturnListOfAppointemtns(){
         // given
         // created in memory database for testing purposes
+        Patient p = new Patient();
+        p.setId(2L);
+
+        Appointment ap = new Appointment();
+        ap.setPatient(p);
+        ap.setId(2L);
+
+        List<Appointment> found = new ArrayList<>();
+        found.add(ap);
+
+        Mockito.when(appointmentRepository.findAllByPatientId(2L)).thenReturn(Optional.of(found));
 
         // when
-        List<AppointmentHistoryDTO> found = appointmentService.getAllByPatient(1L);
+        List<AppointmentHistoryDTO> found1 = appointmentService.getAllByPatient(2L);
 
         // then
-        assertEquals(3, found.size());
+        assertEquals(1, found1.size());
     }
 
 
@@ -89,22 +100,26 @@ public class AppointmentServiceTest {
 
 
     @Test
-    public void whenGetAllAppointmentsByMedicalStaff_thenReturnListOfAppointmentsDoctor(){
-        // given
-        // created in memory database for testing purposes
-
-        // when
-        List<AppointmentHistoryDTO> found = appointmentService.getAllAppointmentsByMedicalStaffMember("Vladan@mailinator.com");
-
-        // then
-        assertEquals(2, found.size());
-    }
-
-
-    @Test
     public void whenGetAllAppointmentsByMedicalStaff_thenReturnListOfAppointmentsNurse(){
         // given
         // created in memory database for testing purposes
+        Examination ex = new Examination();
+        ex.setId(1L);
+
+        Doctor d = new Doctor();
+        d.setId(1L);
+
+        List<Doctor> docs = new ArrayList<>();
+        docs.add(d);
+
+        List<Examination> exams = new ArrayList<>();
+        exams.add(ex);
+
+        ex.setDoctors(docs);
+        d.setExaminations(exams);
+
+        List<Appointment> found1 = new ArrayList<>();
+        Mockito.when(appointmentRepository.findAllByNurse(2L)).thenReturn(found1);
 
         // when
         List<AppointmentHistoryDTO> found = appointmentService.getAllAppointmentsByMedicalStaffMember("Sergej@mailinator.com");
@@ -112,6 +127,7 @@ public class AppointmentServiceTest {
         // then
         assertEquals(2, found.size());
     }
+
 
     @Test
     public void whenGetAllDayBeforeAndDayAfter_thenReturnNull(){
@@ -146,11 +162,14 @@ public class AppointmentServiceTest {
 
         }
 
+        List<Appointment> found1 = new ArrayList<>();
+        Mockito.when(appointmentRepository.findAllByDateBetweenAndOperationRoomIsNotNull(date1, date2)).thenReturn(found1);
+
         // when
         List<Appointment> found = appointmentService.getAllDayBeforeAndDayAfter(date2, date1);
 
         // then
-        assertEquals(6, found.size());
+        assertEquals(5, found.size());
     }
 
 
