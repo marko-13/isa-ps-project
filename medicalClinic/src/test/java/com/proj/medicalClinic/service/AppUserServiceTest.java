@@ -4,6 +4,7 @@ import com.proj.medicalClinic.exception.NotExistsException;
 import com.proj.medicalClinic.repository.AppUserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,6 +24,9 @@ public class AppUserServiceTest {
 
     @Autowired
     private AppUserService appUserService;
+
+    @Mock
+    private AppUserRepository appUserRepository;
 
 
     @Test(expected = NotExistsException.class)

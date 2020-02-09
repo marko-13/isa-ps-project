@@ -7,6 +7,7 @@ import com.proj.medicalClinic.model.*;
 import com.proj.medicalClinic.repository.AppointmentRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -35,6 +36,8 @@ public class AppointmentServiceTest {
     @Autowired
     private AppointmentService appointmentService;
 
+    @Mock
+    private AppointmentRepository appointmentRepository;
 
     @Test(expected = NotExistsException.class)
     public void whenGetAllByPatientId_thenThrowNotExistsException(){
@@ -56,7 +59,7 @@ public class AppointmentServiceTest {
         List<AppointmentHistoryDTO> found = appointmentService.getAllByPatient(1L);
 
         // then
-        assertEquals(2, found.size());
+        assertEquals(3, found.size());
     }
 
 

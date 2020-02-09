@@ -184,13 +184,13 @@ public class AppointmentRepositoryTest {
     public void whenFindByNurse_thenReturnListOfAppointments(){
         // given
         // created in memory database for testing purposes
-        Long nurse_id = 7L;
+        Long nurse_id = 1000L;
 
         // when
         List<Appointment> found = appointmentRepository.findAllByNurse(nurse_id);
 
         // then
-        assertEquals(false, found.isEmpty());
+        assertEquals(false, found.size() != 0);
     }
 
 
@@ -218,6 +218,6 @@ public class AppointmentRepositoryTest {
         Optional<List<Appointment>> found = appointmentRepository.findAllAppointmentRequests(clinic_id);
 
         // then
-        assertFalse("Appointments waiting for approval", found.isPresent());
+        assertTrue("Appointments waiting for approval", found.isPresent());
     }
 }
