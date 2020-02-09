@@ -74,13 +74,19 @@ insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patien
 values ('EX', '2020-12-10', 60, true, 1, 6, null, 1, 1, false, 1);
 
 insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed)
-values ('EX', '2019-9-12', 45, false, 1, 7, 1, 2, 2, true, 1);
+values ('EX', '2019-9-12', 45, false, 1, 5, 1, 2, 2, true, 1);
 
 insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed)
-values ('OP', '2019-5-12', 120, false, 1, null, 2, 3, 2, true, 2);
+values ('OP', '2019-5-12', 120, false, 1, 6, 2, 3, 2, true, 2);
 
 insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed)
-values ('OP', '2019-1-12', 90, false, 1, null, 1, 2, 2, true, 2);
+values ('OP', '2019-1-12', 90, false, 1, 6, 1, 2, 2, true, 2);
+
+insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed)
+values ('OP', '2019-7-12', 90, false, 1, 5, 1, 2, null, true, 2);
+
+insert into appointment (type, date, duration, fast, clinic_id, nurse_id, patient_id, service_id, operation_room_id, held, confirmed)
+values ('EX', '2019-7-12', 90, false, 1, 5, 1, 2, null, true, 1);
 
 
 -- merge doctors and examinations
@@ -93,6 +99,9 @@ values (4, 2);
 insert into doctors_examinations(doctor_id, examination_id)
 values(3, 3);
 
+insert into doctors_examinations(doctor_id, examination_id)
+values(3, 7);
+
 
 
 insert into doctors_operations (doctor_id, operation_id)
@@ -100,6 +109,12 @@ values (4, 4);
 
 insert into doctors_operations (doctor_id, operation_id)
 values (3, 5);
+
+insert into doctors_operations (doctor_id, operation_id)
+values (3, 6);
+
+insert into doctors_operations (doctor_id, operation_id)
+values (4, 6);
 
 
 insert into clinics_services (clinic_id, service_id)
