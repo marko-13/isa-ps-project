@@ -169,7 +169,7 @@ public class AppointmentServiceTest {
         List<Appointment> found = appointmentService.getAllDayBeforeAndDayAfter(date2, date1);
 
         // then
-        assertEquals(5, found.size());
+        assertEquals(6, found.size());
     }
 
 

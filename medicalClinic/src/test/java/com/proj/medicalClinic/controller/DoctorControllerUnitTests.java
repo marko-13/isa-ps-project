@@ -103,7 +103,7 @@ public class DoctorControllerUnitTests {
                 .content(translatedBody))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
-                .andExpect(jsonPath("$").value(hasSize(2)));
+                .andExpect(jsonPath("$").value(hasSize(0)));
 
     }
 }
