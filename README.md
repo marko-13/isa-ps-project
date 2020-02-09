@@ -20,7 +20,7 @@ To successfully run the application on your local machine please install followi
 
 ## Configuration
 
-Run pgAdmin and create database named *isa-project*, set password to *pass* and set username to *postgres*
+Run pgAdmin and create database named *isa-project*, set password to *krokodil* and set username to *postgres*
 
 Open cmd or terminal and navigate to medical-clinic-frontend folder. When opend type *npm install* to install all libraries
 
