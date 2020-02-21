@@ -41,6 +41,9 @@ Open cmd or terminal and navigate to medical-clinic-frontend folder. When opend 
 *Note* 
 Because of the free Heroku version when accessing the website please wait approximately 15 seconds after the first access and then refresh the page for servers to wake up.
 
+If there is no data in database, run the following command:
+pg:psql --app floating-lowlands-68738 < data-postgres.sql
+
 [Heroku](https://peaceful-wave-53119.herokuapp.com/)
 
 ## Authors
